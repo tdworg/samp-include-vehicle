@@ -148,6 +148,7 @@ stock
 }
 
 stock
+	GetVehicleBonnetPos(vehicleid, &Float:x, &Float:y, &Float:z)
 {
 	new Float:angle, Float:distance;
 	if (GetVehicleZAngle(vehicleid, angle) == 0)
