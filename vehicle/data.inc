@@ -1,0 +1,120 @@
+#if defined _TDW_VEHICLE_DATA_INC_
+	#endinput
+#endif
+#define _TDW_VEHICLE_DATA_INC_
+
+enum e_TDW_VEHICLE
+{
+	// I created only necessary elements in the enumeration.
+	Float:ei_pos_x,
+	Float:ei_pos_y,
+	Float:ei_pos_z,
+	Float:ei_pos_rotation,
+	ei_color_1,
+	ei_color_2,
+	ei_model_id
+};
+
+static stock
+	TDW_g_sVehicleData[MAX_VEHICLES][e_TDW_VEHICLE],
+	TDW_g_sVehicleId;
+
+// AddStaticVehicle hook
+stock
+	TDWVH@AddStaticVehicle(modelid, Float:spawn_x, Float:spawn_y,
+		Float:spawn_z, Float:z_angle, color1, color2)
+{
+	if ((TDW_g_sVehicleId = AddStaticVehicle(modelid, spawn_x, spawn_y,
+		spawn_z, z_angle, color1, color2)) != INVALID_VEHICLE_ID)
+	{
+		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_model_id]     = modelid;
+		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_color_1]      = color1;
+		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_color_2]      = color2;
+		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_pos_x]        = spawn_x;
+		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_pos_y]        = spawn_y;
+		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_pos_z]        = spawn_z;
+		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_pos_rotation] = z_angle;
+	}
+	return TDW_g_sVehicleId;
+}
+#if defined _ALS_AddStaticVehicle
+	#undef AddStaticVehicle
+#else
+	#define _ALS_AddStaticVehicle
+#endif
+#define AddStaticVehicle(%0) TDWVH@AddStaticVehicle(%0)
+
+// AddStaticVehicleEx hook
+stock
+	TDWVH@AddStaticVehicleEx(modelid, Float:spawn_x, Float:spawn_y,
+		Float:spawn_z, Float:z_angle, color1, color2, respawn_delay,
+		addsiren = 0)
+{
+	if ((TDW_g_sVehicleId = AddStaticVehicleEx(modelid, spawn_x, spawn_y,
+		spawn_z, z_angle, color1, color2, respawn_delay, addsiren)) !=
+		INVALID_VEHICLE_ID)
+	{
+		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_model_id]     = modelid;
+		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_color_1]      = color1;
+		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_color_2]      = color2;
+		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_pos_x]        = spawn_x;
+		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_pos_y]        = spawn_y;
+		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_pos_z]        = spawn_z;
+		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_pos_rotation] = z_angle;
+	}
+	return TDW_g_sVehicleId;
+}
+#if defined _ALS_AddStaticVehicleEx
+	#undef AddStaticVehicleEx
+#else
+	#define _ALS_AddStaticVehicleEx
+#endif
+#define AddStaticVehicleEx(%0) TDWVH@AddStaticVehicleEx(%0)
+
+// CreateVehicle hook
+stock
+	TDWVH@CreateVehicle(vehicletype, Float:x, Float:y, Float:z, Float:rotation,
+		color1, color2, respawn_delay, addsiren = 0)
+{
+	if ((TDW_g_sVehicleId = CreateVehicle(vehicletype, x, y, z, rotation,
+		color1, color2, respawn_delay, addsiren)) != INVALID_VEHICLE_ID)
+	{
+		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_model_id]     = modelid;
+		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_color_1]      = color1;
+		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_color_2]      = color2;
+		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_pos_x]        = x;
+		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_pos_y]        = y;
+		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_pos_z]        = z;
+		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_pos_rotation] = rotation;
+	}
+	return TDW_g_sVehicleId;
+}
+#if defined _ALS_CreateVehicle
+	#undef CreateVehicle
+#else
+	#define _ALS_CreateVehicle
+#endif
+#define CreateVehicle(%0) TDWVH@CreateVehicle(%0)
+
+stock
+	TDWVH@DestroyVehicle(vehicleid)
+{
+	if (DestroyVehicle(vehicleid) == 0)
+		return 0;
+	// I know that zero and floating zero it's equal things,
+	// but the compiler gives a warning.
+	TDW_g_sVehicleData[TDW_g_sVehicleId][ei_model_id]     =
+	TDW_g_sVehicleData[TDW_g_sVehicleId][ei_color_1]      =
+	TDW_g_sVehicleData[TDW_g_sVehicleId][ei_color_2]      = 0;
+	TDW_g_sVehicleData[TDW_g_sVehicleId][ei_pos_x]        =
+	TDW_g_sVehicleData[TDW_g_sVehicleId][ei_pos_y]        =
+	TDW_g_sVehicleData[TDW_g_sVehicleId][ei_pos_z]        =
+	TDW_g_sVehicleData[TDW_g_sVehicleId][ei_pos_rotation] = 0.0;
+	return 1;
+}
+#if defined _ALS_DestroyVehicle
+	#undef DestroyVehicle
+#else
+	#define _ALS_DestroyVehicle
+#endif
+#define DestroyVehicle(%0) TDWVH@DestroyVehicle(%0)
