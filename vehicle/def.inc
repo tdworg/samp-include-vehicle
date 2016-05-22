@@ -36,3 +36,12 @@
 #if !defined IsValidVehicle
 native IsValidVehicle(vehicleid);
 #endif
+
+// For foreach support.
+#if !defined _TDW_VEHICLE_FOREACH_DEFINED
+	#if defined TDW_VEHICLE_NOT_USE_FOREACH
+		#define _TDW_VEHICLE_FOREACH_DEFINED 0
+	#elseif defined _FOREACH_LOCAL_VERSION
+		#define _TDW_VEHICLE_FOREACH_DEFINED 1
+	#endif
+#endif

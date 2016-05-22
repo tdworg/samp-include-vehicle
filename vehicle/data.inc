@@ -3,6 +3,15 @@
 #endif
 #define _TDW_VEHICLE_DATA_INC_
 
+#if defined _TDW_VEHICLE_FOREACH_DEFINED && _TDW_VEHICLE_FOREACH_DEFINED
+	#if !defined Vehicle@YSII_Ag
+		new Iterator:Vehicle<MAX_VEHICLES>;
+	#endif
+	#if !defined _TDW_VEHICLE_FOREACH_ARRAY
+		#define _TDW_VEHICLE_FOREACH_ARRAY
+	#endif
+#endif
+
 enum e_TDW_VEHICLE
 {
 	// I created only necessary elements in the enumeration.
@@ -38,6 +47,10 @@ stock
 		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_pos_y]        = spawn_y;
 		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_pos_z]        = spawn_z;
 		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_pos_rotation] = z_angle;
+
+		#if defined _TDW_VEHICLE_FOREACH_ARRAY
+		Iter_Add(TDW_g_sVehicleId, Vehicle);
+		#endif
 	}
 	return TDW_g_sVehicleId;
 }
@@ -65,6 +78,10 @@ stock
 		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_pos_y]        = spawn_y;
 		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_pos_z]        = spawn_z;
 		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_pos_rotation] = z_angle;
+
+		#if defined _TDW_VEHICLE_FOREACH_ARRAY
+		Iter_Add(TDW_g_sVehicleId, Vehicle);
+		#endif
 	}
 	return TDW_g_sVehicleId;
 }
@@ -90,6 +107,10 @@ stock
 		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_pos_y]        = y;
 		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_pos_z]        = z;
 		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_pos_rotation] = rotation;
+
+		#if defined _TDW_VEHICLE_FOREACH_ARRAY
+		Iter_Add(TDW_g_sVehicleId, Vehicle);
+		#endif
 	}
 	return TDW_g_sVehicleId;
 }
@@ -114,6 +135,10 @@ stock
 	TDW_g_sVehicleData[TDW_g_sVehicleId][ei_pos_y]        =
 	TDW_g_sVehicleData[TDW_g_sVehicleId][ei_pos_z]        =
 	TDW_g_sVehicleData[TDW_g_sVehicleId][ei_pos_rotation] = 0.0;
+
+	#if defined _TDW_VEHICLE_FOREACH_ARRAY
+	Iter_Remove(TDW_g_sVehicleId, Vehicle);
+	#endif
 	return 1;
 }
 #if defined _ALS_DestroyVehicle

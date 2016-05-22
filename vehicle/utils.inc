@@ -7,6 +7,9 @@ stock
 	DestroyAllVehicles()
 {
 	new count;
+#if defined _TDW_VEHICLE_FOREACH_ARRAY
+	foreach (new i: Vehicle)
+#else
 	for (
 		new i
 	#if defined GetVehiclePoolSize
@@ -16,40 +19,47 @@ stock
 	#endif
 		; --i != 0;
 	)
+#endif
 	{
-		if (DestroyVehicle(i) == 0)
-			continue;
-		count++; // It's a feature of this function.
+		if (DestroyVehicle(i))
+			count++; // It's a feature of this function.
 	}
 	return count;
 }
 
-stock
-	CountOfValidVehicles()
-{
-	new count;
-	for (
-		new i
-	#if defined GetVehiclePoolSize
-		= GetVehiclePoolSize() + 1
-	#else
-		= MAX_VEHICLES
-	#endif
-		; --i != 0;
-	)
+#if defined _TDW_VEHICLE_FOREACH_ARRAY
+	#define CountOfValidVehicles(%0) (Iter_Count(Vehicle))
+#else
+	stock
+		CountOfValidVehicles()
 	{
-		if (IsValidVehicle(i) == 0)
-			continue;
-		count++;
+		new count;
+		for (
+			new i
+		#if defined GetVehiclePoolSize
+			= GetVehiclePoolSize() + 1
+		#else
+			= MAX_VEHICLES
+		#endif
+			; --i != 0;
+		)
+		{
+			if (IsValidVehicle(i) == 0)
+				continue;
+			count++;
+		}
+		return count;
 	}
-	return count;
-}
+#endif
 
 stock
 	IsVehicleOccupied(vehicleid)
 {
 	if (IsValidVehicle(vehicleid))
 	{
+	#if defined _TDW_VEHICLE_FOREACH_DEFINED && _TDW_VEHICLE_FOREACH_DEFINED
+		foreach (new i: Player)
+	#else
 		for (
 			new i
 		#if defined GetPlayerPoolSize
@@ -59,6 +69,7 @@ stock
 		#endif
 			; --i != -1;
 		)
+	#endif
 		{
 			if (IsPlayerInVehicle(i, vehicleid) == 0)
 				continue;
@@ -73,6 +84,9 @@ stock
 {
 	if (IsValidVehicle(vehicleid))
 	{
+	#if defined _TDW_VEHICLE_FOREACH_DEFINED && _TDW_VEHICLE_FOREACH_DEFINED
+		foreach (new i: Player)
+	#else
 		for (
 			new i
 		#if defined GetPlayerPoolSize
@@ -82,6 +96,7 @@ stock
 		#endif
 			; --i != -1;
 		)
+	#endif
 		{
 			if (IsPlayerInVehicle(i, vehicleid) == 0)
 				continue;
@@ -98,7 +113,9 @@ stock
 		Float:distance = 30.0)
 {
 	new Float:min_dist, vehicleid = INVALID_VEHICLE_ID;
-
+#if defined _TDW_VEHICLE_FOREACH_ARRAY
+	foreach (new i: Vehicle)
+#else
 	for (
 		new i
 	#if defined GetVehiclePoolSize
@@ -108,6 +125,7 @@ stock
 	#endif
 		; --i != 0;
 	)
+#endif
 	{
 		if ((min_dist = GetVehicleDistanceFromPoint(i, x, y, z)) <= distance)
 			vehicleid = i;
