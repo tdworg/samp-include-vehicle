@@ -10,7 +10,7 @@ stock
 	for (
 		new i
 	#if defined GetVehiclePoolSize
-		= GetVehiclePoolSize()
+		= GetVehiclePoolSize() + 1
 	#else
 		= MAX_VEHICLES
 	#endif
@@ -31,7 +31,7 @@ stock
 	for (
 		new i
 	#if defined GetVehiclePoolSize
-		= GetVehiclePoolSize()
+		= GetVehiclePoolSize() + 1
 	#else
 		= MAX_VEHICLES
 	#endif
@@ -102,7 +102,7 @@ stock
 	for (
 		new i
 	#if defined GetVehiclePoolSize
-		= GetVehiclePoolSize()
+		= GetVehiclePoolSize() + 1
 	#else
 		= MAX_VEHICLES
 	#endif
@@ -126,5 +126,52 @@ stock
 	offset_x = (point_x - x);
 	offset_y = (point_y - y);
 	offset_z = (point_z - z);
+	return 1;
+}
+
+stock
+	GetVehicleBootPos(vehicleid, &Float:x, &Float:y, &Float:z)
+{
+	new Float:angle, Float:distance;
+	if (GetVehicleZAngle(vehicleid, angle) == 0)
+		return _:(x = y = z = 0.0); // I optimized this.
+	GetVehicleModelInfo(
+		GetVehicleModel(vehicleid),
+		VEHICLE_MODEL_INFO_SIZE,
+		x, distance, z
+	);
+	dist = dist / 2 + 0.1;
+	GetVehiclePos(vehicleid, x, y, z);
+	x += (dist * floatsin(-angle + 180, degrees));
+	y += (dist * floatcos(-angle + 180, degrees));
+	return 1;
+}
+
+stock
+{
+	new Float:angle, Float:distance;
+	if (GetVehicleZAngle(vehicleid, angle) == 0)
+		return _:(x = y = z = 0.0); // I optimized this.
+	GetVehicleModelInfo(
+		GetVehicleModel(vehicleid),
+		VEHICLE_MODEL_INFO_SIZE,
+		x, distance, z
+	);
+	dist = dist / 2 + 0.1;
+	GetVehiclePos(vehicleid, x, y, z);
+	x -= (dist * floatsin(-angle + 180, degrees));
+	y -= (dist * floatcos(-angle + 180, degrees));
+	return 1;
+}
+
+stock
+	GetVehicleRoofPos(vehicleid, &Float:x, &Float:y, &Float:z)
+{
+	new modelid, vehicle_z;
+	if ((modelid = GetVehicleModel(vehicleid)) == 0)
+		return _:(x = y = z = 0.0);
+	GetVehicleModelInfo(modelid, VEHICLE_MODEL_INFO_SIZE, x, y, vehicle_z);
+	GetVehiclePos(vehicleid, x, y, z);
+	z += floatsqroot(vehicle_z);
 	return 1;
 }
