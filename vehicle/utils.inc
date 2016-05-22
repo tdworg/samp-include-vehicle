@@ -679,9 +679,10 @@ stock
 		if (GetVehiclePos(vehicleid, x, y, z))
 		{
 			new Float:retx[2], Float:rety[2], Float:retz[2],
-			    Float:retdist[2], modelids[2], collisions = CA_RayCastMultiLine(
-			    x, y, z + 0.7, x, y, z - 0.7, retx, rety, retz, retdist, modelids,
-			    2);
+			    Float:retdist[2], modelids[2],
+			    collisions = CA_RayCastMultiLine(
+			    x, y, z + 0.7, x, y, z - 0.7, retx, rety, retz, retdist,
+			    modelids, 2);
 
 			if (collisions)
 			{
@@ -693,3 +694,18 @@ stock
 		return 0;
 	}
 #endif
+
+stock
+	IsVehicleInRangeOfPoint(vehicleid, Float:range, Float:x, Float:y, Float:z)
+{
+	new Float:vehicle_x, Float:vehicle_y, Float:vehicle_z;
+	return (
+		GetVehiclePos(vehicleid, vehicle_x, vehicle_y, vehicle_z)
+		? (
+			((x -= vehicle_x) * x) +
+			((y -= vehicle_y) * y) +
+			((z -= vehicle_z) * z)
+		) < (range * range)
+		: 0
+	);
+}
