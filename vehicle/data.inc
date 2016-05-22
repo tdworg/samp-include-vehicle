@@ -15,9 +15,13 @@ enum e_TDW_VEHICLE
 	ei_model_id
 };
 
-static stock
+static stock // The general variables.
 	TDW_g_sVehicleData[MAX_VEHICLES][e_TDW_VEHICLE],
 	TDW_g_sVehicleId;
+static stock // The dynamic variables.
+	TDW_g_sVehicleD@Interior[MAX_VEHICLES],
+	TDW_g_sVehicleD@VirtualWorld[MAX_VEHICLES],
+	TDW_g_sVehicleD@Paintjob[MAX_VEHICLES];
 
 // AddStaticVehicle hook
 stock
@@ -118,3 +122,62 @@ stock
 	#define _ALS_DestroyVehicle
 #endif
 #define DestroyVehicle(%0) TDWVH@DestroyVehicle(%0)
+
+stock
+	GetVehicleColor(vehicleid, &color1, &color2)
+{
+	if (TDW_g_sVehicleData[vehicleid][ei_model_id] == 0)
+		return (color1 = color2 = 0); // I optimized this.
+	color1 = TDW_g_sVehicleData[vehicleid][ei_color_1];
+	color2 = TDW_g_sVehicleData[vehicleid][ei_color_2];
+	return 1;
+}
+#if !defined SetVehicleColor
+	#define SetVehicleColor(%0) ChangeVehicleColor(%0)
+#endif
+
+stock
+	GetVehiclePaintjob(vehicleid)
+{
+	return (
+		(TDW_g_sVehicleData[vehicleid][ei_model_id] == 0)
+		? INVALID_VEHICLE_ID
+		: TDW_g_sVehicleD@Paintjob[vehicleid]
+	)
+}
+
+stock
+	SetVehiclePaintjob(vehicleid, paintjobid)
+{
+	if (TDW_g_sVehicleData[vehicleid][ei_model_id] == 0)
+		return INVALID_VEHICLE_ID;
+	return (
+		(VEHICLE_PAINTJOB_MIN <= paintjobid <= VEHICLE_PAINTJOB_MAX)
+		? ChangeVehiclePaintjob(vehicleid,
+			(TDW_g_sVehicleD@Paintjob[vehicleid] = paintjobid)
+		)
+		: 0
+	);
+}
+
+stock
+	GetVehicleInterior(vehicleid)
+{
+	return (
+		(TDW_g_sVehicleData[vehicleid][ei_model_id] == 0)
+		? INVALID_VEHICLE_ID
+		: TDW_g_sVehicleD@Interior[vehicleid]
+	);
+}
+
+stock
+	SetVehicleInterior(vehicleid, interiorid)
+{
+	if (TDW_g_sVehicleData[vehicleid][ei_model_id] == 0)
+		return INVALID_VEHICLE_ID;
+	if (_:(0 <= interiorid <= MAX_INTERIORS) == 0)
+		return 0;
+	return LinkVehicleToInterior(vehicleid,
+		(TDW_g_sVehicleD@Interior[vehicleid] = interiorid)
+	);
+}
