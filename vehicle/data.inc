@@ -187,6 +187,7 @@ stock
 // #define _TDW_VEHICLE_USE_PUBLICS
 
 #if defined _TDW_VEHICLE_USE_PUBLICS
+	// OnVehicleRespray hook
 	public
 		OnVehicleRespray(playerid, vehicleid, color1, color2)
 	{
@@ -210,6 +211,7 @@ stock
 		forward TDWVH@OnVehicleRespray(playerid, vehicleid, color1, color2);
 	#endif
 
+	// OnVehiclePaintjob hook
 	public
 		OnVehiclePaintjob(playerid, vehicleid, paintjobid)
 	{
