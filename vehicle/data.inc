@@ -181,3 +181,54 @@ stock
 		(TDW_g_sVehicleD@Interior[vehicleid] = interiorid)
 	);
 }
+
+// If you want to use the functions(publics), add this to your code(before
+// a_samp):
+// #define _TDW_VEHICLE_USE_PUBLICS
+
+#if defined _TDW_VEHICLE_USE_PUBLICS
+	public
+		OnVehicleRespray(playerid, vehicleid, color1, color2)
+	{
+		TDW_g_sVehicleData[vehicleid][ei_color_1] = color1;
+		TDW_g_sVehicleData[vehicleid][ei_color_2] = color2;
+	#if defined TDWVH@OnVehicleRespray
+		return TDWVH@OnVehicleRespray(playerid, vehicleid, color1, color2);
+	#else
+		return 1;
+	#endif
+	}
+	#if defined _ALS_OnVehicleRespray
+		#undef OnVehicleRespray
+	#else
+		#define _ALS_OnVehicleRespray
+	#endif
+
+	#define OnVehicleRespray(%0) TDWVH@OnVehicleRespray(%0)
+
+	#if defined TDWVH@OnVehicleRespray
+		forward TDWVH@OnVehicleRespray(playerid, vehicleid, color1, color2);
+	#endif
+
+	public
+		OnVehiclePaintjob(playerid, vehicleid, paintjobid)
+	{
+		TDW_g_sVehicleD@Paintjob[vehicleid] = paintjobid;
+	#if defined TDWVH@OnVehiclePaintjob
+		return TDWVH@OnVehiclePaintjob(playerid, vehicleid, paintjobid);
+	#else
+		return 1;
+	#endif
+	}
+	#if defined _ALS_OnVehiclePaintjob
+		#undef OnVehiclePaintjob
+	#else
+		#define _ALS_OnVehiclePaintjob
+	#endif
+
+	#define OnVehiclePaintjob(%0) TDWVH@OnVehiclePaintjob(%0)
+
+	#if defined TDWVH@OnVehiclePaintjob
+		forward TDWVH@OnVehiclePaintjob(playerid, vehicleid, paintjobid);
+	#endif
+#endif
