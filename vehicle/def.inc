@@ -3,6 +3,10 @@
 #endif
 #define _TDW_VEHICLE_DEF_INC_
 
+#if !defined GetVehicleDamageStatus
+	#error Please, Update the SA:MP libraries.
+#endif
+
 #if !defined VEHICLE_PAINTJOB_MIN
 	#define VEHICLE_PAINTJOB_MIN (0)
 #endif
