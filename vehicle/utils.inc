@@ -709,3 +709,66 @@ stock
 		: 0
 	);
 }
+
+stock
+	GetPlayerFromVehicleState(vehicleid, stateid)
+{
+	if (IsValidVehicle(vehicleid))
+	{
+	#if defined _TDW_VEHICLE_FOREACH_DEFINED && _TDW_VEHICLE_FOREACH_DEFINED
+		foreach (new i: Player)
+	#else
+		for(
+			new i
+		#if defined GetPlayerPoolSize
+			= GetPlayerPoolSize() + 1
+		#else
+			= GetMaxPlayers()
+		#endif
+			; --i != -1;
+		)
+	#endif
+		{
+			if (GetPlayerVehicleID(i) == 0)
+				continue;
+			if(GetPlayerState(i) != stateid)
+				continue;
+			return i;
+		}
+	}
+	return INVALID_PLAYER_ID;
+}
+
+#if !defined GetVehicleDriverId
+	#define GetVehicleDriverId(%0) \
+		GetPlayerFromVehicleState(%0, PLAYER_STATE_DRIVER)
+#endif
+
+stock
+	GetPlayerFromVehicleSeat(vehicleid, seatid)
+{
+	if (IsValidVehicle(vehicleid))
+	{
+	#if defined _TDW_VEHICLE_FOREACH_DEFINED && _TDW_VEHICLE_FOREACH_DEFINED
+		foreach (new i: Player)
+	#else
+		for(
+			new i
+		#if defined GetPlayerPoolSize
+			= GetPlayerPoolSize() + 1
+		#else
+			= GetMaxPlayers()
+		#endif
+			; --i != -1;
+			)
+	#endif
+		{
+			if (GetPlayerVehicleID(i) == 0)
+				continue;
+			if(GetPlayerVehicleSeat(i) != seatid)
+				continue;
+			return i;
+		}
+	}
+	return INVALID_PLAYER_ID;
+}
