@@ -3,4 +3,5 @@
 #endif
 #define _TDW_VH_DATA_INC_
 
-#include "tdw/vehicle/utils"
+#include "vehicle/def"
+#include "vehicle/utils"
