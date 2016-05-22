@@ -22,3 +22,17 @@
 #if !defined MAX_INTERIORS
 	#define MAX_INTERIORS (18)
 #endif
+
+#if !defined MAX_VEHICLE_MODEL_ID
+	#define MAX_VEHICLE_MODEL_ID (611)
+#endif
+#if !defined MIN_VEHICLE_MODEL_ID
+	#define MIN_VEHICLE_MODEL_ID (400)
+#endif
+#if !defined MAX_VEHICLE_MODELS
+	#define MAX_VEHICLE_MODELS (MAX_VEHICLE_MODEL_ID - MIN_VEHICLE_MODEL_ID)
+#endif
+
+#if !defined IsValidVehicle
+native IsValidVehicle(vehicleid);
+#endif
