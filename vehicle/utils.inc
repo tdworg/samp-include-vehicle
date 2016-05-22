@@ -176,3 +176,38 @@ stock
 	z += floatsqroot(vehicle_z);
 	return 1;
 }
+
+stock
+	GetVehicleMaxPassengers(modelid)
+{
+	static const
+		vehicle_seat_data[27] =
+	{
+		0x21442224, 0x22422242, 0x22442424,
+		0x81244412, 0x2482f221, 0x21422214,
+		0x21112F82, 0x22214422, 0x24224411,
+		0x42212211, 0x41112412, 0x22142422,
+		0x22122442, 0x21124222, 0x12242211,
+		0x22222221, 0x22211142, 0x22241882,
+		0x44224422, 0x22222212, 0x44212244,
+		0x21211881, 0x14144212, 0xF822224F,
+		0x24441111, 0xFF242222, 0x0000F2FF
+	};
+	// OMG! It's very hard! But, no, it's not hard, believe me.
+	// ======================================================================
+	// e.g. modelid = 400
+	// 1. modelid - 400 = 0
+	// 2. 400 - 400 = 0
+	// 3. 0 >>> 3 = 0
+	// 4. 0b000 (0) & 0b111 = 0
+	// 5. 0 << 2 = 0
+	// 6. 0b00100001010001000010001000100100(0x21442224) >>> 0 = 0x21442224
+	// 7. 0b00100001010001000010001000100100 & 0b1111 = 0b0100
+	// End.
+	return (
+		(MIN_VEHICLE_MODEL_ID <= modelid <= MAX_VEHICLE_MODEL_ID)
+		? ((vehicle_seat_data[(modelid -= MIN_VEHICLE_MODEL_ID) >>> 3] >>>
+			((modelid & 0b111) << 2)) & 0b1111)
+		: 0
+	);
+}
