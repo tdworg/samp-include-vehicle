@@ -662,3 +662,26 @@ stock
 #endif
 	return 1;
 }
+
+#if defined COLANDREAS
+	stock
+		IsVehicleInWater(vehicleid)
+	{
+		new Float:x, Float:y, Float:z;
+		if (GetVehiclePos(vehicleid, x, y, z))
+		{
+			new Float:retx[2], Float:rety[2], Float:retz[2],
+			    Float:retdist[2], modelids[2], collisions = CA_RayCastMultiLine(
+			    x, y, z + 0.7, x, y, z - 0.7, retx, rety, retz, retdist, modelids,
+			    2);
+
+			if (collisions)
+			{
+				for (new i = -1; ++i < collisions;)
+					if (modelids[i] == WATER_OBJECT)
+						return 1;
+			}
+		}
+		return 0;
+	}
+#endif
