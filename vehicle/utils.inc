@@ -3,6 +3,15 @@
 #endif
 #define _TDW_VEHICLE_UTILS_INC_
 
+@__TDW_UTILS__FIX();
+@__TDW_UTILS__FIX()
+{
+	#emit retn
+	// The stock compiler crashes because of using sysreq.c on a native
+	// function.
+	UpdateVehicleDamageStatus(0, 0, 0, 0, 0);
+}
+
 stock
 	DestroyAllVehicles()
 {
@@ -332,7 +341,6 @@ static stock TDW_g_sNULL;
 // If you don't want to use the pp-operator "emit" in the code,
 // add this to your code(before a_samp):
 // #define TDW_VEHICLE_USE_DEPRECATED_COD
-#define TDW_VEHICLE_USE_DEPRECATED_COD
 
 stock
 	GetVehiclePanelsStatus(vehicleid, &front_left_panel, &front_right_panel,
