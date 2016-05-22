@@ -211,3 +211,100 @@ stock
 		: 0
 	);
 }
+
+stock
+	IsValidModelForPaintjob(modelid)
+{
+	switch (modelid)
+	{
+		case 483: // 0
+			return 1;
+		case 575: // 1
+			return 2;
+		case 534, 535, 536, 558, 559, 560, 561, 562, 567, 576: // 012
+			return 3;
+	}
+	return 0;
+}
+
+enum e_TDW_VEHICLE_DOOR
+{
+	FRONT_LEFT_DOOR, FRONT_RIGHT_DOOR,
+	 REAR_LEFT_DOOR,  REAR_RIGHT_DOOR // applies to vehicles with 4 doors.
+};
+
+stock
+	GetVehicleDoorPos(vehicletype, e_TDW_VEHICLE_DOOR:door,
+		&Float:x, &Float:y, &Float:z)
+{
+	if (GetVehiclePos(vehicletype, x, y, z) == 0)
+		return _:(x = y = z = 0.0);
+	new Float:z_angle, Float:vehicle_x, Float:vehicle_y, Float:vehicle_z,
+		Float:div;
+	GetVehicleZAngle(vehicletype, z_angle);
+	vehicletype = GetVehicleModel(vehicletype);
+	switch (door)
+	{
+		case FRONT_LEFT_DOOR, FRONT_RIGHT_DOOR:
+			GetVehicleModelInfo(vehicletype,
+				VEHICLE_MODEL_INFO_FRONTSEAT,
+				vehicle_x, vehicle_y, vehicle_z
+			);
+		case REAR_LEFT_DOOR, REAR_RIGHT_DOOR:
+			GetVehicleModelInfo(vehicletype,
+				VEHICLE_MODEL_INFO_REARSEAT,
+				vehicle_x, vehicle_y, vehicle_z
+			);
+	}
+	div = (_:door % 2) ? (vehicle_x) : (-vehicle_x);
+	x = (floatsin((z_angle = 360 - z_angle), degrees) * vehicle_y) +
+		(floatcos(z_angle, degrees) * div) + x;
+	y = (floatcos(z_angle, degrees) * vehicle_y) -
+		(floatsin(z_angle, degrees) * div) + y;
+	z += vehicle_z;
+	return 1;
+}
+
+enum e_TDW_VEHICLE_WHEEL
+{
+	 FRONT_LEFT,  FRONT_RIGHT,
+	MIDDLE_LEFT, MIDDLE_RIGHT, // applies to vehicles with 3 axes
+	  REAR_LEFT,   REAR_RIGTH
+};
+
+stock
+	GetVehicleWheelPos(vehicletype, e_TDW_VEHICLE_WHEEL:wheel,
+		&Float:x, &Float:y, &Float:z)
+{
+	if (GetVehiclePos(vehicletype, x, y, z) == 0)
+		return _:(x = y = z = 0.0);
+	new Float:z_angle, Float:vehicle_x, Float:vehicle_y, Float:vehicle_z,
+		Float:div;
+	GetVehicleZAngle(vehicletype, z_angle);
+	vehicletype = GetVehicleModel(vehicletype);
+	switch (wheel)
+	{
+		case FRONT_LEFT, FRONT_RIGHT:
+			GetVehicleModelInfo(vehicletype,
+				VEHICLE_MODEL_INFO_WHEELSFRONT,
+				vehicle_x, vehicle_y, vehicle_z
+			);
+		case MIDDLE_LEFT, MIDDLE_RIGHT:
+			GetVehicleModelInfo(vehicletype,
+				VEHICLE_MODEL_INFO_WHEELSMID,
+				vehicle_x, vehicle_y, vehicle_z
+			);
+		case REAR_LEFT, REAR_RIGTH:
+			GetVehicleModelInfo(vehicletype,
+				VEHICLE_MODEL_INFO_WHEELSREAR,
+				vehicle_x, vehicle_y, vehicle_z
+			);
+	}
+	div = (_:wheel % 2) ? (vehicle_x) : (-vehicle_x);
+	x = (floatsin((z_angle = 360 - z_angle), degrees) * vehicle_y) +
+		(floatcos(z_angle, degrees) * div) + x;
+	y = (floatcos(z_angle, degrees) * vehicle_y) -
+		(floatsin(z_angle, degrees) * div) + y;
+	z = z + vehicle_z;
+	return 1;
+}
