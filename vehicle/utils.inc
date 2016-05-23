@@ -772,3 +772,99 @@ stock
 	}
 	return INVALID_PLAYER_ID;
 }
+
+// This function was added in SA:MP 0.3.7 and will not work in earlier version!
+stock
+	SetVehicleWindowState(vehicleid, door, newstate)
+{
+#if defined GetVehicleParamsCarWindows
+	if (IsValidVehicle(vehicleid))
+	{
+		if (0 < door < 3)
+		{
+			new w_states[e_TDW_VEHICLE_DOOR];
+
+			GetVehicleParamsCarWindows(vehicleid,
+				w_states[FRONT_LEFT_DOOR], w_states[FRONT_RIGHT_DOOR],
+				w_states[REAR_LEFT_DOOR],  w_states[REAR_RIGHT_DOOR]
+			);
+			w_states[door] = newstate;
+
+			SetVehicleParamsCarWindows(vehicleid,
+				w_states[FRONT_LEFT_DOOR], w_states[FRONT_RIGHT_DOOR],
+				w_states[REAR_LEFT_DOOR],  w_states[REAR_RIGHT_DOOR]
+			);
+			return 1;
+		}
+	}
+#endif
+	return 0;
+}
+
+// This function was added in SA:MP 0.3.7 and will not work in earlier version!
+stock
+	SetVehicleDoorState(vehicleid, door, newstate)
+{
+#if defined GetVehicleParamsCarDoors
+	if (IsValidVehicle(vehicleid))
+	{
+		if (0 < door < 3)
+		{
+			new w_states[e_TDW_VEHICLE_DOOR];
+
+			GetVehicleParamsCarDoors(vehicleid,
+				w_states[FRONT_LEFT_DOOR], w_states[FRONT_RIGHT_DOOR],
+				w_states[REAR_LEFT_DOOR],  w_states[REAR_RIGHT_DOOR]
+			);
+			w_states[door] = newstate;
+
+			SetVehicleParamsCarDoors(vehicleid,
+				w_states[FRONT_LEFT_DOOR], w_states[FRONT_RIGHT_DOOR],
+				w_states[REAR_LEFT_DOOR],  w_states[REAR_RIGHT_DOOR]
+			);
+			return 1;
+		}
+	}
+#endif
+	return 0;
+}
+
+// This function was added in SA:MP 0.3.7 and will not work in earlier version!
+stock
+	GetVehicleWindowState(vehicleid, door, w_states[e_TDW_VEHICLE_DOOR])
+{
+#if defined GetVehicleParamsCarWindows
+	if (IsValidVehicle(vehicleid))
+	{
+		if (0 < door < 3)
+		{
+			GetVehicleParamsCarWindows(vehicleid,
+				w_states[FRONT_LEFT_DOOR], w_states[FRONT_RIGHT_DOOR],
+				w_states[REAR_LEFT_DOOR],  w_states[REAR_RIGHT_DOOR]
+			);
+			return 1;
+		}
+	}
+#endif
+	return 0;
+}
+
+// This function was added in SA:MP 0.3.7 and will not work in earlier version!
+stock
+	GetVehicleDoorState(vehicleid, door, w_states[e_TDW_VEHICLE_DOOR])
+{
+#if defined GetVehicleParamsCarDoors
+	if (IsValidVehicle(vehicleid))
+	{
+		if (0 < door < 3)
+		{
+			GetVehicleParamsCarDoors(vehicleid,
+				w_states[FRONT_LEFT_DOOR], w_states[FRONT_RIGHT_DOOR],
+				w_states[REAR_LEFT_DOOR],  w_states[REAR_RIGHT_DOOR]
+			);
+			return 1;
+		}
+	}
+#endif
+	return 0;
+}
