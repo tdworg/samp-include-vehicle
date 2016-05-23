@@ -773,9 +773,23 @@ stock
 	return INVALID_PLAYER_ID;
 }
 
+enum e_TDW_DOOR_STATE
+{
+	DOOR_NOT_SET = -1,
+	DOOR_OPENED = 0,
+	DOOR_CLOSED
+};
+
+enum e_TDW_WINDOW_STATE
+{
+	WINDOW_NOT_SET = -1,
+	WINDOW_OPENED = 0,
+	WINDOW_CLOSED
+};
+
 // This function was added in SA:MP 0.3.7 and will not work in earlier version!
 stock
-	SetVehicleWindowState(vehicleid, door, newstate)
+	SetVehicleWindowState(vehicleid, door, e_TDW_DOOR_STATE:newstate)
 {
 #if defined GetVehicleParamsCarWindows
 	if (IsValidVehicle(vehicleid))
@@ -803,7 +817,7 @@ stock
 
 // This function was added in SA:MP 0.3.7 and will not work in earlier version!
 stock
-	SetVehicleDoorState(vehicleid, door, newstate)
+	SetVehicleDoorState(vehicleid, door, e_TDW_WINDOW_STATE:newstate)
 {
 #if defined GetVehicleParamsCarDoors
 	if (IsValidVehicle(vehicleid))
