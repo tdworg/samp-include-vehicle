@@ -3,8 +3,8 @@
 #endif
 #define _TDW_VEHICLE_UTILS_INC_
 
-@__TDW_UTILS__FIX();
-@__TDW_UTILS__FIX()
+@__TDW_VEHICLE_UTILS__FIX();
+@__TDW_VEHICLE_UTILS__FIX()
 {
 	#emit retn
 	// The stock compiler crashes because of using sysreq.c on a native
