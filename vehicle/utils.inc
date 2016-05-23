@@ -937,8 +937,10 @@ stock
 	if (GetVehicleVelocity(vehicleid, x, y, z))
 	{
 		new Float:current_speed = GetVehicleSpeedFromVelocity(x, y, z, kmph),
-		    Float:m = (speed + (current_speed / 100)) /
-			(current_speed / 100) / 113.8333335;
+		    Float:m = ((
+		    conv == kmph ? speed : (speed * 1.609344)
+		    ) + (current_speed / 100)) /
+		    (current_speed / 100) / 113.8333335;
 		SetVehicleVelocity(vehicleid, x * m, y * m, z * m);
 	}
 	return 0;
