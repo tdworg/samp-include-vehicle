@@ -912,24 +912,34 @@ enum e_TDW_VEHICLE_SPEED
 };
 
 stock
-	GetVehicleSpeedFromVelocity(Float:x, Float:y, Float:z,
+	Float:GetVehicleSpeedFromVelocity(Float:x, Float:y, Float:z,
 		e_TDW_VEHICLE_SPEED:conv = kmph)
 {
-	return floatround(
-		floatsqroot(((x * x) + (y * y)) + (z * z))
-		* (conv == kmph ? 187.666667 : 116.610660)
-		,
-		floatround_round
+	return  floatsqroot(((x * x) + (y * y)) + (z * z))
+		* (conv == kmph ? 187.666667 : 116.610660);
+}
+
+stock
+	Float:GetVehicleSpeed(vehicleid, e_TDW_VEHICLE_SPEED:conv = kmph)
+{
+	new Float:x, Float:y, Float:z;
+	return (
+		GetVehicleVelocity(vehicleid, x, y, z)
+		? GetVehicleSpeedFromVelocity(x, y, z, conv)
+		: INVALID_VEHICLE_ID
 	);
 }
 
 stock
-	GetVehicleSpeed(vehicleid, e_TDW_VEHICLE_SPEED:conv = kmph)
+	SetVehicleSpeed(vehicleid, Float:speed, e_TDW_VEHICLE_SPEED:conv = kmph)
 {
 	new Float:x, Float:y, Float:z;
-	return (
-		GetPlayerPos(playerid, x, y, z)
-		? GetVehicleSpeedFromVelocity(x, y, z, conv)
-		: INVALID_VEHICLE_ID
-	);
+	if (GetVehicleVelocity(vehicleid, x, y, z))
+	{
+		new Float:current_speed = GetVehicleSpeedFromVelocity(x, y, z, kmph),
+		    Float:m = (speed + (current_speed / 100)) /
+			(current_speed / 100) / 113.8333335;
+		SetVehicleVelocity(vehicleid, x * m, y * m, z * m);
+	}
+	return 0;
 }
