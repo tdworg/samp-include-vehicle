@@ -787,9 +787,19 @@ enum e_TDW_WINDOW_STATE
 	WINDOW_CLOSED
 };
 
+#if defined OnVehicleWindowUpdate
+forward OnVehicleWindowUpdate(vehicleid, e_TDW_VEHICLE_DOOR:door,
+	e_TDW_WINDOW_STATE:newstate);
+#endif
+#if defined OnVehicleWindowUpdate
+forward OnVehicleDoorUpdate(vehicleid, e_TDW_VEHICLE_DOOR:door,
+	e_TDW_DOOR_STATE:newstate);
+#endif
+
 // This function was added in SA:MP 0.3.7 and will not work in earlier version!
 stock
-	SetVehicleWindowState(vehicleid, door, e_TDW_DOOR_STATE:newstate)
+	SetVehicleWindowState(vehicleid, e_TDW_VEHICLE_DOOR:door,
+		e_TDW_WINDOW_STATE:newstate)
 {
 #if defined GetVehicleParamsCarWindows
 	if (IsValidVehicle(vehicleid))
@@ -802,6 +812,11 @@ stock
 				w_states[FRONT_LEFT_DOOR], w_states[FRONT_RIGHT_DOOR],
 				w_states[REAR_LEFT_DOOR],  w_states[REAR_RIGHT_DOOR]
 			);
+
+			#if defined OnVehicleWindowUpdate
+			OnVehicleWindowUpdate(vehicleid, door, newstate, w_states[door]);
+			#endif
+
 			w_states[door] = newstate;
 
 			SetVehicleParamsCarWindows(vehicleid,
@@ -817,7 +832,8 @@ stock
 
 // This function was added in SA:MP 0.3.7 and will not work in earlier version!
 stock
-	SetVehicleDoorState(vehicleid, door, e_TDW_WINDOW_STATE:newstate)
+	SetVehicleDoorState(vehicleid, e_TDW_VEHICLE_DOOR:door,
+		e_TDW_DOOR_STATE:newstate)
 {
 #if defined GetVehicleParamsCarDoors
 	if (IsValidVehicle(vehicleid))
@@ -830,12 +846,18 @@ stock
 				w_states[FRONT_LEFT_DOOR], w_states[FRONT_RIGHT_DOOR],
 				w_states[REAR_LEFT_DOOR],  w_states[REAR_RIGHT_DOOR]
 			);
+
+			#if defined OnVehicleDoorUpdate
+			OnVehicleDoorUpdate(vehicleid, door, newstate, w_states[door]);
+			#endif
+
 			w_states[door] = newstate;
 
 			SetVehicleParamsCarDoors(vehicleid,
 				w_states[FRONT_LEFT_DOOR], w_states[FRONT_RIGHT_DOOR],
 				w_states[REAR_LEFT_DOOR],  w_states[REAR_RIGHT_DOOR]
 			);
+
 			return 1;
 		}
 	}
