@@ -904,3 +904,32 @@ stock
 #endif
 	return 0;
 }
+
+enum e_TDW_VEHICLE_SPEED
+{
+	kmph,
+	mph
+};
+
+stock
+	GetVehicleSpeedFromVelocity(Float:x, Float:y, Float:z,
+		e_TDW_VEHICLE_SPEED:conv = kmph)
+{
+	return floatround(
+		floatsqroot(((x * x) + (y * y)) + (z * z))
+		* (conv == kmph ? 187.666667 : 116.610660)
+		,
+		floatround_round
+	);
+}
+
+stock
+	GetVehicleSpeed(vehicleid, e_TDW_VEHICLE_SPEED:conv = kmph)
+{
+	new Float:x, Float:y, Float:z;
+	return (
+		GetPlayerPos(playerid, x, y, z)
+		? GetVehicleSpeedFromVelocity(x, y, z, conv)
+		: INVALID_VEHICLE_ID
+	);
+}
