@@ -814,17 +814,17 @@ enum e_TDW_WINDOW_STATE
 forward OnVehicleWindowUpdate(vehicleid, e_TDW_VEHICLE_DOOR:door,
 	e_TDW_WINDOW_STATE:newstate);
 #endif
-#if defined OnVehicleWindowUpdate
+#if defined OnVehicleDoorUpdate
 forward OnVehicleDoorUpdate(vehicleid, e_TDW_VEHICLE_DOOR:door,
 	e_TDW_DOOR_STATE:newstate);
 #endif
 
 // This function was added in SA:MP 0.3.7 and will not work in earlier version!
+#if defined GetVehicleParamsCarWindows
 stock
 	SetVehicleWindowState(vehicleid, e_TDW_VEHICLE_DOOR:door,
 		e_TDW_WINDOW_STATE:newstate)
 {
-#if defined GetVehicleParamsCarWindows
 	if (IsValidVehicle(vehicleid))
 	{
 		if (0 < door < 3)
@@ -849,16 +849,16 @@ stock
 			return 1;
 		}
 	}
-#endif
 	return 0;
 }
+#endif
 
 // This function was added in SA:MP 0.3.7 and will not work in earlier version!
+#if defined GetVehicleParamsCarDoors
 stock
 	SetVehicleDoorState(vehicleid, e_TDW_VEHICLE_DOOR:door,
 		e_TDW_DOOR_STATE:newstate)
 {
-#if defined GetVehicleParamsCarDoors
 	if (IsValidVehicle(vehicleid))
 	{
 		if (0 < door < 3)
@@ -884,15 +884,15 @@ stock
 			return 1;
 		}
 	}
-#endif
 	return 0;
 }
+#endif
 
 // This function was added in SA:MP 0.3.7 and will not work in earlier version!
+#if defined GetVehicleParamsCarWindows
 stock
 	GetVehicleWindowState(vehicleid, door, w_states[e_TDW_VEHICLE_DOOR])
 {
-#if defined GetVehicleParamsCarWindows
 	if (IsValidVehicle(vehicleid))
 	{
 		if (0 < door < 3)
@@ -904,15 +904,15 @@ stock
 			return 1;
 		}
 	}
-#endif
 	return 0;
 }
+#endif
 
 // This function was added in SA:MP 0.3.7 and will not work in earlier version!
+#if defined GetVehicleParamsCarDoors
 stock
 	GetVehicleDoorState(vehicleid, door, w_states[e_TDW_VEHICLE_DOOR])
 {
-#if defined GetVehicleParamsCarDoors
 	if (IsValidVehicle(vehicleid))
 	{
 		if (0 < door < 3)
@@ -924,9 +924,9 @@ stock
 			return 1;
 		}
 	}
-#endif
 	return 0;
 }
+#endif
 
 enum e_TDW_VEHICLE_SPEED
 {
