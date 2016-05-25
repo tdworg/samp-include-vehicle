@@ -210,7 +210,7 @@ static stock const
 stock
 	GetModelStaticSpeed(modelid)
 {
-	if (_:(MIN_VEHICLE_MODEL_ID <= modelid <= MAX_VEHICLE_MODEL_ID) == 0)
+	if (IS_VALID_MODEL(modelid) == 0)
 		return -1;
 	return TDW_g_sVehicleSpeed[modelid - MIN_VEHICLE_MODEL_ID];
 }
@@ -230,7 +230,7 @@ stock
 stock
 	GetModelStaticNameFromId(modelid, name[])
 {
-	if (_:(MIN_VEHICLE_MODEL_ID <= modelid <= MAX_VEHICLE_MODEL_ID) == 0)
+	if (IS_VALID_MODEL(modelid) == 0)
 		return _:(name[0] = '\0');
 	return strcat((name[0] = '\0', name),
 		TDW_g_sVehicleNames[modelid - MIN_VEHICLE_MODEL_ID]);
@@ -239,7 +239,7 @@ stock
 stock
 	e_TDW_VEHICLE_CATEGORY:GetModelStaticCategory(modelid)
 {
-	if (_:(MIN_VEHICLE_MODEL_ID <= modelid <= MAX_VEHICLE_MODEL_ID) == 0)
+	if (IS_VALID_MODEL(modelid) == 0)
 		return -1;
 	return TDW_g_sVehicleCategory[modelid - MIN_VEHICLE_MODEL_ID];
 }
@@ -247,7 +247,7 @@ stock
 stock
 	e_TDW_VEHICLE_TYPE:GetModelStaticType(modelid)
 {
-	if (_:(MIN_VEHICLE_MODEL_ID <= modelid <= MAX_VEHICLE_MODEL_ID) == 0)
+	if (IS_VALID_MODEL(modelid) == 0)
 		return -1;
 	return TDW_g_sVehicleType[modelid - MIN_VEHICLE_MODEL_ID];
 }

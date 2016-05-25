@@ -77,3 +77,8 @@ native IsValidVehicle(vehicleid);
 		#define _TDW_VEHICLE_STREAMER_DEFINED 1
 	#endif
 #endif
+
+#if !defined IS_VALID_MODEL
+	#define IS_VALID_MODEL(%0)\
+		(_:(MIN_VEHICLE_MODEL_ID<=(%0)<=MAX_VEHICLE_MODEL_ID))
+#endif
