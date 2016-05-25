@@ -37,7 +37,7 @@ stock
 		Float:offset_y, Float:offset_z, Float:drawdistance, virtualworld,
 		bool:testLos = false
 #if _TDW_VEHICLE_STREAMER_DEFINED
-		, interiorid = -1, streamdistance = 100.0
+		, interiorid = -1, streamdistance = STREAMER_3D_TEXT_LABEL_SD
 #endif
 		, label_length = sizeof label
 	)
