@@ -89,7 +89,7 @@ stock
 {
 	if (IsValidVehicle(vehicleid))
 	{
-	#if defined _TDW_VEHICLE_FOREACH_DEFINED && _TDW_VEHICLE_FOREACH_DEFINED
+	#if _TDW_VEHICLE_FOREACH_DEFINED
 		foreach (new i: Player)
 	#else
 		for (
@@ -116,7 +116,7 @@ stock
 {
 	if (IsValidVehicle(vehicleid))
 	{
-	#if defined _TDW_VEHICLE_FOREACH_DEFINED && _TDW_VEHICLE_FOREACH_DEFINED
+	#if _TDW_VEHICLE_FOREACH_DEFINED
 		foreach (new i: Player)
 	#else
 		for (
@@ -738,7 +738,7 @@ stock
 {
 	if (IsValidVehicle(vehicleid))
 	{
-	#if defined _TDW_VEHICLE_FOREACH_DEFINED && _TDW_VEHICLE_FOREACH_DEFINED
+	#if _TDW_VEHICLE_FOREACH_DEFINED
 		foreach (new i: Player)
 	#else
 		for(
@@ -772,7 +772,7 @@ stock
 {
 	if (IsValidVehicle(vehicleid))
 	{
-	#if defined _TDW_VEHICLE_FOREACH_DEFINED && _TDW_VEHICLE_FOREACH_DEFINED
+	#if _TDW_VEHICLE_FOREACH_DEFINED
 		foreach (new i: Player)
 	#else
 		for(

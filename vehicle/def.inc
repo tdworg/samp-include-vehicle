@@ -68,3 +68,12 @@ native IsValidVehicle(vehicleid);
 		#define _TDW_VEHICLE_FOREACH_DEFINED 1
 	#endif
 #endif
+
+// For streamer support.
+#if !defined _TDW_VEHICLE_STREAMER_DEFINED
+	#if defined TDW_VEHICLE_NOT_USE_STREAMER
+		#define _TDW_VEHICLE_STREAMER_DEFINED 0
+	#elseif defined Streamer_IncludeFileVersion
+		#define _TDW_VEHICLE_STREAMER_DEFINED 1
+	#endif
+#endif
