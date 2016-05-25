@@ -33,7 +33,7 @@ stock
 	CreateVehicle3DTextLabel(vehicleid, const label[], color, Float:x, Float:y,
 		Float:z, Float:drawdistance, virtualworld, bool:testLos = 0
 #if _TDW_VEHICLE_STREAMER_DEFINED
-		interiorid = -1, streamdistance = 100.0
+		, interiorid = -1, streamdistance = 100.0
 #endif
 	)
 {
