@@ -25,5 +25,4 @@ freely, subject to the following restrictions:
 #define _TDW_VHS_LABEL_INC_
 
 #include "vehicle/def"
-#include "vehicle/data"
 #include "vehicle/sys_label"

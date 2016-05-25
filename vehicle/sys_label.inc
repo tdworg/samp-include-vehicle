@@ -26,8 +26,11 @@ freely, subject to the following restrictions:
 #endif
 #define _TDW_VEHICLE_S_LABEL_INC_
 
+#define TDW_MAX_LABEL_SIZE (256)
+
 static stock
-	Text3D:TDW_g_sVehicleD@LabelId[MAX_VEHICLES];
+	Text3D:TDW_g_sVehicleD@LabelId[MAX_VEHICLES],
+	TDW_g_sVehicleD@Buffer[MAX_VEHICLES][TDW_MAX_LABEL_SIZE char];
 
 stock
 	CreateVehicle3DTextLabel(vehicleid, const label[], color, Float:offset_x,
@@ -36,11 +39,14 @@ stock
 #if _TDW_VEHICLE_STREAMER_DEFINED
 		, interiorid = -1, streamdistance = 100.0
 #endif
+		, label_length = sizeof label
 	)
 {
 	if (label[0] == '\0')
 		return 0;
 	if (IsValidVehicle(vehicleid) == 0)
+		return 0;
+	if (TDW_MAX_LABEL_SIZE <= label)
 		return 0;
 
 	TDW_g_sVehicleD@LabelId[vehicleid]
@@ -57,6 +63,8 @@ stock
 		vehicleid, offset_x, offset_y, offset_z
 	);
 	#endif
+
+	strpack(TDW_g_sVehicleD@Buffer, label);
 	return 1;
 }
 
@@ -75,12 +83,16 @@ stock
 }
 
 stock
-	UpdateVehicle3DTextLabel(vehicleid, const label[], color = -1)
+	UpdateVehicle3DTextLabel(vehicleid, const label[], bool:replace = true,
+		color = -1)
 {
 	if (label[0] == '\0')
 		return 0;
 	if (IsValidVehicle(vehicleid) == 0)
 		return 0;
+	if (TDW_MAX_LABEL_SIZE <= label)
+		return 0;
+
 	#if _TDW_VEHICLE_STREAMER_DEFINED
 	UpdateDynamic3DTextLabelText(TDW_g_sVehicleD@LabelId[vehicleid], color,
 		label
@@ -88,5 +100,24 @@ stock
 	#else
 	Update3DTextLabelText(TDW_g_sVehicleD@LabelId[vehicleid], color, label);
 	#endif
+
+	if (replace)
+		strpack(TDW_g_sVehicleD@Buffer, label);
 	return 1;
 }
+
+#if !defined ShowVehicle3DTextLabel
+stock
+	ShowVehicle3DTextLabel(vehicleid)
+{
+	return UpdateVehicle3DTextLabel(vehicleid,
+		TDW_g_sVehicleD@Buffer[vehicleid], false
+	);
+}
+#endif
+
+#if !defined HideVehicle3DTextLabel
+	// If text[] is empty, the server/clients next to the text might crash!
+	#define HideVehicle3DTextLabel(%0)\
+		UpdateVehicle3DTextLabel(%0, !" ", false)
+#endif
