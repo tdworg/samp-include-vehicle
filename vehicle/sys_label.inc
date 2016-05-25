@@ -30,6 +30,8 @@ static stock
 	Text3D:TDW_g_sVehicleD@LabelId[MAX_VEHICLES];
 
 stock
+	CreateVehicle3DTextLabel(vehicleid, const label[], color, Float:offset_x,
+		Float:offset_y, Float:offset_z, Float:drawdistance, virtualworld,
 		bool:testLos = false
 #if _TDW_VEHICLE_STREAMER_DEFINED
 		, interiorid = -1, streamdistance = 100.0
@@ -43,6 +45,7 @@ stock
 
 	TDW_g_sVehicleD@LabelId[vehicleid]
 	#if _TDW_VEHICLE_STREAMER_DEFINED
+	= CreateDynamic3DTextLabel(label, color, offset_x, offset_y, offset_z,
 		drawdistance, _, vehicleid, _:testlos, virtualworld, interiorid,
 		streamdistance
 	);
@@ -51,6 +54,7 @@ stock
 		virtualworld, _:testlos
 	);
 	Attach3DTextLabelToVehicle(TDW_g_sVehicleD@LabelId[vehicleid],
+		vehicleid, offset_x, offset_y, offset_z
 	);
 	#endif
 	return 1;
