@@ -195,6 +195,32 @@ stock
 #endif
 
 stock
+	TDWVH@SetVehicleVirtualWorld(vehicleid, worldid)
+{
+	if (TDW_g_sVehicleData[vehicleid][ei_model_id] != 0)
+	{
+		TDW_g_sVehicleD@VirtualWorld[vehicleid] = worldid;
+	}
+	return 0;
+}
+#if defined _ALS_SetVehicleVirtualWorld
+#undef SetVehicleVirtualWorld
+#else
+	#define _ALS_SetVehicleVirtualWorld
+#endif
+#define SetVehicleVirtualWorld(%0) TDWVH@SetVehicleVirtualWorld(%0)
+
+stock
+	GetVehicleVirtualWorld(vehicleid)
+{
+	if (TDW_g_sVehicleData[vehicleid][ei_model_id] != 0)
+	{
+		return TDW_g_sVehicleD@VirtualWorld[vehicleid];
+	}
+	return -1;
+}
+
+stock
 	GetVehicleColor(vehicleid, &color1, &color2)
 {
 	if (TDW_g_sVehicleData[vehicleid][ei_model_id] == 0)
