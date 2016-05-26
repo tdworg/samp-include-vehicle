@@ -64,8 +64,13 @@ native IsValidVehicle(vehicleid);
 #if !defined _TDW_VEHICLE_FOREACH_DEFINED
 	#if defined TDW_VEHICLE_NOT_USE_FOREACH
 		#define _TDW_VEHICLE_FOREACH_DEFINED 0
-	#elseif defined _FOREACH_LOCAL_VERSION
-		#define _TDW_VEHICLE_FOREACH_DEFINED 1
+	#elseif !defined _FOREACH_LOCAL_VERSION
+		#tryinclude <foreach>
+		#if defined _FOREACH_LOCAL_VERSION
+			#define _TDW_VEHICLE_FOREACH_DEFINED 1
+		#else
+			#define _TDW_VEHICLE_FOREACH_DEFINED 0
+		#endif
 	#endif
 #endif
 
@@ -73,8 +78,13 @@ native IsValidVehicle(vehicleid);
 #if !defined _TDW_VEHICLE_STREAMER_DEFINED
 	#if defined TDW_VEHICLE_NOT_USE_STREAMER
 		#define _TDW_VEHICLE_STREAMER_DEFINED 0
-	#elseif defined Streamer_IncludeFileVersion
-		#define _TDW_VEHICLE_STREAMER_DEFINED 1
+	#elseif !defined Streamer_IncludeFileVersion
+		#tryinclude <streamer>
+		#if defined Streamer_IncludeFileVersion
+			#define _TDW_VEHICLE_STREAMER_DEFINED 1
+		#else
+			#define _TDW_VEHICLE_STREAMER_DEFINED 0
+		#endif
 	#endif
 #endif
 
