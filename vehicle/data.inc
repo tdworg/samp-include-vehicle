@@ -171,6 +171,29 @@ stock
 #endif
 #define DestroyVehicle(%0) TDWVH@DestroyVehicle(%0)
 
+#if defined OnVehicleRespawn
+	#if defined OnVehicleRespawn
+	forward OnVehicleRespawn(vehicleid);
+	#endif
+
+	stock
+		TDWVH@SetVehicleToRespawn(vehicleid)
+	{
+		if (SetVehicleToRespawn(vehicleid))
+		{
+			OnVehicleRespawn(vehicleid);
+			return 1;
+		}
+		return 0;
+	}
+	#if defined _ALS_SetVehicleToRespawn
+	#undef SetVehicleToRespawn
+	#else
+		#define _ALS_SetVehicleToRespawn
+	#endif
+	#define SetVehicleToRespawn(%0) TDWVH@SetVehicleToRespawn(%0)
+#endif
+
 stock
 	GetVehicleColor(vehicleid, &color1, &color2)
 {
