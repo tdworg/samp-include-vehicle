@@ -983,3 +983,28 @@ stock
 
 	return ((angle > 90.0) || (angle < -90.0));
 }
+
+#if defined GetVehicleParamsCarDoors
+	#if !defined OpenVehicleDoor
+		#define OpenVehicleDoor(%0,%1) SetVehicleDoorState(%0,%1,DOOR_OPENED)
+	#endif
+	#if !defined CloseVehicleDoor
+		#define CloseVehicleDoor(%0,%1) SetVehicleDoorState(%0,%1,DOOR_CLOSED)
+	#endif
+	#if !defined IsVehicleDoorInState
+		#define IsVehicleDoorInState(%0,%1,%2) \
+			(_:(GetVehicleDoorState(%0,%1) == _:(e_TDW_DOOR_STATE:(%2))))
+	#endif
+	#if !defined OpenVehicleWindow
+		#define OpenVehicleWindow(%0,%1) SetVehicleWindowState(%0,%1, \
+			WINDOW_OPENED)
+	#endif
+	#if !defined CloseVehicleWindow
+		#define CloseVehicleWindow(%0,%1) SetVehicleWindowState(%0,%1, \
+			WINDOW_CLOSED)
+	#endif
+	#if !defined IsVehicleWindowInState
+		#define IsVehicleWindowInState(%0,%1,%2) \
+			(_:(GetVehicleWindowState(%0,%1) == _:(e_TDW_WINDOW_STATE:(%2))))
+	#endif
+#endif
