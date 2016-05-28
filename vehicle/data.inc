@@ -53,7 +53,8 @@ static stock // The general variables.
 static stock // The dynamic variables.
 	TDW_g_sVehicleD@Interior[MAX_VEHICLES],
 	TDW_g_sVehicleD@VirtualWorld[MAX_VEHICLES],
-	TDW_g_sVehicleD@Paintjob[MAX_VEHICLES];
+	TDW_g_sVehicleD@Paintjob[MAX_VEHICLES],
+	TDW_g_sVehicleD@LastDriver[MAX_VEHICLES];
 
 // AddStaticVehicle hook
 stock
@@ -279,6 +280,16 @@ stock
 	);
 }
 
+stock
+	GetVehicleLastDriver(vehicleid)
+{
+	return (
+		(IsValidVehicle(vehicleid))
+		? TDW_g_sVehicleD@LastDriver[vehicleid]
+		: INVALID_PLAYER_ID
+	);
+}
+
 // If you want to use the functions(publics), add this to your code(before
 // a_samp):
 // #define _TDW_VEHICLE_USE_PUBLICS
@@ -330,4 +341,31 @@ stock
 	#if defined TDWVH@OnVehiclePaintjob
 		forward TDWVH@OnVehiclePaintjob(playerid, vehicleid, paintjobid);
 	#endif
+
+	public
+		OnPlayerStateChange(playerid, newstate, oldstate)
+	{
+		if (newstate == PLAYER_STATE_DRIVER)
+		{
+			new vehicleid = GetPlayerVehicleID(playerid);
+			TDW_g_sVehicleD@LastDriver[vehicleid] = playerid;
+		}
+		#if defined TDWVH@OnPlayerStateChange
+			return TDWVH@OnPlayerStateChange(playerid, newstate, oldstate);
+		#else
+			return 1;
+		#endif
+
+		#if defined _ALS_OnPlayerStateChange
+			#undef OnPlayerStateChange
+		#else
+			#define _ALS_OnPlayerStateChange
+		#endif
+
+		#define OnPlayerStateChange(%0) TDWVH@OnPlayerStateChange(%0)
+
+		#if defined TDWVH@OnPlayerStateChange
+			forward TDWVH@OnPlayerStateChange(playerid, newstate, oldstate);
+		#endif
+	}
 #endif
