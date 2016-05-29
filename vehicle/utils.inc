@@ -258,7 +258,7 @@ stock
 		(MIN_VEHICLE_MODEL_ID <= modelid <= MAX_VEHICLE_MODEL_ID)
 		? ((vehicle_seat_data[(modelid -= MIN_VEHICLE_MODEL_ID) >>> 3] >>>
 			((modelid & 0b111) << 2)) & 0b1111)
-		: 0
+		: 0b1111
 	);
 }
 
