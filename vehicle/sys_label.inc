@@ -28,6 +28,14 @@ freely, subject to the following restrictions:
 
 #define TDW_MAX_LABEL_SIZE (256)
 
+#if _TDW_VEHICLE_STREAMER_DEFINED
+	#define VehicleSLabelDestroy(%0) DestroyDynamic3DTextLabel(%0)
+	#define VehicleSLabelUpdate(%0) UpdateDynamic3DTextLabelText(%0)
+#else
+	#define VehicleSLabelDestroy(%0) Delete3DTextLabel(%0)
+	#define VehicleSLabelUpdate(%0) Update3DTextLabelText(%0)
+#endif
+
 static stock
 	Text3D:TDW_g_sVehicleD@LabelId[MAX_VEHICLES],
 	TDW_g_sVehicleD@Buffer[MAX_VEHICLES][TDW_MAX_LABEL_SIZE char];
@@ -73,11 +81,7 @@ stock
 {
 	if (IsValidVehicle(vehicleid))
 	{
-		#if _TDW_VEHICLE_STREAMER_DEFINED
-		DestroyDynamic3DTextLabel(TDW_g_sVehicleD@LabelId[vehicleid]);
-		#else
-		Delete3DTextLabel(TDW_g_sVehicleD@LabelId[vehicleid]);
-		#endif
+		VehicleSLabelDestroy(TDW_g_sVehicleD@LabelId[vehicleid]);
 	}
 	return 0;
 }
@@ -93,13 +97,7 @@ stock
 	if (TDW_MAX_LABEL_SIZE <= label)
 		return 0;
 
-	#if _TDW_VEHICLE_STREAMER_DEFINED
-	UpdateDynamic3DTextLabelText(TDW_g_sVehicleD@LabelId[vehicleid], color,
-		label
-	);
-	#else
-	Update3DTextLabelText(TDW_g_sVehicleD@LabelId[vehicleid], color, label);
-	#endif
+	VehicleSLabelUpdate(TDW_g_sVehicleD@LabelId[vehicleid], color, label);
 
 	if (replace)
 		strpack(TDW_g_sVehicleD@Buffer, label);
@@ -121,3 +119,6 @@ stock
 	#define HideVehicle3DTextLabel(%0)\
 		UpdateVehicle3DTextLabel(%0, !" ", false)
 #endif
+
+#undef VehicleSLabelDestroy
+#undef VehicleSLabelUpdate
