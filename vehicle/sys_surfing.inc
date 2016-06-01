@@ -35,7 +35,7 @@ static stock
 	TDW_g_sVehicleD@AllowedModels[MAX_VEHICLE_MODELS + 1];
 
 stock
-	VehicleSurfing_Construct(playerid)
+	VehicleSurfing_Init(playerid)
 {
 	TDW_g_sVehicleD@TimerId[playerid] = SetTimerEx(!"@_TDW_VSS____Update",
 		TDW_MAX_TIMER_INTERVAL, true, !"i", playerid);
@@ -43,7 +43,7 @@ stock
 }
 
 stock
-	VehicleSurfing_Destruct(playerid)
+	VehicleSurfing_Deinit(playerid)
 {
 	if (TDW_g_sVehicleD@TimerId[playerid] != -1)
 	{
