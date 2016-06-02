@@ -112,6 +112,39 @@ native IsValidVehicle(vehicleid);
 	#endif
 #endif
 
+// For sscanf2/3 support
+#if !defined _TDW_VEHICLE_SSCANF2_DEFINED
+	#if defined TDW_VEHICLE_NOT_USE_SSCANF2
+		#define _TDW_VEHICLE_SSCANF2_DEFINED 0
+	#elseif !defined sscanf
+		#tryinclude <sscanf2>
+		#if defined sscanf
+			#define _TDW_VEHICLE_SSCANF2_DEFINED 1
+		#else
+			#if !defined sscanf
+				#tryinclude "../include/sscanf2"
+				#if defined sscanf
+					#define _TDW_VEHICLE_SSCANF2_DEFINED 1
+				#endif
+			#endif
+			#if !defined sscanf
+				#tryinclude "../include/sscanf3"
+				#if defined sscanf
+					#define _TDW_VEHICLE_SSCANF2_DEFINED 1
+				#endif
+			#endif
+			#if !defined sscanf
+				#tryinclude <sscanf3>
+				#if defined sscanf
+					#define _TDW_VEHICLE_SSCANF2_DEFINED 1
+				#endif
+			#else
+				#define _TDW_VEHICLE_SSCANF2_DEFINED 0
+			#endif
+		#endif
+	#endif
+#endif
+
 #if !defined IS_VALID_MODEL
 	#define IS_VALID_MODEL(%0)\
 		(_:(MIN_VEHICLE_MODEL_ID<=(%0)<=MAX_VEHICLE_MODEL_ID))
