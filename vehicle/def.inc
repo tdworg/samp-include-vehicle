@@ -68,26 +68,27 @@ native IsValidVehicle(vehicleid);
 		#tryinclude <foreach>
 		#if defined _FOREACH_LOCAL_VERSION
 			#define _TDW_VEHICLE_FOREACH_DEFINED 1
-		#endif
-		#if !defined _FOREACH_LOCAL_VERSION
-			#tryinclude "../include/foreach.inc"
-			#if defined _FOREACH_LOCAL_VERSION
-				#define _TDW_VEHICLE_FOREACH_DEFINED 1
-			#endif
-		#endif
-		#if !defined _FOREACH_LOCAL_VERSION
-			#tryinclude "../include/foreach2.inc"
-			#if defined _FOREACH_LOCAL_VERSION
-				#define _TDW_VEHICLE_FOREACH_DEFINED 1
-			#endif
-		#endif
-		#if !defined _FOREACH_LOCAL_VERSION
-			#tryinclude <foreach2>
-			#if defined _FOREACH_LOCAL_VERSION
-				#define _TDW_VEHICLE_FOREACH_DEFINED 1
-			#endif
 		#else
-			#define _TDW_VEHICLE_FOREACH_DEFINED 0
+			#if !defined _FOREACH_LOCAL_VERSION
+				#tryinclude "../include/foreach.inc"
+				#if defined _FOREACH_LOCAL_VERSION
+					#define _TDW_VEHICLE_FOREACH_DEFINED 1
+				#endif
+			#endif
+			#if !defined _FOREACH_LOCAL_VERSION
+				#tryinclude "../include/foreach2.inc"
+				#if defined _FOREACH_LOCAL_VERSION
+					#define _TDW_VEHICLE_FOREACH_DEFINED 1
+				#endif
+			#endif
+			#if !defined _FOREACH_LOCAL_VERSION
+				#tryinclude <foreach2>
+				#if defined _FOREACH_LOCAL_VERSION
+					#define _TDW_VEHICLE_FOREACH_DEFINED 1
+				#endif
+			#else
+				#define _TDW_VEHICLE_FOREACH_DEFINED 0
+			#endif
 		#endif
 	#endif
 #endif

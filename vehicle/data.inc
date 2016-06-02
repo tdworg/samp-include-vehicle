@@ -33,6 +33,8 @@ freely, subject to the following restrictions:
 	#if !defined _TDW_VEHICLE_FOREACH_ARRAY
 		#define _TDW_VEHICLE_FOREACH_ARRAY
 	#endif
+	#pragma unused Vehicle@YSII_Ag
+	#pragma unused Vehicle@YSII_Cg
 #endif
 
 enum e_TDW_VEHICLE
@@ -210,16 +212,6 @@ stock
 	#define _ALS_SetVehicleVirtualWorld
 #endif
 #define SetVehicleVirtualWorld(%0) TDWVH@SetVehicleVirtualWorld(%0)
-
-stock
-	GetVehicleVirtualWorld(vehicleid)
-{
-	if (TDW_g_sVehicleData[vehicleid][ei_model_id] != 0)
-	{
-		return TDW_g_sVehicleD@VirtualWorld[vehicleid];
-	}
-	return -1;
-}
 
 stock
 	GetVehicleColor(vehicleid, &color1, &color2)
