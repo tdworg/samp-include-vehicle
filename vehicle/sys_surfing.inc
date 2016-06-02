@@ -27,7 +27,11 @@ freely, subject to the following restrictions:
 #define _TDW_VEHICLE_S_SURFING_INC_
 
 #if !defined TDW_MAX_TIMER_INTERVAL
-	#define TDW_MAX_TIMER_INTERVAL (300)
+	#define TDW_MAX_TIMER_INTERVAL (256)
+#endif
+
+#if !defined TDW_MIN_SURF_SPEED
+	#define TDW_MIN_SURF_SPEED (20.0)
 #endif
 
 static stock
@@ -72,6 +76,8 @@ stock
 		if (TDW_g_sVehicleD@AllowedModels[GetVehicleModel(vehicleid) -
 			MIN_VEHICLE_MODEL_ID] == 0)
 		{
+			if (GetVehicleSpeed(vehicleid) <= TDW_MIN_SURF_SPEED)
+				return 1;
 			new Float:x, Float:y, Float:z;
 			GetPlayerPos(playerid, x, y, z);
 			// GetVehicleBootPos(vehicleid, x, y, z);
