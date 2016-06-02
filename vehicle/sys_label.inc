@@ -41,14 +41,20 @@ static stock
 	TDW_g_sVehicleD@Buffer[MAX_VEHICLES][TDW_MAX_LABEL_SIZE char];
 
 stock
+#if _TDW_VEHICLE_STREAMER_DEFINED
 	CreateVehicle3DTextLabel(vehicleid, const label[], color, Float:offset_x,
 		Float:offset_y, Float:offset_z, Float:drawdistance, virtualworld,
 		bool:testLos = false
-#if _TDW_VEHICLE_STREAMER_DEFINED
-		, interiorid = -1, streamdistance = STREAMER_3D_TEXT_LABEL_SD
-#endif
+		, interiorid = -1, Float:streamdistance = STREAMER_3D_TEXT_LABEL_SD
 		, label_length = sizeof label
 	)
+#else
+	CreateVehicle3DTextLabel(vehicleid, const label[], color, Float:offset_x,
+		Float:offset_y, Float:offset_z, Float:drawdistance, virtualworld,
+		bool:testLos = false
+		, label_length = sizeof label
+	)
+#endif
 {
 	if (label[0] == '\0')
 		return 0;
