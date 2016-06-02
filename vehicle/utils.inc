@@ -949,7 +949,7 @@ stock
 	return (
 		GetVehicleVelocity(vehicleid, x, y, z)
 		? GetVehicleSpeedFromVelocity(x, y, z, conv)
-		: INVALID_VEHICLE_ID
+		: -1.0
 	);
 }
 
