@@ -95,5 +95,5 @@ You can define special constants before `a_samp`.
 |----------------------------------------|-----------------------------------------------|
 | TDW\_VEHICLE\_NOT\_USE\_FOREACH        | -                                             |
 | TDW\_VEHICLE\_NOT\_USE\_STREAMER       | -                                             |
-| TDW\_VEHICLE\_NOT\_USE\_SSCANF2        | -                                             |
+| TDW\_VEHICLE\_NOT\_USE\_SSCANF         | -                                             |
 | \_TDW\_VEHICLE\_USE\_PUBLICS           | If you want to use the functions(publics)     |
