@@ -113,33 +113,33 @@ native IsValidVehicle(vehicleid);
 #endif
 
 // For sscanf2/3 support
-#if !defined _TDW_VEHICLE_SSCANF2_DEFINED
+#if !defined _TDW_VEHICLE_SSCANF_DEFINED
 	#if defined TDW_VEHICLE_NOT_USE_SSCANF
-		#define _TDW_VEHICLE_SSCANF2_DEFINED 0
+		#define _TDW_VEHICLE_SSCANF_DEFINED 0
 	#elseif !defined sscanf
 		#tryinclude <sscanf2>
 		#if defined sscanf
-			#define _TDW_VEHICLE_SSCANF2_DEFINED 1
+			#define _TDW_VEHICLE_SSCANF_DEFINED 1
 		#else
 			#if !defined sscanf
 				#tryinclude "../include/sscanf2"
 				#if defined sscanf
-					#define _TDW_VEHICLE_SSCANF2_DEFINED 1
+					#define _TDW_VEHICLE_SSCANF_DEFINED 1
 				#endif
 			#endif
 			#if !defined sscanf
 				#tryinclude "../include/sscanf3"
 				#if defined sscanf
-					#define _TDW_VEHICLE_SSCANF2_DEFINED 1
+					#define _TDW_VEHICLE_SSCANF_DEFINED 1
 				#endif
 			#endif
 			#if !defined sscanf
 				#tryinclude <sscanf3>
 				#if defined sscanf
-					#define _TDW_VEHICLE_SSCANF2_DEFINED 1
+					#define _TDW_VEHICLE_SSCANF_DEFINED 1
 				#endif
 			#else
-				#define _TDW_VEHICLE_SSCANF2_DEFINED 0
+				#define _TDW_VEHICLE_SSCANF_DEFINED 0
 			#endif
 		#endif
 	#endif
