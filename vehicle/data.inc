@@ -286,7 +286,7 @@ stock
 // a_samp):
 // #define _TDW_VEHICLE_NOT_USE_PUBLICS
 
-#if defined _TDW_VEHICLE_NOT_USE_PUBLICS
+#if !defined _TDW_VEHICLE_NOT_USE_PUBLICS
 	// OnVehicleRespray hook
 	public
 		OnVehicleRespray(playerid, vehicleid, color1, color2)
