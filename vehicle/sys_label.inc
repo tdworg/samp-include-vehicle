@@ -127,9 +127,10 @@ stock
 #endif
 
 #if !defined HideVehicle3DTextLabel
+	static stock const TDW_g_sVehicleS@Space[] = !" ";
 	// If text[] is empty, the server/clients next to the text might crash!
 	#define HideVehicle3DTextLabel(%0)\
-		UpdateVehicle3DTextLabel(%0, !" ", NON_REPLACE_LABEL)
+		UpdateVehicle3DTextLabel(%0, TDW_g_sVehicleS@Space, NON_REPLACE_LABEL)
 #endif
 
 #undef VehicleSLabelDestroy
