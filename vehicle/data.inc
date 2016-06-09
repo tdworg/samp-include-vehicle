@@ -282,11 +282,11 @@ stock
 	);
 }
 
-// If you want to use the functions(publics), add this to your code(before
+// If you don't want to use the functions(publics), add this to your code(before
 // a_samp):
-// #define _TDW_VEHICLE_USE_PUBLICS
+// #define _TDW_VEHICLE_NOT_USE_PUBLICS
 
-#if defined _TDW_VEHICLE_USE_PUBLICS
+#if defined _TDW_VEHICLE_NOT_USE_PUBLICS
 	// OnVehicleRespray hook
 	public
 		OnVehicleRespray(playerid, vehicleid, color1, color2)
