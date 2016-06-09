@@ -92,9 +92,15 @@ stock
 	return 0;
 }
 
+enum e_UPD_TLABEL
+{
+	REPLACE_LABEL,
+	NON_REPLACE_LABEL
+};
+
 stock
-	UpdateVehicle3DTextLabel(vehicleid, const label[], bool:replace = true,
-		color = -1)
+	UpdateVehicle3DTextLabel(vehicleid, const label[], e_UPD_TLABEL:replace =
+		NON_REPLACE_LABEL, color = -1)
 {
 	if (label[0] == '\0')
 		return 0;
@@ -115,7 +121,7 @@ stock
 	ShowVehicle3DTextLabel(vehicleid)
 {
 	return UpdateVehicle3DTextLabel(vehicleid,
-		TDW_g_sVehicleD@Buffer[vehicleid], false
+		TDW_g_sVehicleD@Buffer[vehicleid], NON_REPLACE_LABEL
 	);
 }
 #endif
@@ -123,7 +129,7 @@ stock
 #if !defined HideVehicle3DTextLabel
 	// If text[] is empty, the server/clients next to the text might crash!
 	#define HideVehicle3DTextLabel(%0)\
-		UpdateVehicle3DTextLabel(%0, !" ", false)
+		UpdateVehicle3DTextLabel(%0, !" ", NON_REPLACE_LABEL)
 #endif
 
 #undef VehicleSLabelDestroy
