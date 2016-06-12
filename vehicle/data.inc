@@ -303,6 +303,8 @@ stock
 stock
 	IsVehicleBlown(vehicleid)
 {
+	if (TDW_g_sVehicleData[vehicleid][ei_model_id] == 0)
+		return false;
 	return (TDW_g_sVehicleD@BlownedState{vehicleid} == BLOWNED_STATE_DEATH);
 }
 
