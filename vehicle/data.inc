@@ -49,6 +49,12 @@ enum e_TDW_VEHICLE
 	ei_model_id
 };
 
+enum e_TDW_BLOWNED_STATE
+{
+	BLOWNED_STATE_DEATH,
+	BLOWNED_STATE_RESPAWNED
+};
+
 static stock // The general variables.
 	TDW_g_sVehicleData[MAX_VEHICLES][e_TDW_VEHICLE],
 	TDW_g_sVehicleId;
@@ -56,7 +62,19 @@ static stock // The dynamic variables.
 	TDW_g_sVehicleD@Interior[MAX_VEHICLES],
 	TDW_g_sVehicleD@VirtualWorld[MAX_VEHICLES],
 	TDW_g_sVehicleD@Paintjob[MAX_VEHICLES],
-	TDW_g_sVehicleD@LastDriver[MAX_VEHICLES];
+	TDW_g_sVehicleD@LastDriver[MAX_VEHICLES],
+	e_TDW_BLOWNED_STATE:TDW_g_sVehicleD@BlownedState[MAX_VEHICLES char];
+
+native BAD_AddStaticVehicle(modelid, Float:spawn_x, Float:spawn_y,
+	Float:spawn_z, Float:z_angle, color1, color2) = AddStaticVehicle;
+native BAD_AddStaticVehicleEx(modelid, Float:spawn_x, Float:spawn_y,
+	Float:spawn_z, Float:z_angle, color1, color2, respawn_delay,
+	addsiren) = AddStaticVehicleEx;
+native BAD_CreateVehicle(vehicletype, Float:x, Float:y, Float:z,
+	Float:rotation, color1, color2, respawn_delay, addsiren) = CreateVehicle;
+native BAD_DestroyVehicle(vehicleid) = DestroyVehicle;
+native BAD_SetVehicleToRespawn(vehicleid) = SetVehicleToRespawn;
+native BAD_SetVehicleVirtualWorld(vehicleid, worldid) = SetVehicleVirtualWorld;
 
 // AddStaticVehicle hook
 stock
@@ -282,6 +300,12 @@ stock
 	);
 }
 
+stock
+	IsVehicleBlown(vehicleid)
+{
+	return (TDW_g_sVehicleD@BlownedState{vehicleid} == BLOWNED_STATE_DEATH);
+}
+
 // If you don't want to use the functions(publics), add this to your code(before
 // a_samp):
 // #define _TDW_VEHICLE_NOT_USE_PUBLICS
@@ -334,6 +358,7 @@ stock
 		forward TDWVH@OnVehiclePaintjob(playerid, vehicleid, paintjobid);
 	#endif
 
+	// OnPlayerStateChange hook
 	public
 		OnPlayerStateChange(playerid, newstate, oldstate)
 	{
@@ -358,5 +383,45 @@ stock
 
 	#if defined TDWVH@OnPlayerStateChange
 		forward TDWVH@OnPlayerStateChange(playerid, newstate, oldstate);
+	#endif
+
+	// OnVehicleDeath hook
+	public
+		OnVehicleDeath(vehicleid, killerid)
+	{
+		if (TDW_g_sVehicleD@BlownedState{vehicleid} != BLOWNED_STATE_DEATH)
+			TDW_g_sVehicleD@BlownedState{vehicleid} = BLOWNED_STATE_DEATH;
+		return 1;
+	}
+	#if defined _ALS_OnVehicleDeath
+		#undef OnVehicleDeath
+	#else
+		#define _ALS_OnVehicleDeath
+	#endif
+
+	#define OnVehicleDeath(%0) TDWVH@OnVehicleDeath(%0)
+
+	#if defined TDWVH@OnVehicleDeath
+		forward TDWVH@OnVehicleDeath(vehicleid);
+	#endif
+
+	// OnVehicleSpawn hook
+	public
+		OnVehicleSpawn(vehicleid)
+	{
+		if (TDW_g_sVehicleD@BlownedState{vehicleid} == BLOWNED_STATE_DEATH)
+			TDW_g_sVehicleD@BlownedState{vehicleid} = BLOWNED_STATE_RESPAWNED;
+		return 1;
+	}
+	#if defined _ALS_OnVehicleSpawn
+		#undef OnVehicleSpawn
+	#else
+		#define _ALS_OnVehicleSpawn
+	#endif
+
+	#define OnVehicleSpawn(%0) TDWVH@OnVehicleSpawn(%0)
+
+	#if defined TDWVH@OnVehicleSpawn
+		forward TDWVH@OnVehicleSpawn(vehicleid);
 	#endif
 #endif
