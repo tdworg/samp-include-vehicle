@@ -78,7 +78,7 @@ stock
 		{
 			if (GetVehicleSpeed(vehicleid) <= TDW_MIN_SURF_SPEED)
 				return 1;
-			new Float:x, Float:y, Float:z;
+			static Float:x, Float:y, Float:z;
 			GetPlayerPos(playerid, x, y, z);
 			// GetVehicleBootPos(vehicleid, x, y, z);
 			SetPlayerPos(playerid, x, y, z + 3.5);
