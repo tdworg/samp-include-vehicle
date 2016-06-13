@@ -26,7 +26,9 @@ freely, subject to the following restrictions:
 #endif
 #define _TDW_VEHICLE_S_LABEL_INC_
 
-#define TDW_MAX_LABEL_SIZE (256)
+#if !defined TDW_MAX_LABEL_SIZE
+	#define TDW_MAX_LABEL_SIZE (256)
+#endif
 
 #if _TDW_VEHICLE_STREAMER_DEFINED
 	#define VehicleSLabelDestroy(%0) DestroyDynamic3DTextLabel(%0)
