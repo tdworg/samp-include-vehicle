@@ -150,6 +150,8 @@ native IsValidVehicle(vehicleid);
 		(_:(MIN_VEHICLE_MODEL_ID<=(%0)<=MAX_VEHICLE_MODEL_ID))
 #endif
 
-#if defined _DEBUG && _DEBUG == 1
+#if defined _DEBUG && _DEBUG
 	#define _TDW_DEBUG_ 1
+#else
+	#define _TDW_DEBUG_ 0
 #endif
