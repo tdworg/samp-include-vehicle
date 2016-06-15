@@ -76,6 +76,12 @@ native BAD_DestroyVehicle(vehicleid) = DestroyVehicle;
 native BAD_SetVehicleToRespawn(vehicleid) = SetVehicleToRespawn;
 native BAD_SetVehicleVirtualWorld(vehicleid, worldid) = SetVehicleVirtualWorld;
 
+#if _TDW_DEBUG_
+static const
+	TDW_DEBUG_MSG@VCreated[] = "Vehicle created! id: %d | Func: %s",
+	TDW_DEBUG_MSG@VDestroyed[] = "Vehicle destroyed! id: %d";
+#endif
+
 // AddStaticVehicle hook
 stock
 	TDWVH@AddStaticVehicle(modelid, Float:spawn_x, Float:spawn_y,
@@ -94,6 +100,10 @@ stock
 
 		#if defined _TDW_VEHICLE_FOREACH_ARRAY
 		Iter_Add(TDW_g_sVehicleId, Vehicle);
+		#endif
+		#if _TDW_DEBUG_
+		static const debug[] = "AddStaticVehicle";
+		printf(TDW_DEBUG_MSG@VCreated, TDW_g_sVehicleId, AddStaticVehicle);
 		#endif
 	}
 	return TDW_g_sVehicleId;
@@ -126,6 +136,10 @@ stock
 		#if defined _TDW_VEHICLE_FOREACH_ARRAY
 		Iter_Add(TDW_g_sVehicleId, Vehicle);
 		#endif
+		#if _TDW_DEBUG_
+		static const debug[] = "AddStaticVehicleEx";
+		printf(TDW_DEBUG_MSG@VCreated, TDW_g_sVehicleId, AddStaticVehicle);
+		#endif
 	}
 	return TDW_g_sVehicleId;
 }
@@ -155,6 +169,10 @@ stock
 		#if defined _TDW_VEHICLE_FOREACH_ARRAY
 		Iter_Add(TDW_g_sVehicleId, Vehicle);
 		#endif
+		#if _TDW_DEBUG_
+		static const debug[] = "CreateVehicle";
+		printf(TDW_DEBUG_MSG@VCreated, TDW_g_sVehicleId, AddStaticVehicle);
+		#endif
 	}
 	return TDW_g_sVehicleId;
 }
@@ -182,6 +200,9 @@ stock
 
 	#if defined _TDW_VEHICLE_FOREACH_ARRAY
 	Iter_Remove(TDW_g_sVehicleId, Vehicle);
+	#endif
+	#if _TDW_DEBUG_
+	printf(TDW_DEBUG_MSG@VDestroyed, vehicleid);
 	#endif
 	return 1;
 }
