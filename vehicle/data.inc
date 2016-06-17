@@ -414,7 +414,11 @@ stock
 	{
 		if (TDW_g_sVehicleD@BlownedState{vehicleid} != BLOWNED_STATE_DEATH)
 			TDW_g_sVehicleD@BlownedState{vehicleid} = BLOWNED_STATE_DEATH;
-		return 1;
+		#if defined TDWVH@OnVehicleDeath
+			return TDWVH@OnVehicleDeath(vehicleid, killerid);
+		#else
+			return 1;
+		#endif
 	}
 	#if defined _ALS_OnVehicleDeath
 		#undef OnVehicleDeath
@@ -434,7 +438,11 @@ stock
 	{
 		if (TDW_g_sVehicleD@BlownedState{vehicleid} == BLOWNED_STATE_DEATH)
 			TDW_g_sVehicleD@BlownedState{vehicleid} = BLOWNED_STATE_RESPAWNED;
-		return 1;
+		#if defined TDWVH@OnVehicleSpawn
+			return TDWVH@OnVehicleSpawn(vehicleid);
+		#else
+			return 1;
+		#endif
 	}
 	#if defined _ALS_OnVehicleSpawn
 		#undef OnVehicleSpawn
