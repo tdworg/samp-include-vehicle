@@ -26,6 +26,7 @@ freely, subject to the following restrictions:
 #endif
 #define _TDW_VEHICLE_UTILS_INC_
 
+#if !defined TDW_VEHICLE_USE_DEPRECATED_COD
 @__TDW_VEHICLE_UTILS__FIX();
 @__TDW_VEHICLE_UTILS__FIX()
 {
@@ -34,6 +35,7 @@ freely, subject to the following restrictions:
 	// function.
 	UpdateVehicleDamageStatus(0, 0, 0, 0, 0);
 }
+#endif
 
 stock
 	DestroyAllVehicles()
@@ -938,7 +940,7 @@ stock
 	Float:GetVehicleSpeedFromVelocity(Float:x, Float:y, Float:z,
 		e_TDW_VEHICLE_SPEED:conv = kmph)
 {
-	return  floatsqroot(((x * x) + (y * y)) + (z * z))
+	return floatsqroot(((x * x) + (y * y)) + (z * z))
 		* (conv == kmph ? 187.666667 : 116.610660);
 }
 
