@@ -92,7 +92,7 @@ Many useful libraries and systems for vehicles
 | `MAX_VEHICLE_MODEL_ID`                | 611                                           |                      |
 | `MIN_VEHICLE_MODEL_ID`                | 400                                           |                      |
 | `MAX_VEHICLE_MODELS`                  | `MAX_VEHICLE_MODEL_ID - MIN_VEHICLE_MODEL_ID` |                      |
-| `TDW_MAX_TIMER_INTERVAL` (_internal_) | 256                                           | for a surfing timer  |
+| `TDW_MAX_TIMER_INTERVAL` (_internal_) | 300                                           | for a surfing timer  |
 | `TDW_MIN_SURF_SPEED`     (_internal_) | 20.0                                          | for a surfing timer  |
 | `TDW_MAX_LABEL_SIZE`     (_internal_) | 256                                           | for labels           |
 

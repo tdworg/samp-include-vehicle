@@ -27,7 +27,7 @@ freely, subject to the following restrictions:
 #define _TDW_VEHICLE_S_SURFING_INC_
 
 #if !defined TDW_MAX_TIMER_INTERVAL
-	#define TDW_MAX_TIMER_INTERVAL (256)
+	#define TDW_MAX_TIMER_INTERVAL (600)
 #endif
 
 #if !defined TDW_MIN_SURF_SPEED
