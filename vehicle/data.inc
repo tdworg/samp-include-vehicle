@@ -63,7 +63,8 @@ static stock // The dynamic variables.
 	TDW_g_sVehicleD@VirtualWorld[MAX_VEHICLES],
 	TDW_g_sVehicleD@Paintjob[MAX_VEHICLES],
 	TDW_g_sVehicleD@LastDriver[MAX_VEHICLES],
-	e_TDW_BLOWNED_STATE:TDW_g_sVehicleD@BlownedState[MAX_VEHICLES char];
+	e_TDW_BLOWNED_STATE:TDW_g_sVehicleD@BlownedState[MAX_VEHICLES char],
+	TDW_g_sVehicleD@LastTrlAttach[MAX_VEHICLES];
 
 native BAD_AddStaticVehicle(modelid, Float:spawn_x, Float:spawn_y,
 	Float:spawn_z, Float:z_angle, color1, color2) = AddStaticVehicle;
@@ -328,6 +329,25 @@ stock
 		return false;
 	return (TDW_g_sVehicleD@BlownedState{vehicleid} == BLOWNED_STATE_DEATH);
 }
+
+stock
+	TDWVH@AttachTrailerToVehicle(trailerid, vehicleid)
+{
+	if (IsValidVehicle(vehicleid) == 0)
+		return 0;
+	if (IsValidVehicle(trailerid) == 0)
+		return 0;
+	AttachTrailerToVehicle(trailerid, vehicleid);
+	TDW_g_sVehicleD@LastTrlAttach[vehicleid] = trailerid;
+	return 1;
+}
+#if defined _ALS_AttachTrailerToVehicle
+#undef AttachTrailerToVehicle
+#else
+	#define _ALS_AttachTrailerToVehicle
+#endif
+#define AttachTrailerToVehicle(%0) TDWVH@AttachTrailerToVehicle(%0)
+
 
 // If you don't want to use the functions(publics), add this to your code(before
 // a_samp):
