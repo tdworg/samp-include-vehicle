@@ -76,6 +76,8 @@ native BAD_CreateVehicle(vehicletype, Float:x, Float:y, Float:z,
 native BAD_DestroyVehicle(vehicleid) = DestroyVehicle;
 native BAD_SetVehicleToRespawn(vehicleid) = SetVehicleToRespawn;
 native BAD_SetVehicleVirtualWorld(vehicleid, worldid) = SetVehicleVirtualWorld;
+native BAD_AttachTrailerToVehicle(trailerid, vehicleid) =
+	AttachTrailerToVehicle;
 
 #if _TDW_DEBUG_
 static const
