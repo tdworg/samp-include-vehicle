@@ -37,6 +37,12 @@ freely, subject to the following restrictions:
 	#pragma unused Vehicle@YSII_Cg
 #endif
 
+#if !defined MAX_TRAILER_TIMER_UPDATE
+	#define MAX_TRAILER_TIMER_UPDATE (1000) // One second
+#else
+	#assert (250 <= MAX_TRAILER_TIMER_UPDATE)
+#endif
+
 enum e_TDW_VEHICLE
 {
 	// I created only necessary elements in the enumeration.
@@ -55,6 +61,12 @@ enum e_TDW_BLOWNED_STATE
 	BLOWNED_STATE_RESPAWNED
 };
 
+enum e_TDW_TRAILER_STATE
+{
+	NOT_ATTACHED,
+	ATTACHED
+};
+
 static stock // The general variables.
 	TDW_g_sVehicleData[MAX_VEHICLES][e_TDW_VEHICLE],
 	TDW_g_sVehicleId;
@@ -64,7 +76,11 @@ static stock // The dynamic variables.
 	TDW_g_sVehicleD@Paintjob[MAX_VEHICLES],
 	TDW_g_sVehicleD@LastDriver[MAX_VEHICLES],
 	e_TDW_BLOWNED_STATE:TDW_g_sVehicleD@BlownedState[MAX_VEHICLES char],
-	TDW_g_sVehicleD@LastTrlAttach[MAX_VEHICLES];
+	TDW_g_sVehicleD@LastTrlAttach[MAX_VEHICLES],
+	e_TDW_TRAILER_STATE:TDW_g_sVehicleD@TrailerState[MAX_VEHICLES];
+static
+	TDW_g_sVehicleS@TrlTimerName[] = !"@_TDW_TIMER_OnTrailerUpdate",
+	TDW_g_sVehicleS@TrlTimerArgs[] = !"dd";
 
 native BAD_AddStaticVehicle(modelid, Float:spawn_x, Float:spawn_y,
 	Float:spawn_z, Float:z_angle, color1, color2) = AddStaticVehicle;
@@ -78,6 +94,7 @@ native BAD_SetVehicleToRespawn(vehicleid) = SetVehicleToRespawn;
 native BAD_SetVehicleVirtualWorld(vehicleid, worldid) = SetVehicleVirtualWorld;
 native BAD_AttachTrailerToVehicle(trailerid, vehicleid) =
 	AttachTrailerToVehicle;
+native BAD_DetachTrailerFromVehicle(vehicleid) = DetachTrailerFromVehicle;
 
 #if _TDW_DEBUG_
 static const
@@ -102,7 +119,7 @@ stock
 		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_pos_rotation] = z_angle;
 
 		#if defined _TDW_VEHICLE_FOREACH_ARRAY
-		Iter_Add(TDW_g_sVehicleId, Vehicle);
+		Iter_Add(Vehicle, TDW_g_sVehicleId);
 		#endif
 		#if _TDW_DEBUG_
 		static const debug[] = "AddStaticVehicle";
@@ -137,7 +154,7 @@ stock
 		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_pos_rotation] = z_angle;
 
 		#if defined _TDW_VEHICLE_FOREACH_ARRAY
-		Iter_Add(TDW_g_sVehicleId, Vehicle);
+		Iter_Add(Vehicle, TDW_g_sVehicleId);
 		#endif
 		#if _TDW_DEBUG_
 		static const debug[] = "AddStaticVehicleEx";
@@ -170,7 +187,7 @@ stock
 		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_pos_rotation] = rotation;
 
 		#if defined _TDW_VEHICLE_FOREACH_ARRAY
-		Iter_Add(TDW_g_sVehicleId, Vehicle);
+		Iter_Add(Vehicle, TDW_g_sVehicleId);
 		#endif
 		#if _TDW_DEBUG_
 		static const debug[] = "CreateVehicle";
@@ -202,7 +219,7 @@ stock
 	TDW_g_sVehicleData[TDW_g_sVehicleId][ei_pos_rotation] = 0.0;
 
 	#if defined _TDW_VEHICLE_FOREACH_ARRAY
-	Iter_Remove(TDW_g_sVehicleId, Vehicle);
+	Iter_Remove(Vehicle, TDW_g_sVehicleId);
 	#endif
 	#if _TDW_DEBUG_
 	printf(TDW_DEBUG_MSG@VDestroyed, vehicleid);
@@ -332,6 +349,13 @@ stock
 	return (TDW_g_sVehicleD@BlownedState{vehicleid} == BLOWNED_STATE_DEATH);
 }
 
+#if defined OnTrailerAttached
+forward OnTrailerAttached(trailerid, vehicleid);
+#endif
+#if defined OnTrailerAttached
+forward OnTrailerDetached(trailerid, vehicleid);
+#endif
+
 stock
 	TDWVH@AttachTrailerToVehicle(trailerid, vehicleid)
 {
@@ -341,6 +365,10 @@ stock
 		return 0;
 	AttachTrailerToVehicle(trailerid, vehicleid);
 	TDW_g_sVehicleD@LastTrlAttach[vehicleid] = trailerid;
+	TDW_g_sVehicleD@TrailerState[vehicleid] = ATTACHED;
+#if defined OnTrailerAttached
+	OnTrailerAttached(trailerid, vehicleid);
+#endif
 	return 1;
 }
 #if defined _ALS_AttachTrailerToVehicle
@@ -350,6 +378,38 @@ stock
 #endif
 #define AttachTrailerToVehicle(%0) TDWVH@AttachTrailerToVehicle(%0)
 
+stock
+	TDWVH@DetachTrailerFromVehicle(vehicleid)
+{
+	if (IsValidVehicle(vehicleid) == 0)
+		return 0;
+	new trailerid = TDW_g_sVehicleD@LastTrlAttach[vehicleid];
+	if (IsValidVehicle(trailerid) == 0)
+		return 0;
+	if (IsTrailerAttachedToVehicle(trailerid) == 0)
+		return 0;
+	DetachTrailerFromVehicle(vehicleid);
+	TDW_g_sVehicleD@TrailerState[vehicleid] = NOT_ATTACHED;
+#if defined OnTrailerDetached
+	OnTrailerDetached(trailerid, vehicleid);
+#endif
+	return 1;
+}
+#if defined _ALS_DetachTrailerFromVehicle
+#undef DetachTrailerFromVehicle
+#else
+	#define _ALS_DetachTrailerFromVehicle
+#endif
+#define DetachTrailerFromVehicle(%0) TDWVH@DetachTrailerFromVehicle(%0)
+
+stock
+	GetLastAttachedTrailerId(vehicleid)
+{
+	return (IsValidVehicle(vehicleid)
+		? TDW_g_sVehicleD@LastTrlAttach[vehicleid]
+		: INVALID_VEHICLE_ID
+	);
+}
 
 // If you don't want to use the functions(publics), add this to your code(before
 // a_samp):
@@ -476,5 +536,60 @@ stock
 
 	#if defined TDWVH@OnVehicleSpawn
 		forward TDWVH@OnVehicleSpawn(vehicleid);
+	#endif
+
+	#if !defined _TDW_NOT_USE_TRAILER_UPDATE
+		public
+			OnTrailerUpdate(playerid, vehicleid)
+		{
+			{
+				if (TDW_g_sVehicleD@TrailerState[vehicleid] == NOT_ATTACHED)
+				{
+					new player_vehicleid = GetPlayerVehicleID(playerid);
+					TDW_g_sVehicleD@TrailerState[vehicleid] = ATTACHED;
+				#if defined OnTrailerAttached
+					OnTrailerAttached(vehicleid, player_vehicleid);
+				#endif
+					SetTimerEx(TDW_g_sVehicleS@TrlTimerName,
+						MAX_TRAILER_TIMER_UPDATE, false,
+						TDW_g_sVehicleS@TrlTimerArgs, vehicleid,
+						player_vehicleid
+					);
+				}
+			}
+			#if defined TDWVH@OnTrailerUpdate
+				return TDWVH@OnTrailerUpdate(vehicleid);
+			#else
+				return 1;
+			#endif
+		}
+		#if defined _ALS_OnTrailerUpdate
+			#undef OnTrailerUpdate
+		#else
+			#define _ALS_OnTrailerUpdate
+		#endif
+
+		#define OnTrailerUpdate(%0) TDWVH@OnTrailerUpdate(%0)
+
+		#if defined TDWVH@OnTrailerUpdate
+			forward TDWVH@OnTrailerUpdate(vehicleid);
+		#endif
+
+		@_TDW_TIMER_OnTrailerUpdate(trailerid, vehicleid);
+		@_TDW_TIMER_OnTrailerUpdate(trailerid, vehicleid)
+		{
+			if (IsTrailerAttachedToVehicle(vehicleid) == 0)
+			{
+			#if defined OnTrailerAttached
+				OnTrailerDetached(trailerid, vehicleid);
+			#endif
+				TDW_g_sVehicleD@TrailerState[vehicleid] = NOT_ATTACHED;
+				return 0;
+			}
+			return SetTimerEx(TDW_g_sVehicleS@TrlTimerName,
+				MAX_TRAILER_TIMER_UPDATE, false, TDW_g_sVehicleS@TrlTimerArgs,
+				trailerid, vehicleid
+			);
+		}
 	#endif
 #endif

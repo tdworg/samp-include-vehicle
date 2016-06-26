@@ -65,6 +65,9 @@ native IsValidVehicle(vehicleid);
 	#if defined TDW_VEHICLE_NOT_USE_FOREACH
 		#define _TDW_VEHICLE_FOREACH_DEFINED 0
 	#elseif !defined _FOREACH_LOCAL_VERSION
+
+		#define _FOREACH_NO_TEST
+
 		#tryinclude <foreach>
 		#if defined _FOREACH_LOCAL_VERSION
 			#define _TDW_VEHICLE_FOREACH_DEFINED 1
@@ -150,7 +153,7 @@ native IsValidVehicle(vehicleid);
 		(_:(MIN_VEHICLE_MODEL_ID<=(%0)<=MAX_VEHICLE_MODEL_ID))
 #endif
 
-#if defined _DEBUG && _DEBUG
+#if defined _DEBUG
 	#define _TDW_DEBUG_ 1
 #else
 	#define _TDW_DEBUG_ 0
