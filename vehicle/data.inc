@@ -365,7 +365,7 @@ stock
 		return 0;
 	AttachTrailerToVehicle(trailerid, vehicleid);
 	TDW_g_sVehicleD@LastTrlAttach[vehicleid] = trailerid;
-	TDW_g_sVehicleD@TrailerState[vehicleid] = ATTACHED;
+	TDW_g_sVehicleD@TrailerState[trailerid] = ATTACHED;
 #if defined OnTrailerAttached
 	OnTrailerAttached(trailerid, vehicleid);
 #endif
@@ -386,10 +386,10 @@ stock
 	new trailerid = TDW_g_sVehicleD@LastTrlAttach[vehicleid];
 	if (IsValidVehicle(trailerid) == 0)
 		return 0;
-	if (IsTrailerAttachedToVehicle(trailerid) == 0)
+	if (IsTrailerAttachedToVehicle(vehicleid) == 0)
 		return 0;
 	DetachTrailerFromVehicle(vehicleid);
-	TDW_g_sVehicleD@TrailerState[vehicleid] = NOT_ATTACHED;
+	TDW_g_sVehicleD@TrailerState[trailerid] = NOT_ATTACHED;
 #if defined OnTrailerDetached
 	OnTrailerDetached(trailerid, vehicleid);
 #endif
