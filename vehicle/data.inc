@@ -26,15 +26,17 @@ freely, subject to the following restrictions:
 #endif
 #define _TDW_VEHICLE_DATA_INC_
 
-#if defined _TDW_VEHICLE_FOREACH_DEFINED && _TDW_VEHICLE_FOREACH_DEFINED
-	#if !defined Vehicle@YSII_Ag
-		new Iterator:Vehicle<MAX_VEHICLES>;
+#if defined _TDW_VEHICLE_FOREACH_DEFINED
+	#if _TDW_VEHICLE_FOREACH_DEFINED
+		#if !defined Vehicle@YSII_Ag
+			new Iterator:Vehicle<MAX_VEHICLES>;
+		#endif
+		#if !defined _TDW_VEHICLE_FOREACH_ARRAY
+			#define _TDW_VEHICLE_FOREACH_ARRAY
+		#endif
+		#pragma unused Vehicle@YSII_Ag
+		#pragma unused Vehicle@YSII_Cg
 	#endif
-	#if !defined _TDW_VEHICLE_FOREACH_ARRAY
-		#define _TDW_VEHICLE_FOREACH_ARRAY
-	#endif
-	#pragma unused Vehicle@YSII_Ag
-	#pragma unused Vehicle@YSII_Cg
 #endif
 
 #if !defined MAX_TRAILER_TIMER_UPDATE
