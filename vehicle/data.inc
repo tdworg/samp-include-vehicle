@@ -77,7 +77,7 @@ static stock // The dynamic variables.
 	TDW_g_sVehicleD@LastDriver[MAX_VEHICLES],
 	e_TDW_BLOWNED_STATE:TDW_g_sVehicleD@BlownedState[MAX_VEHICLES char],
 	TDW_g_sVehicleD@LastTrlAttach[MAX_VEHICLES],
-	e_TDW_TRAILER_STATE:TDW_g_sVehicleD@TrailerState[MAX_VEHICLES];
+	e_TDW_TRAILER_STATE:TDW_g_sVehicleD@TrailerState[MAX_VEHICLES char];
 static stock
 	TDW_g_sVehicleS@TrlTimerName[] = !"@_TDW_TIMER_OnTrailerUpdate",
 	TDW_g_sVehicleS@TrlTimerArgs[] = !"dd";
@@ -365,7 +365,7 @@ stock
 		return 0;
 	AttachTrailerToVehicle(trailerid, vehicleid);
 	TDW_g_sVehicleD@LastTrlAttach[vehicleid] = trailerid;
-	TDW_g_sVehicleD@TrailerState[trailerid] = ATTACHED;
+	TDW_g_sVehicleD@TrailerState{trailerid} = ATTACHED;
 #if defined OnTrailerAttached
 	OnTrailerAttached(trailerid, vehicleid);
 #endif
@@ -389,7 +389,7 @@ stock
 	if (IsTrailerAttachedToVehicle(vehicleid) == 0)
 		return 0;
 	DetachTrailerFromVehicle(vehicleid);
-	TDW_g_sVehicleD@TrailerState[trailerid] = NOT_ATTACHED;
+	TDW_g_sVehicleD@TrailerState{trailerid} = NOT_ATTACHED;
 #if defined OnTrailerDetached
 	OnTrailerDetached(trailerid, vehicleid);
 #endif
@@ -544,10 +544,10 @@ stock
 			OnTrailerUpdate(playerid, vehicleid)
 		{
 			{
-				if (TDW_g_sVehicleD@TrailerState[vehicleid] == NOT_ATTACHED)
+				if (TDW_g_sVehicleD@TrailerState{vehicleid} == NOT_ATTACHED)
 				{
 					new player_vehicleid = GetPlayerVehicleID(playerid);
-					TDW_g_sVehicleD@TrailerState[vehicleid] = ATTACHED;
+					TDW_g_sVehicleD@TrailerState{vehicleid} = ATTACHED;
 				#if defined OnTrailerAttached
 					OnTrailerAttached(vehicleid, player_vehicleid);
 				#endif
@@ -584,7 +584,7 @@ stock
 			#if defined OnTrailerAttached
 				OnTrailerDetached(trailerid, vehicleid);
 			#endif
-				TDW_g_sVehicleD@TrailerState[vehicleid] = NOT_ATTACHED;
+				TDW_g_sVehicleD@TrailerState{vehicleid} = NOT_ATTACHED;
 				return 0;
 			}
 			return SetTimerEx(TDW_g_sVehicleS@TrlTimerName,
