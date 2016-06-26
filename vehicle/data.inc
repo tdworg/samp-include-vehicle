@@ -78,7 +78,7 @@ static stock // The dynamic variables.
 	e_TDW_BLOWNED_STATE:TDW_g_sVehicleD@BlownedState[MAX_VEHICLES char],
 	TDW_g_sVehicleD@LastTrlAttach[MAX_VEHICLES],
 	e_TDW_TRAILER_STATE:TDW_g_sVehicleD@TrailerState[MAX_VEHICLES];
-static
+static stock
 	TDW_g_sVehicleS@TrlTimerName[] = !"@_TDW_TIMER_OnTrailerUpdate",
 	TDW_g_sVehicleS@TrlTimerArgs[] = !"dd";
 
@@ -539,6 +539,7 @@ stock
 	#endif
 
 	#if !defined _TDW_NOT_USE_TRAILER_UPDATE
+		// OnTrailerUpdate hook
 		public
 			OnTrailerUpdate(playerid, vehicleid)
 		{

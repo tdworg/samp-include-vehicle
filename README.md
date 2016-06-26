@@ -28,6 +28,8 @@ Many useful libraries and systems for vehicles
 | vh\_data     / GetVehicleLastDriver                             | `vehicleid`                                                                                                                                                                                                                                                                                                                                                                                                                                     | `INVALID_PLAYER_ID`  or playerid |
 | vh\_data     / IsVehicleBlown                                   | `vehicleid`                                                                                                                                                                                                                                                                                                                                                                                                                                     | **true** or **false**            |
 | vh\_data     / AttachTrailerToVehicle (_Hook_)                  | `trailerid, vehicleid`                                                                                                                                                                                                                                                                                                                                                                                                                          | **true** or **false**            |
+| vh\_data     / DetachTrailerFromVehicle (_Hook_)                | `vehicleid`                                                                                                                                                                                                                                                                                                                                                                                                                                     | **true** or **false**            |
+| vh\_data     / GetLastAttachedTrailerId                         | `vehicleid`                                                                                                                                                                                                                                                                                                                                                                                                                                     | vehicleid                        |
 | vh\_sadata   / GetModelStaticSpeed                              | `modelid`                                                                                                                                                                                                                                                                                                                                                                                                                                       | -1 or vehicle Max speed          |
 | vh\_sadata   / GetModelStaticIdFromName                         | `const name[]`                                                                                                                                                                                                                                                                                                                                                                                                                                  | 0 or modelid                     |
 | vh\_sadata   / GetModelStaticNameFromId                         | `modelid, name[]`                                                                                                                                                                                                                                                                                                                                                                                                                               | 0 or name length                 |
@@ -83,18 +85,19 @@ Many useful libraries and systems for vehicles
 
 #### Constants list
 
-| Constant                              | Value                                         | Note                 |
-|---------------------------------------|:----------------------------------------------|----------------------|
-| `VEHICLE_PAINTJOB_MIN`                | 0                                             |                      |
-| `VEHICLE_PAINTJOB_MAX`                | 2                                             |                      |
-| `INVALID_VEHICLE_ID`                  | 3                                             |                      |
-| `MAX_INTERIORS`                       | 18                                            |                      |
-| `MAX_VEHICLE_MODEL_ID`                | 611                                           |                      |
-| `MIN_VEHICLE_MODEL_ID`                | 400                                           |                      |
-| `MAX_VEHICLE_MODELS`                  | `MAX_VEHICLE_MODEL_ID - MIN_VEHICLE_MODEL_ID` |                      |
-| `TDW_MAX_TIMER_INTERVAL` (_internal_) | 300                                           | for a surfing timer  |
-| `TDW_MIN_SURF_SPEED`     (_internal_) | 20.0                                          | for a surfing timer  |
-| `TDW_MAX_LABEL_SIZE`     (_internal_) | 256                                           | for labels           |
+| Constant                                | Value                                         | Note                 |
+|-----------------------------------------|:----------------------------------------------|----------------------|
+| `VEHICLE_PAINTJOB_MIN`                  | 0                                             |                      |
+| `VEHICLE_PAINTJOB_MAX`                  | 2                                             |                      |
+| `INVALID_VEHICLE_ID`                    | 3                                             |                      |
+| `MAX_INTERIORS`                         | 18                                            |                      |
+| `MAX_VEHICLE_MODEL_ID`                  | 611                                           |                      |
+| `MIN_VEHICLE_MODEL_ID`                  | 400                                           |                      |
+| `MAX_VEHICLE_MODELS`                    | `MAX_VEHICLE_MODEL_ID - MIN_VEHICLE_MODEL_ID` |                      |
+| `TDW_MAX_TIMER_INTERVAL`   (_internal_) | 300                                           | for a surfing timer  |
+| `TDW_MIN_SURF_SPEED`       (_internal_) | 20.0                                          | for a surfing timer  |
+| `TDW_MAX_LABEL_SIZE`       (_internal_) | 256                                           | for labels           |
+| `MAX_TRAILER_TIMER_UPDATE` (_internal_) | 1000 (one second)                             |                      |
 
 You can define special constants before `a_samp`.
 
@@ -106,9 +109,12 @@ You can define special constants before `a_samp`.
 | TDW\_VEHICLE\_NOT\_USE\_STREAMER       | -                                               |
 | TDW\_VEHICLE\_NOT\_USE\_SSCANF         | -                                               |
 | \_TDW\_VEHICLE\_NOT\_USE\_PUBLICS      | If you don't want to use the functions(publics) |
+| \_TDW\_NOT\_USE\_TRAILER\_UPDATE       | -                                               |
 
 #### New callbacks list:
 ````PAWN
 OnVehicleWindowUpdate(vehicleid, e_TDW_VEHICLE_DOOR:door, e_TDW_WINDOW_STATE:newstate);
 OnVehicleDoorUpdate(vehicleid, e_TDW_VEHICLE_DOOR:door, e_TDW_DOOR_STATE:newstate);
+OnTrailerAttached(trailerid, vehicleid);
+OnTrailerDetached(trailerid, vehicleid);
 ````
