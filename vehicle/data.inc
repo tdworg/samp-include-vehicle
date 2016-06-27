@@ -587,6 +587,7 @@ stock
 				OnTrailerDetached(trailerid, vehicleid);
 			#endif
 				TDW_g_sVehicleD@TrailerState{vehicleid} = NOT_ATTACHED;
+				TDW_g_sVehicleD@LastTrlAttach[vehicleid] = trailerid;
 				return 0;
 			}
 			return SetTimerEx(TDW_g_sVehicleS@TrlTimerName,
