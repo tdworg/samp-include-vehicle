@@ -212,16 +212,16 @@ stock
 		return 0;
 	// I know that zero and floating zero it's equal things,
 	// but the compiler gives a warning.
-	TDW_g_sVehicleData[TDW_g_sVehicleId][ei_model_id]     =
-	TDW_g_sVehicleData[TDW_g_sVehicleId][ei_color_1]      =
-	TDW_g_sVehicleData[TDW_g_sVehicleId][ei_color_2]      = 0;
-	TDW_g_sVehicleData[TDW_g_sVehicleId][ei_pos_x]        =
-	TDW_g_sVehicleData[TDW_g_sVehicleId][ei_pos_y]        =
-	TDW_g_sVehicleData[TDW_g_sVehicleId][ei_pos_z]        =
-	TDW_g_sVehicleData[TDW_g_sVehicleId][ei_pos_rotation] = 0.0;
+	TDW_g_sVehicleData[vehicleid][ei_model_id]     =
+	TDW_g_sVehicleData[vehicleid][ei_color_1]      =
+	TDW_g_sVehicleData[vehicleid][ei_color_2]      = 0;
+	TDW_g_sVehicleData[vehicleid][ei_pos_x]        =
+	TDW_g_sVehicleData[vehicleid][ei_pos_y]        =
+	TDW_g_sVehicleData[vehicleid][ei_pos_z]        =
+	TDW_g_sVehicleData[vehicleid][ei_pos_rotation] = 0.0;
 
 	#if defined _TDW_VEHICLE_FOREACH_ARRAY
-	Iter_Remove(Vehicle, TDW_g_sVehicleId);
+	Iter_Remove(Vehicle, vehicleid);
 	#endif
 	#if _TDW_DEBUG_
 	printf(TDW_DEBUG_MSG@VDestroyed, vehicleid);
