@@ -21,6 +21,9 @@ freely, subject to the following restrictions:
 3.	This notice may not be removed or altered from any source distribution.
 \** ======================================================================== **/
 
+#if defined _inc_def
+	#undef _inc_def
+#endif
 #if defined _TDW_VEHICLE_DEF_INC_
 	#endinput
 #endif

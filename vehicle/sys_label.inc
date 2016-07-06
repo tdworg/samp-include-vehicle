@@ -21,6 +21,9 @@ freely, subject to the following restrictions:
 3.	This notice may not be removed or altered from any source distribution.
 \** ======================================================================== **/
 
+#if defined _inc_sys_label
+	#undef _inc_sys_label
+#endif
 #if defined _TDW_VEHICLE_S_LABEL_INC_
 	#endinput
 #endif
