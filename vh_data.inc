@@ -19,6 +19,9 @@ freely, subject to the following restrictions:
 3.	This notice may not be removed or altered from any source distribution.
 \** ======================================================================== **/
 
+#if defined _inc_vh_data
+	#undef _inc_vh_data
+#endif
 #if defined _TDW_VH_DATA_INC_
 	#endinput
 #endif

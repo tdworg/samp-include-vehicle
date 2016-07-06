@@ -19,6 +19,9 @@ freely, subject to the following restrictions:
 3.	This notice may not be removed or altered from any source distribution.
 \** ======================================================================== **/
 
+#if defined _inc_vhs_label
+	#undef _inc_vhs_label
+#endif
 #if defined _TDW_VHS_LABEL_INC_
 	#endinput
 #endif
