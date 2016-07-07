@@ -246,6 +246,22 @@ static stock const
 	TRAILER,   TRAILER
 };
 
+#if !defined IsVehicleModelTrailer
+	#define IsVehicleModelTrailer(%0)\
+		(IS_VALID_MODEL(%0) ? (TDW_g_sVehicleType[(%0) - MIN_VEHICLE_MODEL_ID]\
+			== TRAILER) : 0)
+#endif
+#if !defined IsVehicleModelTrain
+	#define IsVehicleModelTrain(%0)\
+		(IS_VALID_MODEL(%0) ? (TDW_g_sVehicleType[(%0) - MIN_VEHICLE_MODEL_ID]\
+			== TRAIN) : 0)
+#endif
+#if !defined IsVehicleModelPlane
+	#define IsVehicleModelPlane(%0)\
+		(IS_VALID_MODEL(%0) ? (TDW_g_sVehicleType[(%0) - MIN_VEHICLE_MODEL_ID]\
+			== PLANE) : 0)
+#endif
+
 stock
 	GetModelStaticSpeed(modelid)
 {
