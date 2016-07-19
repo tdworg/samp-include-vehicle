@@ -87,19 +87,20 @@ static stock
 	TDW_g_sVehicleS@TrlTimerName[] = !"@_TDW_TIMER_OnTrailerUpdate",
 	TDW_g_sVehicleS@TrlTimerArgs[] = !"dd";
 
-native BAD_AddStaticVehicle(modelid, Float:spawn_x, Float:spawn_y,
+// Natives
+native OLD_AddStaticVehicle(modelid, Float:spawn_x, Float:spawn_y,
 	Float:spawn_z, Float:z_angle, color1, color2) = AddStaticVehicle;
-native BAD_AddStaticVehicleEx(modelid, Float:spawn_x, Float:spawn_y,
+native OLD_AddStaticVehicleEx(modelid, Float:spawn_x, Float:spawn_y,
 	Float:spawn_z, Float:z_angle, color1, color2, respawn_delay,
 	addsiren) = AddStaticVehicleEx;
-native BAD_CreateVehicle(vehicletype, Float:x, Float:y, Float:z,
+native OLD_CreateVehicle(vehicletype, Float:x, Float:y, Float:z,
 	Float:rotation, color1, color2, respawn_delay, addsiren) = CreateVehicle;
-native BAD_DestroyVehicle(vehicleid) = DestroyVehicle;
-native BAD_SetVehicleToRespawn(vehicleid) = SetVehicleToRespawn;
-native BAD_SetVehicleVirtualWorld(vehicleid, worldid) = SetVehicleVirtualWorld;
-native BAD_AttachTrailerToVehicle(trailerid, vehicleid) =
+native OLD_DestroyVehicle(vehicleid) = DestroyVehicle;
+native OLD_SetVehicleToRespawn(vehicleid) = SetVehicleToRespawn;
+native OLD_SetVehicleVirtualWorld(vehicleid, worldid) = SetVehicleVirtualWorld;
+native OLD_AttachTrailerToVehicle(trailerid, vehicleid) =
 	AttachTrailerToVehicle;
-native BAD_DetachTrailerFromVehicle(vehicleid) = DetachTrailerFromVehicle;
+native OLD_DetachTrailerFromVehicle(vehicleid) = DetachTrailerFromVehicle;
 
 #if _TDW_DEBUG_
 static const
@@ -116,19 +117,20 @@ stock
 		spawn_z, z_angle, color1, color2)) != INVALID_VEHICLE_ID)
 	{
 		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_model_id]     = modelid;
-		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_color_1]      = color1;
-		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_color_2]      = color2;
 		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_pos_x]        = spawn_x;
 		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_pos_y]        = spawn_y;
 		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_pos_z]        = spawn_z;
 		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_pos_rotation] = z_angle;
+		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_color_1]      = color1;
+		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_color_2]      = color2;
 
 		#if defined _TDW_VEHICLE_FOREACH_ARRAY
-		Iter_Add(Vehicle, TDW_g_sVehicleId);
+			Iter_Add(Vehicle, TDW_g_sVehicleId);
 		#endif
+			
 		#if _TDW_DEBUG_
-		static const debug[] = "AddStaticVehicle";
-		printf(TDW_DEBUG_MSG@VCreated, TDW_g_sVehicleId, AddStaticVehicle);
+			static const debug[] = "AddStaticVehicle";
+			printf(TDW_DEBUG_MSG@VCreated, TDW_g_sVehicleId, AddStaticVehicle);
 		#endif
 	}
 	return TDW_g_sVehicleId;
@@ -150,20 +152,22 @@ stock
 		spawn_z, z_angle, color1, color2, respawn_delay, addsiren)) !=
 		INVALID_VEHICLE_ID)
 	{
+		// Static data
 		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_model_id]     = modelid;
-		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_color_1]      = color1;
-		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_color_2]      = color2;
 		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_pos_x]        = spawn_x;
 		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_pos_y]        = spawn_y;
 		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_pos_z]        = spawn_z;
 		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_pos_rotation] = z_angle;
+		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_color_1]      = color1;
+		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_color_2]      = color2;
 
 		#if defined _TDW_VEHICLE_FOREACH_ARRAY
-		Iter_Add(Vehicle, TDW_g_sVehicleId);
+			Iter_Add(Vehicle, TDW_g_sVehicleId);
 		#endif
+
 		#if _TDW_DEBUG_
-		static const debug[] = "AddStaticVehicleEx";
-		printf(TDW_DEBUG_MSG@VCreated, TDW_g_sVehicleId, AddStaticVehicle);
+			static const debug[] = "AddStaticVehicleEx";
+			printf(TDW_DEBUG_MSG@VCreated, TDW_g_sVehicleId, AddStaticVehicle);
 		#endif
 	}
 	return TDW_g_sVehicleId;
@@ -183,6 +187,7 @@ stock
 	if ((TDW_g_sVehicleId = CreateVehicle(vehicletype, x, y, z, rotation,
 		color1, color2, respawn_delay, addsiren)) != INVALID_VEHICLE_ID)
 	{
+		// Static data
 		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_model_id]     = modelid;
 		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_color_1]      = color1;
 		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_color_2]      = color2;
@@ -192,11 +197,12 @@ stock
 		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_pos_rotation] = rotation;
 
 		#if defined _TDW_VEHICLE_FOREACH_ARRAY
-		Iter_Add(Vehicle, TDW_g_sVehicleId);
+			Iter_Add(Vehicle, TDW_g_sVehicleId);
 		#endif
+
 		#if _TDW_DEBUG_
-		static const debug[] = "CreateVehicle";
-		printf(TDW_DEBUG_MSG@VCreated, TDW_g_sVehicleId, AddStaticVehicle);
+			static const debug[] = "CreateVehicle";
+			printf(TDW_DEBUG_MSG@VCreated, TDW_g_sVehicleId, AddStaticVehicle);
 		#endif
 	}
 	return TDW_g_sVehicleId;
