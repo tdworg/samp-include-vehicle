@@ -95,6 +95,8 @@ Many useful libraries and systems for vehicles
 | `INVALID_VEHICLE_ID`                    | 3                                             |                      |
 | `MAX_INTERIORS`                         | 18                                            |                      |
 | `MAX_VEHICLE_MODEL_ID`                  | 611                                           |                      |
+| `MAX_VEHICLE_PASSENGERS`                | 8                                             |                      |
+| `MAX_VEHICLE_DOORS`                     | 4                                             |                      |
 | `MIN_VEHICLE_MODEL_ID`                  | 400                                           |                      |
 | `MAX_VEHICLE_MODELS`                    | `MAX_VEHICLE_MODEL_ID - MIN_VEHICLE_MODEL_ID` |                      |
 | `TDW_MAX_TIMER_INTERVAL`   (_internal_) | 300                                           | for a surfing timer  |
@@ -111,7 +113,7 @@ You can define special constants before `a_samp`.
 | TDW\_VEHICLE\_NOT\_USE\_FOREACH        | -                                               |
 | TDW\_VEHICLE\_NOT\_USE\_STREAMER       | -                                               |
 | TDW\_VEHICLE\_NOT\_USE\_SSCANF         | -                                               |
-| \_TDW\_VEHICLE\_NOT\_USE\_PUBLICS      | If you don't want to use the functions(publics) |
+| \_TDW\_VEHICLE\_NOT\_USE\_PUBLICS      | If you don't want to use the callback           |
 | \_TDW\_NOT\_USE\_TRAILER\_UPDATE       | -                                               |
 
 #### New callbacks list:
