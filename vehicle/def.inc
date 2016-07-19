@@ -29,6 +29,8 @@ freely, subject to the following restrictions:
 #endif
 #define _TDW_VEHICLE_DEF_INC_
 
+#include <a_samp>
+
 #define _TDW_SAMP_INC_VERSION_037     0x037
 // #define _TDW_SAMP_INC_VERSION_03zR4   0x03f111
 // #define _TDW_SAMP_INC_VERSION_03zR2_2 0x03f110

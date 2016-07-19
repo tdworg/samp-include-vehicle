@@ -2,6 +2,12 @@
 
 Many useful libraries and systems for vehicles
 
+#### How to use
+
+```PAWN
+#include <vh_data>
+```
+
 #### Libraries list
 * vh_data
 * vh_sadata
