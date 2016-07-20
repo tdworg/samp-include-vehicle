@@ -99,7 +99,7 @@ Many useful libraries and systems for vehicles
 |-----------------------------------------|:----------------------------------------------|----------------------|
 | `VEHICLE_PAINTJOB_MIN`                  | 0                                             |                      |
 | `VEHICLE_PAINTJOB_MAX`                  | 2                                             |                      |
-| `INVALID_VEHICLE_ID`                    | 3                                             |                      |
+| `INVALID_VEHICLE_PAINTJOB_ID`           | 3                                             |                      |
 | `MAX_INTERIORS`                         | 18                                            |                      |
 | `MAX_VEHICLE_MODEL_ID`                  | 611                                           |                      |
 | `MAX_VEHICLE_PASSENGERS`                | 8                                             |                      |
