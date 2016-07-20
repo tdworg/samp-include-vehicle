@@ -82,8 +82,8 @@ freely, subject to the following restrictions:
 	#define VEHICLE_PAINTJOB_MAX (2)
 #endif
 
-#if !defined INVALID_VEHICLE_ID
-	#define INVALID_VEHICLE_ID (3)
+#if !defined INVALID_VEHICLE_PAINTJOB_ID
+	#define INVALID_VEHICLE_PAINTJOB_ID (3)
 #endif
 
 #if !defined MAX_INTERIORS
