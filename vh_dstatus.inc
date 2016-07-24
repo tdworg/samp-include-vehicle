@@ -1,6 +1,6 @@
 /** ======================================================================== **\
 | Name:
-	Vehicle SanAndreas data
+	Vehicle Damage Status
 
 | Category:
 	core
@@ -29,15 +29,15 @@ freely, subject to the following restrictions:
 \** ======================================================================== **/
 
 
-#if defined _inc_vh_sadata
-	#undef _inc_vh_sadata
+#if defined _inc_vh_dstatus
+	#undef _inc_vh_dstatus
 #endif
 
-#if defined _TDW_VEHICLE_SADATA
+#if defined _TDW_VEHICLE_DSTATUS
 	#endinput
 #endif
 
-#define _TDW_VEHICLE_SADATA
+#define _TDW_VEHICLE_DSTATUS
 
 #include "vehicle/utility"
-#include "vehicle/data/vehicle_sa_data"
+#include "vehicle/utils/vehicle_damage_status"

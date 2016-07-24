@@ -1,6 +1,6 @@
 /** ======================================================================== **\
 | Name:
-	Vehicle SanAndreas data
+	Vehicle Iterator data
 
 | Category:
 	core
@@ -29,15 +29,16 @@ freely, subject to the following restrictions:
 \** ======================================================================== **/
 
 
-#if defined _inc_vh_sadata
-	#undef _inc_vh_sadata
+#if defined _inc_vh_iterator
+	#undef _inc_vh_iterator
 #endif
 
-#if defined _TDW_VEHICLE_SADATA
+#if defined _TDW_VEHICLE_ITERATOR
 	#endinput
 #endif
 
-#define _TDW_VEHICLE_SADATA
+#define _TDW_VEHICLE_ITERATOR
 
 #include "vehicle/utility"
-#include "vehicle/data/vehicle_sa_data"
+#include "vehicle/data/vehicle_iterator"
+#include "vehicle/data/vehicle_static_data"

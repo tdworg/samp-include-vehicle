@@ -1,6 +1,6 @@
 /** ======================================================================== **\
 | Name:
-	Vehicle SanAndreas data
+	Vehicle Additionally data
 
 | Category:
 	core
@@ -29,15 +29,15 @@ freely, subject to the following restrictions:
 \** ======================================================================== **/
 
 
-#if defined _inc_vh_sadata
-	#undef _inc_vh_sadata
+#if defined _inc_vh_addata
+	#undef _inc_vh_addata
 #endif
 
-#if defined _TDW_VEHICLE_SADATA
+#if defined _TDW_VEHICLE_ADDATA
 	#endinput
 #endif
 
-#define _TDW_VEHICLE_SADATA
+#define _TDW_VEHICLE_ADDATA
 
 #include "vehicle/utility"
-#include "vehicle/data/vehicle_sa_data"
+#include "vehicle/data/vehicle_additionally_data"

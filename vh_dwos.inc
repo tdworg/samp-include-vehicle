@@ -1,4 +1,13 @@
 /** ======================================================================== **\
+| Name:
+	Vehicle Doors & Windows
+
+| Category:
+	core
+
+| Version:
+	2.0.1
+
 | License:
 Copyright (c) 2016 Double V
 
@@ -19,13 +28,17 @@ freely, subject to the following restrictions:
 3.	This notice may not be removed or altered from any source distribution.
 \** ======================================================================== **/
 
-#if defined _inc_vhs_label
-	#undef _inc_vhs_label
+
+#if defined _inc_vh_dwos
+	#undef _inc_vh_dwos
 #endif
-#if defined _TDW_VHS_LABEL_INC_
+
+#if defined _TDW_VEHICLE_DWOS
 	#endinput
 #endif
-#define _TDW_VHS_LABEL_INC_
 
-#include "vehicle/def"
-#include "vehicle/sys_label"
+#define _TDW_VEHICLE_DWOS
+
+#include "vehicle/utility"
+#include "vehicle/utils/vehicle_doors"
+#include "vehicle/utils/vehicle_windows"

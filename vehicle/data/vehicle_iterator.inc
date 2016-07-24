@@ -1,4 +1,13 @@
 /** ======================================================================== **\
+| Name:
+	Vehicle Static Data
+
+| Category:
+	data
+
+| Version:
+	2.0.1
+
 | License:
 Copyright (c) 2016 Double V
 
@@ -19,13 +28,27 @@ freely, subject to the following restrictions:
 3.	This notice may not be removed or altered from any source distribution.
 \** ======================================================================== **/
 
-#if defined _inc_vh_data
-	#undef _inc_vh_data
+
+#if defined _inc_vehicle_iterator
+	#undef _inc_vehicle_iterator
 #endif
-#if defined _TDW_VH_DATA_INC_
+
+#if defined _TDW_VEHICLE_D_ITERATOR
 	#endinput
 #endif
-#define _TDW_VH_DATA_INC_
 
-#include "vehicle/def"
-#include "vehicle/data"
+#define _TDW_VEHICLE_D_ITERATOR
+
+// Creates the foreach array.
+#if defined _TDW_VEHICLE_FOREACH_DEFINED
+	#if _TDW_VEHICLE_FOREACH_DEFINED
+		#if !defined Vehicle@YSII_Ag
+			new Iterator:Vehicle<MAX_VEHICLES>;
+		#endif
+		#if !defined _TDW_VEHICLE_FOREACH_ARRAY
+			#define _TDW_VEHICLE_FOREACH_ARRAY 1
+		#endif
+		// The variables can't be used in the code.
+		#pragma unused Vehicle@YSII_Ag, Vehicle@YSII_Cg
+	#endif
+#endif

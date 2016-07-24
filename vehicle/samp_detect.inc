@@ -1,6 +1,6 @@
 /** ======================================================================== **\
 | Name:
-	Vehicle SanAndreas data
+	Detect the other libaries
 
 | Category:
 	core
@@ -29,15 +29,16 @@ freely, subject to the following restrictions:
 \** ======================================================================== **/
 
 
-#if defined _inc_vh_sadata
-	#undef _inc_vh_sadata
+#if defined _inc_samp_detect
+	#undef _inc_samp_detect
 #endif
 
-#if defined _TDW_VEHICLE_SADATA
+#if defined _TDW_VEHICLE_DETECT
 	#endinput
 #endif
 
-#define _TDW_VEHICLE_SADATA
+#define _TDW_VEHICLE_DETECT
 
-#include "vehicle/utility"
-#include "vehicle/data/vehicle_sa_data"
+#include "vehicle/detect/foreach"
+#include "vehicle/detect/sscanf"
+#include "vehicle/detect/streamer"

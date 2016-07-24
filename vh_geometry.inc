@@ -1,6 +1,6 @@
 /** ======================================================================== **\
 | Name:
-	Vehicle SanAndreas data
+	Vehicle Geometry
 
 | Category:
 	core
@@ -29,15 +29,15 @@ freely, subject to the following restrictions:
 \** ======================================================================== **/
 
 
-#if defined _inc_vh_sadata
-	#undef _inc_vh_sadata
+#if defined _inc_vh_geometry
+	#undef _inc_vh_geometry
 #endif
 
-#if defined _TDW_VEHICLE_SADATA
+#if defined _TDW_VEHICLE_GEOMETRY
 	#endinput
 #endif
 
-#define _TDW_VEHICLE_SADATA
+#define _TDW_VEHICLE_GEOMETRY
 
 #include "vehicle/utility"
-#include "vehicle/data/vehicle_sa_data"
+#include "vehicle/utils/vehicle_geometry"

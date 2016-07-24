@@ -1,6 +1,6 @@
 /** ======================================================================== **\
 | Name:
-	Vehicle SanAndreas data
+	Utility
 
 | Category:
 	core
@@ -29,15 +29,52 @@ freely, subject to the following restrictions:
 \** ======================================================================== **/
 
 
-#if defined _inc_vh_sadata
-	#undef _inc_vh_sadata
+#if defined _inc_utility
+	#undef _inc_utility
 #endif
 
-#if defined _TDW_VEHICLE_SADATA
+#if defined _TDW_VEHICLE_UTILITY
 	#endinput
 #endif
 
-#define _TDW_VEHICLE_SADATA
+#define _TDW_VEHICLE_UTILITY
 
-#include "vehicle/utility"
-#include "vehicle/data/vehicle_sa_data"
+
+#if !defined MIN_VEHICLE_PAINTJOB
+	#define MIN_VEHICLE_PAINTJOB (0)
+#endif
+#if !defined MAX_VEHICLE_PAINTJOB
+	#define MAX_VEHICLE_PAINTJOB (3)
+#endif
+#if !defined IS_PAINTJOB_VALID
+	#define IS_PAINTJOB_VALID(%0) \
+		(MIN_VEHICLE_PAINTJOB <= (%0) <= MAX_VEHICLE_PAINTJOB)
+#endif
+
+// Model limits
+#if !defined MAX_VEHICLE_MODEL
+	#define MAX_VEHICLE_MODEL (611)
+#endif
+#if !defined MIN_VEHICLE_MODEL
+	#define MIN_VEHICLE_MODEL (400)
+#endif
+#if !defined MAX_VEHICLE_MODELS
+	#define MAX_VEHICLE_MODELS (MAX_VEHICLE_MODEL - MIN_VEHICLE_MODEL)
+#endif
+#if !defined IS_VALID_MODEL
+	#define IS_VALID_MODEL(%0) (MIN_VEHICLE_MODEL <= (%0) <= MAX_VEHICLE_MODEL)
+#endif
+
+#if !defined _TDW_DEBUG && defined _DEBUG
+	#define _TDW_DEBUG 1
+#else
+	#define _TDW_DEBUG 0
+#endif
+
+#if !defined MAX_VEHICLE_PASSENGERS
+	#define MAX_VEHICLE_PASSENGERS (8)
+#endif
+
+#if !defined IsValidVehicle
+	native IsValidVehicle(vehicleid);
+#endif
