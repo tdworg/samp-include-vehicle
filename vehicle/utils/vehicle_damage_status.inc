@@ -40,6 +40,16 @@ freely, subject to the following restrictions:
 #define _TDW_VEHICLE_U_DSTATUS
 
 
+@__TDW_VEHICLE_UTILS__FIX();
+@__TDW_VEHICLE_UTILS__FIX()
+{
+	#emit retn
+	// The stock compiler crashes because of using sysreq.c on a native
+	// function.
+	UpdateVehicleDamageStatus(0, 0, 0, 0, 0);
+}
+
+
 static stock TDW_g_sDataStorage;
 
 stock
