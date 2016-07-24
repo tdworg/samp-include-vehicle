@@ -78,8 +78,7 @@ stock
 }
 
 
-native Original_SetVehicleVirtualWorld(vehicleid,
-	worldid) = SetVehicleVirtualWorld;
+native nts_SetVehicleVirtualWorld(vehicleid, worldid) = SetVehicleVirtualWorld;
 
 stock
 	TDWVH@SetVehicleVirtualWorld(vehicleid, worldid)

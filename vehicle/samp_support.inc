@@ -74,7 +74,7 @@ freely, subject to the following restrictions:
 	#elseif defined RemoveBuildingForPlayer || defined OnPlayerTakeDamage
 		#define _TDW_SAMP_INCLUDE_VERSION _TDW_SAMP_INC_VERSION_03d
 	// 0.3c
-	#elseif defined SetVehicleNumberPlate || defined GetPlayerSurfingObjectID 
+	#elseif defined SetVehicleNumberPlate || defined GetPlayerSurfingObjectID
 		#define _TDW_SAMP_INCLUDE_VERSION _TDW_SAMP_INC_VERSION_03c
 	// 0.3b
 	#elseif defined GetVehicleRotationQuat || defined SetVehicleAngularVelocity
