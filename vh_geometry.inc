@@ -1,6 +1,6 @@
 /** ======================================================================== **\
 | Name:
-	Vehicle Label system
+	Vehicle Geometry
 
 | Category:
 	core
@@ -29,16 +29,15 @@ freely, subject to the following restrictions:
 \** ======================================================================== **/
 
 
-#if defined _inc_vhs_label
-	#undef _inc_vhs_label
+#if defined _inc_vh_geometry
+	#undef _inc_vh_geometry
 #endif
 
-#if defined _TDW_VEHICLE_LABEL
+#if defined _TDW_VEHICLE_GEOMETRY
 	#endinput
 #endif
 
-#define _TDW_VEHICLE_LABEL
+#define _TDW_VEHICLE_GEOMETRY
 
-#include "vehicle/samp_detect"
 #include "vehicle/utility"
-#include "vehicle/system/vehicle_label"
+#include "vehicle/utils/vehicle_geometry"

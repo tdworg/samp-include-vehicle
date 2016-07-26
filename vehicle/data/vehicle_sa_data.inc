@@ -1,5 +1,12 @@
 /** ======================================================================== **\
-	San Andreas Vehicle Data
+| Name:
+	Vehicle SanAndreas Data
+
+| Category:
+	data
+
+| Version:
+	2.0.1
 
 | License:
 Copyright (c) 2016 Double V
@@ -21,15 +28,36 @@ freely, subject to the following restrictions:
 3.	This notice may not be removed or altered from any source distribution.
 \** ======================================================================== **/
 
-#if defined _inc_sa_data
-	#undef _inc_sa_data
+
+#if defined _inc_vehicle_sa_data
+	#undef _inc_vehicle_sa_data
 #endif
-#if defined _TDW_VEHICLE_SA_DATA_INC_
+
+#if defined _TDW_VEHICLE_D_SA_DATA
 	#endinput
 #endif
-#define _TDW_VEHICLE_SA_DATA_INC_
 
-enum e_VEHICLE_CATEGORY
+#define _TDW_VEHICLE_D_SA_DATA
+
+
+#if !defined IsVehicleModelTrailer
+	#define IsVehicleModelTrailer(%0)\
+		(IS_VALID_MODEL(%0) ? (TDW_g_sVehicleType[(%0) - MIN_VEHICLE_MODEL]\
+			== TRAILER) : 0)
+#endif
+#if !defined IsVehicleModelTrain
+	#define IsVehicleModelTrain(%0)\
+		(IS_VALID_MODEL(%0) ? (TDW_g_sVehicleType[(%0) - MIN_VEHICLE_MODEL]\
+			== TRAIN) : 0)
+#endif
+#if !defined IsVehicleModelPlane
+	#define IsVehicleModelPlane(%0)\
+		(IS_VALID_MODEL(%0) ? (TDW_g_sVehicleType[(%0) - MIN_VEHICLE_MODEL]\
+			== PLANE) : 0)
+#endif
+
+
+enum e_TDW_VEHICLE_CATEGORY
 {
 	OFF_ROAD,
 	SALOONS,
@@ -46,7 +74,7 @@ enum e_VEHICLE_CATEGORY
 	AIRPLANE
 };
 
-enum e_VEHICLE_TYPE
+enum e_TDW_VEHICLE_TYPE
 {
 	CAR,
 	HELICOPTE,
@@ -59,8 +87,9 @@ enum e_VEHICLE_TYPE
 	RC
 };
 
+
 static stock const
-	TDW_g_sVehicleSpeed[MAX_VEHICLE_MODELS + 1] = 
+	TDW_g_sVehicleSpeed[MAX_VEHICLE_MODELS + 1] =
 {
 	160, 160, 200, 120, 150, 165, 110, 170, 110, 180, 160, 240, 160, 160, 140,
 	230, 155, 200, 150, 160, 180, 180, 165, 145, 170, 200, 200, 170, 170, 200,
@@ -122,39 +151,7 @@ static stock const
 	!"Glendale Shit", !"Sadler Shit", !"Baggage Trailer \"A\"",
 	!"Baggage Trailer \"B\"", !"Tug Stairs Trailer", !"Boxville",
 	!"Farm Trailer", !"Utility Trailer"
-};
-
-enum e_TDW_VEHICLE_CATEGORY
-{
-	OFF_ROAD,
-	SALOONS,
-	SPORT,
-	INDUSTRIAL,
-	STATION_WAGONS,
-	UNIQUE,
-	PUBLIC_SERVICE,
-	LOWRIDERS,
-	RC,
-	HELICOPTERS,
-	BOATS,
-	TRAILERS,
-	AIRPLANE
-};
-
-enum e_TDW_VEHICLE_TYPE
-{
-	CAR,
-	HELICOPTE,
-	BOAT,
-	TRAILER,
-	MOTORBIKE,
-	TRAIN,
-	PLANE,
-	BIKE,
-	RC
-};
-
-static stock const
+},
 	e_TDW_VEHICLE_CATEGORY:TDW_g_sVehicleCategory[MAX_VEHICLE_MODELS + 1] =
 {
 	OFF_ROAD,       SALOONS,        SPORT,          INDUSTRIAL,
@@ -236,7 +233,7 @@ static stock const
 	CAR,       CAR,       CAR,       CAR,       CAR,       CAR,       CAR,
 	CAR,       HELICOPTE, CAR,       CAR,       CAR,       CAR,       PLANE,
 	CAR,       CAR,       CAR,       CAR,       CAR,       CAR,       CAR,
-	CAR,       CAR,       HELICOPTE, RC,        CAR,       CAR,       CAR, 
+	CAR,       CAR,       HELICOPTE, RC,        CAR,       CAR,       CAR,
 	CAR,       TRAIN,     TRAIN,     RC,        CAR,       CAR,       CAR,
 	CAR,       CAR,       PLANE,     CAR,       CAR,       CAR,       MOTORBIKE,
 	CAR,       CAR,       TRAILER,   CAR,       MOTORBIKE, CAR,       CAR,
@@ -246,28 +243,13 @@ static stock const
 	TRAILER,   TRAILER
 };
 
-#if !defined IsVehicleModelTrailer
-	#define IsVehicleModelTrailer(%0)\
-		(IS_VALID_MODEL(%0) ? (TDW_g_sVehicleType[(%0) - MIN_VEHICLE_MODEL_ID]\
-			== TRAILER) : 0)
-#endif
-#if !defined IsVehicleModelTrain
-	#define IsVehicleModelTrain(%0)\
-		(IS_VALID_MODEL(%0) ? (TDW_g_sVehicleType[(%0) - MIN_VEHICLE_MODEL_ID]\
-			== TRAIN) : 0)
-#endif
-#if !defined IsVehicleModelPlane
-	#define IsVehicleModelPlane(%0)\
-		(IS_VALID_MODEL(%0) ? (TDW_g_sVehicleType[(%0) - MIN_VEHICLE_MODEL_ID]\
-			== PLANE) : 0)
-#endif
 
 stock
 	GetModelStaticSpeed(modelid)
 {
 	if (IS_VALID_MODEL(modelid) == 0)
 		return -1;
-	return TDW_g_sVehicleSpeed[modelid - MIN_VEHICLE_MODEL_ID];
+	return TDW_g_sVehicleSpeed[modelid - MIN_VEHICLE_MODEL];
 }
 
 stock
@@ -277,7 +259,7 @@ stock
 	{
 		if (strcmp(name, TDW_g_sVehicleNames[i], true) != 0)
 			continue;
-		return i + MIN_VEHICLE_MODEL_ID;
+		return i + MIN_VEHICLE_MODEL;
 	}
 	return 0;
 }
@@ -288,7 +270,8 @@ stock
 	if (IS_VALID_MODEL(modelid) == 0)
 		return _:(name[0] = '\0');
 	return strcat((name[0] = '\0', name),
-		TDW_g_sVehicleNames[modelid - MIN_VEHICLE_MODEL_ID]);
+		TDW_g_sVehicleNames[modelid - MIN_VEHICLE_MODEL]
+	);
 }
 
 stock
@@ -296,7 +279,7 @@ stock
 {
 	if (IS_VALID_MODEL(modelid) == 0)
 		return -1;
-	return TDW_g_sVehicleCategory[modelid - MIN_VEHICLE_MODEL_ID];
+	return TDW_g_sVehicleCategory[modelid - MIN_VEHICLE_MODEL];
 }
 
 stock
@@ -304,5 +287,5 @@ stock
 {
 	if (IS_VALID_MODEL(modelid) == 0)
 		return -1;
-	return TDW_g_sVehicleType[modelid - MIN_VEHICLE_MODEL_ID];
+	return TDW_g_sVehicleType[modelid - MIN_VEHICLE_MODEL];
 }

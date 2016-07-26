@@ -1,6 +1,6 @@
 /** ======================================================================== **\
 | Name:
-	Vehicle Label system
+	Vehicle Iterator data
 
 | Category:
 	core
@@ -29,16 +29,16 @@ freely, subject to the following restrictions:
 \** ======================================================================== **/
 
 
-#if defined _inc_vhs_label
-	#undef _inc_vhs_label
+#if defined _inc_vh_iterator
+	#undef _inc_vh_iterator
 #endif
 
-#if defined _TDW_VEHICLE_LABEL
+#if defined _TDW_VEHICLE_ITERATOR
 	#endinput
 #endif
 
-#define _TDW_VEHICLE_LABEL
+#define _TDW_VEHICLE_ITERATOR
 
-#include "vehicle/samp_detect"
 #include "vehicle/utility"
-#include "vehicle/system/vehicle_label"
+#include "vehicle/data/vehicle_iterator"
+#include "vehicle/data/vehicle_static_data"

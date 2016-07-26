@@ -1,4 +1,13 @@
 /** ======================================================================== **\
+| Name:
+	Streamer support
+
+| Category:
+	core
+
+| Version:
+	2.0.1
+
 | License:
 Copyright (c) 2016 Double V
 
@@ -19,14 +28,33 @@ freely, subject to the following restrictions:
 3.	This notice may not be removed or altered from any source distribution.
 \** ======================================================================== **/
 
-#if defined _inc_vhs_surfing
-	#undef _inc_vhs_surfing
+
+#if defined _inc_streamer
+	#undef _inc_streamer
 #endif
-#if defined _TDW_VHS_SURFING_INC_
+
+#if defined _TDW_VEHICLE_STREAMER
 	#endinput
 #endif
-#define _TDW_VHS_SURFING_INC_
 
-#include "vehicle/def"
-#include "vehicle/utils"
-#include "vehicle/sys_surfing"
+#define _TDW_VEHICLE_STREAMER
+
+
+#if !defined _TDW_VEHICLE_STREAMER_DEFINED
+	// You can define this constant to disable the streamer library.
+	#if defined TDW_VEHICLE_NOT_USE_STREAMER
+		#define _TDW_VEHICLE_STREAMER_DEFINED 0
+	#elseif !defined Streamer_IncludeFileVersion
+		#tryinclude <streamer>
+		#if defined Streamer_IncludeFileVersion
+			#define _TDW_VEHICLE_STREAMER_DEFINED 1
+		#else
+			#tryinclude "../include/streamer.inc"
+			#if defined Streamer_IncludeFileVersion
+				#define _TDW_VEHICLE_STREAMER_DEFINED 1
+			#else
+				#define _TDW_VEHICLE_STREAMER_DEFINED 0
+			#endif
+		#endif
+	#endif
+#endif

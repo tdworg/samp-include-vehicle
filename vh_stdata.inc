@@ -1,6 +1,6 @@
 /** ======================================================================== **\
 | Name:
-	Vehicle Label system
+	Vehicle Static data
 
 | Category:
 	core
@@ -29,16 +29,15 @@ freely, subject to the following restrictions:
 \** ======================================================================== **/
 
 
-#if defined _inc_vhs_label
-	#undef _inc_vhs_label
+#if defined _inc_vh_stdata
+	#undef _inc_vh_stdata
 #endif
 
-#if defined _TDW_VEHICLE_LABEL
+#if defined _TDW_VEHICLE_STDATA
 	#endinput
 #endif
 
-#define _TDW_VEHICLE_LABEL
+#define _TDW_VEHICLE_STDATA
 
-#include "vehicle/samp_detect"
 #include "vehicle/utility"
-#include "vehicle/system/vehicle_label"
+#include "vehicle/data/vehicle_static_data"

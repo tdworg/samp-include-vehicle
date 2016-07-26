@@ -1,6 +1,6 @@
 /** ======================================================================== **\
 | Name:
-	Vehicle Label system
+	Detect the other libaries
 
 | Category:
 	core
@@ -29,16 +29,16 @@ freely, subject to the following restrictions:
 \** ======================================================================== **/
 
 
-#if defined _inc_vhs_label
-	#undef _inc_vhs_label
+#if defined _inc_samp_detect
+	#undef _inc_samp_detect
 #endif
 
-#if defined _TDW_VEHICLE_LABEL
+#if defined _TDW_VEHICLE_DETECT
 	#endinput
 #endif
 
-#define _TDW_VEHICLE_LABEL
+#define _TDW_VEHICLE_DETECT
 
-#include "vehicle/samp_detect"
-#include "vehicle/utility"
-#include "vehicle/system/vehicle_label"
+#include "vehicle/detect/foreach"
+#include "vehicle/detect/sscanf"
+#include "vehicle/detect/streamer"
