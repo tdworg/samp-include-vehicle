@@ -1,4 +1,13 @@
 /** ======================================================================== **\
+| Name:
+	Vehicle SanAndreas data
+
+| Category:
+	core
+
+| Version:
+	2.0.1
+
 | License:
 Copyright (c) 2016 Double V
 
@@ -19,13 +28,16 @@ freely, subject to the following restrictions:
 3.	This notice may not be removed or altered from any source distribution.
 \** ======================================================================== **/
 
+
 #if defined _inc_vh_sadata
 	#undef _inc_vh_sadata
 #endif
-#if defined _TDW_VH_SADATA_INC_
+
+#if defined _TDW_VEHICLE_SADATA
 	#endinput
 #endif
-#define _TDW_VH_SADATA_INC_
 
-#include "vehicle/def"
-#include "vehicle/sa_data"
+#define _TDW_VEHICLE_SADATA
+
+#include "vehicle/utility"
+#include "vehicle/data/vehicle_sa_data"

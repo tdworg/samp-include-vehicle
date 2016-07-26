@@ -1,9 +1,9 @@
 /** ======================================================================== **\
 | Name:
-	Vehicle Label system
+	Vehicle Static Data
 
 | Category:
-	core
+	data
 
 | Version:
 	2.0.1
@@ -29,16 +29,26 @@ freely, subject to the following restrictions:
 \** ======================================================================== **/
 
 
-#if defined _inc_vhs_label
-	#undef _inc_vhs_label
+#if defined _inc_vehicle_iterator
+	#undef _inc_vehicle_iterator
 #endif
 
-#if defined _TDW_VEHICLE_LABEL
+#if defined _TDW_VEHICLE_D_ITERATOR
 	#endinput
 #endif
 
-#define _TDW_VEHICLE_LABEL
+#define _TDW_VEHICLE_D_ITERATOR
 
-#include "vehicle/samp_detect"
-#include "vehicle/utility"
-#include "vehicle/system/vehicle_label"
+// Creates the foreach array.
+#if defined _TDW_VEHICLE_FOREACH_DEFINED
+	#if _TDW_VEHICLE_FOREACH_DEFINED
+		#if !defined Vehicle@YSII_Ag
+			new Iterator:Vehicle<MAX_VEHICLES>;
+		#endif
+		#if !defined _TDW_VEHICLE_FOREACH_ARRAY
+			#define _TDW_VEHICLE_FOREACH_ARRAY 1
+		#endif
+		// The variables can't be used in the code.
+		#pragma unused Vehicle@YSII_Ag, Vehicle@YSII_Cg
+	#endif
+#endif

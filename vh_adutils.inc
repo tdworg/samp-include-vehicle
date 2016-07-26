@@ -1,4 +1,13 @@
 /** ======================================================================== **\
+| Name:
+	Vehicle Additionally
+
+| Category:
+	core
+
+| Version:
+	2.0.1
+
 | License:
 Copyright (c) 2016 Double V
 
@@ -19,13 +28,16 @@ freely, subject to the following restrictions:
 3.	This notice may not be removed or altered from any source distribution.
 \** ======================================================================== **/
 
-#if defined _inc_vh_utils
-	#undef _inc_vh_utils
+
+#if defined _inc_vh_adutils
+	#undef _inc_vh_adutils
 #endif
-#if defined _TDW_VH_UTILS_INC_
+
+#if defined _TDW_VEHICLE_ADUTILS
 	#endinput
 #endif
-#define _TDW_VH_UTILS_INC_
 
-#include "vehicle/def"
-#include "vehicle/utils"
+#define _TDW_VEHICLE_ADUTILS
+
+#include "vehicle/utility"
+#include "vehicle/utils/vehicle_additionally"

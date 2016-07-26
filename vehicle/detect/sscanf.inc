@@ -1,4 +1,13 @@
 /** ======================================================================== **\
+| Name:
+	Sscanf support
+
+| Category:
+	core
+
+| Version:
+	2.0.1
+
 | License:
 Copyright (c) 2016 Double V
 
@@ -19,13 +28,47 @@ freely, subject to the following restrictions:
 3.	This notice may not be removed or altered from any source distribution.
 \** ======================================================================== **/
 
-#if defined _inc_vh_data
-	#undef _inc_vh_data
+
+#if defined _inc_sscanf
+	#undef _inc_sscanf
 #endif
-#if defined _TDW_VH_DATA_INC_
+
+#if defined _TDW_VEHICLE_SSCANF
 	#endinput
 #endif
-#define _TDW_VH_DATA_INC_
 
-#include "vehicle/def"
-#include "vehicle/data"
+#define _TDW_VEHICLE_SSCANF
+
+
+#if !defined _TDW_VEHICLE_SSCANF_DEFINED
+	// You can define this constant to disable the sscanf2/3 library.
+	#if defined TDW_VEHICLE_NOT_USE_SSCANF
+		#define _TDW_VEHICLE_SSCANF_DEFINED 0
+	#elseif !defined sscanf
+		#tryinclude <sscanf2>
+		#if defined sscanf
+			#define _TDW_VEHICLE_SSCANF_DEFINED 1
+		#else
+			#if !defined sscanf
+				#tryinclude "../include/sscanf2"
+				#if defined sscanf
+					#define _TDW_VEHICLE_SSCANF_DEFINED 1
+				#endif
+			#endif
+			#if !defined sscanf
+				#tryinclude "../include/sscanf3"
+				#if defined sscanf
+					#define _TDW_VEHICLE_SSCANF_DEFINED 1
+				#endif
+			#endif
+			#if !defined sscanf
+				#tryinclude <sscanf3>
+				#if defined sscanf
+					#define _TDW_VEHICLE_SSCANF_DEFINED 1
+				#endif
+			#else
+				#define _TDW_VEHICLE_SSCANF_DEFINED 0
+			#endif
+		#endif
+	#endif
+#endif
