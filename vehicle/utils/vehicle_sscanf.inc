@@ -39,11 +39,6 @@ freely, subject to the following restrictions:
 
 #define _TDW_VEHICLE_U_SSCANF
 
-#if _TDW_VEHICLE_SSCANF_DEFINED == 0
-	#endinput
-#endif
-
-
 SSCANF:vehicleid(string[])
 {
 	if ('0' <= string[0] <= '9')
