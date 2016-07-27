@@ -39,7 +39,6 @@ freely, subject to the following restrictions:
 
 #define _TDW_VEHICLE_U_GEOMETRY
 
-
 enum e_TDW_VEHICLE_SPEED
 {
 	kmph,
@@ -201,4 +200,35 @@ stock
 	new Float:angle = atan2(((y * z) + (w * x)) * 2.0,
 		(w * w) - (x * x) - (y * y) + (z * z));
 	return ((angle > 90.0) || (angle < -90.0));
+}
+
+
+stock
+	GetVehicleNearPlayers(vehicleid, playerlist[], Float:distance,
+		size = sizeof playerlist)
+{
+	new Float:x, Float:y, Float:z;
+	if (GetVehiclePos(vehicleid, x, y, z) == 0)
+		return INVALID_VEHICLE_ID;
+	new array_index, i;
+#if _TDW_VEHICLE_FOREACH_DEFINED
+	foreach(i : Player)
+#else
+	for(i
+	#if defined GetPlayerPoolSize
+		= GetPlayerPoolSize() + 1
+	#else
+		= MAX_PLAYERS
+	#endif
+		;i != -1; ++i
+	)
+#endif
+	{
+		if (array_index >= size)
+			break;
+		if (IsPlayerInRangeOfPoint(i, distance, x, y, z))
+			playerlist[array_index++] = i;
+	}
+	playerlist[array_index - 1] = INVALID_VEHICLE_ID;
+	return 1;
 }
