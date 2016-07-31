@@ -40,10 +40,6 @@ freely, subject to the following restrictions:
 #define _TDW_VEHICLE_U_LABEL
 
 
-#if !defined _TDW_VEHICLE_STREAMER_DEFINED
-	#define _TDW_VEHICLE_STREAMER_DEFINED 0
-#endif
-
 #if _TDW_VEHICLE_STREAMER_DEFINED
 	#define TDW_VEHICLE_DESTROY_LABEL(%0) DestroyDynamic3DTextLabel(%0)
 	#define TDW_VEHICLE_UPDATE_LABEL(%0) UpdateDynamic3DTextLabel(%0)
