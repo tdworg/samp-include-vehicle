@@ -39,6 +39,7 @@ freely, subject to the following restrictions:
 
 #define _TDW_VEHICLE_ITERATOR
 
+#include "vehicle/detect/foreach"
 #include "vehicle/utility"
 #include "vehicle/data/vehicle_iterator"
 #include "vehicle/data/vehicle_static_data"
