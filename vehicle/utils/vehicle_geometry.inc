@@ -224,11 +224,14 @@ stock
 	)
 #endif
 	{
-		if (array_index >= size)
-			break;
 		if (IsPlayerInRangeOfPoint(i, distance, x, y, z))
-			playerlist[array_index++] = i;
+		{
+			if (array_index >= size)
+				break;
+			else playerlist[array_index++] = i;
+		}
 	}
-	playerlist[array_index - 1] = INVALID_VEHICLE_ID;
+	if (array_index != 0)
+		playerlist[array_index - 1] = INVALID_VEHICLE_ID;
 	return 1;
 }
