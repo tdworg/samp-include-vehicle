@@ -33,11 +33,11 @@ freely, subject to the following restrictions:
 	#undef _inc_vehicle_trailer
 #endif
 
-#if defined _TDW_VEHICLE_U_TRAILER
+#if defined _TDW_VEHICLE_S_TRAILER
 	#endinput
 #endif
 
-#define _TDW_VEHICLE_U_TRAILER
+#define _TDW_VEHICLE_S_TRAILER
 
 
 #if defined OnTrailerAttached

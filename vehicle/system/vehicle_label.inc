@@ -33,11 +33,11 @@ freely, subject to the following restrictions:
 	#undef _inc_vehicle_label
 #endif
 
-#if defined _TDW_VEHICLE_U_LABEL
+#if defined _TDW_VEHICLE_S_LABEL
 	#endinput
 #endif
 
-#define _TDW_VEHICLE_U_LABEL
+#define _TDW_VEHICLE_S_LABEL
 
 
 #if _TDW_VEHICLE_STREAMER_DEFINED
