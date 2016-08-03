@@ -6,7 +6,7 @@
 	utils
 
 | Version:
-	2.0.1
+	2.0.2
 
 | License:
 Copyright (c) 2016 Double V
@@ -232,6 +232,6 @@ stock
 		}
 	}
 	if (array_index != 0)
-		playerlist[array_index - 1] = INVALID_VEHICLE_ID;
+		playerlist[array_index] = INVALID_VEHICLE_ID;
 	return 1;
 }

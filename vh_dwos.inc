@@ -6,7 +6,7 @@
 	core
 
 | Version:
-	2.0.1
+	2.0.2
 
 | License:
 Copyright (c) 2016 Double V
@@ -38,6 +38,12 @@ freely, subject to the following restrictions:
 #endif
 
 #define _TDW_VEHICLE_DWOS
+
+#include "vehicle/detect/samp_support"
+
+#if _TDW_SAMP_INCLUDE_VERSION < _TDW_SAMP_INC_VERSION_037
+	#error Required 0.3.7 samp
+#endif
 
 #include "vehicle/utility"
 #include "vehicle/utils/vehicle_doors"

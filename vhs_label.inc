@@ -6,7 +6,7 @@
 	core
 
 | Version:
-	2.0.1
+	2.0.2
 
 | License:
 Copyright (c) 2016 Double V
@@ -39,6 +39,7 @@ freely, subject to the following restrictions:
 
 #define _TDW_VEHICLE_LABEL
 
+#include "vehicle/detect/samp_support"
 #include "vehicle/detect/streamer"
 #include "vehicle/utility"
 #include "vehicle/system/vehicle_label"
