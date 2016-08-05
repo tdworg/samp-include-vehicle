@@ -40,7 +40,8 @@ freely, subject to the following restrictions:
 #define _TDW_VEHICLE_D_STATIC_DATA
 
 
-enum e_TDW_VEHICLE
+enum
+	e_TDW_VEHICLE
 {
 	// I created only necessary elements in the enumeration.
 	Float:ei_spos_x,

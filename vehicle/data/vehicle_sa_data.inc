@@ -57,7 +57,8 @@ freely, subject to the following restrictions:
 #endif
 
 
-enum e_TDW_VEHICLE_CATEGORY
+enum
+	e_TDW_VEHICLE_CATEGORY
 {
 	OFF_ROAD,
 	SALOONS,
@@ -74,7 +75,8 @@ enum e_TDW_VEHICLE_CATEGORY
 	AIRPLANE
 };
 
-enum e_TDW_VEHICLE_TYPE
+enum
+	e_TDW_VEHICLE_TYPE
 {
 	CAR,
 	HELICOPTE,

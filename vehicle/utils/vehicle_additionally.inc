@@ -117,6 +117,9 @@ stock
 		#endif
 			; --i != -1;
 		)
+		if (IsPlayerConnected(i) == 0 || IsPlayerNPC(i))
+			continue;
+		else
 	#endif
 		{
 			if (IsPlayerInVehicle(i, vehicleid) == 0)
@@ -144,6 +147,9 @@ stock
 		#endif
 			; --i != -1;
 		)
+		if (IsPlayerConnected(i) == 0 || IsPlayerNPC(i))
+			continue;
+		else
 	#endif
 		{
 			if (IsPlayerInVehicle(i, vehicleid) == 0)
@@ -288,6 +294,9 @@ stock
 		#endif
 			; --i != -1;
 		)
+		if (IsPlayerConnected(i) == 0 || IsPlayerNPC(i))
+			continue;
+		else
 	#endif
 		{
 			if (GetPlayerVehicleID(i) == 0)
@@ -323,7 +332,10 @@ stock
 			= GetMaxPlayers()
 		#endif
 			; --i != -1;
-			)
+		)
+		if (IsPlayerConnected(i) == 0 || IsPlayerNPC(i))
+			continue;
+		else
 	#endif
 		{
 			if (GetPlayerVehicleID(i) == 0)

@@ -39,7 +39,8 @@ freely, subject to the following restrictions:
 
 #define _TDW_VEHICLE_U_GEOMETRY
 
-enum e_TDW_VEHICLE_SPEED
+enum
+	e_TDW_VEHICLE_SPEED
 {
 	kmph,
 	mph
@@ -222,6 +223,9 @@ stock
 	#endif
 		;i != -1; ++i
 	)
+	if (IsPlayerConnected(i) == 0 || IsPlayerNPC(i))
+		continue;
+	else
 #endif
 	{
 		if (IsPlayerInRangeOfPoint(i, distance, x, y, z))
