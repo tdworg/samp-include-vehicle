@@ -207,8 +207,8 @@ stock
 {
 	if (TDW_g_sVehicleData[vehicleid][ei_modelid] == 0)
 		return _:(color1 = color2 = 0);
-	color1 = TDW_g_sVDynamic@Color1{vehicleid};
-	color2 = TDW_g_sVDynamic@Color2{vehicleid};
+	color1 = TDW_g_sVehicleColor1{vehicleid};
+	color2 = TDW_g_sVehicleColor2{vehicleid};
 	return 1;
 }
 
@@ -217,8 +217,8 @@ stock
 {
 	return (TDW_g_sVehicleData[vehicleid][ei_modelid] != 0
 		? ChangeVehicleColor(vehicleid,
-			(TDW_g_sVDynamic@Color1{vehicleid} = color1),
-			(TDW_g_sVDynamic@Color2{vehicleid} = color2)
+			(TDW_g_sVehicleColor1{vehicleid} = color1),
+			(TDW_g_sVehicleColor2{vehicleid} = color2)
 		)
 		: INVALID_VEHICLE_ID
 	);
