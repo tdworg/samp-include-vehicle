@@ -6,7 +6,7 @@
 	data
 
 | Version:
-	2.0.1
+	2.0.2
 
 | License:
 Copyright (c) 2016 Double V
@@ -222,4 +222,35 @@ stock
 		)
 		: INVALID_VEHICLE_ID
 	);
+}
+
+
+stock
+	CreateVehicleEx(vehicletype, Float:x, Float:y, Float:z, Float:rotation,
+		color1, color2, respawn_delay, addsiren = 0)
+{
+	switch (vehicletype)
+	{
+		case 537, 538, 570, 570:
+		{
+			TDW_g_sVehicleData = AddStaticVehicleEx(vehicletype, x, y, z,
+				rotation, color1, color2, respawn_delay, addsiren);
+		}
+		default:
+		{
+			TDW_g_sVehicleData = CreateVehicle(vehicletype, x, y, z, rotation,
+				color1, color2, respawn_delay, addsiren);
+		}
+	}
+	if (TDW_g_sVehicleData != INVALID_VEHICLE_ID)
+	{
+		TDW_g_sVehicleData[TDW_g_sVehicleData][ei_modelid] = modelid;
+		TDW_g_sVehicleData[TDW_g_sVehicleData][ei_spos_x] = x;
+		TDW_g_sVehicleData[TDW_g_sVehicleData][ei_spos_y] = y;
+		TDW_g_sVehicleData[TDW_g_sVehicleData][ei_spos_z] = z;
+		TDW_g_sVehicleData[TDW_g_sVehicleData][ei_spos_a] = rotation;
+		TDW_g_sVehicleColor1[TDW_g_sVehicleData] = color1;
+		TDW_g_sVehicleColor2[TDW_g_sVehicleData] = color2;
+	}
+	return TDW_g_sVehicleData;
 }
