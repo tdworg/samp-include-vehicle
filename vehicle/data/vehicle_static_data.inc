@@ -73,8 +73,8 @@ stock
 		TDW_g_sVehicleData[TDW_g_sVehicleData][ei_spos_y] = spawn_y;
 		TDW_g_sVehicleData[TDW_g_sVehicleData][ei_spos_z] = spawn_z;
 		TDW_g_sVehicleData[TDW_g_sVehicleData][ei_spos_a] = z_angle;
-		TDW_g_sVehicleColor1[TDW_g_sVehicleData] = color1;
-		TDW_g_sVehicleColor2[TDW_g_sVehicleData] = color2;
+		TDW_g_sVehicleColor1{TDW_g_sVehicleData} = color1;
+		TDW_g_sVehicleColor2{TDW_g_sVehicleData} = color2;
 	}
 	return TDW_g_sVehicleId;
 }
@@ -104,8 +104,8 @@ stock
 		TDW_g_sVehicleData[TDW_g_sVehicleData][ei_spos_y] = spawn_y;
 		TDW_g_sVehicleData[TDW_g_sVehicleData][ei_spos_z] = spawn_z;
 		TDW_g_sVehicleData[TDW_g_sVehicleData][ei_spos_a] = z_angle;
-		TDW_g_sVehicleColor1[TDW_g_sVehicleData] = color1;
-		TDW_g_sVehicleColor2[TDW_g_sVehicleData] = color2;
+		TDW_g_sVehicleColor1{TDW_g_sVehicleData} = color1;
+		TDW_g_sVehicleColor2{TDW_g_sVehicleData} = color2;
 	}
 	return TDW_g_sVehicleId;
 }
@@ -132,8 +132,8 @@ stock
 		TDW_g_sVehicleData[TDW_g_sVehicleData][ei_spos_y] = y;
 		TDW_g_sVehicleData[TDW_g_sVehicleData][ei_spos_z] = z;
 		TDW_g_sVehicleData[TDW_g_sVehicleData][ei_spos_a] = rotation;
-		TDW_g_sVehicleColor1[TDW_g_sVehicleData] = color1;
-		TDW_g_sVehicleColor2[TDW_g_sVehicleData] = color2;
+		TDW_g_sVehicleColor1{TDW_g_sVehicleData} = color1;
+		TDW_g_sVehicleColor2{TDW_g_sVehicleData} = color2;
 	}
 	return TDW_g_sVehicleId;
 }
@@ -153,8 +153,8 @@ stock
 	if (DestroyVehicle(vehicleid) == 0)
 		return 0;
 	TDW_g_sVehicleData[TDW_g_sVehicleData][ei_modelid] =
-	TDW_g_sVehicleColor1[TDW_g_sVehicleData] =
-	TDW_g_sVehicleColor2[TDW_g_sVehicleData] = 0;
+	TDW_g_sVehicleColor1{TDW_g_sVehicleData} =
+	TDW_g_sVehicleColor2{TDW_g_sVehicleData} = 0;
 	TDW_g_sVehicleData[TDW_g_sVehicleData][ei_spos_x] =
 	TDW_g_sVehicleData[TDW_g_sVehicleData][ei_spos_y] =
 	TDW_g_sVehicleData[TDW_g_sVehicleData][ei_spos_z] =
@@ -249,8 +249,8 @@ stock
 		TDW_g_sVehicleData[TDW_g_sVehicleData][ei_spos_y] = y;
 		TDW_g_sVehicleData[TDW_g_sVehicleData][ei_spos_z] = z;
 		TDW_g_sVehicleData[TDW_g_sVehicleData][ei_spos_a] = rotation;
-		TDW_g_sVehicleColor1[TDW_g_sVehicleData] = color1;
-		TDW_g_sVehicleColor2[TDW_g_sVehicleData] = color2;
+		TDW_g_sVehicleColor1{TDW_g_sVehicleData} = color1;
+		TDW_g_sVehicleColor2{TDW_g_sVehicleData} = color2;
 	}
 	return TDW_g_sVehicleData;
 }
