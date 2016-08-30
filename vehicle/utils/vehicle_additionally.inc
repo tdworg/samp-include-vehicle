@@ -308,7 +308,7 @@ stock
 
 
 stock
-	GetPlayerFromVehicleSeat(vehicleid, seatid)
+	GetVehicleOccupant(vehicleid, seatid = 0)
 {
 	if (IsValidVehicle(vehicleid))
 	{
