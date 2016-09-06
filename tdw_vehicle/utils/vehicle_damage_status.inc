@@ -40,6 +40,7 @@ freely, subject to the following restrictions:
 #define _TDW_VEHICLE_U_DSTATUS
 
 
+#if __Pawn < 0x030A
 @__TDW_VEHICLE_UTILS__FIX();
 @__TDW_VEHICLE_UTILS__FIX()
 {
@@ -48,6 +49,7 @@ freely, subject to the following restrictions:
 	// function.
 	UpdateVehicleDamageStatus(0, 0, 0, 0, 0);
 }
+#endif
 
 
 static stock TDW_g_sDataStorage;
