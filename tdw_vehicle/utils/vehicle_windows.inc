@@ -97,9 +97,7 @@ stock
 		return INVALID_VEHICLE_ID;
 	if (_:(0 < door < 3) == 0)
 		return 0;
-	goto no_init;
 	new w_states[e_TDW_VEHICLE_DOOR];
-no_init:
 	GetVehicleParamsCarWindows(vehicleid,
 		w_states[FRONT_LEFT_DOOR], w_states[FRONT_RIGHT_DOOR],
 		w_states[REAR_LEFT_DOOR],  w_states[REAR_RIGHT_DOOR]
