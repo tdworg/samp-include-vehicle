@@ -39,7 +39,7 @@ freely, subject to the following restrictions:
 
 #define _TDW_VEHICLE_LABEL
 
-#include "vehicle/detect/samp_support"
-#include "vehicle/detect/streamer"
-#include "vehicle/utility"
-#include "vehicle/system/vehicle_label"
+#include "tdw_vehicle/detect/samp_support"
+#include "tdw_vehicle/detect/streamer"
+#include "tdw_vehicle/utility"
+#include "tdw_vehicle/system/vehicle_label"

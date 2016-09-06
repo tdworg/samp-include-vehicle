@@ -39,6 +39,6 @@ freely, subject to the following restrictions:
 
 #define _TDW_VEHICLE_STDATA
 
-#include "vehicle/detect/foreach"
-#include "vehicle/utility"
-#include "vehicle/data/vehicle_static_data"
+#include "tdw_vehicle/detect/foreach"
+#include "tdw_vehicle/utility"
+#include "tdw_vehicle/data/vehicle_static_data"

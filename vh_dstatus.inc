@@ -39,6 +39,6 @@ freely, subject to the following restrictions:
 
 #define _TDW_VEHICLE_DSTATUS
 
-#include "vehicle/detect/samp_support"
-#include "vehicle/utility"
-#include "vehicle/utils/vehicle_damage_status"
+#include "tdw_vehicle/detect/samp_support"
+#include "tdw_vehicle/utility"
+#include "tdw_vehicle/utils/vehicle_damage_status"
