@@ -47,7 +47,7 @@ SSCANF:vehicleid(string[])
 		new ret = strval(string);
 		if (1 <= ret <= MAX_VEHICLES - 1)
 		{
-			if (IsValidVehicle(vehicleid))
+			if (IsValidVehicle(ret))
 			{
 				return ret;
 			}
