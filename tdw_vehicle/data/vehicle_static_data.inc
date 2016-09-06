@@ -232,7 +232,7 @@ stock
 {
 	switch (vehicletype)
 	{
-		case 537, 538, 570, 570:
+		case 537, 538, 570, 570, 449:
 		{
 			TDW_g_sVehicleData = AddStaticVehicleEx(vehicletype, x, y, z,
 				rotation, color1, color2, respawn_delay, addsiren);

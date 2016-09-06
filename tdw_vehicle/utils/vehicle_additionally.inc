@@ -315,7 +315,7 @@ stock
 	#if _TDW_VEHICLE_FOREACH_DEFINED
 		foreach (new i: Player)
 	#else
-		for(
+		for (
 			new i
 		#if defined GetPlayerPoolSize
 			= GetPlayerPoolSize() + 1
