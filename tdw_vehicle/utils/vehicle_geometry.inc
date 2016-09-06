@@ -128,7 +128,7 @@ stock
 stock
 	GetVehicleRoofPos(vehicleid, &Float:x, &Float:y, &Float:z)
 {
-	new modelid, vehicle_z;
+	new modelid, Float:vehicle_z;
 	if ((modelid = GetVehicleModel(vehicleid)) == 0)
 		return _:(x = y = z = 0.0);
 	GetVehicleModelInfo(modelid, VEHICLE_MODEL_INFO_SIZE, x, y, vehicle_z);
