@@ -1,4 +1,4 @@
-/** ======================================================================== **\
+tdw_vehicle/** ======================================================================== **\
 | Name:
 	Vehicle Trailer system
 
@@ -39,5 +39,5 @@ freely, subject to the following restrictions:
 
 #define _TDW_VEHICLE_TRAILER
 
-#include "vehicle/utility"
-#include "vehicle/system/vehicle_trailer"
+#include "tdw_vehicle/utility"
+#include "tdw_vehicle/system/vehicle_trailer"

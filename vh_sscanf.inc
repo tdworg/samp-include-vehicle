@@ -39,6 +39,6 @@ freely, subject to the following restrictions:
 
 #define _TDW_VEHICLE_SSCANF
 
-#include "vehicle/detect/sscanf"
-#include "vehicle/utility"
-#include "vehicle/utils/vehicle_sscanf"
+#include "tdw_vehicle/detect/sscanf"
+#include "tdw_vehicle/utility"
+#include "tdw_vehicle/utils/vehicle_sscanf"

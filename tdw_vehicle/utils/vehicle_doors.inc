@@ -102,9 +102,7 @@ stock
 		return INVALID_VEHICLE_ID;
 	if (_:(0 < door < 3) == 0)
 		return 0;
-	goto no_init;
 	new d_states[e_TDW_VEHICLE_DOOR];
-no_init:
 	GetVehicleParamsCarDoors(vehicleid,
 		d_states[FRONT_LEFT_DOOR], d_states[FRONT_RIGHT_DOOR],
 		d_states[REAR_LEFT_DOOR],  d_states[REAR_RIGHT_DOOR]

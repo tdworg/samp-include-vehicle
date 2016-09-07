@@ -77,7 +77,6 @@ stock
 		Float:point_z, &Float:offset_x, &Float:offset_y, &Float:offset_z)
 {
 	new Float:x, Float:y, Float:z;
-
 	if (GetVehiclePos(vehicleid, x, y, z) == 0)
 		return _:(point_x = point_y = point_z = 0.0);
 	offset_x = (point_x - x);
@@ -128,7 +127,7 @@ stock
 stock
 	GetVehicleRoofPos(vehicleid, &Float:x, &Float:y, &Float:z)
 {
-	new modelid, vehicle_z;
+	new modelid, Float:vehicle_z;
 	if ((modelid = GetVehicleModel(vehicleid)) == 0)
 		return _:(x = y = z = 0.0);
 	GetVehicleModelInfo(modelid, VEHICLE_MODEL_INFO_SIZE, x, y, vehicle_z);

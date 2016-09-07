@@ -39,5 +39,5 @@ freely, subject to the following restrictions:
 
 #define _TDW_VEHICLE_ADDATA
 
-#include "vehicle/utility"
-#include "vehicle/data/vehicle_additionally_data"
+#include "tdw_vehicle/utility"
+#include "tdw_vehicle/data/vehicle_additionally_data"

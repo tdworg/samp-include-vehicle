@@ -40,5 +40,5 @@ freely, subject to the following restrictions:
 #define _TDW_VEHICLE_GEOMETRY
 
 #include "vh_iterator"
-#include "vehicle/utility"
-#include "vehicle/utils/vehicle_geometry"
+#include "tdw_vehicle/utility"
+#include "tdw_vehicle/utils/vehicle_geometry"

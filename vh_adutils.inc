@@ -40,5 +40,5 @@ freely, subject to the following restrictions:
 #define _TDW_VEHICLE_ADUTILS
 
 #include "vh_iterator"
-#include "vehicle/utility"
-#include "vehicle/utils/vehicle_additionally"
+#include "tdw_vehicle/utility"
+#include "tdw_vehicle/utils/vehicle_additionally"
