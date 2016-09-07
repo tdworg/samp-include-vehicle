@@ -67,7 +67,7 @@ stock
 #endif
 	{
 		if (DestroyVehicle(i))
-			count++; // It's a feature of this function.
+			count++;
 	}
 	return count;
 }
