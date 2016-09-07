@@ -77,7 +77,6 @@ stock
 		Float:point_z, &Float:offset_x, &Float:offset_y, &Float:offset_z)
 {
 	new Float:x, Float:y, Float:z;
-
 	if (GetVehiclePos(vehicleid, x, y, z) == 0)
 		return _:(point_x = point_y = point_z = 0.0);
 	offset_x = (point_x - x);
