@@ -39,6 +39,6 @@ freely, subject to the following restrictions:
 
 #define _TDW_VEHICLE_DETECT
 
-#include "vehicle/detect/foreach"
-#include "vehicle/detect/sscanf"
-#include "vehicle/detect/streamer"
+#include "tdw_vehicle/detect/foreach"
+#include "tdw_vehicle/detect/sscanf"
+#include "tdw_vehicle/detect/streamer"
