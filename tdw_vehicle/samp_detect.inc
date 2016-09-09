@@ -1,12 +1,5 @@
 /** ======================================================================== **\
-| Name:
 	Detect the other libaries
-
-| Category:
-	core
-
-| Version:
-	2.0.1
 
 | License:
 Copyright (c) 2016 Double V

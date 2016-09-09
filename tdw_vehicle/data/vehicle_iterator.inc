@@ -1,12 +1,5 @@
 /** ======================================================================== **\
-| Name:
 	Vehicle Static Data
-
-| Category:
-	data
-
-| Version:
-	2.0.1
 
 | License:
 Copyright (c) 2016 Double V
