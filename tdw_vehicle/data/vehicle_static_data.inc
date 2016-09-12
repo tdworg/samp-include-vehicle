@@ -127,7 +127,7 @@ stock
 	if ((TDW_g_sVehicleId = CreateVehicle(vehicletype, x, y, z, rotation,
 		color1, color2, respawn_delay, addsiren)) != INVALID_VEHICLE_ID)
 	{
-		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_modelid] = modelid;
+		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_modelid] = vehicletype;
 		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_spos_x] = x;
 		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_spos_y] = y;
 		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_spos_z] = z;

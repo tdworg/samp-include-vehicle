@@ -32,6 +32,9 @@ freely, subject to the following restrictions:
 
 #define _TDW_VEHICLE_U_ADDITIONALLY
 
+#if !defined _TDW_VEHICLE_FOREACH_DEFINED
+	#define _TDW_VEHICLE_FOREACH_DEFINED 0
+#endif
 
 enum e_TDW_VEHICLE_WHEEL
 {
@@ -178,8 +181,8 @@ stock
 	// 7. 0b00100001010001000010001000100100 & 0b1111 = 0b0100
 	// End.
 	return (
-		(MIN_VEHICLE_MODEL_ID <= modelid <= MAX_VEHICLE_MODEL_ID)
-		? ((vehicle_seat_data[(modelid -= MIN_VEHICLE_MODEL_ID) >>> 3] >>>
+		IS_VALID_MODEL(modelid)
+		? ((vehicle_seat_data[(modelid -= MIN_VEHICLE_MODEL) >>> 3] >>>
 			((modelid & 0b111) << 2)) & 0b1111)
 		: 0b1111
 	);
