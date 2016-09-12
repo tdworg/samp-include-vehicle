@@ -49,33 +49,37 @@ stock
 {
 	const BYTES_PER_CELL = cellbits / charbits;
 	new count, number_arg;
-	#if __Pawn < 0x030A
+#if __Pawn < 0x030A
 	DestroyVehicle(INVALID_VEHICLE_ID);
-	#endif
+#endif
 	// Get the number of the variadic arguments
 	#emit load.s.pri 8
 	#emit stor.s.pri number_arg
+	// Checks if the number of the variadic arguments is more zero.
 	if (number_arg != 0)
 	{
 		new arg_start, arg_end, ret;
+		// Get the current frame pointer.
 		#emit lctrl 5
 		#emit add.c 12
 		#emit stor.s.pri arg_start
+		// Get a pointer to the last argument.
 		#emit load.s.alt number_arg
 		#emit add
 		#emit stor.s.pri arg_end
 		do
 		{
+			// Get the value from the pointer
 			#emit load.i
+			// Push it!
 			#emit push.pri
 			#emit push.c 4
 			#emit sysreq.c DestroyVehicle
 			#emit stack 8
+			// Get the return value from the called function.
 			#emit stor.s.pri ret
 			if (ret)
-			{
 				count++;
-			}
 			arg_end -= BYTES_PER_CELL;
 			#emit load.s.pri arg_end
 		}
