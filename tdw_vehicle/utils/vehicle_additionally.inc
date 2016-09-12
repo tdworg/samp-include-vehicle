@@ -45,25 +45,61 @@ enum e_TDW_VEHICLE_WHEEL
 
 
 stock
-	DestroyAllVehicles()
+	DestroyAllVehicles(...)
 {
-	new count;
-#if defined _TDW_VEHICLE_FOREACH_ARRAY
-	foreach (new i: Vehicle)
-#else
-	for (
-		new i
-	#if defined GetVehiclePoolSize
-		= GetVehiclePoolSize() + 1
-	#else
-		= MAX_VEHICLES
+	const BYTES_PER_CELL = cellbits / charbits;
+	new count, number_arg;
+	#if __Pawn < 0x030A
+	DestroyVehicle(INVALID_VEHICLE_ID);
 	#endif
-		; --i != 0;
-	)
-#endif
+	// Get the number of the variadic arguments
+	#emit load.s.pri 8
+	#emit stor.s.pri number_arg
+	if (number_arg != 0)
 	{
-		if (DestroyVehicle(i))
-			count++;
+		new arg_start, arg_end, ret;
+		#emit lctrl 5
+		#emit add.c 12
+		#emit stor.s.pri arg_start
+		#emit load.s.alt number_arg
+		#emit add
+		#emit stor.s.pri arg_end
+		do
+		{
+			#emit load.i
+			#emit push.pri
+			#emit push.c 4
+			#emit sysreq.c DestroyVehicle
+			#emit stack 8
+			#emit stor.s.pri ret
+			if (ret)
+			{
+				count++;
+			}
+			arg_end -= BYTES_PER_CELL;
+			#emit load.s.pri arg_end
+		}
+		while (arg_end > arg_start);
+	}
+	else
+	{
+	#if defined _TDW_VEHICLE_FOREACH_ARRAY
+		foreach (new i: Vehicle)
+	#else
+		for (
+			new i
+		#if defined GetVehiclePoolSize
+			= GetVehiclePoolSize() + 1
+		#else
+			= MAX_VEHICLES
+		#endif
+			; --i != 0;
+		)
+	#endif
+		{
+			if (DestroyVehicle(i))
+				count++;
+		}
 	}
 	return count;
 }
