@@ -62,15 +62,15 @@ stock
 	if ((TDW_g_sVehicleId = AddStaticVehicle(modelid, spawn_x, spawn_y, spawn_z,
 		z_angle, color1, color2)) != INVALID_VEHICLE_ID)
 	{
-		TDW_g_sVehicleData[TDW_g_sVehicleData][ei_modelid] = modelid;
-		TDW_g_sVehicleData[TDW_g_sVehicleData][ei_spos_x] = spawn_x;
-		TDW_g_sVehicleData[TDW_g_sVehicleData][ei_spos_y] = spawn_y;
-		TDW_g_sVehicleData[TDW_g_sVehicleData][ei_spos_z] = spawn_z;
-		TDW_g_sVehicleData[TDW_g_sVehicleData][ei_spos_a] = z_angle;
-		TDW_g_sVehicleColor1{TDW_g_sVehicleData} = color1;
-		TDW_g_sVehicleColor2{TDW_g_sVehicleData} = color2;
+		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_modelid] = modelid;
+		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_spos_x] = spawn_x;
+		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_spos_y] = spawn_y;
+		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_spos_z] = spawn_z;
+		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_spos_a] = z_angle;
+		TDW_g_sVehicleColor1{TDW_g_sVehicleId} = color1;
+		TDW_g_sVehicleColor2{TDW_g_sVehicleId} = color2;
 	#if defined _TDW_VEHICLE_FOREACH_ARRAY
-		Iter_Add(Vehicle, TDW_g_sVehicleData);
+		Iter_Add(Vehicle, TDW_g_sVehicleId);
 	#endif
 	}
 	return TDW_g_sVehicleId;
@@ -96,15 +96,15 @@ stock
 		spawn_z, z_angle, color1, color2, respawn_delay, addsiren)
 		) != INVALID_VEHICLE_ID)
 	{
-		TDW_g_sVehicleData[TDW_g_sVehicleData][ei_modelid] = modelid;
-		TDW_g_sVehicleData[TDW_g_sVehicleData][ei_spos_x] = spawn_x;
-		TDW_g_sVehicleData[TDW_g_sVehicleData][ei_spos_y] = spawn_y;
-		TDW_g_sVehicleData[TDW_g_sVehicleData][ei_spos_z] = spawn_z;
-		TDW_g_sVehicleData[TDW_g_sVehicleData][ei_spos_a] = z_angle;
-		TDW_g_sVehicleColor1{TDW_g_sVehicleData} = color1;
-		TDW_g_sVehicleColor2{TDW_g_sVehicleData} = color2;
+		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_modelid] = modelid;
+		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_spos_x] = spawn_x;
+		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_spos_y] = spawn_y;
+		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_spos_z] = spawn_z;
+		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_spos_a] = z_angle;
+		TDW_g_sVehicleColor1{TDW_g_sVehicleId} = color1;
+		TDW_g_sVehicleColor2{TDW_g_sVehicleId} = color2;
 	#if defined _TDW_VEHICLE_FOREACH_ARRAY
-		Iter_Add(Vehicle, TDW_g_sVehicleData);
+		Iter_Add(Vehicle, TDW_g_sVehicleId);
 	#endif
 	}
 	return TDW_g_sVehicleId;
@@ -127,15 +127,15 @@ stock
 	if ((TDW_g_sVehicleId = CreateVehicle(vehicletype, x, y, z, rotation,
 		color1, color2, respawn_delay, addsiren)) != INVALID_VEHICLE_ID)
 	{
-		TDW_g_sVehicleData[TDW_g_sVehicleData][ei_modelid] = modelid;
-		TDW_g_sVehicleData[TDW_g_sVehicleData][ei_spos_x] = x;
-		TDW_g_sVehicleData[TDW_g_sVehicleData][ei_spos_y] = y;
-		TDW_g_sVehicleData[TDW_g_sVehicleData][ei_spos_z] = z;
-		TDW_g_sVehicleData[TDW_g_sVehicleData][ei_spos_a] = rotation;
-		TDW_g_sVehicleColor1{TDW_g_sVehicleData} = color1;
-		TDW_g_sVehicleColor2{TDW_g_sVehicleData} = color2;
+		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_modelid] = modelid;
+		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_spos_x] = x;
+		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_spos_y] = y;
+		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_spos_z] = z;
+		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_spos_a] = rotation;
+		TDW_g_sVehicleColor1{TDW_g_sVehicleId} = color1;
+		TDW_g_sVehicleColor2{TDW_g_sVehicleId} = color2;
 	#if defined _TDW_VEHICLE_FOREACH_ARRAY
-		Iter_Add(Vehicle, TDW_g_sVehicleData);
+		Iter_Add(Vehicle, TDW_g_sVehicleId);
 	#endif
 	}
 	return TDW_g_sVehicleId;
@@ -155,13 +155,16 @@ stock
 {
 	if (DestroyVehicle(vehicleid) == 0)
 		return 0;
-	TDW_g_sVehicleData[TDW_g_sVehicleData][ei_modelid] =
-	TDW_g_sVehicleColor1{TDW_g_sVehicleData} =
-	TDW_g_sVehicleColor2{TDW_g_sVehicleData} = 0;
-	TDW_g_sVehicleData[TDW_g_sVehicleData][ei_spos_x] =
-	TDW_g_sVehicleData[TDW_g_sVehicleData][ei_spos_y] =
-	TDW_g_sVehicleData[TDW_g_sVehicleData][ei_spos_z] =
-	TDW_g_sVehicleData[TDW_g_sVehicleData][ei_spos_a] = 0.0;
+	TDW_g_sVehicleData[vehicleid][ei_modelid] =
+	TDW_g_sVehicleColor1{vehicleid} =
+	TDW_g_sVehicleColor2{vehicleid} = 0;
+	TDW_g_sVehicleData[vehicleid][ei_spos_x] =
+	TDW_g_sVehicleData[vehicleid][ei_spos_y] =
+	TDW_g_sVehicleData[vehicleid][ei_spos_z] =
+	TDW_g_sVehicleData[vehicleid][ei_spos_a] = 0.0;
+#if defined _TDW_VEHICLE_FOREACH_ARRAY
+	Iter_Remove(Vehicle, vehicleid);
+#endif
 	return 1;
 }
 #if defined _ALS_DestroyVehicle
@@ -236,27 +239,27 @@ stock
 	{
 		case 537, 538, 570, 570, 449:
 		{
-			TDW_g_sVehicleData = AddStaticVehicleEx(vehicletype, x, y, z,
+			TDW_g_sVehicleId = AddStaticVehicleEx(vehicletype, x, y, z,
 				rotation, color1, color2, respawn_delay, addsiren);
 		}
 		default:
 		{
-			TDW_g_sVehicleData = CreateVehicle(vehicletype, x, y, z, rotation,
+			TDW_g_sVehicleId = CreateVehicle(vehicletype, x, y, z, rotation,
 				color1, color2, respawn_delay, addsiren);
 		}
 	}
-	if (TDW_g_sVehicleData != INVALID_VEHICLE_ID)
+	if (TDW_g_sVehicleId != INVALID_VEHICLE_ID)
 	{
-		TDW_g_sVehicleData[TDW_g_sVehicleData][ei_modelid] = modelid;
-		TDW_g_sVehicleData[TDW_g_sVehicleData][ei_spos_x] = x;
-		TDW_g_sVehicleData[TDW_g_sVehicleData][ei_spos_y] = y;
-		TDW_g_sVehicleData[TDW_g_sVehicleData][ei_spos_z] = z;
-		TDW_g_sVehicleData[TDW_g_sVehicleData][ei_spos_a] = rotation;
-		TDW_g_sVehicleColor1{TDW_g_sVehicleData} = color1;
-		TDW_g_sVehicleColor2{TDW_g_sVehicleData} = color2;
+		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_modelid] = modelid;
+		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_spos_x] = x;
+		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_spos_y] = y;
+		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_spos_z] = z;
+		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_spos_a] = rotation;
+		TDW_g_sVehicleColor1{TDW_g_sVehicleId} = color1;
+		TDW_g_sVehicleColor2{TDW_g_sVehicleId} = color2;
 	#if defined _TDW_VEHICLE_FOREACH_ARRAY
-		Iter_Add(Vehicle, TDW_g_sVehicleData);
+		Iter_Add(Vehicle, TDW_g_sVehicleId);
 	#endif
 	}
-	return TDW_g_sVehicleData;
+	return TDW_g_sVehicleId;
 }
