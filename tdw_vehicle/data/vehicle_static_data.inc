@@ -69,6 +69,9 @@ stock
 		TDW_g_sVehicleData[TDW_g_sVehicleData][ei_spos_a] = z_angle;
 		TDW_g_sVehicleColor1{TDW_g_sVehicleData} = color1;
 		TDW_g_sVehicleColor2{TDW_g_sVehicleData} = color2;
+	#if defined _TDW_VEHICLE_FOREACH_ARRAY
+		Iter_Add(Vehicle, TDW_g_sVehicleData);
+	#endif
 	}
 	return TDW_g_sVehicleId;
 }
@@ -100,6 +103,9 @@ stock
 		TDW_g_sVehicleData[TDW_g_sVehicleData][ei_spos_a] = z_angle;
 		TDW_g_sVehicleColor1{TDW_g_sVehicleData} = color1;
 		TDW_g_sVehicleColor2{TDW_g_sVehicleData} = color2;
+	#if defined _TDW_VEHICLE_FOREACH_ARRAY
+		Iter_Add(Vehicle, TDW_g_sVehicleData);
+	#endif
 	}
 	return TDW_g_sVehicleId;
 }
@@ -128,6 +134,9 @@ stock
 		TDW_g_sVehicleData[TDW_g_sVehicleData][ei_spos_a] = rotation;
 		TDW_g_sVehicleColor1{TDW_g_sVehicleData} = color1;
 		TDW_g_sVehicleColor2{TDW_g_sVehicleData} = color2;
+	#if defined _TDW_VEHICLE_FOREACH_ARRAY
+		Iter_Add(Vehicle, TDW_g_sVehicleData);
+	#endif
 	}
 	return TDW_g_sVehicleId;
 }
@@ -245,6 +254,9 @@ stock
 		TDW_g_sVehicleData[TDW_g_sVehicleData][ei_spos_a] = rotation;
 		TDW_g_sVehicleColor1{TDW_g_sVehicleData} = color1;
 		TDW_g_sVehicleColor2{TDW_g_sVehicleData} = color2;
+	#if defined _TDW_VEHICLE_FOREACH_ARRAY
+		Iter_Add(Vehicle, TDW_g_sVehicleData);
+	#endif
 	}
 	return TDW_g_sVehicleData;
 }
