@@ -48,7 +48,7 @@ static stock
 	TDW_g_sVDynamic@LastTrailerIds[MAX_VEHICLES] = {INVALID_VEHICLE_ID, ...},
 	bool:TDW_g_sVDynamic@TrailerAttached[MAX_VEHICLES char];
 
-static stock const
+static stock
 	TDW_g_sTimerName[] = !"@_TDW_TIMER_OnTrailerUpdate",
 	TDW_g_sTimerArgs[] = !"dd";
 
@@ -157,6 +157,6 @@ public
 		return 0;
 	}
 	return SetTimerEx(TDW_g_sTimerName, MAX_TRAILER_UPDATE, false,
-		TDW_g_sTimerArgs, vehicleid, player_vehicleid
+		TDW_g_sTimerArgs, vehicleid, trailerid
 	);
 }

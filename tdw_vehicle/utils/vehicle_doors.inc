@@ -51,13 +51,6 @@ freely, subject to the following restrictions:
 
 
 enum
-	e_TDW_VEHICLE_DOOR
-{
-	FRONT_LEFT_DOOR, FRONT_RIGHT_DOOR,
-	 REAR_LEFT_DOOR,  REAR_RIGHT_DOOR // applies to vehicles with 4 doors.
-};
-
-enum
 	e_TDW_DOOR_STATE
 {
 	DOOR_NOT_SET = -1,
