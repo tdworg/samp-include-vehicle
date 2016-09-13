@@ -237,7 +237,7 @@ stock
 {
 	switch (vehicletype)
 	{
-		case 537, 538, 570, 570, 449:
+		case 537, 538, 570, 449:
 		{
 			TDW_g_sVehicleId = AddStaticVehicleEx(vehicletype, x, y, z,
 				rotation, color1, color2, respawn_delay, addsiren);
@@ -250,7 +250,7 @@ stock
 	}
 	if (TDW_g_sVehicleId != INVALID_VEHICLE_ID)
 	{
-		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_modelid] = modelid;
+		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_modelid] = vehicletype;
 		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_spos_x] = x;
 		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_spos_y] = y;
 		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_spos_z] = z;
