@@ -32,10 +32,6 @@ freely, subject to the following restrictions:
 
 #define _TDW_VEHICLE_U_ADDITIONALLY
 
-#if !defined _TDW_VEHICLE_FOREACH_DEFINED
-	#define _TDW_VEHICLE_FOREACH_DEFINED 0
-#endif
-
 enum e_TDW_VEHICLE_WHEEL
 {
 	 FRONT_LEFT,  FRONT_RIGHT,

@@ -33,21 +33,22 @@ freely, subject to the following restrictions:
 #define _TDW_VEHICLE_STREAMER
 
 
-#if !defined _TDW_VEHICLE_STREAMER_DEFINED
-	// You can define this constant to disable the streamer library.
-	#if defined TDW_VEHICLE_NOT_USE_STREAMER
-		#define _TDW_VEHICLE_STREAMER_DEFINED 0
-	#elseif !defined Streamer_IncludeFileVersion
+#if defined _TDW_VEHICLE_STREAMER_DEFINED
+	#endinput
+#endif
+
+#if defined TDW_VEHICLE_NOT_USE_STREAMER
+	#define _TDW_VEHICLE_STREAMER_DEFINED 0
+#else
+	#if !defined Streamer_IncludeFileVersion
 		#tryinclude <streamer>
-		#if defined Streamer_IncludeFileVersion
-			#define _TDW_VEHICLE_STREAMER_DEFINED 1
-		#else
-			#tryinclude "../include/streamer.inc"
-			#if defined Streamer_IncludeFileVersion
-				#define _TDW_VEHICLE_STREAMER_DEFINED 1
-			#else
-				#define _TDW_VEHICLE_STREAMER_DEFINED 0
-			#endif
-		#endif
+	#elseif !defined Streamer_IncludeFileVersion
+		#tryinclude "../include/streamer.inc"
+	#endif
+
+	#if !defined Streamer_IncludeFileVersion
+		#define _TDW_VEHICLE_STREAMER_DEFINED 0
+	#else
+		#define _TDW_VEHICLE_STREAMER_DEFINED 1
 	#endif
 #endif

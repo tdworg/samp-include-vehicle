@@ -33,35 +33,26 @@ freely, subject to the following restrictions:
 #define _TDW_VEHICLE_SSCANF
 
 
-#if !defined _TDW_VEHICLE_SSCANF_DEFINED
-	// You can define this constant to disable the sscanf2/3 library.
-	#if defined TDW_VEHICLE_NOT_USE_SSCANF
-		#define _TDW_VEHICLE_SSCANF_DEFINED 0
-	#elseif !defined sscanf
+#if defined _TDW_VEHICLE_SSCANF_DEFINED
+	#endinput
+#endif
+
+#if defined TDW_VEHICLE_NOT_USE_SSCANF
+	#define _TDW_VEHICLE_SSCANF_DEFINED 0
+#else
+	#if !defined sscanf
 		#tryinclude <sscanf2>
-		#if defined sscanf
-			#define _TDW_VEHICLE_SSCANF_DEFINED 1
-		#else
-			#if !defined sscanf
-				#tryinclude "../include/sscanf2"
-				#if defined sscanf
-					#define _TDW_VEHICLE_SSCANF_DEFINED 1
-				#endif
-			#endif
-			#if !defined sscanf
-				#tryinclude "../include/sscanf3"
-				#if defined sscanf
-					#define _TDW_VEHICLE_SSCANF_DEFINED 1
-				#endif
-			#endif
-			#if !defined sscanf
-				#tryinclude <sscanf3>
-				#if defined sscanf
-					#define _TDW_VEHICLE_SSCANF_DEFINED 1
-				#endif
-			#else
-				#define _TDW_VEHICLE_SSCANF_DEFINED 0
-			#endif
-		#endif
+	#elseif !defined sscanf
+		#tryinclude "../include/sscanf2.inc"
+	#elseif !defined sscanf
+		#tryinclude <sscanf3>
+	#elseif !defined sscanf
+		#tryinclude "../include/sscanf3.inc"
+	#endif
+
+	#if !defined sscanf
+		#define _TDW_VEHICLE_SSCANF_DEFINED 0
+	#else
+		#define _TDW_VEHICLE_SSCANF_DEFINED 1
 	#endif
 #endif
