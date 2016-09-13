@@ -32,10 +32,6 @@ freely, subject to the following restrictions:
 
 #define _TDW_VEHICLE_U_ADDITIONALLY
 
-#if !defined _TDW_VEHICLE_FOREACH_DEFINED
-	#define _TDW_VEHICLE_FOREACH_DEFINED 0
-#endif
-
 enum e_TDW_VEHICLE_WHEEL
 {
 	 FRONT_LEFT,  FRONT_RIGHT,
@@ -49,9 +45,6 @@ stock
 {
 	const BYTES_PER_CELL = cellbits / charbits;
 	new count, number_arg;
-#if __Pawn < 0x030A
-	DestroyVehicle(INVALID_VEHICLE_ID);
-#endif
 	// Get the number of the variadic arguments
 	#emit load.s.pri 8
 	#emit stor.s.pri number_arg

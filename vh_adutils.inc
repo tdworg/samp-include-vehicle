@@ -41,4 +41,5 @@ freely, subject to the following restrictions:
 
 #include "vh_iterator"
 #include "tdw_vehicle/utility"
+#include "tdw_vehicle/samp_emitcallfix"
 #include "tdw_vehicle/utils/vehicle_additionally"

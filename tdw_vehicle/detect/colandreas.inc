@@ -33,21 +33,22 @@ freely, subject to the following restrictions:
 #define _TDW_VEHICLE_COLANDREAS
 
 
-#if !defined _TDW_VEHICLE_COLANDREAS_DEFINED
-	// You can define this constant to disable the ColAndreas library.
-	#if defined TDW_VEHICLE_NOT_USE_STREAMER
-		#define _TDW_VEHICLE_COLANDREAS_DEFINED 0
-	#elseif !defined COLANDREAS
+#if defined _TDW_VEHICLE_COLANDREAS_DEFINED
+	#endinput
+#endif
+
+#if defined TDW_VEHICLE_NOT_USE_COLANDREAS
+	#define _TDW_VEHICLE_COLANDREAS_DEFINED 0
+#else
+	#if !defined COLANDREAS
 		#tryinclude <colandreas>
-		#if defined COLANDREAS
-			#define _TDW_VEHICLE_COLANDREAS_DEFINED 1
-		#else
-			#tryinclude "../include/colandreas.inc"
-			#if defined COLANDREAS
-				#define _TDW_VEHICLE_COLANDREAS_DEFINED 1
-			#else
-				#define _TDW_VEHICLE_COLANDREAS_DEFINED 0
-			#endif
-		#endif
+	#elseif !defined COLANDREAS
+		#tryinclude "../include/colandreas.inc"
+	#endif
+
+	#if !defined COLANDREAS
+		#define _TDW_VEHICLE_COLANDREAS_DEFINED 0
+	#else
+		#define _TDW_VEHICLE_COLANDREAS_DEFINED 1
 	#endif
 #endif

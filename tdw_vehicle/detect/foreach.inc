@@ -33,36 +33,30 @@ freely, subject to the following restrictions:
 #define _TDW_VEHICLE_FOREACH
 
 
-#if !defined _TDW_VEHICLE_FOREACH_DEFINED
-	// You can define this constant to disable the foreach library.
-	#if defined TDW_VEHICLE_NOT_USE_FOREACH
-		#define _TDW_VEHICLE_FOREACH_DEFINED 0
-	#elseif !defined _FOREACH_LOCAL_VERSION
+#if defined _TDW_VEHICLE_FOREACH_DEFINED
+	#endinput
+#endif
+
+#if defined TDW_VEHICLE_NOT_USE_FOREACH
+	#define _TDW_VEHICLE_FOREACH_DEFINED 0
+#else
+	#if !defined _FOREACH_NO_TEST
 		#define _FOREACH_NO_TEST
+	#endif
+
+	#if !defined _FOREACH_LOCAL_VERSION
 		#tryinclude <foreach>
-		#if defined _FOREACH_LOCAL_VERSION
-			#define _TDW_VEHICLE_FOREACH_DEFINED 1
-		#else
-			#if !defined _FOREACH_LOCAL_VERSION
-				#tryinclude "../include/foreach.inc"
-				#if defined _FOREACH_LOCAL_VERSION
-					#define _TDW_VEHICLE_FOREACH_DEFINED 1
-				#endif
-			#endif
-			#if !defined _FOREACH_LOCAL_VERSION
-				#tryinclude "../include/foreach2.inc"
-				#if defined _FOREACH_LOCAL_VERSION
-					#define _TDW_VEHICLE_FOREACH_DEFINED 1
-				#endif
-			#endif
-			#if !defined _FOREACH_LOCAL_VERSION
-				#tryinclude <foreach2>
-				#if defined _FOREACH_LOCAL_VERSION
-					#define _TDW_VEHICLE_FOREACH_DEFINED 1
-				#endif
-			#else
-				#define _TDW_VEHICLE_FOREACH_DEFINED 0
-			#endif
-		#endif
+	#elseif !defined _FOREACH_LOCAL_VERSION
+		#tryinclude "../include/foreach.inc"
+	#elseif !defined _FOREACH_LOCAL_VERSION
+		#tryinclude <foreach2>
+	#elseif !defined _FOREACH_LOCAL_VERSION
+		#tryinclude "../include/foreach2.inc"
+	#endif
+
+	#if !defined _FOREACH_LOCAL_VERSION
+		#define _TDW_VEHICLE_FOREACH_DEFINED 0
+	#else
+		#define _TDW_VEHICLE_FOREACH_DEFINED 1
 	#endif
 #endif
