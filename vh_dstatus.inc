@@ -40,4 +40,5 @@ freely, subject to the following restrictions:
 #define _TDW_VEHICLE_DSTATUS
 
 #include "tdw_vehicle/utility"
+#include "tdw_vehicle/samp_emitcallfix"
 #include "tdw_vehicle/utils/vehicle_damage_status"

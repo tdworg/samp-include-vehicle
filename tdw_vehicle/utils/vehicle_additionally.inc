@@ -49,9 +49,6 @@ stock
 {
 	const BYTES_PER_CELL = cellbits / charbits;
 	new count, number_arg;
-#if __Pawn < 0x030A
-	DestroyVehicle(INVALID_VEHICLE_ID);
-#endif
 	// Get the number of the variadic arguments
 	#emit load.s.pri 8
 	#emit stor.s.pri number_arg

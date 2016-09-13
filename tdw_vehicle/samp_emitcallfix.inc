@@ -1,5 +1,5 @@
 /** ======================================================================== **\
-	Vehicle sscanf
+	Vehicle Emit call fix
 
 | License:
 Copyright (c) 2016 Double V
@@ -21,30 +21,22 @@ freely, subject to the following restrictions:
 3.	This notice may not be removed or altered from any source distribution.
 \** ======================================================================== **/
 
-
-#if defined _inc_vehicle_sscanf
-	#undef _inc_vehicle_sscanf
+#if defined _inc_samp_emitcallfix
+	#undef _inc_samp_emitcallfix
 #endif
 
-#if defined _TDW_VEHICLE_U_SSCANF
+#if defined _TDW_VEHICLE_EMITCALLFIX
 	#endinput
 #endif
 
-#define _TDW_VEHICLE_U_SSCANF
+#define _TDW_VEHICLE_EMITCALLFIX
 
-
-SSCANF:vehicle(string[])
+@__TDW_VEHICLE_CALL_EMIT_FIX__@();
+@__TDW_VEHICLE_CALL_EMIT_FIX__@()
 {
-	if ('0' <= string[0] <= '9')
-	{
-		new ret = strval(string);
-		if (1 <= ret <= MAX_VEHICLES - 1)
-		{
-			if (IsValidVehicle(ret))
-			{
-				return ret;
-			}
-		}
-	}
-	return INVALID_VEHICLE_ID;
+	#emit retn
+	// The stock compiler crashes because of using sysreq.c on a native
+	// function.
+	UpdateVehicleDamageStatus(0, 0, 0, 0, 0);
+	DestroyVehicle(0);
 }
