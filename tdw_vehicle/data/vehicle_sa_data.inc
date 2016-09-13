@@ -51,7 +51,7 @@ freely, subject to the following restrictions:
 
 
 enum
-	e_TDW_VEHICLE_CATEGORY
+	E_TDW_VEHICLE_CATEGORY
 {
 	OFF_ROAD,
 	SALOONS,
@@ -61,15 +61,17 @@ enum
 	UNIQUE,
 	PUBLIC_SERVICE,
 	LOWRIDERS,
-	RC,
+	RADIOC,
 	HELICOPTERS,
 	BOATS,
 	TRAILERS,
-	AIRPLANE
+	AIRPLANE,
+	CONVERTIBLES,
+	BIKES
 };
 
 enum
-	e_TDW_VEHICLE_TYPE
+	E_TDW_VEHICLE_TYPE
 {
 	CAR,
 	HELICOPTE,
@@ -102,7 +104,7 @@ static stock const
 	190, 200, 200, 200, 160, 165, 110, 200, 200, 160, 165, 160, 160, 160, 140,
 	160, 160
 },
-	TDW_g_sVehicleNames[MAX_VEHICLE_MODELS + 1] =
+	TDW_g_sVehicleNames[MAX_VEHICLE_MODELS + 1][] =
 {
 	!"Landstalker", !"Bravura", !"Buffalo", !"Linerunner", !"Perenniel",
 	!"Sentinel", !"Dumper", !"Firetruck", !"Trashmaster", !"Stretch",
@@ -147,7 +149,7 @@ static stock const
 	!"Baggage Trailer \"B\"", !"Tug Stairs Trailer", !"Boxville",
 	!"Farm Trailer", !"Utility Trailer"
 },
-	e_TDW_VEHICLE_CATEGORY:TDW_g_sVehicleCategory[MAX_VEHICLE_MODELS + 1] =
+	E_TDW_VEHICLE_CATEGORY:TDW_g_sVehicleCategory[MAX_VEHICLE_MODELS + 1] =
 {
 	OFF_ROAD,       SALOONS,        SPORT,          INDUSTRIAL,
 	STATION_WAGONS, SALOONS,        UNIQUE,         PUBLIC_SERVICE,
@@ -159,13 +161,13 @@ static stock const
 	UNIQUE,         SPORT,          BOATS,          PUBLIC_SERVICE,
 	PUBLIC_SERVICE, PUBLIC_SERVICE, UNIQUE,         TRAILERS,
 	SALOONS,        PUBLIC_SERVICE, PUBLIC_SERVICE, CONVERTIBLES,
-	INDUSTRIAL,     RC,             UNIQUE,         INDUSTRIAL,
+	INDUSTRIAL,     RADIOC,             UNIQUE,         INDUSTRIAL,
 	OFF_ROAD,       SALOONS,        BOATS,          HELICOPTERS,
 	BIKES,          UNIQUE,         TRAILERS,       SPORT,
 	BOATS,          BOATS,          BOATS,          INDUSTRIAL,
 	INDUSTRIAL,     UNIQUE,         STATION_WAGONS, INDUSTRIAL,
 	AIRPLANE,       BIKES,          BIKES,          BIKES,
-	RC,             RC,             SALOONS,        SALOONS,
+	RADIOC,         RADIOC,         SALOONS,        SALOONS,
 	BIKES,          HELICOPTERS,    OFF_ROAD,       BIKES,
 	BOATS,          BOATS,          SALOONS,        SPORT,
 	AIRPLANE,       SPORT,          INDUSTRIAL,     STATION_WAGONS,
@@ -174,7 +176,7 @@ static stock const
 	HELICOPTERS,    OFF_ROAD,       PUBLIC_SERVICE, SALOONS,
 	SALOONS,        BOATS,          SPORT,          OFF_ROAD,
 	SPORT,          HELICOPTERS,    INDUSTRIAL,     INDUSTRIAL,
-	OFF_ROAD,       RC,             SPORT,          SPORT,
+	OFF_ROAD,       RADIOC,         SPORT,          SPORT,
 	SALOONS,        OFF_ROAD,       SPORT,          SALOONS,
 	UNIQUE,         BIKES,          BIKES,          AIRPLANE,
 	AIRPLANE,       AIRPLANE,       INDUSTRIAL,     INDUSTRIAL,
@@ -190,20 +192,20 @@ static stock const
 	INDUSTRIAL,     AIRPLANE,       INDUSTRIAL,     CONVERTIBLES,
 	OFF_ROAD,       OFF_ROAD,       SPORT,          SPORT,
 	SALOONS,        STATION_WAGONS, SALOONS,        HELICOPTERS,
-	RC,             SPORT,          LOWRIDERS,      LOWRIDERS,
+	RADIOC,         SPORT,          LOWRIDERS,      LOWRIDERS,
 	OFF_ROAD,       TRAILERS,       TRAILERS,       UNIQUE,
 	UNIQUE,         OFF_ROAD,       UNIQUE,         LOWRIDERS,
 	LOWRIDERS,      AIRPLANE,       INDUSTRIAL,     OFF_ROAD,
 	SALOONS,        BIKES,          INDUSTRIAL,     UNIQUE,
 	TRAILERS,       SALOONS,        BIKES,          SPORT,
 	UNIQUE,         SPORT,          TRAILERS,       TRAILERS,
-	AIRPLANE,       AIRPLANE,       RC,             BOATS,
+	AIRPLANE,       AIRPLANE,       RADIOC,         BOATS,
 	PUBLIC_SERVICE, PUBLIC_SERVICE, PUBLIC_SERVICE, PUBLIC_SERVICE,
 	INDUSTRIAL,     PUBLIC_SERVICE, SPORT,          SPORT,
 	SALOONS,        INDUSTRIAL,     TRAILERS,       TRAILERS,
 	TRAILERS,       INDUSTRIAL,     TRAILERS,       TRAILERS
 },
-	e_TDW_VEHICLE_TYPE:TDW_g_sVehicleType[MAX_VEHICLE_MODELS + 1] =
+	E_TDW_VEHICLE_TYPE:TDW_g_sVehicleType[MAX_VEHICLE_MODELS + 1] =
 {
 	CAR,       CAR,       CAR,       CAR,       CAR,       CAR,       CAR,
 	CAR,       CAR,       CAR,       CAR,       CAR,       CAR,       CAR,
@@ -242,7 +244,7 @@ static stock const
 stock
 	GetModelStaticSpeed(modelid)
 {
-	if (IS_VALID_MODEL(modelid) == 0)
+	if (_:IS_VALID_MODEL(modelid) == 0)
 		return -1;
 	return TDW_g_sVehicleSpeed[modelid - MIN_VEHICLE_MODEL];
 }
@@ -260,27 +262,27 @@ stock
 }
 
 stock
-	GetModelStaticNameFromId(modelid, name[])
+	GetModelStaticNameFromId(modelid, name[], name_size = sizeof name)
 {
-	if (IS_VALID_MODEL(modelid) == 0)
+	if (_:IS_VALID_MODEL(modelid) == 0)
 		return _:(name[0] = '\0');
 	return strcat((name[0] = '\0', name),
-		TDW_g_sVehicleNames[modelid - MIN_VEHICLE_MODEL]
+		TDW_g_sVehicleNames[modelid - MIN_VEHICLE_MODEL], name_size
 	);
 }
 
 stock
-	e_TDW_VEHICLE_CATEGORY:GetModelStaticCategory(modelid)
+	E_TDW_VEHICLE_CATEGORY:GetModelStaticCategory(modelid)
 {
-	if (IS_VALID_MODEL(modelid) == 0)
-		return -1;
+	if (_:IS_VALID_MODEL(modelid) == 0)
+		return E_TDW_VEHICLE_CATEGORY:-1;
 	return TDW_g_sVehicleCategory[modelid - MIN_VEHICLE_MODEL];
 }
 
 stock
-	e_TDW_VEHICLE_TYPE:GetModelStaticType(modelid)
+	E_TDW_VEHICLE_TYPE:GetModelStaticType(modelid)
 {
-	if (IS_VALID_MODEL(modelid) == 0)
-		return -1;
+	if (_:IS_VALID_MODEL(modelid) == 0)
+		return E_TDW_VEHICLE_TYPE:-1;
 	return TDW_g_sVehicleType[modelid - MIN_VEHICLE_MODEL];
 }

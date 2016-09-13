@@ -1244,7 +1244,7 @@ stock
 }
 
 stock
-	Float:GetVehicleDriveType(modelid, dest[], dest_size = sizeof dest)
+	GetVehicleDriveType(modelid, dest[], dest_size = sizeof dest)
 {
 	if (_:IS_VALID_MODEL(modelid) == 0)
 		return 0;
@@ -1255,7 +1255,7 @@ stock
 }
 
 stock
-	Float:GetVehicleEngineType(modelid, dest[], dest_size = sizeof dest)
+	GetVehicleEngineType(modelid, dest[], dest_size = sizeof dest)
 {
 	if (_:IS_VALID_MODEL(modelid) == 0)
 		return 0;
