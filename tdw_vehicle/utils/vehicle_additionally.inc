@@ -1,12 +1,5 @@
 /** ======================================================================== **\
-| Name:
 	Vehicle Additionally
-
-| Category:
-	utils
-
-| Version:
-	2.0.2
 
 | License:
 Copyright (c) 2016 Double V
@@ -39,6 +32,9 @@ freely, subject to the following restrictions:
 
 #define _TDW_VEHICLE_U_ADDITIONALLY
 
+#if !defined _TDW_VEHICLE_FOREACH_DEFINED
+	#define _TDW_VEHICLE_FOREACH_DEFINED 0
+#endif
 
 enum e_TDW_VEHICLE_WHEEL
 {
@@ -49,25 +45,65 @@ enum e_TDW_VEHICLE_WHEEL
 
 
 stock
-	DestroyAllVehicles()
+	DestroyAllVehicles(...)
 {
-	new count;
-#if defined _TDW_VEHICLE_FOREACH_ARRAY
-	foreach (new i: Vehicle)
-#else
-	for (
-		new i
-	#if defined GetVehiclePoolSize
-		= GetVehiclePoolSize() + 1
-	#else
-		= MAX_VEHICLES
-	#endif
-		; --i != 0;
-	)
+	const BYTES_PER_CELL = cellbits / charbits;
+	new count, number_arg;
+#if __Pawn < 0x030A
+	DestroyVehicle(INVALID_VEHICLE_ID);
 #endif
+	// Get the number of the variadic arguments
+	#emit load.s.pri 8
+	#emit stor.s.pri number_arg
+	// Checks if the number of the variadic arguments is more zero.
+	if (number_arg != 0)
 	{
-		if (DestroyVehicle(i))
-			count++; // It's a feature of this function.
+		new arg_start, arg_end, ret;
+		// Get the current frame pointer.
+		#emit lctrl 5
+		#emit add.c 12
+		#emit stor.s.pri arg_start
+		// Get a pointer to the last argument.
+		#emit load.s.alt number_arg
+		#emit add
+		#emit stor.s.pri arg_end
+		do
+		{
+			// Get the value from the pointer
+			#emit load.i
+			// Push it!
+			#emit push.pri
+			#emit push.c 4
+			#emit sysreq.c DestroyVehicle
+			#emit stack 8
+			// Get the return value from the called function.
+			#emit stor.s.pri ret
+			if (ret)
+				count++;
+			arg_end -= BYTES_PER_CELL;
+			#emit load.s.pri arg_end
+		}
+		while (arg_end > arg_start);
+	}
+	else
+	{
+	#if defined _TDW_VEHICLE_FOREACH_ARRAY
+		foreach (new i: Vehicle)
+	#else
+		for (
+			new i
+		#if defined GetVehiclePoolSize
+			= GetVehiclePoolSize() + 1
+		#else
+			= MAX_VEHICLES
+		#endif
+			; --i != 0;
+		)
+	#endif
+		{
+			if (DestroyVehicle(i))
+				count++;
+		}
 	}
 	return count;
 }
@@ -185,8 +221,8 @@ stock
 	// 7. 0b00100001010001000010001000100100 & 0b1111 = 0b0100
 	// End.
 	return (
-		(MIN_VEHICLE_MODEL_ID <= modelid <= MAX_VEHICLE_MODEL_ID)
-		? ((vehicle_seat_data[(modelid -= MIN_VEHICLE_MODEL_ID) >>> 3] >>>
+		IS_VALID_MODEL(modelid)
+		? ((vehicle_seat_data[(modelid -= MIN_VEHICLE_MODEL) >>> 3] >>>
 			((modelid & 0b111) << 2)) & 0b1111)
 		: 0b1111
 	);

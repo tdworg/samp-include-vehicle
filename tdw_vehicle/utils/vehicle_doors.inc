@@ -1,12 +1,5 @@
 /** ======================================================================== **\
-| Name:
 	Vehicle Doors
-
-| Category:
-	utils
-
-| Version:
-	2.0.1
 
 | License:
 Copyright (c) 2016 Double V
@@ -56,13 +49,6 @@ freely, subject to the following restrictions:
 		(_:(GetVehicleDoorState(%0,%1) == _:(e_TDW_DOOR_STATE:(%2))))
 #endif
 
-
-enum
-	e_TDW_VEHICLE_DOOR
-{
-	FRONT_LEFT_DOOR, FRONT_RIGHT_DOOR,
-	 REAR_LEFT_DOOR,  REAR_RIGHT_DOOR // applies to vehicles with 4 doors.
-};
 
 enum
 	e_TDW_DOOR_STATE

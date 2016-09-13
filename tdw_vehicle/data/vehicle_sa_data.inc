@@ -1,12 +1,5 @@
 /** ======================================================================== **\
-| Name:
 	Vehicle SanAndreas Data
-
-| Category:
-	data
-
-| Version:
-	2.0.1
 
 | License:
 Copyright (c) 2016 Double V
@@ -257,7 +250,7 @@ stock
 stock
 	GetModelStaticIdFromName(const name[])
 {
-	for (new i = -1; ++i != sizeof TDW_g_sVehicleNames;)
+	for (new i = sizeof TDW_g_sVehicleNames; --i != 0;)
 	{
 		if (strcmp(name, TDW_g_sVehicleNames[i], true) != 0)
 			continue;

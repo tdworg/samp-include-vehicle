@@ -1,12 +1,5 @@
 /** ======================================================================== **\
-| Name:
 	Vehicle Static Data
-
-| Category:
-	data
-
-| Version:
-	2.0.1
 
 | License:
 Copyright (c) 2016 Double V
@@ -52,3 +45,10 @@ freely, subject to the following restrictions:
 		#pragma unused Vehicle@YSII_Ag, Vehicle@YSII_Cg
 	#endif
 #endif
+
+stock
+	DestroyVehicleSafe(vehicleid)
+{
+	Iter_SafeRemove(Vehicle, vehicleid, vehicleid);
+	return DestroyVehicle(vehicleid);
+}

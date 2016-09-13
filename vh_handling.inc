@@ -1,5 +1,12 @@
 /** ======================================================================== **\
-	Vehicle sscanf
+| Name:
+	Vehicle Handling
+
+| Category:
+	core
+
+| Version:
+	2.0.1
 
 | License:
 Copyright (c) 2016 Double V
@@ -22,29 +29,15 @@ freely, subject to the following restrictions:
 \** ======================================================================== **/
 
 
-#if defined _inc_vehicle_sscanf
-	#undef _inc_vehicle_sscanf
+#if defined _inc_vh_handing
+	#undef _inc_vh_handing
 #endif
 
-#if defined _TDW_VEHICLE_U_SSCANF
+#if defined _TDW_VEHICLE_HANDLING
 	#endinput
 #endif
 
-#define _TDW_VEHICLE_U_SSCANF
+#define _TDW_VEHICLE_HANDLING
 
-
-SSCANF:vehicleid(string[])
-{
-	if ('0' <= string[0] <= '9')
-	{
-		new ret = strval(string);
-		if (1 <= ret <= MAX_VEHICLES - 1)
-		{
-			if (IsValidVehicle(ret))
-			{
-				return ret;
-			}
-		}
-	}
-	return INVALID_VEHICLE_ID;
-}
+#include "tdw_vehicle/utility"
+#include "tdw_vehicle/data/vehicle_handling"
