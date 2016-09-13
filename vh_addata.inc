@@ -40,4 +40,4 @@ freely, subject to the following restrictions:
 #define _TDW_VEHICLE_ADDATA
 
 #include "tdw_vehicle/utility"
-#include "tdw_vehicle/data/vehicle_addata"
+#include "tdw_vehicle/data/vehicle_additionally_data"

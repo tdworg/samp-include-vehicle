@@ -41,4 +41,4 @@ freely, subject to the following restrictions:
 
 #include "tdw_vehicle/detect/foreach"
 #include "tdw_vehicle/utility"
-#include "tdw_vehicle/data/vehicle_data"
+#include "tdw_vehicle/data/vehicle_static_data"
