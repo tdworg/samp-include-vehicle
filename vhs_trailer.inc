@@ -33,11 +33,11 @@ freely, subject to the following restrictions:
 	#undef _inc_vhs_trailer
 #endif
 
-#if defined _TDW_VEHICLE_TRAILER
+#if defined _TDW_VHCOL__TRAILER
 	#endinput
 #endif
 
-#define _TDW_VEHICLE_TRAILER
+#define _TDW_VHCOL__TRAILER
 
-#include "tdw_vehicle/utility"
-#include "tdw_vehicle/system/vehicle_trailer"
+#include "tdw_vehicle/basic_functions"
+#include "tdw_vehicle/system/trailer_manage"

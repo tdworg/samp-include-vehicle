@@ -1,5 +1,12 @@
 /** ======================================================================== **\
-	Detect the other libaries
+| Name:
+	Vehicle Geometry
+
+| Category:
+	core
+
+| Version:
+	2.0.1
 
 | License:
 Copyright (c) 2016 Double V
@@ -22,16 +29,16 @@ freely, subject to the following restrictions:
 \** ======================================================================== **/
 
 
-#if defined _inc_samp_detect
-	#undef _inc_samp_detect
+#if defined _inc_vh_math
+	#undef _inc_vh_math
 #endif
 
-#if defined _TDW_VEHICLE_DETECT
+#if defined _TDW_VHCOL__MATH
 	#endinput
 #endif
 
-#define _TDW_VEHICLE_DETECT
+#define _TDW_VHCOL__MATH
 
-#include "tdw_vehicle/detect/foreach"
-#include "tdw_vehicle/detect/sscanf"
-#include "tdw_vehicle/detect/streamer"
+#include "vh_iterator"
+#include "tdw_vehicle/basic_functions"
+#include "tdw_vehicle/utils/math_functions"

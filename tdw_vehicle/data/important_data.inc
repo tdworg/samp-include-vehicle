@@ -22,15 +22,15 @@ freely, subject to the following restrictions:
 \** ======================================================================== **/
 
 
-#if defined _inc_vehicle_static_data
-	#undef _inc_vehicle_static_data
+#if defined _inc_important_data
+	#undef _inc_important_data
 #endif
 
-#if defined _TDW_VEHICLE_D_STATIC_DATA
+#if defined _TDW_VHLIB__IMPORTANT_DATA
 	#endinput
 #endif
 
-#define _TDW_VEHICLE_D_STATIC_DATA
+#define _TDW_VHLIB__IMPORTANT_DATA
 
 
 enum

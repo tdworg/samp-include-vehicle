@@ -1,12 +1,12 @@
 /** ======================================================================== **\
 | Name:
-	Vehicle Label system
+	Vehicle Additionally data
 
 | Category:
 	core
 
 | Version:
-	2.0.2
+	2.0.1
 
 | License:
 Copyright (c) 2016 Double V
@@ -29,16 +29,15 @@ freely, subject to the following restrictions:
 \** ======================================================================== **/
 
 
-#if defined _inc_vhs_label
-	#undef _inc_vhs_label
+#if defined _inc_vh_odata
+	#undef _inc_vh_odata
 #endif
 
-#if defined _TDW_VEHICLE_LABEL
+#if defined _TDW_VHCOL__ODATA
 	#endinput
 #endif
 
-#define _TDW_VEHICLE_LABEL
+#define _TDW_VHCOL__ODATA
 
-#include "tdw_vehicle/detect/streamer"
-#include "tdw_vehicle/utility"
-#include "tdw_vehicle/system/vehicle_label"
+#include "tdw_vehicle/basic_functions"
+#include "tdw_vehicle/data/other_data"

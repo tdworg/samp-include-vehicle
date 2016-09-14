@@ -22,15 +22,15 @@ freely, subject to the following restrictions:
 \** ======================================================================== **/
 
 
-#if defined _inc_vehicle_sa_data
-	#undef _inc_vehicle_sa_data
+#if defined _inc_gtasa_data
+	#undef _inc_gtasa_data
 #endif
 
-#if defined _TDW_VEHICLE_D_SA_DATA
+#if defined _TDW_VHLIB__GTASA_DATA
 	#endinput
 #endif
 
-#define _TDW_VEHICLE_D_SA_DATA
+#define _TDW_VHLIB__GTASA_DATA
 
 
 #if !defined IsVehicleModelTrailer

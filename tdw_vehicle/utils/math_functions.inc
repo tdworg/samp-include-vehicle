@@ -22,15 +22,15 @@ freely, subject to the following restrictions:
 \** ======================================================================== **/
 
 
-#if defined _inc_vehicle_geometry
-	#undef _inc_vehicle_geometry
+#if defined _inc_math_functions
+	#undef _inc_math_functions
 #endif
 
-#if defined _TDW_VEHICLE_U_GEOMETRY
+#if defined _TDW_VHLIB__MATH_FUNCTIONS
 	#endinput
 #endif
 
-#define _TDW_VEHICLE_U_GEOMETRY
+#define _TDW_VHLIB__MATH_FUNCTIONS
 
 enum
 	e_TDW_VEHICLE_SPEED

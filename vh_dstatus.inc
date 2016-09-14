@@ -33,12 +33,12 @@ freely, subject to the following restrictions:
 	#undef _inc_vh_dstatus
 #endif
 
-#if defined _TDW_VEHICLE_DSTATUS
+#if defined _TDW_VHCOL__DSTATUS
 	#endinput
 #endif
 
-#define _TDW_VEHICLE_DSTATUS
+#define _TDW_VHCOL__DSTATUS
 
-#include "tdw_vehicle/utility"
-#include "tdw_vehicle/samp_emitcallfix"
-#include "tdw_vehicle/utils/vehicle_damage_status"
+#include "tdw_vehicle/basic_functions"
+#include "tdw_vehicle/pawn_emit_fix"
+#include "tdw_vehicle/utils/damage_status"

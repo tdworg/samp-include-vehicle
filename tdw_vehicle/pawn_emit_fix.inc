@@ -1,12 +1,5 @@
 /** ======================================================================== **\
-| Name:
-	Vehicle Additionally
-
-| Category:
-	core
-
-| Version:
-	2.0.1
+	Vehicle Emit call fix
 
 | License:
 Copyright (c) 2016 Double V
@@ -28,18 +21,22 @@ freely, subject to the following restrictions:
 3.	This notice may not be removed or altered from any source distribution.
 \** ======================================================================== **/
 
-
-#if defined _inc_vh_adutils
-	#undef _inc_vh_adutils
+#if defined _inc_pawn_emit_fix
+	#undef _inc_pawn_emit_fix
 #endif
 
-#if defined _TDW_VEHICLE_ADUTILS
+#if defined _TDW_VHLIB__PAWN_EMIT_FIX
 	#endinput
 #endif
 
-#define _TDW_VEHICLE_ADUTILS
+#define _TDW_VHLIB__PAWN_EMIT_FIX
 
-#include "vh_iterator"
-#include "tdw_vehicle/utility"
-#include "tdw_vehicle/samp_emitcallfix"
-#include "tdw_vehicle/utils/vehicle_additionally"
+@__TDW_VEHICLE_CALL_EMIT_FIX__@();
+@__TDW_VEHICLE_CALL_EMIT_FIX__@()
+{
+	#emit retn
+	// The stock compiler crashes because of using sysreq.c on a native
+	// function.
+	UpdateVehicleDamageStatus(0, 0, 0, 0, 0);
+	DestroyVehicle(0);
+}

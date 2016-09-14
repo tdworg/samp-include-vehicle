@@ -22,15 +22,15 @@ freely, subject to the following restrictions:
 \** ======================================================================== **/
 
 
-#if defined _inc_utility
-	#undef _inc_utility
+#if defined _inc_basic_functions
+	#undef _inc_basic_functions
 #endif
 
-#if defined _TDW_VEHICLE_UTILITY
+#if defined _TDW_VHLIB__BASIC_FUNCTIONS
 	#endinput
 #endif
 
-#define _TDW_VEHICLE_UTILITY
+#define _TDW_VHLIB__BASIC_FUNCTIONS
 
 
 #if !defined MIN_VEHICLE_PAINTJOB

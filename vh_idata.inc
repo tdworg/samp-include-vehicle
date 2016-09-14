@@ -1,6 +1,6 @@
 /** ======================================================================== **\
 | Name:
-	Vehicle Additionally data
+	Vehicle Static data
 
 | Category:
 	core
@@ -29,15 +29,16 @@ freely, subject to the following restrictions:
 \** ======================================================================== **/
 
 
-#if defined _inc_vh_addata
-	#undef _inc_vh_addata
+#if defined _inc_vh_idata
+	#undef _inc_vh_idata
 #endif
 
-#if defined _TDW_VEHICLE_ADDATA
+#if defined _TDW_VHCOL__IDATA
 	#endinput
 #endif
 
-#define _TDW_VEHICLE_ADDATA
+#define _TDW_VHCOL__IDATA
 
-#include "tdw_vehicle/utility"
-#include "tdw_vehicle/data/vehicle_addata"
+#include "tdw_vehicle/detect/foreach"
+#include "tdw_vehicle/basic_functions"
+#include "tdw_vehicle/data/important_data"

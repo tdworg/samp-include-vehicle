@@ -22,15 +22,15 @@ freely, subject to the following restrictions:
 \** ======================================================================== **/
 
 
-#if defined _inc_vehicle_label
-	#undef _inc_vehicle_label
+#if defined _inc_3dtext_label
+	#undef _inc_3dtext_label
 #endif
 
-#if defined _TDW_VEHICLE_S_LABEL
+#if defined _TDW_VHSYS__3D_TEXT_LABEL
 	#endinput
 #endif
 
-#define _TDW_VEHICLE_S_LABEL
+#define _TDW_VHSYS__3D_TEXT_LABEL
 
 
 #if _TDW_VEHICLE_STREAMER_DEFINED

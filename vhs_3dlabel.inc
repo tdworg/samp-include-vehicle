@@ -1,5 +1,12 @@
 /** ======================================================================== **\
-	Vehicle Static Data
+| Name:
+	Vehicle Label system
+
+| Category:
+	core
+
+| Version:
+	2.0.2
 
 | License:
 Copyright (c) 2016 Double V
@@ -22,33 +29,16 @@ freely, subject to the following restrictions:
 \** ======================================================================== **/
 
 
-#if defined _inc_vehicle_iterator
-	#undef _inc_vehicle_iterator
+#if defined _inc_vhs_3dlabel
+	#undef _inc_vhs_3dlabel
 #endif
 
-#if defined _TDW_VEHICLE_D_ITERATOR
+#if defined _TDW_VHCOL__3DLABEL
 	#endinput
 #endif
 
-#define _TDW_VEHICLE_D_ITERATOR
+#define _TDW_VHCOL__3DLABEL
 
-// Creates the foreach array.
-#if defined _TDW_VEHICLE_FOREACH_DEFINED
-	#if _TDW_VEHICLE_FOREACH_DEFINED
-		#if !defined Vehicle@YSII_Ag
-			new Iterator:Vehicle<MAX_VEHICLES>;
-		#endif
-		#if !defined _TDW_VEHICLE_FOREACH_ARRAY
-			#define _TDW_VEHICLE_FOREACH_ARRAY 1
-		#endif
-		// The variables can't be used in the code.
-		#pragma unused Vehicle@YSII_Ag, Vehicle@YSII_Cg
-	#endif
-#endif
-
-stock
-	DestroyVehicleSafe(vehicleid)
-{
-	Iter_SafeRemove(Vehicle, vehicleid, vehicleid);
-	return DestroyVehicle(vehicleid);
-}
+#include "tdw_vehicle/detect/streamer"
+#include "tdw_vehicle/basic_functions"
+#include "tdw_vehicle/system/3dtext_label"

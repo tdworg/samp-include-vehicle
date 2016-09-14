@@ -22,15 +22,15 @@ freely, subject to the following restrictions:
 \** ======================================================================== **/
 
 
-#if defined _inc_vehicle_sscanf
-	#undef _inc_vehicle_sscanf
+#if defined _inc_sscanf_custom_parameter
+	#undef _inc_sscanf_custom_parameter
 #endif
 
-#if defined _TDW_VEHICLE_U_SSCANF
+#if defined _TDW_VHLIB__SSCANF_CUSTOM_PARAM
 	#endinput
 #endif
 
-#define _TDW_VEHICLE_U_SSCANF
+#define _TDW_VHLIB__SSCANF_CUSTOM_PARAM
 
 
 SSCANF:vehicle(string[])

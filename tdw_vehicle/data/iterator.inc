@@ -1,5 +1,5 @@
 /** ======================================================================== **\
-	Vehicle Emit call fix
+	Vehicle Static Data
 
 | License:
 Copyright (c) 2016 Double V
@@ -21,22 +21,34 @@ freely, subject to the following restrictions:
 3.	This notice may not be removed or altered from any source distribution.
 \** ======================================================================== **/
 
-#if defined _inc_samp_emitcallfix
-	#undef _inc_samp_emitcallfix
+
+#if defined _inc_iterator
+	#undef _inc_iterator
 #endif
 
-#if defined _TDW_VEHICLE_EMITCALLFIX
+#if defined _TDW_VHLIB__ITERATOR
 	#endinput
 #endif
 
-#define _TDW_VEHICLE_EMITCALLFIX
+#define _TDW_VHLIB__ITERATOR
 
-@__TDW_VEHICLE_CALL_EMIT_FIX__@();
-@__TDW_VEHICLE_CALL_EMIT_FIX__@()
+// Creates the foreach array.
+#if defined _TDW_VEHICLE_FOREACH_DEFINED
+	#if _TDW_VEHICLE_FOREACH_DEFINED
+		#if !defined Vehicle@YSII_Ag
+			new Iterator:Vehicle<MAX_VEHICLES>;
+		#endif
+		#if !defined _TDW_VEHICLE_FOREACH_ARRAY
+			#define _TDW_VEHICLE_FOREACH_ARRAY 1
+		#endif
+		// The variables can't be used in the code.
+		#pragma unused Vehicle@YSII_Ag, Vehicle@YSII_Cg
+	#endif
+#endif
+
+stock
+	DestroyVehicleSafe(vehicleid)
 {
-	#emit retn
-	// The stock compiler crashes because of using sysreq.c on a native
-	// function.
-	UpdateVehicleDamageStatus(0, 0, 0, 0, 0);
-	DestroyVehicle(0);
+	Iter_SafeRemove(Vehicle, vehicleid, vehicleid);
+	return DestroyVehicle(vehicleid);
 }

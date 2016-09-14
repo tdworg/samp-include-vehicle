@@ -22,15 +22,16 @@ freely, subject to the following restrictions:
 \** ======================================================================== **/
 
 
-#if defined _inc_vehicle_additionally
-	#undef _inc_vehicle_additionally
+#if defined _inc_useful_functions
+	#undef _inc_useful_functions
 #endif
 
-#if defined _TDW_VEHICLE_U_ADDITIONALLY
+#if defined _TDW_VHLIB__USEFUL_FUNCTIONS
 	#endinput
 #endif
 
-#define _TDW_VEHICLE_U_ADDITIONALLY
+#define _TDW_VHLIB__USEFUL_FUNCTIONS
+
 
 enum e_TDW_VEHICLE_WHEEL
 {

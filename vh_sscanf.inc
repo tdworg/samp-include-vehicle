@@ -33,12 +33,12 @@ freely, subject to the following restrictions:
 	#undef _inc_vh_sscanf
 #endif
 
-#if defined _TDW_VEHICLE_SSCANF
+#if defined _TDW_VHCOL__SSCANF
 	#endinput
 #endif
 
-#define _TDW_VEHICLE_SSCANF
+#define _TDW_VHCOL__SSCANF
 
 #include "tdw_vehicle/detect/sscanf"
-#include "tdw_vehicle/utility"
-#include "tdw_vehicle/utils/vehicle_sscanf"
+#include "tdw_vehicle/basic_functions"
+#include "tdw_vehicle/utils/sscanf_custom_parameter"

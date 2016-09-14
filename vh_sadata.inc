@@ -33,11 +33,11 @@ freely, subject to the following restrictions:
 	#undef _inc_vh_sadata
 #endif
 
-#if defined _TDW_VEHICLE_SADATA
+#if defined _TDW_VHCOL__SADATA
 	#endinput
 #endif
 
-#define _TDW_VEHICLE_SADATA
+#define _TDW_VHCOL__SADATA
 
-#include "tdw_vehicle/utility"
-#include "tdw_vehicle/data/vehicle_sa_data"
+#include "tdw_vehicle/basic_functions"
+#include "tdw_vehicle/data/gtasa_data"

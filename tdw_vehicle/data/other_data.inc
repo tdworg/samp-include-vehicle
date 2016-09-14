@@ -22,15 +22,15 @@ freely, subject to the following restrictions:
 \** ======================================================================== **/
 
 
-#if defined _inc_vehicle_additionally_data
-	#undef _inc_vehicle_additionally_data
+#if defined _inc_other_data
+	#undef _inc_other_data
 #endif
 
-#if defined _TDW_VEHICLE_D_ADDITIONALLY
+#if defined _TDW_VHLIB__OTHER_DATA
 	#endinput
 #endif
 
-#define _TDW_VEHICLE_D_ADDITIONALLY
+#define _TDW_VHLIB__OTHER_DATA
 
 
 static stock

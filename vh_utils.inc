@@ -1,6 +1,6 @@
 /** ======================================================================== **\
 | Name:
-	Vehicle Geometry
+	Vehicle Additionally
 
 | Category:
 	core
@@ -29,16 +29,17 @@ freely, subject to the following restrictions:
 \** ======================================================================== **/
 
 
-#if defined _inc_vh_geometry
-	#undef _inc_vh_geometry
+#if defined _inc_vh_utils
+	#undef _inc_vh_utils
 #endif
 
-#if defined _TDW_VEHICLE_GEOMETRY
+#if defined _TDW_VHCOL__UTILS
 	#endinput
 #endif
 
-#define _TDW_VEHICLE_GEOMETRY
+#define _TDW_VHCOL__UTILS
 
 #include "vh_iterator"
-#include "tdw_vehicle/utility"
-#include "tdw_vehicle/utils/vehicle_geometry"
+#include "tdw_vehicle/basic_functions"
+#include "tdw_vehicle/pawn_emit_fix"
+#include "tdw_vehicle/utils/useful_functions"

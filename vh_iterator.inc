@@ -33,13 +33,12 @@ freely, subject to the following restrictions:
 	#undef _inc_vh_iterator
 #endif
 
-#if defined _TDW_VEHICLE_ITERATOR
+#if defined _TDW_VHCOL__ITERATOR
 	#endinput
 #endif
 
-#define _TDW_VEHICLE_ITERATOR
+#define _TDW_VHCOL__ITERATOR
 
 #include "tdw_vehicle/detect/foreach"
-#include "tdw_vehicle/utility"
-#include "tdw_vehicle/data/vehicle_iterator"
-// #include "tdw_vehicle/data/vehicle_data"
+#include "tdw_vehicle/basic_functions"
+#include "tdw_vehicle/data/iterator"

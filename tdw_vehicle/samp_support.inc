@@ -26,11 +26,11 @@ freely, subject to the following restrictions:
 	#undef _inc_samp_support
 #endif
 
-#if defined _TDW_VEHICLE_SUPPORT
+#if defined _TDW_VHLIB__SAMP_SUPPORT
 	#endinput
 #endif
 
-#define _TDW_VEHICLE_SUPPORT
+#define _TDW_VHLIB__SAMP_SUPPORT
 
 
 #include <a_samp>
