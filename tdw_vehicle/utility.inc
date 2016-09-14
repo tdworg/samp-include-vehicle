@@ -71,3 +71,19 @@ freely, subject to the following restrictions:
 #if !defined IsValidVehicle
 	native IsValidVehicle(vehicleid);
 #endif
+
+#if !defined _TDW_FOREACH_MAX_VEHICLES_
+	#if defined GetVehiclePoolSize
+		#define _TDW_FOREACH_MAX_VEHICLES_ (GetVehiclePoolSize() + 1)
+	#else
+		#define _TDW_FOREACH_MAX_VEHICLES_ (MAX_VEHICLES)
+	#endif
+#endif
+
+#if !defined _TDW_FOREACH_MAX_PLAYERS_
+	#if defined GetPlayerPoolSize
+		#define _TDW_FOREACH_MAX_PLAYERS_ (GetPlayerPoolSize() + 1)
+	#else
+		#define _TDW_FOREACH_MAX_PLAYERS_ (GetMaxPlayers())
+	#endif
+#endif

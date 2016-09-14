@@ -83,15 +83,7 @@ stock
 	#if defined _TDW_VEHICLE_FOREACH_ARRAY
 		foreach (new i: Vehicle)
 	#else
-		for (
-			new i
-		#if defined GetVehiclePoolSize
-			= GetVehiclePoolSize() + 1
-		#else
-			= MAX_VEHICLES
-		#endif
-			; --i != 0;
-		)
+		for (new i = _TDW_FOREACH_MAX_VEHICLES_; --i != 0;)
 	#endif
 		{
 			if (DestroyVehicle(i))
@@ -103,22 +95,14 @@ stock
 
 
 #if defined _TDW_VEHICLE_FOREACH_ARRAY
-	// I've defined this macro to optimize your code.
+	// Foreach already contains an implementation of this function.
 	#define CountOfValidVehicles(%0) (Iter_Count(Vehicle))
 #else
 	stock
 		CountOfValidVehicles()
 	{
 		new count;
-		for (
-			new i
-		#if defined GetVehiclePoolSize
-			= GetVehiclePoolSize() + 1
-		#else
-			= MAX_VEHICLES
-		#endif
-			; --i != 0;
-		)
+		for (new i = _TDW_FOREACH_MAX_VEHICLES_; --i != 0;)
 		{
 			if (IsValidVehicle(i) == 0)
 				continue;
@@ -137,15 +121,7 @@ stock
 	#if _TDW_VEHICLE_FOREACH_DEFINED
 		foreach (new i: Player)
 	#else
-		for (
-			new i
-		#if defined GetPlayerPoolSize
-			= GetPlayerPoolSize() + 1
-		#else
-			= GetMaxPlayers()
-		#endif
-			; --i != -1;
-		)
+		for (new i = _TDW_FOREACH_MAX_PLAYERS_; --i != -1;)
 	#endif
 		{
 			if (IsPlayerInVehicle(i, vehicleid) == 0)
@@ -164,15 +140,7 @@ stock
 	#if _TDW_VEHICLE_FOREACH_DEFINED
 		foreach (new i: Player)
 	#else
-		for (
-			new i
-		#if defined GetPlayerPoolSize
-			= GetPlayerPoolSize() + 1
-		#else
-			= GetMaxPlayers()
-		#endif
-			; --i != -1;
-		)
+		for (new i = _TDW_FOREACH_MAX_PLAYERS_; --i != -1;)
 	#endif
 		{
 			if (IsPlayerInVehicle(i, vehicleid) == 0)
@@ -283,10 +251,8 @@ stock
 		new Float:x, Float:y, Float:z;
 		if (GetVehiclePos(vehicleid, x, y, z))
 		{
-			goto no_init;
 			new Float:retx[2], Float:rety[2], Float:retz[2],
 				Float:retdist[2], modelids[2];
-		no_init:
 			new collisions = CA_RayCastMultiLine(
 				x, y, z + 0.7, x, y, z - 0.7, retx, rety, retz, retdist,
 				modelids, 2);
@@ -308,15 +274,7 @@ stock
 	#if _TDW_VEHICLE_FOREACH_DEFINED
 		foreach (new i: Player)
 	#else
-		for(
-			new i
-		#if defined GetPlayerPoolSize
-			= GetPlayerPoolSize() + 1
-		#else
-			= GetMaxPlayers()
-		#endif
-			; --i != -1;
-		)
+		for (new i = _TDW_FOREACH_MAX_PLAYERS_; --i != -1;)
 	#endif
 		{
 			if (GetPlayerVehicleID(i) == 0)
@@ -344,15 +302,7 @@ stock
 	#if _TDW_VEHICLE_FOREACH_DEFINED
 		foreach (new i: Player)
 	#else
-		for (
-			new i
-		#if defined GetPlayerPoolSize
-			= GetPlayerPoolSize() + 1
-		#else
-			= GetMaxPlayers()
-		#endif
-			; --i != -1;
-		)
+		for (new i = _TDW_FOREACH_MAX_PLAYERS_; --i != -1;)
 	#endif
 		{
 			if (GetPlayerVehicleID(i) == 0)
