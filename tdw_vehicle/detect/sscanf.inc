@@ -26,11 +26,11 @@ freely, subject to the following restrictions:
 	#undef _inc_sscanf
 #endif
 
-#if defined _TDW_VEHICLE_SSCANF
+#if defined _TDW_VHLIB__SSCANF
 	#endinput
 #endif
 
-#define _TDW_VEHICLE_SSCANF
+#define _TDW_VHLIB__SSCANF
 
 
 #if defined _TDW_VEHICLE_SSCANF_DEFINED

@@ -26,11 +26,11 @@ freely, subject to the following restrictions:
 	#undef _inc_streamer
 #endif
 
-#if defined _TDW_VEHICLE_STREAMER
+#if defined _TDW_VHLIB_STREAMER
 	#endinput
 #endif
 
-#define _TDW_VEHICLE_STREAMER
+#define _TDW_VHLIB_STREAMER
 
 
 #if defined _TDW_VEHICLE_STREAMER_DEFINED

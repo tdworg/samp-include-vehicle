@@ -26,11 +26,11 @@ freely, subject to the following restrictions:
 	#undef _inc_foreach
 #endif
 
-#if defined _TDW_VEHICLE_FOREACH
+#if defined _TDW_VHLIB__FOREACH
 	#endinput
 #endif
 
-#define _TDW_VEHICLE_FOREACH
+#define _TDW_VHLIB__FOREACH
 
 
 #if defined _TDW_VEHICLE_FOREACH_DEFINED
