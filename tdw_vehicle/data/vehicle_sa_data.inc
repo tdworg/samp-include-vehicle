@@ -266,7 +266,8 @@ stock
 {
 	if (_:IS_VALID_MODEL(modelid) == 0)
 		return _:(name[0] = '\0');
-	return strcat((name[0] = '\0', name),
+	name[0] = '\0';
+	return strunpack(name,
 		TDW_g_sVehicleNames[modelid - MIN_VEHICLE_MODEL], name_size
 	);
 }

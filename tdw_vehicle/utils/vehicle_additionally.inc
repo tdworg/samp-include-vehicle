@@ -45,7 +45,7 @@ stock
 {
 	const BYTES_PER_CELL = cellbits / charbits;
 	new count, number_arg;
-	// Get the number of the variadic arguments
+	// Get a number of the variadic arguments
 	#emit load.s.pri 8
 	#emit stor.s.pri number_arg
 	// Checks if the number of the variadic arguments is more zero.
