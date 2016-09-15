@@ -161,7 +161,7 @@ static stock const
 	UNIQUE,         SPORT,          BOATS,          PUBLIC_SERVICE,
 	PUBLIC_SERVICE, PUBLIC_SERVICE, UNIQUE,         TRAILERS,
 	SALOONS,        PUBLIC_SERVICE, PUBLIC_SERVICE, CONVERTIBLES,
-	INDUSTRIAL,     RADIOC,             UNIQUE,         INDUSTRIAL,
+	INDUSTRIAL,     RADIOC,         UNIQUE,         INDUSTRIAL,
 	OFF_ROAD,       SALOONS,        BOATS,          HELICOPTERS,
 	BIKES,          UNIQUE,         TRAILERS,       SPORT,
 	BOATS,          BOATS,          BOATS,          INDUSTRIAL,
