@@ -1,12 +1,8 @@
 /** ======================================================================== **\
-| Name:
-	Vehicle Additionally data
+	Other Data
 
-| Category:
-	core
-
-| Version:
-	2.0.1
+| Description:
+Another dynamic information about vehicles in SA:MP.
 
 | License:
 Copyright (c) 2016 Double V

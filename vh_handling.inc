@@ -1,12 +1,5 @@
 /** ======================================================================== **\
-| Name:
-	Vehicle Handling
-
-| Category:
-	core
-
-| Version:
-	2.0.1
+	Handling
 
 | License:
 Copyright (c) 2016 Double V

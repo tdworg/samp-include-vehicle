@@ -1,12 +1,9 @@
 /** ======================================================================== **\
-| Name:
-	Vehicle Label system
+	3D Label
 
-| Category:
-	core
-
-| Version:
-	2.0.2
+| Description:
+This system adds new functions for working with 3D labels for vehicle. Moreover,
+it works with streamer.
 
 | License:
 Copyright (c) 2016 Double V

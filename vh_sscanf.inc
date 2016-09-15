@@ -1,12 +1,16 @@
 /** ======================================================================== **\
-| Name:
-	Vehicle sscanf data
+	Sscanf Custom Parameter
 
-| Category:
-	core
+| Description:
+It adds a new custom parameter in sscanf.
 
-| Version:
-	2.0.1
+	Example:
+		if (sscanf(string, "k<vehicle>", params...))
+		{
+			...
+		}
+
+This parameter checks a value for correctness.
 
 | License:
 Copyright (c) 2016 Double V

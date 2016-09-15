@@ -1,12 +1,9 @@
 /** ======================================================================== **\
-| Name:
-	Vehicle Geometry
+	Math functions
 
-| Category:
-	core
-
-| Version:
-	2.0.1
+| Desciptions:
+This library contains maths functions for working with geometry, trigonometry,
+and algebra. This will help you to calculate the positions of a vehicle.
 
 | License:
 Copyright (c) 2016 Double V

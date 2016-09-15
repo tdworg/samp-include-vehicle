@@ -1,12 +1,9 @@
 /** ======================================================================== **\
-| Name:
-	Vehicle SanAndreas data
+	San Andreas Data
 
-| Category:
-	core
-
-| Version:
-	2.0.1
+| Description:
+General information about vehicles in GTA San Andreas, such as maximum speeds,
+names, categories, and types.
 
 | License:
 Copyright (c) 2016 Double V

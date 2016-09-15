@@ -1,12 +1,5 @@
 /** ======================================================================== **\
-| Name:
 	Vehicle Doors & Windows
-
-| Category:
-	core
-
-| Version:
-	2.0.2
 
 | License:
 Copyright (c) 2016 Double V

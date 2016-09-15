@@ -1,12 +1,8 @@
 /** ======================================================================== **\
-| Name:
-	Vehicle Additionally
+	Utils functions
 
-| Category:
-	core
-
-| Version:
-	2.0.1
+| Description:
+This library contains a lot of useful functions.
 
 | License:
 Copyright (c) 2016 Double V

@@ -1,12 +1,5 @@
 /** ======================================================================== **\
-| Name:
-	Vehicle Tuning Library
-
-| Category:
-	core
-
-| Version:
-	2.0.1
+	Tuning Library
 
 | License:
 Copyright (c) 2016 Double V

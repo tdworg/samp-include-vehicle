@@ -1,12 +1,8 @@
 /** ======================================================================== **\
-| Name:
-	Vehicle Iterator data
+	Iterator
 
-| Category:
-	core
-
-| Version:
-	2.0.1
+| Requires:
+	- foreach
 
 | License:
 Copyright (c) 2016 Double V

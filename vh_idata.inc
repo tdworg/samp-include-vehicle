@@ -1,12 +1,8 @@
 /** ======================================================================== **\
-| Name:
-	Vehicle Static data
+	Important Data
 
-| Category:
-	core
-
-| Version:
-	2.0.1
+| Description:
+Important dynamic information about vehicles in SA:MP.
 
 | License:
 Copyright (c) 2016 Double V

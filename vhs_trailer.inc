@@ -1,12 +1,9 @@
 /** ======================================================================== **\
-| Name:
-	Vehicle Trailer system
+	Manager trailers
 
-| Category:
-	core
-
-| Version:
-	2.0.1
+| Description:
+It adds callbacks and functions to track a vehicle with attached a trailer.
+Besides, it helps to working with trailers.
 
 | License:
 Copyright (c) 2016 Double V
