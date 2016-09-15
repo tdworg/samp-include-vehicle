@@ -32,7 +32,7 @@ freely, subject to the following restrictions:
 
 #define _TDW_VHLIB__SSCANF_CUSTOM_PARAM
 
-
+#if _TDW_VEHICLE_SSCANF_DEFINED
 SSCANF:vehicle(string[])
 {
 	if ('0' <= string[0] <= '9')
@@ -48,3 +48,4 @@ SSCANF:vehicle(string[])
 	}
 	return INVALID_VEHICLE_ID;
 }
+#endif
