@@ -87,3 +87,16 @@ freely, subject to the following restrictions:
 		#define _TDW_FOREACH_MAX_PLAYERS_ (GetMaxPlayers())
 	#endif
 #endif
+
+#if !defined MIN_VEHICLE_COMPONENT_ID
+	#define MIN_VEHICLE_COMPONENT_ID (1000)
+#endif
+
+#if !defined MAX_VEHICLE_COMPONENT_ID
+	#define MAX_VEHICLE_COMPONENT_ID (1193)
+#endif
+
+#if !defined MAX_VEHICLE_COMPONENTS
+	#define MAX_VEHICLE_COMPONENTS\
+		(MAX_VEHICLE_COMPONENT_ID - MIN_VEHICLE_COMPONENT_ID)
+#endif
