@@ -34,7 +34,7 @@ freely, subject to the following restrictions:
 
 
 static stock const
-	TDW_g_sCompatibleComponentId[MAX_VEHICLE_MODELS + 1][] =
+	TDW_g_sCompatibleComponentId[MAX_VEHICLE_MODELS+1][MAX_VEHICLE_COMPONENTS] =
 {
 	{ // 400
 		1008, 1009, 1010, 1013, 1018, 1019, 1020, 1021, 1024, 1025, 1073, 1074,
@@ -907,7 +907,7 @@ static stock const
 		1081, 1082, 1083, 1084, 1085, 1086, 1087, 1096, 1097, 1098
 	}
 },
-	TDW_g_sComponentName[MAX_VEHICLE_COMPONENTS + 1][] =
+	TDW_g_sComponentName[MAX_VEHICLE_COMPONENTS + 1][41 char] =
 {
 	!"Pro Spoiler", !"Win Spoiler", !"Drag Spoiler", !"Alpha Spoiler",
 	!"Champ Scoop Hood", !"Fury Scoop Hood", !"Roof Scoop", !"Right Sideskirt",
