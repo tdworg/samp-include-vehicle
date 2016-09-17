@@ -22,15 +22,16 @@ freely, subject to the following restrictions:
 \** ======================================================================== **/
 
 
-#if defined _inc_vehicle_additionally
-	#undef _inc_vehicle_additionally
+#if defined _inc_useful_functions
+	#undef _inc_useful_functions
 #endif
 
-#if defined _TDW_VEHICLE_U_ADDITIONALLY
+#if defined _TDW_VHLIB__USEFUL_FUNCTIONS
 	#endinput
 #endif
 
-#define _TDW_VEHICLE_U_ADDITIONALLY
+#define _TDW_VHLIB__USEFUL_FUNCTIONS
+
 
 enum e_TDW_VEHICLE_WHEEL
 {
@@ -45,7 +46,7 @@ stock
 {
 	const BYTES_PER_CELL = cellbits / charbits;
 	new count, number_arg;
-	// Get the number of the variadic arguments
+	// Get a number of the variadic arguments
 	#emit load.s.pri 8
 	#emit stor.s.pri number_arg
 	// Checks if the number of the variadic arguments is more zero.
@@ -83,15 +84,7 @@ stock
 	#if defined _TDW_VEHICLE_FOREACH_ARRAY
 		foreach (new i: Vehicle)
 	#else
-		for (
-			new i
-		#if defined GetVehiclePoolSize
-			= GetVehiclePoolSize() + 1
-		#else
-			= MAX_VEHICLES
-		#endif
-			; --i != 0;
-		)
+		for (new i = _TDW_FOREACH_MAX_VEHICLES_; --i != 0;)
 	#endif
 		{
 			if (DestroyVehicle(i))
@@ -103,22 +96,14 @@ stock
 
 
 #if defined _TDW_VEHICLE_FOREACH_ARRAY
-	// I've defined this macro to optimize your code.
+	// Foreach already contains an implementation of this function.
 	#define CountOfValidVehicles(%0) (Iter_Count(Vehicle))
 #else
 	stock
 		CountOfValidVehicles()
 	{
 		new count;
-		for (
-			new i
-		#if defined GetVehiclePoolSize
-			= GetVehiclePoolSize() + 1
-		#else
-			= MAX_VEHICLES
-		#endif
-			; --i != 0;
-		)
+		for (new i = _TDW_FOREACH_MAX_VEHICLES_; --i != 0;)
 		{
 			if (IsValidVehicle(i) == 0)
 				continue;
@@ -137,15 +122,7 @@ stock
 	#if _TDW_VEHICLE_FOREACH_DEFINED
 		foreach (new i: Player)
 	#else
-		for (
-			new i
-		#if defined GetPlayerPoolSize
-			= GetPlayerPoolSize() + 1
-		#else
-			= GetMaxPlayers()
-		#endif
-			; --i != -1;
-		)
+		for (new i = _TDW_FOREACH_MAX_PLAYERS_; --i != -1;)
 	#endif
 		{
 			if (IsPlayerInVehicle(i, vehicleid) == 0)
@@ -164,15 +141,7 @@ stock
 	#if _TDW_VEHICLE_FOREACH_DEFINED
 		foreach (new i: Player)
 	#else
-		for (
-			new i
-		#if defined GetPlayerPoolSize
-			= GetPlayerPoolSize() + 1
-		#else
-			= GetMaxPlayers()
-		#endif
-			; --i != -1;
-		)
+		for (new i = _TDW_FOREACH_MAX_PLAYERS_; --i != -1;)
 	#endif
 		{
 			if (IsPlayerInVehicle(i, vehicleid) == 0)
@@ -283,10 +252,8 @@ stock
 		new Float:x, Float:y, Float:z;
 		if (GetVehiclePos(vehicleid, x, y, z))
 		{
-			goto no_init;
 			new Float:retx[2], Float:rety[2], Float:retz[2],
 				Float:retdist[2], modelids[2];
-		no_init:
 			new collisions = CA_RayCastMultiLine(
 				x, y, z + 0.7, x, y, z - 0.7, retx, rety, retz, retdist,
 				modelids, 2);
@@ -308,15 +275,7 @@ stock
 	#if _TDW_VEHICLE_FOREACH_DEFINED
 		foreach (new i: Player)
 	#else
-		for(
-			new i
-		#if defined GetPlayerPoolSize
-			= GetPlayerPoolSize() + 1
-		#else
-			= GetMaxPlayers()
-		#endif
-			; --i != -1;
-		)
+		for (new i = _TDW_FOREACH_MAX_PLAYERS_; --i != -1;)
 	#endif
 		{
 			if (GetPlayerVehicleID(i) == 0)
@@ -344,15 +303,7 @@ stock
 	#if _TDW_VEHICLE_FOREACH_DEFINED
 		foreach (new i: Player)
 	#else
-		for (
-			new i
-		#if defined GetPlayerPoolSize
-			= GetPlayerPoolSize() + 1
-		#else
-			= GetMaxPlayers()
-		#endif
-			; --i != -1;
-		)
+		for (new i = _TDW_FOREACH_MAX_PLAYERS_; --i != -1;)
 	#endif
 		{
 			if (GetPlayerVehicleID(i) == 0)

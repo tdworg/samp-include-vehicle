@@ -1,5 +1,8 @@
 /** ======================================================================== **\
-	Vehicle Emit call fix
+	Important Data
+
+| Description:
+Important dynamic information about vehicles in SA:MP.
 
 | License:
 Copyright (c) 2016 Double V
@@ -21,22 +24,17 @@ freely, subject to the following restrictions:
 3.	This notice may not be removed or altered from any source distribution.
 \** ======================================================================== **/
 
-#if defined _inc_samp_emitcallfix
-	#undef _inc_samp_emitcallfix
+
+#if defined _inc_vh_idata
+	#undef _inc_vh_idata
 #endif
 
-#if defined _TDW_VEHICLE_EMITCALLFIX
+#if defined _TDW_VHCOL__IDATA
 	#endinput
 #endif
 
-#define _TDW_VEHICLE_EMITCALLFIX
+#define _TDW_VHCOL__IDATA
 
-@__TDW_VEHICLE_CALL_EMIT_FIX__@();
-@__TDW_VEHICLE_CALL_EMIT_FIX__@()
-{
-	#emit retn
-	// The stock compiler crashes because of using sysreq.c on a native
-	// function.
-	UpdateVehicleDamageStatus(0, 0, 0, 0, 0);
-	DestroyVehicle(0);
-}
+#include "tdw_vehicle/detect/foreach"
+#include "tdw_vehicle/basic_functions"
+#include "tdw_vehicle/data/important_data"

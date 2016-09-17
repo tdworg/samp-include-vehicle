@@ -1,12 +1,5 @@
 /** ======================================================================== **\
-| Name:
 	Vehicle Doors & Windows
-
-| Category:
-	core
-
-| Version:
-	2.0.2
 
 | License:
 Copyright (c) 2016 Double V
@@ -33,11 +26,11 @@ freely, subject to the following restrictions:
 	#undef _inc_vh_dwos
 #endif
 
-#if defined _TDW_VEHICLE_DWOS
+#if defined _TDW_VHCOL__DWOS
 	#endinput
 #endif
 
-#define _TDW_VEHICLE_DWOS
+#define _TDW_VHCOL__DWOS
 
 enum
 	e_TDW_VEHICLE_DOOR
@@ -46,6 +39,6 @@ enum
 	 REAR_LEFT_DOOR,  REAR_RIGHT_DOOR // applies to vehicles with 4 doors.
 };
 
-#include "tdw_vehicle/utility"
-#include "tdw_vehicle/utils/vehicle_doors"
-#include "tdw_vehicle/utils/vehicle_windows"
+#include "tdw_vehicle/basic_functions"
+#include "tdw_vehicle/utils/door_manage"
+#include "tdw_vehicle/utils/window_manage"

@@ -1,5 +1,5 @@
 /** ======================================================================== **\
-	Vehicle Damage Status
+	Vehicle Static Data
 
 | License:
 Copyright (c) 2016 Double V
@@ -22,16 +22,33 @@ freely, subject to the following restrictions:
 \** ======================================================================== **/
 
 
-#if defined _inc_vh_dstatus
-	#undef _inc_vh_dstatus
+#if defined _inc_iterator
+	#undef _inc_iterator
 #endif
 
-#if defined _TDW_VHCOL__DSTATUS
+#if defined _TDW_VHLIB__ITERATOR
 	#endinput
 #endif
 
-#define _TDW_VHCOL__DSTATUS
+#define _TDW_VHLIB__ITERATOR
 
-#include "tdw_vehicle/basic_functions"
-#include "tdw_vehicle/pawn_emit_fix"
-#include "tdw_vehicle/utils/damage_status"
+// Creates the foreach array.
+#if defined _TDW_VEHICLE_FOREACH_DEFINED
+	#if _TDW_VEHICLE_FOREACH_DEFINED
+		#if !defined Vehicle@YSII_Ag
+			new Iterator:Vehicle<MAX_VEHICLES>;
+		#endif
+		#if !defined _TDW_VEHICLE_FOREACH_ARRAY
+			#define _TDW_VEHICLE_FOREACH_ARRAY 1
+		#endif
+		// The variables can't be used in the code.
+		#pragma unused Vehicle@YSII_Ag, Vehicle@YSII_Cg
+	#endif
+#endif
+
+stock
+	DestroyVehicleSafe(vehicleid)
+{
+	Iter_SafeRemove(Vehicle, vehicleid, vehicleid);
+	return DestroyVehicle(vehicleid);
+}

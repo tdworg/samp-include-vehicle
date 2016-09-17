@@ -22,15 +22,15 @@ freely, subject to the following restrictions:
 \** ======================================================================== **/
 
 
-#if defined _inc_vehicle_label
-	#undef _inc_vehicle_label
+#if defined _inc_3dtext_label
+	#undef _inc_3dtext_label
 #endif
 
-#if defined _TDW_VEHICLE_S_LABEL
+#if defined _TDW_VHSYS__3D_TEXT_LABEL
 	#endinput
 #endif
 
-#define _TDW_VEHICLE_S_LABEL
+#define _TDW_VHSYS__3D_TEXT_LABEL
 
 
 #if _TDW_VEHICLE_STREAMER_DEFINED
@@ -53,14 +53,14 @@ static stock
 
 stock
 #if _TDW_VEHICLE_STREAMER_DEFINED
-	CreateVehicle3DTextLabel(vehicleid, const label[], color, Float:offset_x,
+	CreateVehicle3DTextLabel(vehicleid, label[], color, Float:offset_x,
 		Float:offset_y, Float:offset_z, Float:drawdistance, virtualworld,
 		bool:testLos = false, interiorid = -1,
 		Float:streamdistance = STREAMER_3D_TEXT_LABEL_SD,
 		label_length = sizeof label
 	)
 #else
-	CreateVehicle3DTextLabel(vehicleid, const label[], color, Float:offset_x,
+	CreateVehicle3DTextLabel(vehicleid, label[], color, Float:offset_x,
 		Float:offset_y, Float:offset_z, Float:drawdistance, virtualworld,
 		bool:testLos = false, label_length = sizeof label
 	)
@@ -70,17 +70,16 @@ stock
 		return 0;
 	if (IsValidVehicle(vehicleid) == 0)
 		return INVALID_VEHICLE_ID;
-	if (MAX_VEHICLE_LABEL_SIZE <= label)
+	if (_:(label_length < MAX_VEHICLE_LABEL_SIZE) == 0)
 		return 0;
-	TDW_g_sVDynamic@LabelIds[vehicleid]
 #if _TDW_VEHICLE_STREAMER_DEFINED
-	= CreateDynamic3DTextLabel(label, color, offset_x, offset_y, offset_z,
-		drawdistance, _, vehicleid, _:testlos, virtualworld, interiorid,
-		streamdistance
+	TDW_g_sVDynamic@LabelIds[vehicleid] = CreateDynamic3DTextLabel(label, color,
+		offset_x, offset_y, offset_z, drawdistance, _, vehicleid, _:testLos,
+		virtualworld, interiorid, streamdistance
 	);
 #else
-	= Create3DTextLabel(label, color, 0.0, 0.0, 0.0, drawdistance,
-		virtualworld, _:testlos
+	TDW_g_sVDynamic@LabelIds[vehicleid] = Create3DTextLabel(label, color, 0.0,
+		0.0, 0.0, drawdistance, virtualworld, _:testLos
 	);
 	Attach3DTextLabelToVehicle(TDW_g_sVDynamic@LabelIds[vehicleid],
 		vehicleid, offset_x, offset_y, offset_z
@@ -102,14 +101,14 @@ stock
 
 
 stock
-	UpdateVehicle3DTextLabel(vehicleid, const label[], bool:replace = false,
-		color = -1)
+	UpdateVehicle3DTextLabel(vehicleid, label[], bool:replace = false,
+		color = -1, label_length = sizeof label)
 {
 	if (label[0] == '\0')
 		return 0;
 	if (IsValidVehicle(vehicleid) == 0)
 		return INVALID_VEHICLE_ID;
-	if (MAX_VEHICLE_LABEL_SIZE <= label)
+	if (_:(label_length < MAX_VEHICLE_LABEL_SIZE) == 0)
 		return 0;
 	TDW_VEHICLE_UPDATE_LABEL(TDW_g_sVDynamic@LabelIds[vehicleid], color, label);
 	if (replace)

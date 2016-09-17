@@ -1,12 +1,5 @@
 /** ======================================================================== **\
-| Name:
-	Vehicle Additionally
-
-| Category:
-	core
-
-| Version:
-	2.0.1
+	Tuning Library
 
 | License:
 Copyright (c) 2016 Double V
@@ -29,17 +22,15 @@ freely, subject to the following restrictions:
 \** ======================================================================== **/
 
 
-#if defined _inc_vh_adutils
-	#undef _inc_vh_adutils
+#if defined _inc_vh_tune
+	#undef _inc_vh_tune
 #endif
 
-#if defined _TDW_VEHICLE_ADUTILS
+#if defined _TDW_VHCOL__TUNE
 	#endinput
 #endif
 
-#define _TDW_VEHICLE_ADUTILS
+#define _TDW_VHCOL__TUNE
 
-#include "vh_iterator"
-#include "tdw_vehicle/utility"
-#include "tdw_vehicle/samp_emitcallfix"
-#include "tdw_vehicle/utils/vehicle_additionally"
+#include "tdw_vehicle/basic_functions"
+#include "tdw_vehicle/data/tuning_data"

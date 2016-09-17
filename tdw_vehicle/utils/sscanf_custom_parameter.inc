@@ -1,12 +1,5 @@
 /** ======================================================================== **\
-| Name:
-	Vehicle Geometry
-
-| Category:
-	core
-
-| Version:
-	2.0.1
+	Vehicle sscanf
 
 | License:
 Copyright (c) 2016 Double V
@@ -29,16 +22,30 @@ freely, subject to the following restrictions:
 \** ======================================================================== **/
 
 
-#if defined _inc_vh_geometry
-	#undef _inc_vh_geometry
+#if defined _inc_sscanf_custom_parameter
+	#undef _inc_sscanf_custom_parameter
 #endif
 
-#if defined _TDW_VEHICLE_GEOMETRY
+#if defined _TDW_VHLIB__SSCANF_CUSTOM_PARAM
 	#endinput
 #endif
 
-#define _TDW_VEHICLE_GEOMETRY
+#define _TDW_VHLIB__SSCANF_CUSTOM_PARAM
 
-#include "vh_iterator"
-#include "tdw_vehicle/utility"
-#include "tdw_vehicle/utils/vehicle_geometry"
+#if _TDW_VEHICLE_SSCANF_DEFINED
+SSCANF:vehicle(string[])
+{
+	if ('0' <= string[0] <= '9')
+	{
+		new ret = strval(string);
+		if (1 <= ret <= MAX_VEHICLES - 1)
+		{
+			if (IsValidVehicle(ret))
+			{
+				return ret;
+			}
+		}
+	}
+	return INVALID_VEHICLE_ID;
+}
+#endif

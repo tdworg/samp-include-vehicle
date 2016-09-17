@@ -1,12 +1,5 @@
 /** ======================================================================== **\
-| Name:
-	Vehicle Static data
-
-| Category:
-	core
-
-| Version:
-	2.0.1
+	Detect the other libaries
 
 | License:
 Copyright (c) 2016 Double V
@@ -29,16 +22,16 @@ freely, subject to the following restrictions:
 \** ======================================================================== **/
 
 
-#if defined _inc_vh_stdata
-	#undef _inc_vh_stdata
+#if defined _inc_detect_basic
+	#undef _inc_detect_basic
 #endif
 
-#if defined _TDW_VEHICLE_STDATA
+#if defined _TDW_VHLIB__DETECT_BASIC
 	#endinput
 #endif
 
-#define _TDW_VEHICLE_STDATA
+#define _TDW_VHLIB__DETECT_BASIC
 
 #include "tdw_vehicle/detect/foreach"
-#include "tdw_vehicle/utility"
-#include "tdw_vehicle/data/vehicle_data"
+#include "tdw_vehicle/detect/sscanf"
+#include "tdw_vehicle/detect/streamer"

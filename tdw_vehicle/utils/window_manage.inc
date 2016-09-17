@@ -22,15 +22,15 @@ freely, subject to the following restrictions:
 \** ======================================================================== **/
 
 
-#if defined _inc_vehicle_windows
-	#undef _inc_vehicle_windows
+#if defined _inc_window_manage
+	#undef _inc_window_manage
 #endif
 
-#if defined _TDW_VEHICLE_U_WINDOWS
+#if defined _TDW_VHLIB__WINDOW_MANAGE
 	#endinput
 #endif
 
-#define _TDW_VEHICLE_U_WINDOWS
+#define _TDW_VHLIB__WINDOW_MANAGE
 
 
 #if !defined OpenVehicleWindow

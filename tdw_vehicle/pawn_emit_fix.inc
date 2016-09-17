@@ -1,12 +1,5 @@
 /** ======================================================================== **\
-| Name:
-	Vehicle Additionally data
-
-| Category:
-	core
-
-| Version:
-	2.0.1
+	Vehicle Emit call fix
 
 | License:
 Copyright (c) 2016 Double V
@@ -28,16 +21,22 @@ freely, subject to the following restrictions:
 3.	This notice may not be removed or altered from any source distribution.
 \** ======================================================================== **/
 
-
-#if defined _inc_vh_addata
-	#undef _inc_vh_addata
+#if defined _inc_pawn_emit_fix
+	#undef _inc_pawn_emit_fix
 #endif
 
-#if defined _TDW_VEHICLE_ADDATA
+#if defined _TDW_VHLIB__PAWN_EMIT_FIX
 	#endinput
 #endif
 
-#define _TDW_VEHICLE_ADDATA
+#define _TDW_VHLIB__PAWN_EMIT_FIX
 
-#include "tdw_vehicle/utility"
-#include "tdw_vehicle/data/vehicle_addata"
+@__TDW_VEHICLE_CALL_EMIT_FIX__@();
+@__TDW_VEHICLE_CALL_EMIT_FIX__@()
+{
+	#emit retn
+	// The stock compiler crashes because of using sysreq.c on a native
+	// function.
+	UpdateVehicleDamageStatus(0, 0, 0, 0, 0);
+	DestroyVehicle(0);
+}

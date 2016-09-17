@@ -1,12 +1,5 @@
 /** ======================================================================== **\
-| Name:
-	Vehicle Handling
-
-| Category:
-	core
-
-| Version:
-	2.0.1
+	Handling
 
 | License:
 Copyright (c) 2016 Double V
@@ -33,11 +26,11 @@ freely, subject to the following restrictions:
 	#undef _inc_vh_handing
 #endif
 
-#if defined _TDW_VEHICLE_HANDLING
+#if defined _TDW_VHCOL__HANDLING
 	#endinput
 #endif
 
-#define _TDW_VEHICLE_HANDLING
+#define _TDW_VHCOL__HANDLING
 
-#include "tdw_vehicle/utility"
-#include "tdw_vehicle/data/vehicle_handling"
+#include "tdw_vehicle/basic_functions"
+#include "tdw_vehicle/data/gtasa_handling"

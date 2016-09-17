@@ -22,15 +22,15 @@ freely, subject to the following restrictions:
 \** ======================================================================== **/
 
 
-#if defined _inc_utility
-	#undef _inc_utility
+#if defined _inc_basic_functions
+	#undef _inc_basic_functions
 #endif
 
-#if defined _TDW_VEHICLE_UTILITY
+#if defined _TDW_VHLIB__BASIC_FUNCTIONS
 	#endinput
 #endif
 
-#define _TDW_VEHICLE_UTILITY
+#define _TDW_VHLIB__BASIC_FUNCTIONS
 
 
 #if !defined MIN_VEHICLE_PAINTJOB
@@ -70,4 +70,33 @@ freely, subject to the following restrictions:
 
 #if !defined IsValidVehicle
 	native IsValidVehicle(vehicleid);
+#endif
+
+#if !defined _TDW_FOREACH_MAX_VEHICLES_
+	#if defined GetVehiclePoolSize
+		#define _TDW_FOREACH_MAX_VEHICLES_ (GetVehiclePoolSize() + 1)
+	#else
+		#define _TDW_FOREACH_MAX_VEHICLES_ (MAX_VEHICLES)
+	#endif
+#endif
+
+#if !defined _TDW_FOREACH_MAX_PLAYERS_
+	#if defined GetPlayerPoolSize
+		#define _TDW_FOREACH_MAX_PLAYERS_ (GetPlayerPoolSize() + 1)
+	#else
+		#define _TDW_FOREACH_MAX_PLAYERS_ (GetMaxPlayers())
+	#endif
+#endif
+
+#if !defined MIN_VEHICLE_COMPONENT_ID
+	#define MIN_VEHICLE_COMPONENT_ID (1000)
+#endif
+
+#if !defined MAX_VEHICLE_COMPONENT_ID
+	#define MAX_VEHICLE_COMPONENT_ID (1193)
+#endif
+
+#if !defined MAX_VEHICLE_COMPONENTS
+	#define MAX_VEHICLE_COMPONENTS\
+		(MAX_VEHICLE_COMPONENT_ID - MIN_VEHICLE_COMPONENT_ID)
 #endif

@@ -1,5 +1,9 @@
 /** ======================================================================== **\
-	Detect the other libaries
+	Math functions
+
+| Desciptions:
+This library contains maths functions for working with geometry, trigonometry,
+and algebra. This will help you to calculate the positions of a vehicle.
 
 | License:
 Copyright (c) 2016 Double V
@@ -22,16 +26,16 @@ freely, subject to the following restrictions:
 \** ======================================================================== **/
 
 
-#if defined _inc_samp_detect
-	#undef _inc_samp_detect
+#if defined _inc_vh_math
+	#undef _inc_vh_math
 #endif
 
-#if defined _TDW_VEHICLE_DETECT
+#if defined _TDW_VHCOL__MATH
 	#endinput
 #endif
 
-#define _TDW_VEHICLE_DETECT
+#define _TDW_VHCOL__MATH
 
-#include "tdw_vehicle/detect/foreach"
-#include "tdw_vehicle/detect/sscanf"
-#include "tdw_vehicle/detect/streamer"
+#include "vh_iterator"
+#include "tdw_vehicle/basic_functions"
+#include "tdw_vehicle/utils/math_functions"

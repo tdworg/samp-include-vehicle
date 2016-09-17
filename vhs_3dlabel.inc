@@ -1,12 +1,9 @@
 /** ======================================================================== **\
-| Name:
-	Vehicle Label system
+	3D Label
 
-| Category:
-	core
-
-| Version:
-	2.0.2
+| Description:
+This system adds new functions for working with 3D labels for vehicle. Moreover,
+it works with streamer.
 
 | License:
 Copyright (c) 2016 Double V
@@ -29,16 +26,16 @@ freely, subject to the following restrictions:
 \** ======================================================================== **/
 
 
-#if defined _inc_vhs_label
-	#undef _inc_vhs_label
+#if defined _inc_vhs_3dlabel
+	#undef _inc_vhs_3dlabel
 #endif
 
-#if defined _TDW_VEHICLE_LABEL
+#if defined _TDW_VHCOL__3DLABEL
 	#endinput
 #endif
 
-#define _TDW_VEHICLE_LABEL
+#define _TDW_VHCOL__3DLABEL
 
 #include "tdw_vehicle/detect/streamer"
-#include "tdw_vehicle/utility"
-#include "tdw_vehicle/system/vehicle_label"
+#include "tdw_vehicle/basic_functions"
+#include "tdw_vehicle/system/3dtext_label"

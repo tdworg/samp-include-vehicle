@@ -26,11 +26,11 @@ freely, subject to the following restrictions:
 	#undef _inc_colandreas
 #endif
 
-#if defined _TDW_VEHICLE_COLANDREAS
+#if defined _TDW_VHLIB__COLANDREAS
 	#endinput
 #endif
 
-#define _TDW_VEHICLE_COLANDREAS
+#define _TDW_VHLIB__COLANDREAS
 
 
 #if defined _TDW_VEHICLE_COLANDREAS_DEFINED

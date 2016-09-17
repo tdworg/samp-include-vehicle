@@ -22,15 +22,15 @@ freely, subject to the following restrictions:
 \** ======================================================================== **/
 
 
-#if defined _inc_vehicle_damage_status
-	#undef _inc_vehicle_damage_status
+#if defined _inc_damage_status
+	#undef _inc_damage_status
 #endif
 
-#if defined _TDW_VEHICLE_U_DSTATUS
+#if defined _TDW_VHLIB_DAMAGE_STATUS
 	#endinput
 #endif
 
-#define _TDW_VEHICLE_U_DSTATUS
+#define _TDW_VHLIB_DAMAGE_STATUS
 
 
 static stock TDW_g_sDataStorage;

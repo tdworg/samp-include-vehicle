@@ -1,12 +1,9 @@
 /** ======================================================================== **\
-| Name:
-	Vehicle Trailer system
+	Manager trailers
 
-| Category:
-	core
-
-| Version:
-	2.0.1
+| Description:
+It adds callbacks and functions to track a vehicle with attached a trailer.
+Besides, it helps to working with trailers.
 
 | License:
 Copyright (c) 2016 Double V
@@ -33,11 +30,11 @@ freely, subject to the following restrictions:
 	#undef _inc_vhs_trailer
 #endif
 
-#if defined _TDW_VEHICLE_TRAILER
+#if defined _TDW_VHCOL__TRAILER
 	#endinput
 #endif
 
-#define _TDW_VEHICLE_TRAILER
+#define _TDW_VHCOL__TRAILER
 
-#include "tdw_vehicle/utility"
-#include "tdw_vehicle/system/vehicle_trailer"
+#include "tdw_vehicle/basic_functions"
+#include "tdw_vehicle/system/trailer_manage"

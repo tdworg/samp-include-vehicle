@@ -22,15 +22,15 @@ freely, subject to the following restrictions:
 \** ======================================================================== **/
 
 
-#if defined _inc_vehicle_trailer
-	#undef _inc_vehicle_trailer
+#if defined _inc_trailer_manage
+	#undef _inc_trailer_manage
 #endif
 
-#if defined _TDW_VEHICLE_S_TRAILER
+#if defined _TDW_VHSYS__TRAILER_MANAGE
 	#endinput
 #endif
 
-#define _TDW_VEHICLE_S_TRAILER
+#define _TDW_VHSYS__TRAILER_MANAGE
 
 
 #if defined OnTrailerAttached

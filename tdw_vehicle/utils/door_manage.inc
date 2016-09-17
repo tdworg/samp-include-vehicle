@@ -22,15 +22,15 @@ freely, subject to the following restrictions:
 \** ======================================================================== **/
 
 
-#if defined _inc_vehicle_doors
-	#undef _inc_vehicle_doors
+#if defined _inc_door_manage
+	#undef _inc_door_manage
 #endif
 
-#if defined _TDW_VEHICLE_U_DOORS
+#if defined _TDW_VHLIB__DOOR_MANAGE
 	#endinput
 #endif
 
-#define _TDW_VEHICLE_U_DOORS
+#define _TDW_VHLIB__DOOR_MANAGE
 
 
 #if !defined MAX_VEHICLE_DOORS

@@ -22,15 +22,15 @@ freely, subject to the following restrictions:
 \** ======================================================================== **/
 
 
-#if defined _inc_vehicle_handling
-	#undef _inc_vehicle_handling
+#if defined _inc_gtasa_handling
+	#undef _inc_gtasa_handling
 #endif
 
-#if defined _TDW_VEHICLE_D_HANDLING
+#if defined _TDW_VHLIB__GTASA_HANDLING
 	#endinput
 #endif
 
-#define _TDW_VEHICLE_D_HANDLING
+#define _TDW_VHLIB__GTASA_HANDLING
 
 #define GETVEH_IDX(%0) ((%0) - MIN_VEHICLE_MODEL)
 

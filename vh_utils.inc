@@ -1,5 +1,8 @@
 /** ======================================================================== **\
-	Vehicle Static Data
+	Utils functions
+
+| Description:
+This library contains a lot of useful functions.
 
 | License:
 Copyright (c) 2016 Double V
@@ -22,33 +25,17 @@ freely, subject to the following restrictions:
 \** ======================================================================== **/
 
 
-#if defined _inc_vehicle_iterator
-	#undef _inc_vehicle_iterator
+#if defined _inc_vh_utils
+	#undef _inc_vh_utils
 #endif
 
-#if defined _TDW_VEHICLE_D_ITERATOR
+#if defined _TDW_VHCOL__UTILS
 	#endinput
 #endif
 
-#define _TDW_VEHICLE_D_ITERATOR
+#define _TDW_VHCOL__UTILS
 
-// Creates the foreach array.
-#if defined _TDW_VEHICLE_FOREACH_DEFINED
-	#if _TDW_VEHICLE_FOREACH_DEFINED
-		#if !defined Vehicle@YSII_Ag
-			new Iterator:Vehicle<MAX_VEHICLES>;
-		#endif
-		#if !defined _TDW_VEHICLE_FOREACH_ARRAY
-			#define _TDW_VEHICLE_FOREACH_ARRAY 1
-		#endif
-		// The variables can't be used in the code.
-		#pragma unused Vehicle@YSII_Ag, Vehicle@YSII_Cg
-	#endif
-#endif
-
-stock
-	DestroyVehicleSafe(vehicleid)
-{
-	Iter_SafeRemove(Vehicle, vehicleid, vehicleid);
-	return DestroyVehicle(vehicleid);
-}
+#include "vh_iterator"
+#include "tdw_vehicle/basic_functions"
+#include "tdw_vehicle/pawn_emit_fix"
+#include "tdw_vehicle/utils/useful_functions"
