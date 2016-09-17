@@ -142,8 +142,7 @@ stock
 	Float:GetVehicleSpeedFromVelocity(Float:x, Float:y, Float:z,
 		e_TDW_VEHICLE_SPEED:conv = kmph)
 {
-	return floatsqroot(((x * x) + (y * y)) + (z * z))
-		* (conv == kmph ? 187.666667 : 116.610660);
+	return VectorSize(x, y, z) * (conv == kmph ? 180.0 : 111.846814);
 }
 
 
@@ -165,11 +164,8 @@ stock
 	new Float:x, Float:y, Float:z;
 	if (GetVehicleVelocity(vehicleid, x, y, z))
 	{
-		new Float:current_speed = GetVehicleSpeedFromVelocity(x, y, z, kmph),
-			Float:m = ((
-			conv == kmph ? speed : (speed * 1.609344)
-			) + (current_speed / 100)) /
-			(current_speed / 100) / 113.8333335;
+		new Float:c = VectorSize(x, y, z) * (conv == kmph ? 180.0 : 111.846814),
+			Float:m = speed / c;
 		SetVehicleVelocity(vehicleid, x * m, y * m, z * m);
 	}
 	return 0;
