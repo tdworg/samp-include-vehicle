@@ -274,7 +274,6 @@ stock
 	#emit shr.c.pri     1 // 4
 	#emit and
 	#emit sref.s.pri    tire4
-#endif
 	return 1;
 }
 
