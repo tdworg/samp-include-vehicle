@@ -1,6 +1,9 @@
 /** ======================================================================== **\
 	Vehicle Damage Status
 
+| Description:
+Functions for chaning the status of the damage to the panels of vehicles.
+
 | License:
 Copyright (c) 2016 Double V
 
