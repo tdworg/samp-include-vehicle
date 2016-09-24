@@ -73,16 +73,18 @@ stock
 	AttachTrailerToVehicle(trailerid, vehicleid);
 	TDW_g_sVDynamic@LastTrailerIds[vehicleid] = trailerid;
 	TDW_g_sVDynamic@TrailerAttached{trailerid} = true;
-#if defined OnTrailerAttached
+	#if defined OnTrailerAttached
 	OnTrailerAttached(trailerid, vehicleid);
-#endif
+	#endif
 	return 1;
 }
+
 #if defined _ALS_AttachTrailerToVehicle
 	#undef AttachTrailerToVehicle
 #else
 	#define _ALS_AttachTrailerToVehicle
 #endif
+
 #define AttachTrailerToVehicle(%0) TDWVH@AttachTrailerToVehicle(%0)
 
 
@@ -100,16 +102,18 @@ stock
 		return 0;
 	DetachTrailerFromVehicle(vehicleid);
 	TDW_g_sVDynamic@TrailerAttached{trailerid} = false;
-#if defined OnTrailerDetached
+	#if defined OnTrailerDetached
 	OnTrailerDetached(trailerid, vehicleid);
-#endif
+	#endif
 	return 1;
 }
+
 #if defined _ALS_DetachTrailerFromVehicle
 	#undef DetachTrailerFromVehicle
 #else
 	#define _ALS_DetachTrailerFromVehicle
 #endif
+
 #define DetachTrailerFromVehicle(%0) TDWVH@DetachTrailerFromVehicle(%0)
 
 
@@ -120,25 +124,28 @@ public
 	{
 		new player_vehicleid = GetPlayerVehicleID(playerid);
 		TDW_g_sVDynamic@TrailerAttached{vehicleid} = true;
-	#if defined OnTrailerAttached
+		#if defined OnTrailerAttached
 		OnTrailerAttached(vehicleid, player_vehicleid);
-	#endif
+		#endif
 		SetTimerEx(TDW_g_sTimerName, MAX_TRAILER_UPDATE, false,
 			TDW_g_sTimerArgs, vehicleid, player_vehicleid
 		);
 	}
-#if defined TDWVH@OnTrailerUpdate
+	#if defined TDWVH@OnTrailerUpdate
 	return TDWVH@OnTrailerUpdate(vehicleid);
-#else
+	#else
 	return 1;
-#endif
+	#endif
 }
+
 #if defined _ALS_OnTrailerUpdate
 	#undef OnTrailerUpdate
 #else
 	#define _ALS_OnTrailerUpdate
 #endif
+
 #define OnTrailerUpdate(%0) TDWVH@OnTrailerUpdate(%0)
+
 #if defined TDWVH@OnTrailerUpdate
 	forward TDWVH@OnTrailerUpdate(vehicleid);
 #endif

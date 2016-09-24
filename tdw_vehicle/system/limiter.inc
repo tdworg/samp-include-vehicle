@@ -69,20 +69,23 @@ public
 			false, !"ii", GetPlayerVehicleID(playerid), playerid
 		);
 	}
-#if defined TDWVH@OnPlayerStateChange
+	#if defined TDWVH@OnPlayerStateChange
 	return TDWVH@OnPlayerStateChange(playerid, newstate, oldstate);
-#else
+	#else
 	return 1;
-#endif
+	#endif
 }
+
 #if defined _ALS_OnPlayerStateChange
 	#undef OnPlayerStateChange
 #else
 	#define _ALS_OnPlayerStateChange
 #endif
+
 #define OnPlayerStateChange(%0) TDWVH@OnPlayerStateChange(%0)
+
 #if defined TDWVH@OnPlayerStateChange
-	forward TDWVH@OnPlayerStateChange(playerid, newstate, oldstate);
+forward TDWVH@OnPlayerStateChange(playerid, newstate, oldstate);
 #endif
 
 
