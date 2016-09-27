@@ -268,9 +268,9 @@ stock
 		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_spos_a] = rotation;
 		TDW_g_sVehicleColor1{TDW_g_sVehicleId} = color1;
 		TDW_g_sVehicleColor2{TDW_g_sVehicleId} = color2;
-	#if defined _TDW_VEHICLE_FOREACH_ARRAY
+		#if defined _TDW_VEHICLE_FOREACH_ARRAY
 		Iter_Add(Vehicle, TDW_g_sVehicleId);
-	#endif
+		#endif
 	}
 	return TDW_g_sVehicleId;
 }

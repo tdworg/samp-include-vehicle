@@ -44,11 +44,11 @@ freely, subject to the following restrictions:
 		// The variables can't be used in the code.
 		#pragma unused Vehicle@YSII_Ag, Vehicle@YSII_Cg
 	#endif
-#endif
-
 stock
 	DestroyVehicleSafe(vehicleid)
 {
 	Iter_SafeRemove(Vehicle, vehicleid, vehicleid);
 	return DestroyVehicle(vehicleid);
 }
+#endif
+
