@@ -72,19 +72,19 @@ stock
 		return INVALID_VEHICLE_ID;
 	if (_:(label_length < MAX_VEHICLE_LABEL_SIZE) == 0)
 		return 0;
-#if _TDW_VEHICLE_STREAMER_DEFINED
+	#if _TDW_VEHICLE_STREAMER_DEFINED
 	TDW_g_sVDynamic@LabelIds[vehicleid] = CreateDynamic3DTextLabel(label, color,
 		offset_x, offset_y, offset_z, drawdistance, _, vehicleid, _:testLos,
 		virtualworld, interiorid, streamdistance
 	);
-#else
+	#else
 	TDW_g_sVDynamic@LabelIds[vehicleid] = Create3DTextLabel(label, color, 0.0,
 		0.0, 0.0, drawdistance, virtualworld, _:testLos
 	);
 	Attach3DTextLabelToVehicle(TDW_g_sVDynamic@LabelIds[vehicleid],
 		vehicleid, offset_x, offset_y, offset_z
 	);
-#endif
+	#endif
 	strpack(TDW_g_sVDynamic@LabelTexts[vehicleid], label, label_length);
 	return 1;
 }

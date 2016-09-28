@@ -67,20 +67,23 @@ public
 	OnVehicleMod(playerid, vehicleid, componentid)
 {
 	UpdateComponentInArray(vehicleid, componentid);
-#if defined TDWVH@OnVehicleMod
+	#if defined TDWVH@OnVehicleMod
 	return TDWVH@OnVehicleMod(playerid, vehicleid, componentid);
-#else
+	#else
 	return 1;
-#endif
+	#endif
 }
+
 #if defined _ALS_OnVehicleMod
 	#undef OnVehicleMod
 #else
 	#define _ALS_OnVehicleMod
 #endif
+
 #define OnVehicleMod(%0) TDWVH@OnVehicleMod(%0)
+
 #if defined TDWVH@OnVehicleMod
-	forward TDWVH@OnVehicleMod(playerid, vehicleid, componentid);
+forward TDWVH@OnVehicleMod(playerid, vehicleid, componentid);
 #endif
 
 public
@@ -142,20 +145,23 @@ public
 		AddVehicleComponent(vehicleid,
 			TDW_g_sVComponents[vehicleid][vent_left]
 		);
-#if defined TDWVH@OnVehicleSpawn
+	#if defined TDWVH@OnVehicleSpawn
 	return TDWVH@OnVehicleSpawn(vehicleid);
-#else
+	#else
 	return 1;
-#endif
+	#endif
 }
+
 #if defined _ALS_OnVehicleSpawn
 	#undef OnVehicleSpawn
 #else
 	#define _ALS_OnVehicleSpawn
 #endif
+
 #define OnVehicleSpawn(%0) TDWVH@OnVehicleSpawn(%0)
+
 #if defined TDWVH@OnVehicleSpawn
-	forward TDWVH@OnVehicleSpawn(vehicleid);
+forward TDWVH@OnVehicleSpawn(vehicleid);
 #endif
 
 
@@ -217,9 +223,11 @@ stock
 		TDW_g_sVComponents[vehicleid][e_TDW_VEHICLE_TUNING:i] = 0;
 	return 1;
 }
+
 #if defined _ALS_DestroyVehicle
 	#undef DestroyVehicle
 #else
 	#define _ALS_DestroyVehicle
 #endif
+
 #define DestroyVehicle(%0) TDWVH_TM@DestroyVehicle(%0)

@@ -83,11 +83,13 @@ stock
 		: INVALID_VEHICLE_ID
 	);
 }
+
 #if defined _ALS_SetVehicleVirtualWorld
-#undef SetVehicleVirtualWorld
+	#undef SetVehicleVirtualWorld
 #else
 	#define _ALS_SetVehicleVirtualWorld
 #endif
+
 #define SetVehicleVirtualWorld(%0) TDWVH@SetVehicleVirtualWorld(%0)
 
 
@@ -95,20 +97,23 @@ public
 	OnVehiclePaintjob(playerid, vehicleid, paintjobid)
 {
 	TDW_g_sVDynamic@Paintjob{vehicleid} = paintjobid;
-#if defined TDWVH@OnVehiclePaintjob
+	#if defined TDWVH@OnVehiclePaintjob
 	return TDWVH@OnVehiclePaintjob(playerid, vehicleid, paintjobid);
-#else
+	#else
 	return 1;
-#endif
+	#endif
 }
+
 #if defined _ALS_OnVehiclePaintjob
 	#undef OnVehiclePaintjob
 #else
 	#define _ALS_OnVehiclePaintjob
 #endif
+
 #define OnVehiclePaintjob(%0) TDWVH@OnVehiclePaintjob(%0)
+
 #if defined TDWVH@OnVehiclePaintjob
-	forward TDWVH@OnVehiclePaintjob(playerid, vehicleid, paintjobid);
+forward TDWVH@OnVehiclePaintjob(playerid, vehicleid, paintjobid);
 #endif
 
 
@@ -120,18 +125,21 @@ public
 		new vehicleid = GetPlayerVehicleID(playerid);
 		TDW_g_sVDynamic@LastDriver[vehicleid] = playerid;
 	}
-#if defined TDWVH@OnPlayerStateChange
+	#if defined TDWVH@OnPlayerStateChange
 	return TDWVH@OnPlayerStateChange(playerid, newstate, oldstate);
-#else
+	#else
 	return 1;
-#endif
+	#endif
 }
+
 #if defined _ALS_OnPlayerStateChange
 	#undef OnPlayerStateChange
 #else
 	#define _ALS_OnPlayerStateChange
 #endif
+
 #define OnPlayerStateChange(%0) TDWVH@OnPlayerStateChange(%0)
+
 #if defined TDWVH@OnPlayerStateChange
-	forward TDWVH@OnPlayerStateChange(playerid, newstate, oldstate);
+forward TDWVH@OnPlayerStateChange(playerid, newstate, oldstate);
 #endif

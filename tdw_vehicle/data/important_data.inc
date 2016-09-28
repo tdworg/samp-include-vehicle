@@ -69,17 +69,19 @@ stock
 		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_spos_a] = z_angle;
 		TDW_g_sVehicleColor1{TDW_g_sVehicleId} = color1;
 		TDW_g_sVehicleColor2{TDW_g_sVehicleId} = color2;
-	#if defined _TDW_VEHICLE_FOREACH_ARRAY
+		#if _TDW_VEHICLE_FOREACH_ARRAY
 		Iter_Add(Vehicle, TDW_g_sVehicleId);
-	#endif
+		#endif
 	}
 	return TDW_g_sVehicleId;
 }
+
 #if defined _ALS_AddStaticVehicle
 	#undef AddStaticVehicle
 #else
 	#define _ALS_AddStaticVehicle
 #endif
+
 #define AddStaticVehicle(%0) TDWVH@AddStaticVehicle(%0)
 
 
@@ -103,17 +105,19 @@ stock
 		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_spos_a] = z_angle;
 		TDW_g_sVehicleColor1{TDW_g_sVehicleId} = color1;
 		TDW_g_sVehicleColor2{TDW_g_sVehicleId} = color2;
-	#if defined _TDW_VEHICLE_FOREACH_ARRAY
+		#if _TDW_VEHICLE_FOREACH_ARRAY
 		Iter_Add(Vehicle, TDW_g_sVehicleId);
-	#endif
+		#endif
 	}
 	return TDW_g_sVehicleId;
 }
+
 #if defined _ALS_AddStaticVehicleEx
 	#undef AddStaticVehicleEx
 #else
 	#define _ALS_AddStaticVehicleEx
 #endif
+
 #define AddStaticVehicleEx(%0) TDWVH@AddStaticVehicleEx(%0)
 
 
@@ -134,17 +138,19 @@ stock
 		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_spos_a] = rotation;
 		TDW_g_sVehicleColor1{TDW_g_sVehicleId} = color1;
 		TDW_g_sVehicleColor2{TDW_g_sVehicleId} = color2;
-	#if defined _TDW_VEHICLE_FOREACH_ARRAY
+		#if _TDW_VEHICLE_FOREACH_ARRAY
 		Iter_Add(Vehicle, TDW_g_sVehicleId);
-	#endif
+		#endif
 	}
 	return TDW_g_sVehicleId;
 }
+
 #if defined _ALS_CreateVehicle
 	#undef CreateVehicle
 #else
 	#define _ALS_CreateVehicle
 #endif
+
 #define CreateVehicle(%0) TDWVH@CreateVehicle(%0)
 
 
@@ -162,16 +168,18 @@ stock
 	TDW_g_sVehicleData[vehicleid][ei_spos_y] =
 	TDW_g_sVehicleData[vehicleid][ei_spos_z] =
 	TDW_g_sVehicleData[vehicleid][ei_spos_a] = 0.0;
-#if defined _TDW_VEHICLE_FOREACH_ARRAY
+	#if _TDW_VEHICLE_FOREACH_ARRAY
 	Iter_Remove(Vehicle, vehicleid);
-#endif
+	#endif
 	return 1;
 }
+
 #if defined _ALS_DestroyVehicle
 	#undef DestroyVehicle
 #else
 	#define _ALS_DestroyVehicle
 #endif
+
 #define DestroyVehicle(%0) TDWVH@DestroyVehicle(%0)
 
 
@@ -191,20 +199,23 @@ public
 {
 	TDW_g_sVehicleColor1{vehicleid} = color1;
 	TDW_g_sVehicleColor2{vehicleid} = color2;
-#if defined TDWVH@OnVehicleRespray
+	#if defined TDWVH@OnVehicleRespray
 	return TDWVH@OnVehicleRespray(playerid, vehicleid, color1, color2);
-#else
+	#else
 	return 1;
-#endif
+	#endif
 }
+
 #if defined _ALS_OnVehicleRespray
 	#undef OnVehicleRespray
 #else
 	#define _ALS_OnVehicleRespray
 #endif
+
 #define OnVehicleRespray(%0) TDWVH@OnVehicleRespray(%0)
+
 #if defined TDWVH@OnVehicleRespray
-	forward TDWVH@OnVehicleRespray(playerid, vehicleid, color1, color2);
+forward TDWVH@OnVehicleRespray(playerid, vehicleid, color1, color2);
 #endif
 
 
@@ -257,9 +268,9 @@ stock
 		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_spos_a] = rotation;
 		TDW_g_sVehicleColor1{TDW_g_sVehicleId} = color1;
 		TDW_g_sVehicleColor2{TDW_g_sVehicleId} = color2;
-	#if defined _TDW_VEHICLE_FOREACH_ARRAY
+		#if defined _TDW_VEHICLE_FOREACH_ARRAY
 		Iter_Add(Vehicle, TDW_g_sVehicleId);
-	#endif
+		#endif
 	}
 	return TDW_g_sVehicleId;
 }
