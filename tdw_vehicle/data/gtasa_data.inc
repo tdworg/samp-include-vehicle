@@ -240,7 +240,6 @@ static stock const
 	TRAILER,   TRAILER
 };
 
-
 stock
 	GetModelStaticSpeed(modelid)
 {

@@ -44,6 +44,7 @@ freely, subject to the following restrictions:
 		// The variables can't be used in the code.
 		#pragma unused Vehicle@YSII_Ag, Vehicle@YSII_Cg
 	#endif
+
 stock
 	DestroyVehicleSafe(vehicleid)
 {
