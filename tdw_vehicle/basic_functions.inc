@@ -104,3 +104,7 @@ freely, subject to the following restrictions:
 #if !defined MAX_NUMBER_PLATE_SIZE
 	#define MAX_NUMBER_PLATE_SIZE (32)
 #endif
+
+#if !defined MAX_NUMBER_PLATE
+	#define MAX_NUMBER_PLATE (8)
+#endif
