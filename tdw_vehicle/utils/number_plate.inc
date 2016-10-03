@@ -131,3 +131,26 @@ static stock
 {
 	return random(max - min) + min;
 }
+
+// //github.com/TDW-org/samp-include-string/
+#if !defined _TDW_STLIB__STRING
+static stock
+	strcpy(dest[], const string[], dest_size = sizeof dest)
+{
+	return
+		(IsPackedString(dest) ? (dest{0} = '\0') : (dest[0] = '\0')),
+		strcat(dest, string, dest_size);
+}
+#endif
+
+
+#if !defined TDW_NPLATE_NOT_SAFE_NUMBER
+stock
+	GetVehicleNumberPlate(vehicleid, dest[], bool:packed = false,
+		dest_size = sizeof dest)
+{
+	return packed
+		? strcpy(dest, TDW_g_sNumberPlate[vehicleid], dest_size)
+		: strunpack(dest, TDW_g_sNumberPlate[vehicleid], dest_size);
+}
+#endif
