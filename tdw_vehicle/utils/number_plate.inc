@@ -44,7 +44,7 @@ stock
 	TDWVH@SetVehicleNumberPlate(vehicleid, numberplate[])
 {
 	new Float:current_x, Float:current_y, Float:current_z;
-	if (GetVehiclePos(vehicleid, x, y, z) == 0)
+	if (GetVehiclePos(vehicleid, current_x, current_y, current_z) == 0)
 		return 0;
 	new Float:current_z_angle, Float:current_health, cur_dstatus_panels,
 		cur_dstatus_doors, cur_dstatus_lights, cur_dstatus_tires;
@@ -62,7 +62,7 @@ stock
 	// Set the old parameters to the vehicle
 	SetVehiclePos(vehicleid, current_x, current_y, current_z);
 	SetVehicleZAngle(vehicleid, current_z_angle);
-	SetVehicleDamageStatus(vehicleid, cur_dstatus_panels, cur_dstatus_doors,
+	UpdateVehicleDamageStatus(vehicleid, cur_dstatus_panels, cur_dstatus_doors,
 		cur_dstatus_lights, cur_dstatus_tires
 	);
 	return 1;
