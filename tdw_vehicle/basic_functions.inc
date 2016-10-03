@@ -100,3 +100,7 @@ freely, subject to the following restrictions:
 	#define MAX_VEHICLE_COMPONENTS\
 		(MAX_VEHICLE_COMPONENT_ID - MIN_VEHICLE_COMPONENT_ID)
 #endif
+
+#if !defined MAX_NUMBER_PLATE_SIZE
+	#define MAX_NUMBER_PLATE_SIZE (32)
+#endif
