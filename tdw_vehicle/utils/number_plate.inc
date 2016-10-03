@@ -50,10 +50,12 @@ stock
 		cur_dstatus_doors, cur_dstatus_lights, cur_dstatus_tires;
 	// Get the current parameters of the vehicle.
 	GetVehicleZAngle(vehicleid, current_z_angle);
+	#if !defined TDW_NPLATE_NOT_SAFE_DAMAGE
 	GetVehicleHealth(vehicleid, current_health);
 	GetVehicleDamageStatus(vehicleid, cur_dstatus_panels, cur_dstatus_doors,
 		cur_dstatus_lights, cur_dstatus_tires
 	);
+	#endif
 	SetVehicleNumberPlate(vehicleid, numberplate);
 	SetVehicleToRespawn(vehicleid);
 	// Copy numberplate into the array.
@@ -62,9 +64,11 @@ stock
 	// Set the old parameters to the vehicle
 	SetVehiclePos(vehicleid, current_x, current_y, current_z);
 	SetVehicleZAngle(vehicleid, current_z_angle);
+	#if !defined TDW_NPLATE_NOT_SAFE_DAMAGE
 	UpdateVehicleDamageStatus(vehicleid, cur_dstatus_panels, cur_dstatus_doors,
 		cur_dstatus_lights, cur_dstatus_tires
 	);
+	#endif
 	return 1;
 }
 
