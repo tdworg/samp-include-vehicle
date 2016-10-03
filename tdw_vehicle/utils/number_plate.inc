@@ -65,6 +65,7 @@ stock
 	SetVehiclePos(vehicleid, current_x, current_y, current_z);
 	SetVehicleZAngle(vehicleid, current_z_angle);
 	#if !defined TDW_NPLATE_NOT_SAFE_DAMAGE
+	SetVehicleHealth(vehicleid, current_health);
 	UpdateVehicleDamageStatus(vehicleid, cur_dstatus_panels, cur_dstatus_doors,
 		cur_dstatus_lights, cur_dstatus_tires
 	);
