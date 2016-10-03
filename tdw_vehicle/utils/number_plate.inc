@@ -32,6 +32,13 @@ freely, subject to the following restrictions:
 
 #define _TDW_VHLIB__NUMBER_PLATE
 
+// Checks if a string is packed.
+// Other information: //www.compuphase.com/pawn/String_Manipulation.pdf
+#if !defined IsPackedString
+	#define IsPackedString(%0) ((%0)[0] > 255)
+#endif
+
+
 static stock
 	TDW_g_sNumberPlate[MAX_VEHICLES][MAX_NUMBER_PLATE_SIZE char];
 
@@ -50,21 +57,28 @@ stock
 		cur_dstatus_doors, cur_dstatus_lights, cur_dstatus_tires;
 	// Get the current parameters of the vehicle.
 	GetVehicleZAngle(vehicleid, current_z_angle);
+	#if !defined TDW_NPLATE_NOT_SAFE_DAMAGE
 	GetVehicleHealth(vehicleid, current_health);
 	GetVehicleDamageStatus(vehicleid, cur_dstatus_panels, cur_dstatus_doors,
 		cur_dstatus_lights, cur_dstatus_tires
 	);
+	#endif
 	SetVehicleNumberPlate(vehicleid, numberplate);
 	SetVehicleToRespawn(vehicleid);
 	// Copy numberplate into the array.
-	// TDW_g_sNumberPlate[vehicleid]{0} = '\0';
-	// strpack(TDW_g_sNumberPlate[vehicleid], numberplate);
+	#if !defined TDW_NPLATE_NOT_SAFE_NUMBER
+	TDW_g_sNumberPlate[vehicleid]{0} = '\0';
+	strpack(TDW_g_sNumberPlate[vehicleid], numberplate);
+	#endif
 	// Set the old parameters to the vehicle
 	SetVehiclePos(vehicleid, current_x, current_y, current_z);
 	SetVehicleZAngle(vehicleid, current_z_angle);
+	#if !defined TDW_NPLATE_NOT_SAFE_DAMAGE
+	SetVehicleHealth(vehicleid, current_health);
 	UpdateVehicleDamageStatus(vehicleid, cur_dstatus_panels, cur_dstatus_doors,
 		cur_dstatus_lights, cur_dstatus_tires
 	);
+	#endif
 	return 1;
 }
 
@@ -75,3 +89,68 @@ stock
 #endif
 
 #define SetVehicleNumberPlate(%0) TDWVH@SetVehicleNumberPlate(%0)
+
+
+stock
+	SetVehicleNumberPlateRand(vehicleid, dest[MAX_NUMBER_PLATE] = !"")
+{
+	if (IsValidVehicle(vehicleid) == 0)
+		return 0;
+	static const letters[] = !"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+	const
+		NUMBER_PLATE_SPACE_POS = 3,
+		LETTER_SIZE = sizeof letters - 1;
+	new i = MAX_NUMBER_PLATE;
+	if (IsPackedString(dest))
+	{
+		while (i-- != 0)
+		{
+			dest{i} = ((i == NUMBER_PLATE_SPACE_POS)
+				? '-'
+				: letters{plate@rand(0, LETTER_SIZE)}
+			);
+			i--;
+		}
+	}
+	else
+	{
+		while (i-- != 0)
+		{
+			dest[i] = ((i == NUMBER_PLATE_SPACE_POS)
+				? '-'
+				: letters{plate@rand(0, LETTER_SIZE)}
+			);
+		}
+	}
+	return TDWVH@SetVehicleNumberPlate(vehicleid, dest);
+}
+
+
+static stock
+	plate@rand(min, max)
+{
+	return random(max - min) + min;
+}
+
+// //github.com/TDW-org/samp-include-string/
+#if !defined _TDW_STLIB__STRING
+static stock
+	strcpy(dest[], const string[], dest_size = sizeof dest)
+{
+	return
+		(IsPackedString(dest) ? (dest{0} = '\0') : (dest[0] = '\0')),
+		strcat(dest, string, dest_size);
+}
+#endif
+
+
+#if !defined TDW_NPLATE_NOT_SAFE_NUMBER
+stock
+	GetVehicleNumberPlate(vehicleid, dest[], bool:packed = false,
+		dest_size = sizeof dest)
+{
+	return packed
+		? strcpy(dest, TDW_g_sNumberPlate[vehicleid], dest_size)
+		: strunpack(dest, TDW_g_sNumberPlate[vehicleid], dest_size);
+}
+#endif
