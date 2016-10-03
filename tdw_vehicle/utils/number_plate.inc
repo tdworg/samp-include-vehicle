@@ -59,8 +59,10 @@ stock
 	SetVehicleNumberPlate(vehicleid, numberplate);
 	SetVehicleToRespawn(vehicleid);
 	// Copy numberplate into the array.
-	// TDW_g_sNumberPlate[vehicleid]{0} = '\0';
-	// strpack(TDW_g_sNumberPlate[vehicleid], numberplate);
+	#if !defined TDW_NPLATE_NOT_SAFE_NUMBER
+	TDW_g_sNumberPlate[vehicleid]{0} = '\0';
+	strpack(TDW_g_sNumberPlate[vehicleid], numberplate);
+	#endif
 	// Set the old parameters to the vehicle
 	SetVehiclePos(vehicleid, current_x, current_y, current_z);
 	SetVehicleZAngle(vehicleid, current_z_angle);
