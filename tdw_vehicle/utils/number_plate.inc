@@ -54,7 +54,8 @@ stock
 	if (GetVehiclePos(vehicleid, current_x, current_y, current_z) == 0)
 		return 0;
 	new Float:current_z_angle, Float:current_health, cur_dstatus_panels,
-		cur_dstatus_doors, cur_dstatus_lights, cur_dstatus_tires;
+		cur_dstatus_doors, cur_dstatus_lights, cur_dstatus_tires,
+		passengers[MAX_VEHICLE_PASSENGERS], i;
 	// Get the current parameters of the vehicle.
 	GetVehicleZAngle(vehicleid, current_z_angle);
 	#if !defined TDW_NPLATE_NOT_SAFE_DAMAGE
@@ -63,6 +64,11 @@ stock
 		cur_dstatus_lights, cur_dstatus_tires
 	);
 	#endif
+	i = 0;
+	do
+	{
+		passengers[i] = GetVehicleOccupant(vehicleid, i);
+	} while(++i < sizeof passengers);
 	SetVehicleNumberPlate(vehicleid, numberplate);
 	SetVehicleToRespawn(vehicleid);
 	// Copy numberplate into the array.
@@ -73,6 +79,11 @@ stock
 	// Set the old parameters to the vehicle
 	SetVehiclePos(vehicleid, current_x, current_y, current_z);
 	SetVehicleZAngle(vehicleid, current_z_angle);
+	i = 0;
+	do
+	{
+		PutPlayerInVehicle(passengers[i], vehicleid, i);
+	} while(++i < sizeof passengers);
 	#if !defined TDW_NPLATE_NOT_SAFE_DAMAGE
 	SetVehicleHealth(vehicleid, current_health);
 	UpdateVehicleDamageStatus(vehicleid, cur_dstatus_panels, cur_dstatus_doors,
