@@ -55,7 +55,12 @@ stock
 		return 0;
 	new Float:current_z_angle, Float:current_health, cur_dstatus_panels,
 		cur_dstatus_doors, cur_dstatus_lights, cur_dstatus_tires,
-		passengers[MAX_VEHICLE_PASSENGERS], i;
+		i;
+	#if MAX_PLAYERS > 255
+	new passengers[MAX_VEHICLE_PASSENGERS];
+	#else
+	new passengers[MAX_VEHICLE_PASSENGERS char];
+	#endif
 	// Get the current parameters of the vehicle.
 	GetVehicleZAngle(vehicleid, current_z_angle);
 	#if !defined TDW_NPLATE_NOT_SAFE_DAMAGE
@@ -78,12 +83,12 @@ stock
 	#endif
 	// Set the old parameters to the vehicle
 	SetVehiclePos(vehicleid, current_x, current_y, current_z);
-	SetVehicleZAngle(vehicleid, current_z_angle);
 	i = 0;
 	do
 	{
 		PutPlayerInVehicle(passengers[i], vehicleid, i);
 	} while(++i < sizeof passengers);
+	SetVehicleZAngle(vehicleid, current_z_angle);
 	#if !defined TDW_NPLATE_NOT_SAFE_DAMAGE
 	SetVehicleHealth(vehicleid, current_health);
 	UpdateVehicleDamageStatus(vehicleid, cur_dstatus_panels, cur_dstatus_doors,
