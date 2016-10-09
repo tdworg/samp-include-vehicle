@@ -29,9 +29,9 @@ Collection of missing libraries for vehicles in SA:MP.
 | vh_utils    | Contains many useful functions for the vehicles. |
 
 ### Systems:
-| Name | Description |
-|-----:|:------------|
-| vhs_3dlabel | - |
-| vhs_limiter | - |
-| vhs_trailer | - |
-| vhs_tuning | - |
+| Name        | Description |
+|------------:|:------------|
+| vhs_3dlabel | Creates a new 3D label for vehicles. |
+| vhs_limiter | Creates speed limits for vehicles. |
+| vhs_trailer | Adds new callbacks to checks on attach or detach trailer. |
+| vhs_tuning  | Saves the tuning vehicles. |
