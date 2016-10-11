@@ -219,8 +219,11 @@ stock
 	if (DestroyVehicle(vehicleid) == 0)
 		return 0;
 	new i;
-	while (i++ != sizeof TDW_g_sVComponents[])
+	while (i != sizeof TDW_g_sVComponents[])
+	{
 		TDW_g_sVComponents[vehicleid][e_TDW_VEHICLE_TUNING:i] = 0;
+		i++;
+	}
 	return 1;
 }
 
