@@ -55,20 +55,26 @@ static stock TDW_g_sVComponents[MAX_VEHICLES][e_TDW_VEHICLE_TUNING];
 
 
 stock
-	TDWVH@AddVehicleComponent(vehicleid, componentid)
+	TDWVH_TM0@AddVehicleComponent(vehicleid, componentid)
 {
 	if (AddVehicleComponent(vehicleid, componentid) == 0)
 		return 0;
 	UpdateComponentInArray(vehicleid, componentid);
 	return 1;
 }
+#if defined _ALS_AddVehicleComponent
+	#undef AddVehicleComponent
+#else
+	#define _ALS_AddVehicleComponent
+#endif
+#define AddVehicleComponent TDWVH_TM0@AddVehicleComponent
 
 public
 	OnVehicleMod(playerid, vehicleid, componentid)
 {
 	UpdateComponentInArray(vehicleid, componentid);
-	#if defined TDWVH@OnVehicleMod
-	return TDWVH@OnVehicleMod(playerid, vehicleid, componentid);
+	#if defined TDWVH_TM0@OnVehicleMod
+	return TDWVH_TM0@OnVehicleMod(playerid, vehicleid, componentid);
 	#else
 	return 1;
 	#endif
@@ -80,10 +86,10 @@ public
 	#define _ALS_OnVehicleMod
 #endif
 
-#define OnVehicleMod(%0) TDWVH@OnVehicleMod(%0)
+#define OnVehicleMod TDWVH_TM0@OnVehicleMod
 
-#if defined TDWVH@OnVehicleMod
-forward TDWVH@OnVehicleMod(playerid, vehicleid, componentid);
+#if defined TDWVH_TM0@OnVehicleMod
+forward TDWVH_TM0@OnVehicleMod(playerid, vehicleid, componentid);
 #endif
 
 public
@@ -145,8 +151,8 @@ public
 		AddVehicleComponent(vehicleid,
 			TDW_g_sVComponents[vehicleid][vent_left]
 		);
-	#if defined TDWVH@OnVehicleSpawn
-	return TDWVH@OnVehicleSpawn(vehicleid);
+	#if defined TDWVH_TM0@OnVehicleSpawn
+	return TDWVH_TM0@OnVehicleSpawn(vehicleid);
 	#else
 	return 1;
 	#endif
@@ -158,10 +164,10 @@ public
 	#define _ALS_OnVehicleSpawn
 #endif
 
-#define OnVehicleSpawn(%0) TDWVH@OnVehicleSpawn(%0)
+#define OnVehicleSpawn TDWVH_TM0@OnVehicleSpawn
 
-#if defined TDWVH@OnVehicleSpawn
-forward TDWVH@OnVehicleSpawn(vehicleid);
+#if defined TDWVH_TM0@OnVehicleSpawn
+forward TDWVH_TM0@OnVehicleSpawn(vehicleid);
 #endif
 
 
@@ -214,7 +220,7 @@ stock
 
 
 stock
-	TDWVH_TM@DestroyVehicle(vehicleid)
+	TDWVH_TM0@DestroyVehicle(vehicleid)
 {
 	if (DestroyVehicle(vehicleid) == 0)
 		return 0;
@@ -233,4 +239,4 @@ stock
 	#define _ALS_DestroyVehicle
 #endif
 
-#define DestroyVehicle(%0) TDWVH_TM@DestroyVehicle(%0)
+#define DestroyVehicle TDWVH_TM0@DestroyVehicle

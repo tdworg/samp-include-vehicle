@@ -56,8 +56,8 @@ native nst_AddStaticVehicle(modelid, Float:spawn_x, Float:spawn_y,
 	Float:spawn_z, Float:z_angle, color1, color2) = AddStaticVehicle;
 
 stock
-	TDWVH@AddStaticVehicle(modelid, Float:spawn_x, Float:spawn_y, Float:spawn_z,
-		Float:z_angle, color1, color2)
+	TDWVH_ID@AddStaticVehicle(modelid, Float:spawn_x, Float:spawn_y,
+		Float:spawn_z, Float:z_angle, color1, color2)
 {
 	if ((TDW_g_sVehicleId = AddStaticVehicle(modelid, spawn_x, spawn_y, spawn_z,
 		z_angle, color1, color2)) != INVALID_VEHICLE_ID)
@@ -82,7 +82,7 @@ stock
 	#define _ALS_AddStaticVehicle
 #endif
 
-#define AddStaticVehicle(%0) TDWVH@AddStaticVehicle(%0)
+#define AddStaticVehicle TDWVH_ID@AddStaticVehicle
 
 
 native nst_AddStaticVehicleEx(modelid, Float:spawn_x, Float:spawn_y,
@@ -90,7 +90,7 @@ native nst_AddStaticVehicleEx(modelid, Float:spawn_x, Float:spawn_y,
 	) = AddStaticVehicleEx;
 
 stock
-	TDWVH@AddStaticVehicleEx(modelid, Float:spawn_x, Float:spawn_y,
+	TDWVH_ID@AddStaticVehicleEx(modelid, Float:spawn_x, Float:spawn_y,
 		Float:spawn_z, Float:z_angle, color1, color2, respawn_delay,
 		addsiren = 0)
 {
@@ -118,15 +118,15 @@ stock
 	#define _ALS_AddStaticVehicleEx
 #endif
 
-#define AddStaticVehicleEx(%0) TDWVH@AddStaticVehicleEx(%0)
+#define AddStaticVehicleEx TDWVH_ID@AddStaticVehicleEx
 
 
 native nst_CreateVehicle(vehicletype, Float:x, Float:y, Float:z, Float:rotation,
 	color1, color2, respawn_delay, addsiren) = CreateVehicle;
 
 stock
-	TDWVH@CreateVehicle(vehicletype, Float:x, Float:y, Float:z, Float:rotation,
-		color1, color2, respawn_delay, addsiren = 0)
+	TDWVH_ID@CreateVehicle(vehicletype, Float:x, Float:y, Float:z,
+		Float:rotation, color1, color2, respawn_delay, addsiren = 0)
 {
 	if ((TDW_g_sVehicleId = CreateVehicle(vehicletype, x, y, z, rotation,
 		color1, color2, respawn_delay, addsiren)) != INVALID_VEHICLE_ID)
@@ -151,13 +151,13 @@ stock
 	#define _ALS_CreateVehicle
 #endif
 
-#define CreateVehicle(%0) TDWVH@CreateVehicle(%0)
+#define CreateVehicle TDWVH_ID@CreateVehicle
 
 
 native nst_DestroyVehicle(vehicleid) = DestroyVehicle;
 
 stock
-	TDWVH@DestroyVehicle(vehicleid)
+	TDWVH_ID@DestroyVehicle(vehicleid)
 {
 	if (DestroyVehicle(vehicleid) == 0)
 		return 0;
@@ -180,7 +180,7 @@ stock
 	#define _ALS_DestroyVehicle
 #endif
 
-#define DestroyVehicle(%0) TDWVH@DestroyVehicle(%0)
+#define DestroyVehicle TDWVH_ID@DestroyVehicle
 
 
 native nst_ChangeVehicleColor(vehicleid,
@@ -199,8 +199,8 @@ public
 {
 	TDW_g_sVehicleColor1{vehicleid} = color1;
 	TDW_g_sVehicleColor2{vehicleid} = color2;
-	#if defined TDWVH@OnVehicleRespray
-	return TDWVH@OnVehicleRespray(playerid, vehicleid, color1, color2);
+	#if defined TDWVH_ID@OnVehicleRespray
+	return TDWVH_ID@OnVehicleRespray(playerid, vehicleid, color1, color2);
 	#else
 	return 1;
 	#endif
@@ -212,10 +212,10 @@ public
 	#define _ALS_OnVehicleRespray
 #endif
 
-#define OnVehicleRespray(%0) TDWVH@OnVehicleRespray(%0)
+#define OnVehicleRespray TDWVH_ID@OnVehicleRespray
 
-#if defined TDWVH@OnVehicleRespray
-forward TDWVH@OnVehicleRespray(playerid, vehicleid, color1, color2);
+#if defined TDWVH_ID@OnVehicleRespray
+forward TDWVH_ID@OnVehicleRespray(playerid, vehicleid, color1, color2);
 #endif
 
 

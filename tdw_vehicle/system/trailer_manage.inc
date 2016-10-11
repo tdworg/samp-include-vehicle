@@ -64,7 +64,7 @@ stock
 native nst_AttachTrailerToVehicle(trailerid,vehicleid) = AttachTrailerToVehicle;
 
 stock
-	TDWVH@AttachTrailerToVehicle(trailerid, vehicleid)
+	TDWVH_TM@AttachTrailerToVehicle(trailerid, vehicleid)
 {
 	if (IsValidVehicle(trailerid) == 0)
 		return 0;
@@ -85,13 +85,13 @@ stock
 	#define _ALS_AttachTrailerToVehicle
 #endif
 
-#define AttachTrailerToVehicle(%0) TDWVH@AttachTrailerToVehicle(%0)
+#define AttachTrailerToVehicle TDWVH_TM@AttachTrailerToVehicle
 
 
 native nst_DetachTrailerFromVehicle(vehicleid) = DetachTrailerFromVehicle;
 
 stock
-	TDWVH@DetachTrailerFromVehicle(vehicleid)
+	TDWVH_TM@DetachTrailerFromVeh(vehicleid)
 {
 	if (IsValidVehicle(vehicleid) == 0)
 		return 0;
@@ -114,7 +114,7 @@ stock
 	#define _ALS_DetachTrailerFromVehicle
 #endif
 
-#define DetachTrailerFromVehicle(%0) TDWVH@DetachTrailerFromVehicle(%0)
+#define DetachTrailerFromVehicle TDWVH_TM@DetachTrailerFromVeh
 
 
 public
@@ -131,8 +131,8 @@ public
 			TDW_g_sTimerArgs, vehicleid, player_vehicleid
 		);
 	}
-	#if defined TDWVH@OnTrailerUpdate
-	return TDWVH@OnTrailerUpdate(vehicleid);
+	#if defined TDWVH_TM@OnTrailerUpdate
+	return TDWVH_TM@OnTrailerUpdate(vehicleid);
 	#else
 	return 1;
 	#endif
@@ -144,10 +144,10 @@ public
 	#define _ALS_OnTrailerUpdate
 #endif
 
-#define OnTrailerUpdate(%0) TDWVH@OnTrailerUpdate(%0)
+#define OnTrailerUpdate TDWVH_TM@OnTrailerUpdate
 
-#if defined TDWVH@OnTrailerUpdate
-	forward TDWVH@OnTrailerUpdate(vehicleid);
+#if defined TDWVH_TM@OnTrailerUpdate
+forward TDWVH_TM@OnTrailerUpdate(vehicleid);
 #endif
 
 

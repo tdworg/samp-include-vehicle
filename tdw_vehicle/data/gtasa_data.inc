@@ -34,18 +34,18 @@ freely, subject to the following restrictions:
 
 
 #if !defined IsVehicleModelTrailer
-	#define IsVehicleModelTrailer(%0)\
-		(IS_VALID_MODEL(%0) ? (TDW_g_sVehicleType[(%0) - MIN_VEHICLE_MODEL]\
+	#define IsVehicleModelTrailer%0(%1)\
+		(IS_VALID_MODEL(%1) ? (TDW_g_sVehicleType[(%1) - MIN_VEHICLE_MODEL]\
 			== TRAILER) : 0)
 #endif
 #if !defined IsVehicleModelTrain
-	#define IsVehicleModelTrain(%0)\
-		(IS_VALID_MODEL(%0) ? (TDW_g_sVehicleType[(%0) - MIN_VEHICLE_MODEL]\
+	#define IsVehicleModelTrain%0(%1)\
+		(IS_VALID_MODEL(%1) ? (TDW_g_sVehicleType[(%1) - MIN_VEHICLE_MODEL]\
 			== TRAIN) : 0)
 #endif
 #if !defined IsVehicleModelPlane
-	#define IsVehicleModelPlane(%0)\
-		(IS_VALID_MODEL(%0) ? (TDW_g_sVehicleType[(%0) - MIN_VEHICLE_MODEL]\
+	#define IsVehicleModelPlane%0(%1)\
+		(IS_VALID_MODEL(%1) ? (TDW_g_sVehicleType[(%1) - MIN_VEHICLE_MODEL]\
 			== PLANE) : 0)
 #endif
 

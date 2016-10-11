@@ -74,7 +74,7 @@ stock
 native nts_SetVehicleVirtualWorld(vehicleid, worldid) = SetVehicleVirtualWorld;
 
 stock
-	TDWVH@SetVehicleVirtualWorld(vehicleid, worldid)
+	TDWVH_OD@SetVehicleVirtualWorld(vehicleid, worldid)
 {
 	return (IsValidVehicle(vehicleid) == 0
 		? SetVehicleVirtualWorld(vehicleid,
@@ -90,15 +90,15 @@ stock
 	#define _ALS_SetVehicleVirtualWorld
 #endif
 
-#define SetVehicleVirtualWorld(%0) TDWVH@SetVehicleVirtualWorld(%0)
+#define SetVehicleVirtualWorld TDWVH_OD@SetVehicleVirtualWorld
 
 
 public
 	OnVehiclePaintjob(playerid, vehicleid, paintjobid)
 {
 	TDW_g_sVDynamic@Paintjob{vehicleid} = paintjobid;
-	#if defined TDWVH@OnVehiclePaintjob
-	return TDWVH@OnVehiclePaintjob(playerid, vehicleid, paintjobid);
+	#if defined TDWVH_OD@OnVehiclePaintjob
+	return TDWVH_OD@OnVehiclePaintjob(playerid, vehicleid, paintjobid);
 	#else
 	return 1;
 	#endif
@@ -110,10 +110,10 @@ public
 	#define _ALS_OnVehiclePaintjob
 #endif
 
-#define OnVehiclePaintjob(%0) TDWVH@OnVehiclePaintjob(%0)
+#define OnVehiclePaintjob TDWVH_OD@OnVehiclePaintjob
 
-#if defined TDWVH@OnVehiclePaintjob
-forward TDWVH@OnVehiclePaintjob(playerid, vehicleid, paintjobid);
+#if defined TDWVH_OD@OnVehiclePaintjob
+forward TDWVH_OD@OnVehiclePaintjob(playerid, vehicleid, paintjobid);
 #endif
 
 
@@ -125,8 +125,8 @@ public
 		new vehicleid = GetPlayerVehicleID(playerid);
 		TDW_g_sVDynamic@LastDriver[vehicleid] = playerid;
 	}
-	#if defined TDWVH@OnPlayerStateChange
-	return TDWVH@OnPlayerStateChange(playerid, newstate, oldstate);
+	#if defined TDWVH_OD@OnPlayerStateChange
+	return TDWVH_OD@OnPlayerStateChange(playerid, newstate, oldstate);
 	#else
 	return 1;
 	#endif
@@ -138,8 +138,8 @@ public
 	#define _ALS_OnPlayerStateChange
 #endif
 
-#define OnPlayerStateChange(%0) TDWVH@OnPlayerStateChange(%0)
+#define OnPlayerStateChange TDWVH_OD@OnPlayerStateChange
 
-#if defined TDWVH@OnPlayerStateChange
-forward TDWVH@OnPlayerStateChange(playerid, newstate, oldstate);
+#if defined TDWVH_OD@OnPlayerStateChange
+forward TDWVH_OD@OnPlayerStateChange(playerid, newstate, oldstate);
 #endif
