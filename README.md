@@ -35,3 +35,4 @@ Collection of missing libraries for vehicles in SA:MP.
 | vhs_limiter | Creates speed limits for vehicles. |
 | vhs_trailer | Adds new callbacks to checks on attach or detach trailer. |
 | vhs_tuning  | Saves the tuning vehicles. |
+| vhs_mileage | Calculates mileage of the vehicle. |
