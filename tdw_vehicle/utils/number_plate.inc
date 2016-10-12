@@ -35,7 +35,7 @@ freely, subject to the following restrictions:
 // Checks if a string is packed.
 // Other information: //www.compuphase.com/pawn/String_Manipulation.pdf
 #if !defined IsPackedString
-	#define IsPackedString(%0) ((%0)[0] > 255)
+	#define IsPackedString%0(%1) ((%1)[0] > 255)
 #endif
 
 
@@ -48,7 +48,7 @@ native nst_SetVehicleNumberPlate(vehicleid,
 	numberplate[]) = SetVehicleNumberPlate;
 
 stock
-	TDWVH@SetVehicleNumberPlate(vehicleid, numberplate[])
+	TDWVH_NP@SetVehicleNumberPlate(vehicleid, numberplate[])
 {
 	new Float:current_x, Float:current_y, Float:current_z;
 	if (GetVehiclePos(vehicleid, current_x, current_y, current_z) == 0)
@@ -104,7 +104,7 @@ stock
 	#define _ALS_SetVehicleNumberPlate
 #endif
 
-#define SetVehicleNumberPlate(%0) TDWVH@SetVehicleNumberPlate(%0)
+#define SetVehicleNumberPlate TDWVH_NP@SetVehicleNumberPlate
 
 
 stock
@@ -130,15 +130,16 @@ stock
 	}
 	else
 	{
-		while (i-- != 0)
+		while (i != 0)
 		{
 			dest[i] = ((i == NUMBER_PLATE_SPACE_POS)
 				? '-'
 				: letters{plate@rand(0, LETTER_SIZE)}
 			);
+			i--;
 		}
 	}
-	return TDWVH@SetVehicleNumberPlate(vehicleid, dest);
+	return TDWVH_NP@SetVehicleNumberPlate(vehicleid, dest);
 }
 
 
