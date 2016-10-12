@@ -47,7 +47,7 @@ static stock
 @__TDW_TIMER_MILEAGE(vehicleid)
 {
 	static Float:speed;
-	if ((speed = GetVehicleSpeed(vehicleid)) == -1)
+	if ((speed = GetVehicleSpeed(vehicleid)) == -1.0)
 		return 0;
 	TDW_g_sVehicleMileage[vehicleid] += speed / 2000.0;
 	return SetTimerEx(TDW_g_sVehicleTimerName, TDW_MILEAGE_UPDATE, false,
