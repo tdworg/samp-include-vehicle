@@ -1,9 +1,5 @@
 /** ======================================================================== **\
-	Math functions
-
-| Desciptions:
-This library contains maths functions for working with geometry, trigonometry,
-and algebra. This will help you to calculate the positions of a vehicle.
+	Mileage
 
 | License:
 Copyright (c) 2016 Double V
@@ -26,16 +22,16 @@ freely, subject to the following restrictions:
 \** ======================================================================== **/
 
 
-#if defined _inc_vh_math
-	#undef _inc_vh_math
+#if defined _inc_vhs_mileage
+	#undef _inc_vhs_mileage
 #endif
 
-#if defined _TDW_VHCOL__MATH
+#if defined _TDW_VHCOL__MILEAGE
 	#endinput
 #endif
 
-#define _TDW_VHCOL__MATH
+#define _TDW_VHCOL__MILEAGE
 
-// #include "vh_iterator"
+#include "vh_math"
 #include "tdw_vehicle/basic_functions"
-#include "tdw_vehicle/utils/math_functions"
+#include "tdw_vehicle/system/mileage"

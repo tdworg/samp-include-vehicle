@@ -39,14 +39,14 @@ freely, subject to the following restrictions:
 
 
 #if !defined OpenVehicleDoor
-	#define OpenVehicleDoor(%0,%1) SetVehicleDoorState(%0, %1, DOOR_OPENED)
+	#define OpenVehicleDoor%0(%1,%2) SetVehicleDoorState(%1, %2, DOOR_OPENED)
 #endif
 #if !defined CloseVehicleDoor
-	#define CloseVehicleDoor(%0,%1) SetVehicleDoorState(%0, %1, DOOR_CLOSED)
+	#define CloseVehicleDoor%0(%1,%2) SetVehicleDoorState(%1, %2, DOOR_CLOSED)
 #endif
 #if !defined IsVehicleDoorInState
-	#define IsVehicleDoorInState(%0,%1,%2) \
-		(_:(GetVehicleDoorState(%0,%1) == _:(e_TDW_DOOR_STATE:(%2))))
+	#define IsVehicleDoorInState%0(%1,%2,%3) \
+		(_:(GetVehicleDoorState(%1,%2) == _:(e_TDW_DOOR_STATE:(%3))))
 #endif
 
 

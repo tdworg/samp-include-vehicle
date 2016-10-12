@@ -32,6 +32,10 @@ freely, subject to the following restrictions:
 
 #define _TDW_VHLIB__SSCANF_CUSTOM_PARAM
 
+#if defined sscanf_vehicle
+	#endinput
+#endif
+
 #if _TDW_VEHICLE_SSCANF_DEFINED
 SSCANF:vehicle(string[])
 {
