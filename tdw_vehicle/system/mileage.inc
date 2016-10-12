@@ -67,8 +67,8 @@ public
 			TDW_g_sVehicleTimerParams, vehicleid
 		);
 	}
-	#if defined TDWVH@OnPlayerStateChange
-	return TDWVH@OnPlayerStateChange(playerid, newstate, oldstate);
+	#if defined TDWVH_ML@OnPlayerStateChange
+	return TDWVH_ML@OnPlayerStateChange(playerid, newstate, oldstate);
 	#else
 	return 1;
 	#endif
@@ -80,7 +80,7 @@ public
 	#define _ALS_OnPlayerStateChange
 #endif
 
-#define OnPlayerStateChange(%0) TDWVH_ML@OnPlayerStateChange(%0)
+#define OnPlayerStateChange TDWVH_ML@OnPlayerStateChange
 
 #if defined TDWVH_ML@OnPlayerStateChange
 forward TDWVH_ML@OnPlayerStateChange(playerid, newstate, oldstate);
