@@ -198,14 +198,7 @@ stock
 #if _TDW_VEHICLE_FOREACH_DEFINED
 	foreach(i : Player)
 #else
-	for(i
-	#if defined GetPlayerPoolSize
-		= GetPlayerPoolSize() + 1
-	#else
-		= MAX_PLAYERS
-	#endif
-		; i != -1; --i
-	)
+	for (new i = _TDW_FOREACH_MAX_PLAYERS_; --i != -1;)
 	if (IsPlayerConnected(i) == 0 || IsPlayerNPC(i))
 		continue;
 	else
