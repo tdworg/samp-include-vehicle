@@ -201,7 +201,7 @@ stock
 	#else
 		= MAX_PLAYERS
 	#endif
-		;i != -1; ++i
+		; i != -1; --i
 	)
 	if (IsPlayerConnected(i) == 0 || IsPlayerNPC(i))
 		continue;
