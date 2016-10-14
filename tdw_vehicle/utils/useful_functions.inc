@@ -278,9 +278,9 @@ stock
 		for (new i = _TDW_FOREACH_MAX_PLAYERS_; --i != -1;)
 	#endif
 		{
-			if (GetPlayerVehicleID(i) == 0)
+			if (GetPlayerVehicleID(i) != vehicleid)
 				continue;
-			if(GetPlayerState(i) != stateid)
+			if (GetPlayerState(i) != stateid)
 				continue;
 			return i;
 		}
