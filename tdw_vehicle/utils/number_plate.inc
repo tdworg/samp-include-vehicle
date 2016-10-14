@@ -66,10 +66,7 @@ stock
 	);
 	#endif
 	i = 0;
-	do
-	{
-		passengers[i] = GetVehicleOccupant(vehicleid, i);
-	} while(++i < sizeof passengers);
+	GetVehicleOccupantPlayers(vehicleid, passengers);
 	SetVehicleNumberPlate(vehicleid, numberplate);
 	SetVehicleToRespawn(vehicleid);
 	// Copy numberplate into the array.

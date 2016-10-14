@@ -315,3 +315,35 @@ stock
 	}
 	return INVALID_PLAYER_ID;
 }
+
+
+stock
+	GetVehicleOccupantPlayers(vehicleid, playerlist[],
+		size = sizeof playerlist)
+{
+	if (IsValidVehicle(vehicleid))
+	{
+		new array_index, i;
+	#if _TDW_VEHICLE_FOREACH_DEFINED
+		foreach(i : Player)
+	#else
+		for (new i = _TDW_FOREACH_MAX_PLAYERS_; --i != -1;)
+		if (IsPlayerNPC(i))
+			continue;
+		else
+	#endif
+		{
+			if (GetPlayerVehicleID(i) != vehicleid)
+				continue;
+			if (array_index >= size)
+				break;
+			else playerlist[array_index++] = i;
+		}
+		if (array_index != 0)
+		{
+			playerlist[array_index] = INVALID_VEHICLE_ID;
+			return 1;
+		}
+	}
+	return 0;
+}
