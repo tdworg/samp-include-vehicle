@@ -56,11 +56,7 @@ stock
 	new Float:current_z_angle, Float:current_health, cur_dstatus_panels,
 		cur_dstatus_doors, cur_dstatus_lights, cur_dstatus_tires,
 		i;
-	#if MAX_PLAYERS > 255
 	new passengers[MAX_VEHICLE_PASSENGERS];
-	#else
-	new passengers[MAX_VEHICLE_PASSENGERS char];
-	#endif
 	// Get the current parameters of the vehicle.
 	GetVehicleZAngle(vehicleid, current_z_angle);
 	#if !defined TDW_NPLATE_NOT_SAFE_DAMAGE
