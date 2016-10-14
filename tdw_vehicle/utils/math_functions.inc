@@ -51,7 +51,10 @@ stock
 #endif
 	{
 		if ((min_dist = GetVehicleDistanceFromPoint(i, x, y, z)) <= distance)
+		{
 			vehicleid = i;
+			distance = min_dist;
+		}
 	}
 	return vehicleid;
 }
