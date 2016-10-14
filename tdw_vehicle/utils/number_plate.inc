@@ -123,7 +123,7 @@ stock
 		{
 			dest{i} = ((i == NUMBER_PLATE_SPACE_POS)
 				? '-'
-				: letters{plate@rand(0, LETTER_SIZE)}
+				: letters{random(LETTER_SIZE)}
 			);
 			i--;
 		}
@@ -134,7 +134,7 @@ stock
 		{
 			dest[i] = ((i == NUMBER_PLATE_SPACE_POS)
 				? '-'
-				: letters{plate@rand(0, LETTER_SIZE)}
+				: letters{random(LETTER_SIZE)}
 			);
 			i--;
 		}
@@ -142,12 +142,6 @@ stock
 	return TDWVH_NP@SetVehicleNumberPlate(vehicleid, dest);
 }
 
-
-static stock
-	plate@rand(min, max)
-{
-	return random(max - min) + min;
-}
 
 // //github.com/TDW-org/samp-include-string/
 #if !defined _TDW_STLIB__STRING
