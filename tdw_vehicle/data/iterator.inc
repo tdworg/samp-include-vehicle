@@ -46,7 +46,7 @@ freely, subject to the following restrictions:
 	#endif
 
 stock
-	DestroyVehicleSafe(vehicleid)
+	DestroyVehicleSafe(&vehicleid)
 {
 	Iter_SafeRemove(Vehicle, vehicleid, vehicleid);
 	return DestroyVehicle(vehicleid);
