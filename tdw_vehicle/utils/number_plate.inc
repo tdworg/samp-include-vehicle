@@ -56,11 +56,7 @@ stock
 	new Float:current_z_angle, Float:current_health, cur_dstatus_panels,
 		cur_dstatus_doors, cur_dstatus_lights, cur_dstatus_tires,
 		i;
-	#if MAX_PLAYERS > 255
 	new passengers[MAX_VEHICLE_PASSENGERS];
-	#else
-	new passengers[MAX_VEHICLE_PASSENGERS char];
-	#endif
 	// Get the current parameters of the vehicle.
 	GetVehicleZAngle(vehicleid, current_z_angle);
 	#if !defined TDW_NPLATE_NOT_SAFE_DAMAGE
@@ -70,10 +66,7 @@ stock
 	);
 	#endif
 	i = 0;
-	do
-	{
-		passengers[i] = GetVehicleOccupant(vehicleid, i);
-	} while(++i < sizeof passengers);
+	GetVehicleOccupantPlayers(vehicleid, passengers);
 	SetVehicleNumberPlate(vehicleid, numberplate);
 	SetVehicleToRespawn(vehicleid);
 	// Copy numberplate into the array.
@@ -123,7 +116,7 @@ stock
 		{
 			dest{i} = ((i == NUMBER_PLATE_SPACE_POS)
 				? '-'
-				: letters{plate@rand(0, LETTER_SIZE)}
+				: letters{random(LETTER_SIZE)}
 			);
 			i--;
 		}
@@ -134,7 +127,7 @@ stock
 		{
 			dest[i] = ((i == NUMBER_PLATE_SPACE_POS)
 				? '-'
-				: letters{plate@rand(0, LETTER_SIZE)}
+				: letters{random(LETTER_SIZE)}
 			);
 			i--;
 		}
@@ -142,12 +135,6 @@ stock
 	return TDWVH_NP@SetVehicleNumberPlate(vehicleid, dest);
 }
 
-
-static stock
-	plate@rand(min, max)
-{
-	return random(max - min) + min;
-}
 
 // //github.com/TDW-org/samp-include-string/
 #if !defined _TDW_STLIB__STRING

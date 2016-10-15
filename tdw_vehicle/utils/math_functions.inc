@@ -51,7 +51,10 @@ stock
 #endif
 	{
 		if ((min_dist = GetVehicleDistanceFromPoint(i, x, y, z)) <= distance)
+		{
 			vehicleid = i;
+			distance = min_dist;
+		}
 	}
 	return vehicleid;
 }
@@ -177,7 +180,7 @@ stock
 {
 	new Float:x, Float:y, Float:z, Float:w;
 	if (GetVehicleRotationQuat(vehicleid, w, x, y, z) == 0)
-		return INVALID_VEHICLE_ID;
+		return 0;
 	new Float:angle = atan2(((y * z) + (w * x)) * 2.0,
 		(w * w) - (x * x) - (y * y) + (z * z));
 	return ((angle > 90.0) || (angle < -90.0));
@@ -190,19 +193,12 @@ stock
 {
 	new Float:x, Float:y, Float:z;
 	if (GetVehiclePos(vehicleid, x, y, z) == 0)
-		return INVALID_VEHICLE_ID;
+		return 0;
 	new array_index, i;
 #if _TDW_VEHICLE_FOREACH_DEFINED
 	foreach(i : Player)
 #else
-	for(i
-	#if defined GetPlayerPoolSize
-		= GetPlayerPoolSize() + 1
-	#else
-		= MAX_PLAYERS
-	#endif
-		; i != -1; --i
-	)
+	for (new i = _TDW_FOREACH_MAX_PLAYERS_; --i != -1;)
 	if (IsPlayerConnected(i) == 0 || IsPlayerNPC(i))
 		continue;
 	else
