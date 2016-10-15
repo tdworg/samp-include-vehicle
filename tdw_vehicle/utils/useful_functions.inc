@@ -327,7 +327,7 @@ stock
 	#if _TDW_VEHICLE_FOREACH_DEFINED
 		foreach(i : Player)
 	#else
-		for (new i = _TDW_FOREACH_MAX_PLAYERS_; --i != -1;)
+		for (i = _TDW_FOREACH_MAX_PLAYERS_; --i != -1;)
 		if (IsPlayerNPC(i))
 			continue;
 		else
