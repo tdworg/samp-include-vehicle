@@ -15,24 +15,24 @@ Collection of missing libraries for vehicles in SA:MP.
 ### Libraries:
 | Name        | Description |
 |------------:|:------------|
-| vh_dstatus  | Library that adds new functions to edit the status of visual damage. |
-| vh_dwos     | Contains many functions for working with doors and windows of the vehicles. Besides, this library defines new callbacks that are called when doors or windows have been updated. |
-| vh_handling | Detail information about the vehicles. |
-| vh_idata    | All important information about the vehicles, such as: color, spawn positions, angles, model id. |
-| vh_iterator | Adds a new iterator that is used for only foreach loops. |
-| vh_math     | Contains different mathematical functions. |
-| vh_nplate   | Functions that are help you work with number plates of vehicles. |
-| vh_odata    | Add additionally information about the vehicles, such as: interior id, paintjob id, virtualworld id, etc.. |
-| vh_sadata   | Minimum information about the vehicles, such as: category, type, max. speed. |
-| vh_sscanf   | It adds a new custom parameter in sscanf. |
-| vh_tune     | Information about tuning components for the vehicles. |
-| vh_utils    | Contains many useful functions for the vehicles. |
+| [vh_dstatus](https://github.com/TDW-org/samp-include-vehicle/blob/master/tdw_vehicle/utils/damage_status.inc)  | Library that adds new functions to edit the status of visual damage. |
+| [vh_dwos](https://github.com/TDW-org/samp-include-vehicle/blob/master/vh_dwos.inc)     | Contains many functions for working with doors and windows of the vehicles. Besides, this library defines new callbacks that are called when doors or windows have been updated. |
+| [vh_handling](https://github.com/TDW-org/samp-include-vehicle/blob/master/tdw_vehicle/data/gtasa_handling.inc) | Detail information about the vehicles. |
+| [vh_idata](https://github.com/TDW-org/samp-include-vehicle/blob/master/tdw_vehicle/data/important_data.inc)    | All important information about the vehicles, such as: color, spawn positions, angles, model id. |
+| [vh_iterator](https://github.com/TDW-org/samp-include-vehicle/blob/master/tdw_vehicle/data/iterator.inc) | Adds a new iterator that is used for only foreach loops. |
+| [vh_math](https://github.com/TDW-org/samp-include-vehicle/blob/master/tdw_vehicle/utils/math_functions.inc)     | Contains different mathematical functions. |
+| [vh_nplate](https://github.com/TDW-org/samp-include-vehicle/blob/master/tdw_vehicle/utils/number_plate.inc)   | Functions that are help you work with number plates of vehicles. |
+| [vh_odata](https://github.com/TDW-org/samp-include-vehicle/blob/master/tdw_vehicle/data/other_data.inc)    | Add additionally information about the vehicles, such as: interior id, paintjob id, virtualworld id, etc.. |
+| [vh_sadata](https://github.com/TDW-org/samp-include-vehicle/blob/master/tdw_vehicle/data/gtasa_data.inc)   | Minimum information about the vehicles, such as: category, type, max. speed. |
+| [vh_sscanf](https://github.com/TDW-org/samp-include-vehicle/blob/master/tdw_vehicle/utils/sscanf_custom_parameter.inc)   | It adds a new custom parameter in sscanf. |
+| [vh_tune](https://github.com/TDW-org/samp-include-vehicle/blob/master/tdw_vehicle/data/tuning_data.inc)     | Information about tuning components for the vehicles. |
+| [vh_utils](https://github.com/TDW-org/samp-include-vehicle/blob/master/tdw_vehicle/utils/useful_functions.inc)    | Contains many useful functions for the vehicles. |
 
 ### Systems:
 | Name        | Description |
 |------------:|:------------|
-| vhs_3dlabel | Creates a new 3D label for vehicles. |
-| vhs_limiter | Creates speed limits for vehicles. |
-| vhs_trailer | Adds new callbacks to checks on attach or detach trailer. |
-| vhs_tuning  | Saves the tuning vehicles. |
-| vhs_mileage | Calculates mileage of the vehicle. |
+| [vhs_3dlabel](https://github.com/TDW-org/samp-include-vehicle/blob/master/tdw_vehicle/system/3dtext_label.inc) | Creates a new 3D label for vehicles. |
+| [vhs_limiter](https://github.com/TDW-org/samp-include-vehicle/blob/master/tdw_vehicle/system/limiter.inc) | Creates speed limits for vehicles. |
+| [vhs_trailer](https://github.com/TDW-org/samp-include-vehicle/blob/master/tdw_vehicle/system/trailer_manage.inc) | Adds new callbacks to checks on attach or detach trailer. |
+| [vhs_tuning](https://github.com/TDW-org/samp-include-vehicle/blob/master/tdw_vehicle/system/tuning_manage.inc)  | Saves the tuning vehicles. |
+| [vhs_mileage](https://github.com/TDW-org/samp-include-vehicle/blob/master/tdw_vehicle/system/mileage.inc) | Calculates mileage of the vehicle. |

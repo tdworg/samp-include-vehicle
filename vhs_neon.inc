@@ -1,5 +1,5 @@
 /** ======================================================================== **\
-	Vehicle Static Data
+	Neon
 
 | License:
 Copyright (c) 2016 Double V
@@ -22,34 +22,15 @@ freely, subject to the following restrictions:
 \** ======================================================================== **/
 
 
-#if defined _inc_iterator
-	#undef _inc_iterator
+#if defined _inc_vhs_neon
+	#undef _inc_vhs_neon
 #endif
 
-#if defined _TDW_VHLIB__ITERATOR
+#if defined _TDW_VHCOL__NEON
 	#endinput
 #endif
 
-#define _TDW_VHLIB__ITERATOR
+#define _TDW_VHCOL__NEON
 
-// Creates the foreach array.
-#if defined _TDW_VEHICLE_FOREACH_DEFINED
-	#if _TDW_VEHICLE_FOREACH_DEFINED
-		#if !defined Vehicle@YSII_Ag
-			new Iterator:Vehicle<MAX_VEHICLES>;
-		#endif
-		#if !defined _TDW_VEHICLE_FOREACH_ARRAY
-			#define _TDW_VEHICLE_FOREACH_ARRAY 1
-		#endif
-		// The variables can't be used in the code.
-		#pragma unused Vehicle@YSII_Ag, Vehicle@YSII_Cg
-	#endif
-
-stock
-	DestroyVehicleSafe(&vehicleid)
-{
-	Iter_SafeRemove(Vehicle, vehicleid, vehicleid);
-	return DestroyVehicle(vehicleid);
-}
-#endif
-
+#include "vh_sadata"
+#include "tdw_vehicle/system/neon"
