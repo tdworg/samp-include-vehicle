@@ -1,8 +1,5 @@
 /** ======================================================================== **\
-	Important Data
-
-| Description:
-Important dynamic information about vehicles in SA:MP.
+	Police Lights
 
 | License:
 Copyright (c) 2016 Double V
@@ -25,16 +22,15 @@ freely, subject to the following restrictions:
 \** ======================================================================== **/
 
 
-#if defined _inc_vh_idata
-	#undef _inc_vh_idata
+#if defined _inc_vhs_police_lights
+	#undef _inc_vhs_police_lights
 #endif
 
-#if defined _TDW_VHCOL__IDATA
+#if defined _TDW_VHCOL__POLICE_LIGHTS
 	#endinput
 #endif
 
-#define _TDW_VHCOL__IDATA
+#define _TDW_VHCOL__POLICE_LIGHTS
 
-#include "vh_iterator"
-#include "tdw_vehicle/basic_functions"
-#include "tdw_vehicle/data/important_data"
+#include "vh_sadata"
+#include "tdw_vehicle/system/police_lights"
