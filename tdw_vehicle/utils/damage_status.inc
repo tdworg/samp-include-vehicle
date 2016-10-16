@@ -29,7 +29,6 @@ freely, subject to the following restrictions:
 #if defined _TDW_VHLIB_DAMAGE_STATUS
 	#endinput
 #endif
-
 #define _TDW_VHLIB_DAMAGE_STATUS
 
 
