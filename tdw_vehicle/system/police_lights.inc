@@ -36,13 +36,19 @@ freely, subject to the following restrictions:
 
 #define _TDW_VHSYS__POLICE_LIGHTS
 
+enum
+	E_TDW_SIREN_TYPE
+{
+	SIREN_TYPE_POLICE,
+	SIREN_TYPE_AMBULANCE
+};
 
 static stock
 	TDW_g_sPLVehicle[MAX_VEHICLES];
 
 
 stock
-	UpdatePoliceLights(vehicleid)
+	UpdatePoliceLights(vehicleid, E_TDW_SIREN_TYPE:type = SIREN_TYPE_POLICE)
 {
 	new modelid;
 	if ((modelid = GetVehicleModel(vehicleid)) == 0)
@@ -52,8 +58,19 @@ stock
 	new siren_state;
 	if ((siren_state = GetVehicleParamsSirenState(vehicleid)) == -1)
 		return 0;
-	new objectid, Float:size_x, Float:size_y, Float:size_z,
+	new objectid, Float:size_x, Float:size_y, Float:size_z, object_model;
+	if (type == SIREN_TYPE_POLICE)
+	{
+		// 19420 - police_lights02
+		// 19419 - police_lights01
 		object_model = siren_state ? 19420 : 19419;
+	}
+	else
+	{
+		// 11702 - AmbulanceLights2
+		// 11701 - AmbulanceLights1
+		object_model = siren_state ? 11702 : 11701;
+	}
 	GetVehicleModelInfo(modelid, VEHICLE_MODEL_INFO_SIZE, size_x, size_y,
 		size_z
 	);
