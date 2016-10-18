@@ -38,3 +38,4 @@ Collection of missing libraries for vehicles in SA:MP.
 | [vhs_mileage](https://github.com/TDW-org/samp-include-vehicle/blob/master/tdw_vehicle/system/mileage.inc) | Calculates mileage of the vehicle. |
 | [vhs_neon](https://github.com/TDW-org/samp-include-vehicle/blob/master/tdw_vehicle/system/neon.inc) | Adds new functions for working with neon. |
 | [vhs_policelights](https://github.com/TDW-org/samp-include-vehicle/blob/master/tdw_vehicle/system/police_lights.inc) | Adds new functions for working with police lights. |
+| [vhs_signals](https://github.com/TDW-org/samp-include-vehicle/blob/master/tdw_vehicle/system/turn_signals.inc) | Adds turn signals |
