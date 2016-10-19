@@ -182,18 +182,6 @@ stock
 
 #define DestroyVehicle TDWVH_ID@DestroyVehicle
 
-
-native nst_ChangeVehicleColor(vehicleid,
-	color1, color2) = ChangeVehicleColor;
-
-#if defined _ALS_ChangeVehicleColor
-#undef ChangeVehicleColor
-#else
-	#define _ALS_ChangeVehicleColor
-#endif
-#define ChangeVehicleColor SetVehicleColor
-
-
 public
 	OnVehicleRespray(playerid, vehicleid, color1, color2)
 {
@@ -261,3 +249,13 @@ stock
 	}
 	return TDW_g_sVehicleId;
 }
+
+native nst_ChangeVehicleColor(vehicleid,
+	color1, color2) = ChangeVehicleColor;
+
+#if defined _ALS_ChangeVehicleColor
+#undef ChangeVehicleColor
+#else
+	#define _ALS_ChangeVehicleColor
+#endif
+#define ChangeVehicleColor SetVehicleColor
