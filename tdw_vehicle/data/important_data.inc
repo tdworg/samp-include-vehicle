@@ -191,7 +191,7 @@ native nst_ChangeVehicleColor(vehicleid,
 #else
 	#define _ALS_ChangeVehicleColor
 #endif
-#define ChangeVehicleColor(%0) SetVehicleColor(%0)
+#define ChangeVehicleColor SetVehicleColor
 
 
 public
@@ -220,7 +220,7 @@ forward TDWVH_ID@OnVehicleRespray(playerid, vehicleid, color1, color2);
 
 
 stock
-	GetVehicelColor(vehicleid, &color1, &color2)
+	GetVehicleColor(vehicleid, &color1, &color2)
 {
 	if (TDW_g_sVehicleData[vehicleid][ei_modelid] == 0)
 		return _:(color1 = color2 = 0);
@@ -258,19 +258,6 @@ stock
 			TDW_g_sVehicleId = CreateVehicle(vehicletype, x, y, z, rotation,
 				color1, color2, respawn_delay, addsiren);
 		}
-	}
-	if (TDW_g_sVehicleId != INVALID_VEHICLE_ID)
-	{
-		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_modelid] = vehicletype;
-		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_spos_x] = x;
-		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_spos_y] = y;
-		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_spos_z] = z;
-		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_spos_a] = rotation;
-		TDW_g_sVehicleColor1{TDW_g_sVehicleId} = color1;
-		TDW_g_sVehicleColor2{TDW_g_sVehicleId} = color2;
-		#if defined _TDW_VEHICLE_FOREACH_ARRAY
-		Iter_Add(Vehicle, TDW_g_sVehicleId);
-		#endif
 	}
 	return TDW_g_sVehicleId;
 }
