@@ -32,10 +32,9 @@ freely, subject to the following restrictions:
 
 #define _TDW_VHSYS__3D_TEXT_LABEL
 
-
 #if _TDW_VEHICLE_STREAMER_DEFINED
 	#define TDW_VEHICLE_DESTROY_LABEL(%0) DestroyDynamic3DTextLabel(%0)
-	#define TDW_VEHICLE_UPDATE_LABEL(%0) UpdateDynamic3DTextLabel(%0)
+	#define TDW_VEHICLE_UPDATE_LABEL(%0) UpdateDynamic3DTextLabelText(%0)
 #else
 	#define TDW_VEHICLE_DESTROY_LABEL(%0) Delete3DTextLabel(%0)
 	#define TDW_VEHICLE_UPDATE_LABEL(%0) Update3DTextLabelText(%0)
@@ -75,7 +74,7 @@ stock
 	#if _TDW_VEHICLE_STREAMER_DEFINED
 	TDW_g_sVDynamic@LabelIds[vehicleid] = CreateDynamic3DTextLabel(label, color,
 		offset_x, offset_y, offset_z, drawdistance, _, vehicleid, _:testLos,
-		virtualworld, interiorid, streamdistance
+		virtualworld, interiorid, _, streamdistance
 	);
 	#else
 	TDW_g_sVDynamic@LabelIds[vehicleid] = Create3DTextLabel(label, color, 0.0,
