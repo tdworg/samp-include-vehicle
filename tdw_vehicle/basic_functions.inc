@@ -40,8 +40,8 @@ freely, subject to the following restrictions:
 	#define MAX_VEHICLE_PAINTJOB (3)
 #endif
 #if !defined IS_PAINTJOB_VALID
-	#define IS_PAINTJOB_VALID(%0) \
-		(MIN_VEHICLE_PAINTJOB <= (%0) <= MAX_VEHICLE_PAINTJOB)
+	#define IS_PAINTJOB_VALID%0(%1) \
+		(MIN_VEHICLE_PAINTJOB <= (%1) <= MAX_VEHICLE_PAINTJOB)
 #endif
 
 // Model limits
@@ -55,7 +55,8 @@ freely, subject to the following restrictions:
 	#define MAX_VEHICLE_MODELS (MAX_VEHICLE_MODEL - MIN_VEHICLE_MODEL)
 #endif
 #if !defined IS_VALID_MODEL
-	#define IS_VALID_MODEL(%0) (MIN_VEHICLE_MODEL <= (%0) <= MAX_VEHICLE_MODEL)
+	#define IS_VALID_MODEL%0(%1) \
+		(MIN_VEHICLE_MODEL <= (%1) <= MAX_VEHICLE_MODEL)
 #endif
 
 #if !defined _TDW_DEBUG && defined _DEBUG
@@ -97,8 +98,13 @@ freely, subject to the following restrictions:
 #endif
 
 #if !defined MAX_VEHICLE_COMPONENTS
-	#define MAX_VEHICLE_COMPONENTS\
+	#define MAX_VEHICLE_COMPONENTS \
 		(MAX_VEHICLE_COMPONENT_ID - MIN_VEHICLE_COMPONENT_ID)
+#endif
+
+#if !defined IS_VALID_VEHICLE_COMPONENT_ID
+	#define IS_VALID_VEHICLE_COMPONENT_ID%0(%1) \
+		(MIN_VEHICLE_COMPONENT_ID <= (%1) <= MAX_VEHICLE_COMPONENT_ID)
 #endif
 
 #if !defined MAX_NUMBER_PLATE_SIZE
