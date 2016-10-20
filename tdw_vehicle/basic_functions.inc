@@ -32,32 +32,85 @@ freely, subject to the following restrictions:
 
 #define _TDW_VHLIB__BASIC_FUNCTIONS
 
+//
+// Limits
+//
 
 #if !defined MIN_VEHICLE_PAINTJOB
 	#define MIN_VEHICLE_PAINTJOB (0)
 #endif
+
 #if !defined MAX_VEHICLE_PAINTJOB
 	#define MAX_VEHICLE_PAINTJOB (3)
 #endif
+
+#if !defined MAX_VEHICLE_MODEL
+	#define MAX_VEHICLE_MODEL (611)
+#endif
+
+#if !defined MIN_VEHICLE_MODEL
+	#define MIN_VEHICLE_MODEL (400)
+#endif
+
+#if !defined MIN_VEHICLE_COMPONENT_ID
+	#define MIN_VEHICLE_COMPONENT_ID (1000)
+#endif
+
+#if !defined MAX_VEHICLE_COMPONENT_ID
+	#define MAX_VEHICLE_COMPONENT_ID (1193)
+#endif
+
+#if !defined MAX_NUMBER_PLATE_SIZE
+	#define MAX_NUMBER_PLATE_SIZE (32)
+#endif
+
+#if !defined MAX_NUMBER_PLATE
+	#define MAX_NUMBER_PLATE (8)
+#endif
+
+#if !defined MAX_VEHICLE_COMPONENTS
+	#define MAX_VEHICLE_COMPONENTS \
+		(MAX_VEHICLE_COMPONENT_ID - MIN_VEHICLE_COMPONENT_ID)
+#endif
+
+#if !defined MAX_VEHICLE_PASSENGERS
+	#define MAX_VEHICLE_PASSENGERS (8)
+#endif
+
+#if !defined MAX_VEHICLE_MODELS
+	#define MAX_VEHICLE_MODELS (MAX_VEHICLE_MODEL - MIN_VEHICLE_MODEL)
+#endif
+
+//
+// Macros
+//
+
+#if !defined IS_VALID_VEHICLE_COMPONENT_ID
+	#define IS_VALID_VEHICLE_COMPONENT_ID%0(%1) \
+		(MIN_VEHICLE_COMPONENT_ID <= (%1) <= MAX_VEHICLE_COMPONENT_ID)
+#endif
+
+#if !defined IS_VALID_MODEL
+	#define IS_VALID_MODEL%0(%1) \
+		(MIN_VEHICLE_MODEL <= (%1) <= MAX_VEHICLE_MODEL)
+#endif
+
 #if !defined IS_PAINTJOB_VALID
 	#define IS_PAINTJOB_VALID%0(%1) \
 		(MIN_VEHICLE_PAINTJOB <= (%1) <= MAX_VEHICLE_PAINTJOB)
 #endif
 
-// Model limits
-#if !defined MAX_VEHICLE_MODEL
-	#define MAX_VEHICLE_MODEL (611)
+//
+// The functions that are not defined in SA:MP library
+//
+
+#if !defined IsValidVehicle
+	native IsValidVehicle(vehicleid);
 #endif
-#if !defined MIN_VEHICLE_MODEL
-	#define MIN_VEHICLE_MODEL (400)
-#endif
-#if !defined MAX_VEHICLE_MODELS
-	#define MAX_VEHICLE_MODELS (MAX_VEHICLE_MODEL - MIN_VEHICLE_MODEL)
-#endif
-#if !defined IS_VALID_MODEL
-	#define IS_VALID_MODEL%0(%1) \
-		(MIN_VEHICLE_MODEL <= (%1) <= MAX_VEHICLE_MODEL)
-#endif
+
+//
+// Internal debug
+//
 
 #if !defined _TDW_DEBUG && defined _DEBUG
 	#define _TDW_DEBUG 1
@@ -65,13 +118,9 @@ freely, subject to the following restrictions:
 	#define _TDW_DEBUG 0
 #endif
 
-#if !defined MAX_VEHICLE_PASSENGERS
-	#define MAX_VEHICLE_PASSENGERS (8)
-#endif
-
-#if !defined IsValidVehicle
-	native IsValidVehicle(vehicleid);
-#endif
+//
+// Internal iterator
+//
 
 #if !defined _TDW_FOREACH_MAX_VEHICLES_
 	#if defined GetVehiclePoolSize
@@ -87,30 +136,4 @@ freely, subject to the following restrictions:
 	#else
 		#define _TDW_FOREACH_MAX_PLAYERS_ (GetMaxPlayers())
 	#endif
-#endif
-
-#if !defined MIN_VEHICLE_COMPONENT_ID
-	#define MIN_VEHICLE_COMPONENT_ID (1000)
-#endif
-
-#if !defined MAX_VEHICLE_COMPONENT_ID
-	#define MAX_VEHICLE_COMPONENT_ID (1193)
-#endif
-
-#if !defined MAX_VEHICLE_COMPONENTS
-	#define MAX_VEHICLE_COMPONENTS \
-		(MAX_VEHICLE_COMPONENT_ID - MIN_VEHICLE_COMPONENT_ID)
-#endif
-
-#if !defined IS_VALID_VEHICLE_COMPONENT_ID
-	#define IS_VALID_VEHICLE_COMPONENT_ID%0(%1) \
-		(MIN_VEHICLE_COMPONENT_ID <= (%1) <= MAX_VEHICLE_COMPONENT_ID)
-#endif
-
-#if !defined MAX_NUMBER_PLATE_SIZE
-	#define MAX_NUMBER_PLATE_SIZE (32)
-#endif
-
-#if !defined MAX_NUMBER_PLATE
-	#define MAX_NUMBER_PLATE (8)
 #endif
