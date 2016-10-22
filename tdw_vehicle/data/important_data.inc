@@ -47,6 +47,7 @@ enum
 
 static stock
 	TDW_g_sVehicleData[MAX_VEHICLES][e_TDW_VEHICLE],
+	// I used the char operator to optimize the data segment.
 	TDW_g_sVehicleColor1[MAX_VEHICLES char],
 	TDW_g_sVehicleColor2[MAX_VEHICLES char],
 	TDW_g_sVehicleId;
@@ -182,6 +183,7 @@ stock
 
 #define DestroyVehicle TDWVH_ID@DestroyVehicle
 
+
 public
 	OnVehicleRespray(playerid, vehicleid, color1, color2)
 {
@@ -236,14 +238,26 @@ stock
 {
 	switch (vehicletype)
 	{
+		// We can't create the vehicle using CreateVehicle. Instead,
+		// we use AddStaticVehicleEx because it contains all the arguments
+		// that contains CreateVehicle.
+		//
+		// ID  - Vehicle Name
+		//
+		// 537 - Freight (Train)
+		// 538 - Brownstreak (Train)
+		// 570 - Streak Trailer (Train)
+		// 449 - Tram
+		//
+		// Notice: AddStaticVehicleEx, CreateVehicle functions are hooked.
 		case 537, 538, 570, 449:
 		{
-			TDW_g_sVehicleId = AddStaticVehicleEx(vehicletype, x, y, z,
+			AddStaticVehicleEx(vehicletype, x, y, z,
 				rotation, color1, color2, respawn_delay, addsiren);
 		}
 		default:
 		{
-			TDW_g_sVehicleId = CreateVehicle(vehicletype, x, y, z, rotation,
+			CreateVehicle(vehicletype, x, y, z, rotation,
 				color1, color2, respawn_delay, addsiren);
 		}
 	}
@@ -254,8 +268,9 @@ native nst_ChangeVehicleColor(vehicleid,
 	color1, color2) = ChangeVehicleColor;
 
 #if defined _ALS_ChangeVehicleColor
-#undef ChangeVehicleColor
+	#undef ChangeVehicleColor
 #else
 	#define _ALS_ChangeVehicleColor
 #endif
+
 #define ChangeVehicleColor SetVehicleColor
