@@ -43,6 +43,7 @@ freely, subject to the following restrictions:
 #define _TDW_SAMP_LIB_VERSION__03c (0x00_03_43_00)
 #define _TDW_SAMP_LIB_VERSION__03b (0x00_03_42_00)
 #define _TDW_SAMP_LIB_VERSION__03a (0x00_03_41_00)
+#define _TDW_SAMP_LIB_VERSION__000 (0x00_00_00_00)
 
 // Detect current library version
 #if defined GetVehiclePoolSize || defined OnVehicleSirenStateChange
@@ -62,7 +63,7 @@ freely, subject to the following restrictions:
 #elseif defined GetVehicleVelocity || defined Attach3DTextLabelToVehicle
 	#define _TDW_SAMP_CURRENT_VERSION_LIB _TDW_SAMP_LIB_VERSION__03a
 #else
-	#error Ops
+	#define _TDW_SAMP_CURRENT_VERSION_LIB _TDW_SAMP_LIB_VERSION__000
 #endif
 
 #define _TDW_SAMP_SUPPORT: _TDW_SAMP_S0:_TDW_SAMP_S1:
@@ -71,12 +72,26 @@ freely, subject to the following restrictions:
 
 #define _TDW_SAMP_VALUE:%1||| _TDW_SAMP_LIB_VERSION__%1
 
+#undef _TDW_SAMP_CURRENT_VERSION_LIB
+#define _TDW_SAMP_CURRENT_VERSION_LIB _TDW_SAMP_LIB_VERSION__000
+
 #if !defined IS_VERSION_LEQ // less than or equal to
 	#define IS_VERSION_LEQ%0(%1) \
-		_:_TDW_SAMP_SUPPORT:%1||| <= _TDW_SAMP_CURRENT_VERSION_LIB
+		_TDW_SAMP_CURRENT_VERSION_LIB <= _:_TDW_SAMP_SUPPORT:%1|||
+#endif
+
+#if !defined IS_VERSION_LSS // less than
+	#define IS_VERSION_LSS%0(%1) \
+		_TDW_SAMP_CURRENT_VERSION_LIB < _:_TDW_SAMP_SUPPORT:%1|||
 #endif
 
 #if !defined IS_VERSION_GEQ // greater than or equal to
 	#define IS_VERSION_GEQ%0(%1) \
-		_:_TDW_SAMP_SUPPORT:%1||| >= _TDW_SAMP_CURRENT_VERSION_LIB
+		_TDW_SAMP_CURRENT_VERSION_LIB >= _:_TDW_SAMP_SUPPORT:%1|||
 #endif
+
+#if !defined IS_VERSION_GTR // greater than
+	#define IS_VERSION_GTR%0(%1) \
+		_TDW_SAMP_CURRENT_VERSION_LIB > _:_TDW_SAMP_SUPPORT:%1|||
+#endif
+
