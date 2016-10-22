@@ -32,6 +32,7 @@ freely, subject to the following restrictions:
 
 #define _TDW_VHLIB__ITERATOR
 
+
 // Creates the foreach array.
 #if defined _TDW_VEHICLE_FOREACH_DEFINED
 	#if _TDW_VEHICLE_FOREACH_DEFINED

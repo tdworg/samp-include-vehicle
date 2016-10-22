@@ -32,6 +32,7 @@ freely, subject to the following restrictions:
 
 #define _TDW_VHLIB__MATH_FUNCTIONS
 
+
 enum
 	e_TDW_VEHICLE_SPEED
 {
@@ -40,15 +41,16 @@ enum
 };
 
 
+
 stock
 	GetNearestVehicleFromPoint(Float:x, Float:y, Float:z, Float:distance = 30.0)
 {
 	new Float:min_dist, vehicleid = INVALID_VEHICLE_ID;
-#if _TDW_VEHICLE_FOREACH_DEFINED
+	#if _TDW_VEHICLE_FOREACH_DEFINED
 	foreach (new i: Vehicle)
-#else
+	#else
 	for (new i = _TDW_FOREACH_MAX_VEHICLES_; --i != 0;)
-#endif
+	#endif
 	{
 		if ((min_dist = GetVehicleDistanceFromPoint(i, x, y, z)) <= distance)
 		{
@@ -66,7 +68,7 @@ stock
 {
 	new Float:x, Float:y, Float:z;
 	if (GetVehiclePos(vehicleid, x, y, z) == 0)
-		return _:(point_x = point_y = point_z = 0.0);
+		return _:(point_x = point_y = point_z = 0.0); // return 0
 	offset_x = (point_x - x);
 	offset_y = (point_y - y);
 	offset_z = (point_z - z);
@@ -79,16 +81,16 @@ stock
 {
 	new Float:angle, Float:distance;
 	if (GetVehicleZAngle(vehicleid, angle) == 0)
-		return _:(x = y = z = 0.0);
+		return _:(x = y = z = 0.0); // return 0
 	GetVehicleModelInfo(
 		GetVehicleModel(vehicleid),
 		VEHICLE_MODEL_INFO_SIZE,
 		x, distance, z
 	);
-	dist = dist / 2 + 0.1;
+	distance = distance / 2 + 0.1;
 	GetVehiclePos(vehicleid, x, y, z);
-	x += (dist * floatsin(-angle + 180, degrees));
-	y += (dist * floatcos(-angle + 180, degrees));
+	x += (distance * floatsin(-angle + 180, degrees));
+	y += (distance * floatcos(-angle + 180, degrees));
 	return 1;
 }
 
@@ -98,16 +100,16 @@ stock
 {
 	new Float:angle, Float:distance;
 	if (GetVehicleZAngle(vehicleid, angle) == 0)
-		return _:(x = y = z = 0.0);
+		return _:(x = y = z = 0.0); // return 0
 	GetVehicleModelInfo(
 		GetVehicleModel(vehicleid),
 		VEHICLE_MODEL_INFO_SIZE,
 		x, distance, z
 	);
-	dist = dist / 2 + 0.1;
+	distance = distance / 2 + 0.1;
 	GetVehiclePos(vehicleid, x, y, z);
-	x -= (dist * floatsin(-angle + 180, degrees));
-	y -= (dist * floatcos(-angle + 180, degrees));
+	x -= (distance * floatsin(-angle + 180, degrees));
+	y -= (distance * floatcos(-angle + 180, degrees));
 	return 1;
 }
 
@@ -117,7 +119,7 @@ stock
 {
 	new modelid, Float:vehicle_z;
 	if ((modelid = GetVehicleModel(vehicleid)) == 0)
-		return _:(x = y = z = 0.0);
+		return _:(x = y = z = 0.0); // return 0
 	GetVehicleModelInfo(modelid, VEHICLE_MODEL_INFO_SIZE, x, y, vehicle_z);
 	GetVehiclePos(vehicleid, x, y, z);
 	z += floatsqroot(vehicle_z);
@@ -195,14 +197,14 @@ stock
 	if (GetVehiclePos(vehicleid, x, y, z) == 0)
 		return 0;
 	new array_index, i;
-#if _TDW_VEHICLE_FOREACH_DEFINED
+	#if _TDW_VEHICLE_FOREACH_DEFINED
 	foreach(i : Player)
-#else
-	for (new i = _TDW_FOREACH_MAX_PLAYERS_; --i != -1;)
+	#else
+	for (i = _TDW_FOREACH_MAX_PLAYERS_; --i != -1;)
 	if (IsPlayerConnected(i) == 0 || IsPlayerNPC(i))
 		continue;
 	else
-#endif
+	#endif
 	{
 		if (IsPlayerInRangeOfPoint(i, distance, x, y, z))
 		{
