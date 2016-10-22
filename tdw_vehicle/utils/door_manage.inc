@@ -33,25 +33,32 @@ freely, subject to the following restrictions:
 #define _TDW_VHLIB__DOOR_MANAGE
 
 
-#if !defined MAX_VEHICLE_DOORS
-	#define MAX_VEHICLE_DOORS (4)
-#endif
-
-
 #if !defined OpenVehicleDoor
-	#define OpenVehicleDoor%0(%1,%2) SetVehicleDoorState(%1, %2, DOOR_OPENED)
+	// Arguments:
+	// %1 - vehicleid
+	// %2 - E_TDW_VEHICLE_DOOR:door
+	#define OpenVehicleDoor%0(%1,%2) SetVehicleDoorState(%1,%2,DOOR_OPENED)
 #endif
+
 #if !defined CloseVehicleDoor
-	#define CloseVehicleDoor%0(%1,%2) SetVehicleDoorState(%1, %2, DOOR_CLOSED)
+	// Arguments:
+	// %1 - vehicleid
+	// %2 - E_TDW_VEHICLE_DOOR:door
+	#define CloseVehicleDoor%0(%1,%2) SetVehicleDoorState(%1,%2,DOOR_CLOSED)
 #endif
+
 #if !defined IsVehicleDoorInState
-	#define IsVehicleDoorInState%0(%1,%2,%3) \
-		(_:(GetVehicleDoorState(%1,%2) == _:(e_TDW_DOOR_STATE:(%3))))
+	// Arguments:
+	// %1 - vehicleid
+	// %2 - E_TDW_VEHICLE_DOOR:door
+	// %3 - E_TDW_DOOR_STATE:state
+	#define IsVehicleDoorInState%0(%1,%2,%3)\
+		(_:(GetVehicleDoorState(%1,%2)) == _:(E_TDW_DOOR_STATE:(%3)))
 #endif
 
 
 enum
-	e_TDW_DOOR_STATE
+	E_TDW_DOOR_STATE
 {
 	DOOR_NOT_SET = -1,
 	DOOR_OPENED = 0,
@@ -59,58 +66,73 @@ enum
 };
 
 
-#if defined OnVehicleDoorUpdate
-	forward OnVehicleDoorUpdate(vehicleid, e_TDW_VEHICLE_DOOR:door,
-		e_TDW_DOOR_STATE:newstate);
-#endif
-
 
 stock
-	GetVehicleDoorState(vehicleid, door, d_states[e_TDW_VEHICLE_DOOR])
+	GetVehicleDoorState(vehicleid, E_TDW_VEHICLE_DOOR:door)
 {
 	if (IsValidVehicle(vehicleid) == 0)
-		return INVALID_VEHICLE_ID;
-	if (_:(0 < door < 3) == 0)
 		return 0;
-	GetVehicleParamsCarDoors(vehicleid,
-		d_states[FRONT_LEFT_DOOR], d_states[FRONT_RIGHT_DOOR],
-		d_states[REAR_LEFT_DOOR],  d_states[REAR_RIGHT_DOOR]
-	);
-	return 1;
+	if (_:(0 <= _:door < MAX_VEHICLE_DOORS) == 0)
+		return 0;
+	new driver, passenger, backleft, backright;
+	GetVehicleParamsCarDoors(vehicleid, driver, passenger, backleft, backright);
+	// Return state of the door, which was specified when calling the function.
+	switch (door)
+	{
+		case FRONT_LEFT_DOOR:
+			return driver;
+		case FRONT_RIGHT_DOOR:
+			return passenger;
+		case REAR_LEFT_DOOR:
+			return backleft;
+		case REAR_RIGHT_DOOR:
+			return backright;
+	}
+	return 0; // For compiler!
 }
 
 
+// Returns true if the vehicle exists, otherwise false.
 stock
-	SetVehicleDoorState(vehicleid, e_TDW_VEHICLE_DOOR:door,
-		e_TDW_DOOR_STATE:newstate)
+	SetVehicleDoorState(vehicleid, E_TDW_VEHICLE_DOOR:door,
+		E_TDW_DOOR_STATE:newstate)
 {
 	if (IsValidVehicle(vehicleid) == 0)
-		return INVALID_VEHICLE_ID;
-	if (_:(0 < door < 3) == 0)
 		return 0;
-	new d_states[e_TDW_VEHICLE_DOOR];
-	GetVehicleParamsCarDoors(vehicleid,
-		d_states[FRONT_LEFT_DOOR], d_states[FRONT_RIGHT_DOOR],
-		d_states[REAR_LEFT_DOOR],  d_states[REAR_RIGHT_DOOR]
-	);
-#if defined OnVehicleDoorUpdate
-	OnVehicleDoorUpdate(vehicleid, door, newstate);
-#endif
-	d_states[door] = newstate;
-	SetVehicleParamsCarDoors(vehicleid,
-		d_states[FRONT_LEFT_DOOR], d_states[FRONT_RIGHT_DOOR],
-		d_states[REAR_LEFT_DOOR],  d_states[REAR_RIGHT_DOOR]
-	);
-	return 1;
+	if (_:(0 <= _:door < MAX_VEHICLE_DOORS) == 0)
+		return 0;
+	new driver, passenger, backleft, backright;
+	GetVehicleParamsCarDoors(vehicleid, driver, passenger, backleft, backright);
+	switch (door)
+	{
+		case FRONT_LEFT_DOOR:
+			return SetVehicleParamsCarDoors(vehicleid, _:newstate, passenger,
+				backleft, backright
+			);
+		case FRONT_RIGHT_DOOR:
+			return SetVehicleParamsCarDoors(vehicleid, driver, _:newstate,
+				backleft, backright
+			);
+		case REAR_LEFT_DOOR:
+			return SetVehicleParamsCarDoors(vehicleid, driver, passenger,
+				_:newstate, backright
+			);
+		case REAR_RIGHT_DOOR:
+			return SetVehicleParamsCarDoors(vehicleid, driver, passenger,
+				backleft, _:newstate
+			);
+	}
+	return 0; // For compiler!
 }
 
 
+// Returns true if the vehicle exists, otherwise false.
 stock
 	GetVehicleDoorPos(vehicletype, e_TDW_VEHICLE_DOOR:door,
 		&Float:x, &Float:y, &Float:z)
 {
 	if (GetVehiclePos(vehicletype, x, y, z) == 0)
-		return _:(x = y = z = 0.0);
+		return _:(x = y = z = 0.0); // return 0
 	new Float:z_angle, Float:vehicle_x, Float:vehicle_y, Float:vehicle_z,
 		Float:div;
 	GetVehicleZAngle(vehicletype, z_angle);

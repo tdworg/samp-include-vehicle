@@ -81,6 +81,10 @@ freely, subject to the following restrictions:
 	#define MAX_VEHICLE_MODELS (MAX_VEHICLE_MODEL - MIN_VEHICLE_MODEL)
 #endif
 
+#if !defined MAX_VEHICLE_DOORS
+	#define MAX_VEHICLE_DOORS (4)
+#endif
+
 //
 // Macros
 //

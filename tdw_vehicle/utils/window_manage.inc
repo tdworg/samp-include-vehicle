@@ -34,19 +34,33 @@ freely, subject to the following restrictions:
 
 
 #if !defined OpenVehicleWindow
-	#define OpenVehicleWindow(%0,%1) SetVehicleWindowState(%0,%1,WINDOW_OPENED)
+	// Arguments:
+	// %1 - vehicleid
+	// %2 - E_TDW_VEHICLE_DOOR:door
+	#define OpenVehicleWindow%0(%1,%2)\
+		SetVehicleWindowState(%1,%2,WINDOW_OPENED)
 #endif
+
 #if !defined CloseVehicleWindow
-	#define CloseVehicleWindow(%0,%1) SetVehicleWindowState(%0,%1,WINDOW_CLOSED)
+	// Arguments:
+	// %1 - vehicleid
+	// %2 - E_TDW_VEHICLE_DOOR:door
+	#define CloseVehicleWindow%0(%1,%2)\
+		SetVehicleWindowState(%1,%2,WINDOW_CLOSED)
 #endif
+
 #if !defined IsVehicleWindowInState
-	#define IsVehicleWindowInState(%0,%1,%2) \
-		(_:(GetVehicleWindowState(%0,%1) == _:(e_TDW_WINDOW_STATE:(%2))))
+	// Arguments:
+	// %1 - vehicleid
+	// %2 - E_TDW_VEHICLE_DOOR:door
+	// %3 - E_TDW_DOOR_STATE:state
+	#define IsVehicleWindowInState%0(%1,%2,%3)\
+		(_:(GetVehicleWindowState(%1,%2) == _:(E_TDW_WINDOW_STATE:(%3))))
 #endif
 
 
 enum
-	e_TDW_WINDOW_STATE
+	E_TDW_WINDOW_STATE
 {
 	WINDOW_NOT_SET = -1,
 	WINDOW_OPENED = 0,
@@ -54,47 +68,64 @@ enum
 };
 
 
-#if defined OnVehicleWindowUpdate
-	forward OnVehicleWindowUpdate(vehicleid, e_TDW_VEHICLE_DOOR:door,
-		e_TDW_WINDOW_STATE:newstate);
-#endif
-
-
 stock
-	GetVehicleWindowState(vehicleid, door, w_states[e_TDW_VEHICLE_DOOR])
+	GetVehicleWindowState(vehicleid, E_TDW_VEHICLE_DOOR:door)
 {
 	if (IsValidVehicle(vehicleid) == 0)
-		return INVALID_VEHICLE_ID;
-	if (_:(0 < door < 3) == 0)
 		return 0;
-	GetVehicleParamsCarWindows(vehicleid,
-		w_states[FRONT_LEFT_DOOR], w_states[FRONT_RIGHT_DOOR],
-		w_states[REAR_LEFT_DOOR],  w_states[REAR_RIGHT_DOOR]
+	if (_:(0 <= _:door < MAX_VEHICLE_DOORS) == 0)
+		return 0;
+	new driver, passenger, backleft, backright;
+	GetVehicleParamsCarWindows(vehicleid, driver, passenger, backleft,
+		backright
 	);
-	return 1;
+	// Return state of the door, which was specified when calling the function.
+	switch (door)
+	{
+		case FRONT_LEFT_DOOR:
+			return driver;
+		case FRONT_RIGHT_DOOR:
+			return passenger;
+		case REAR_LEFT_DOOR:
+			return backleft;
+		case REAR_RIGHT_DOOR:
+			return backright;
+	}
+	return 0; // For compiler!
 }
 
 
+// Returns true if the vehicle exists, otherwise false.
 stock
-	SetVehicleWindowState(vehicleid, e_TDW_VEHICLE_DOOR:door,
-		e_TDW_WINDOW_STATE:newstate)
+	SetVehicleWindowState(vehicleid, E_TDW_VEHICLE_DOOR:door,
+		E_TDW_DOOR_STATE:newstate)
 {
 	if (IsValidVehicle(vehicleid) == 0)
-		return INVALID_VEHICLE_ID;
-	if (_:(0 < door < 3) == 0)
 		return 0;
-	new w_states[e_TDW_VEHICLE_DOOR];
-	GetVehicleParamsCarWindows(vehicleid,
-		w_states[FRONT_LEFT_DOOR], w_states[FRONT_RIGHT_DOOR],
-		w_states[REAR_LEFT_DOOR],  w_states[REAR_RIGHT_DOOR]
+	if (_:(0 <= _:door < MAX_VEHICLE_DOORS) == 0)
+		return 0;
+	new driver, passenger, backleft, backright;
+	GetVehicleParamsCarWindows(vehicleid, driver, passenger, backleft,
+		backright
 	);
-#if defined OnVehicleWindowUpdate
-	OnVehicleWindowUpdate(vehicleid, door, newstate);
-#endif
-	w_states[door] = newstate;
-	SetVehicleParamsCarWindows(vehicleid,
-		w_states[FRONT_LEFT_DOOR], w_states[FRONT_RIGHT_DOOR],
-		w_states[REAR_LEFT_DOOR],  w_states[REAR_RIGHT_DOOR]
-	);
-	return 1;
+	switch (door)
+	{
+		case FRONT_LEFT_DOOR:
+			return SetVehicleParamsCarWindows(vehicleid, _:newstate, passenger,
+				backleft, backright
+			);
+		case FRONT_RIGHT_DOOR:
+			return SetVehicleParamsCarWindows(vehicleid, driver, _:newstate,
+				backleft, backright
+			);
+		case REAR_LEFT_DOOR:
+			return SetVehicleParamsCarWindows(vehicleid, driver, passenger,
+				_:newstate, backright
+			);
+		case REAR_RIGHT_DOOR:
+			return SetVehicleParamsCarWindows(vehicleid, driver, passenger,
+				backleft, _:newstate
+			);
+	}
+	return 0; // For compiler!
 }
