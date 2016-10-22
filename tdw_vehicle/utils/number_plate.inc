@@ -32,10 +32,12 @@ freely, subject to the following restrictions:
 
 #define _TDW_VHLIB__NUMBER_PLATE
 
+
 // Checks if a string is packed.
 // Other information: //www.compuphase.com/pawn/String_Manipulation.pdf
+// Author: Untonyst.
 #if !defined IsPackedString
-	#define IsPackedString%0(%1) ((%1)[0] > 255)
+	#define IsPackedString(%0) ((%0){0} != 0)
 #endif
 
 

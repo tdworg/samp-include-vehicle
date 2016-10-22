@@ -1073,10 +1073,11 @@ stock
 	return strunpack(name, TDW_g_sComponentName[componentid], name_size);
 }
 
+
 stock
 	IsVehicleUpgradeCompatible(modelid, componentid)
 {
-	if (_:(IS_VALID_MODEL(modelid)) != 0)
+	if (_:IS_VALID_MODEL(modelid) != 0)
 	{
 		new i, c;
 		while (i != sizeof TDW_g_sCompatibleComponentId[])
@@ -1090,10 +1091,11 @@ stock
 	return 0;
 }
 
+
 stock
 	GetVehicleCompatibleUpgrades(modelid, count)
 {
-	if (_:(IS_VALID_MODEL(modelid)) == 0)
+	if (_:IS_VALID_MODEL(modelid) == 0)
 		return 0;
 	if (_:(count < sizeof TDW_g_sCompatibleComponentId[]) == 0)
 		return 0;

@@ -187,33 +187,3 @@ stock
 		(w * w) - (x * x) - (y * y) + (z * z));
 	return ((angle > 90.0) || (angle < -90.0));
 }
-
-
-stock
-	GetVehicleNearPlayers(vehicleid, playerlist[], Float:distance,
-		size = sizeof playerlist)
-{
-	new Float:x, Float:y, Float:z;
-	if (GetVehiclePos(vehicleid, x, y, z) == 0)
-		return 0;
-	new array_index, i;
-	#if _TDW_VEHICLE_FOREACH_DEFINED
-	foreach(i : Player)
-	#else
-	for (i = _TDW_FOREACH_MAX_PLAYERS_; --i != -1;)
-	if (IsPlayerConnected(i) == 0 || IsPlayerNPC(i))
-		continue;
-	else
-	#endif
-	{
-		if (IsPlayerInRangeOfPoint(i, distance, x, y, z))
-		{
-			if (array_index >= size)
-				break;
-			else playerlist[array_index++] = i;
-		}
-	}
-	if (array_index != 0)
-		playerlist[array_index] = INVALID_VEHICLE_ID;
-	return 1;
-}

@@ -54,8 +54,8 @@ stock
 	{
 		new arg_start, arg_end, ret;
 		// Get the current frame pointer.
-		#emit lctrl 5
-		#emit add.c 12
+		#emit lctrl 5 // get the current frame
+		#emit add.c 12 // offset
 		#emit stor.s.pri arg_start
 		// Get a pointer to the last argument.
 		#emit load.s.alt number_arg
@@ -119,11 +119,11 @@ stock
 {
 	if (IsValidVehicle(vehicleid))
 	{
-	#if _TDW_VEHICLE_FOREACH_DEFINED
+		#if _TDW_VEHICLE_FOREACH_DEFINED
 		foreach (new i: Player)
-	#else
+		#else
 		for (new i = _TDW_FOREACH_MAX_PLAYERS_; --i != -1;)
-	#endif
+		#endif
 		{
 			if (IsPlayerInVehicle(i, vehicleid) == 0)
 				continue;
@@ -138,11 +138,11 @@ stock
 {
 	if (IsValidVehicle(vehicleid))
 	{
-	#if _TDW_VEHICLE_FOREACH_DEFINED
+		#if _TDW_VEHICLE_FOREACH_DEFINED
 		foreach (new i: Player)
-	#else
+		#else
 		for (new i = _TDW_FOREACH_MAX_PLAYERS_; --i != -1;)
-	#endif
+		#endif
 		{
 			if (IsPlayerInVehicle(i, vehicleid) == 0)
 				continue;
@@ -212,7 +212,7 @@ stock
 		&Float:x, &Float:y, &Float:z)
 {
 	if (GetVehiclePos(vehicletype, x, y, z) == 0)
-		return _:(x = y = z = 0.0);
+		return _:(x = y = z = 0.0); // return 0
 	new Float:z_angle, Float:vehicle_x, Float:vehicle_y, Float:vehicle_z,
 		Float:div;
 	GetVehicleZAngle(vehicletype, z_angle);
@@ -272,11 +272,11 @@ stock
 {
 	if (IsValidVehicle(vehicleid))
 	{
-	#if _TDW_VEHICLE_FOREACH_DEFINED
+		#if _TDW_VEHICLE_FOREACH_DEFINED
 		foreach (new i: Player)
-	#else
+		#else
 		for (new i = _TDW_FOREACH_MAX_PLAYERS_; --i != -1;)
-	#endif
+		#endif
 		{
 			if (GetPlayerVehicleID(i) != vehicleid)
 				continue;
@@ -300,11 +300,11 @@ stock
 {
 	if (IsValidVehicle(vehicleid))
 	{
-	#if _TDW_VEHICLE_FOREACH_DEFINED
+		#if _TDW_VEHICLE_FOREACH_DEFINED
 		foreach (new i: Player)
-	#else
+		#else
 		for (new i = _TDW_FOREACH_MAX_PLAYERS_; --i != -1;)
-	#endif
+		#endif
 		{
 			if (GetPlayerVehicleID(i) != vehicleid)
 				continue;
