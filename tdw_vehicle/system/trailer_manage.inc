@@ -44,6 +44,7 @@ freely, subject to the following restrictions:
 	#define MAX_TRAILER_UPDATE (1000)
 #endif
 
+
 static stock
 	TDW_g_sVDynamic@LastTrailerIds[MAX_VEHICLES] = {INVALID_VEHICLE_ID, ...},
 	bool:TDW_g_sVDynamic@TrailerAttached[MAX_VEHICLES char];
@@ -51,6 +52,7 @@ static stock
 static stock
 	TDW_g_sTimerName[] = !"@_TDW_TIMER_OnTrailerUpdate",
 	TDW_g_sTimerArgs[] = !"dd";
+
 
 stock
 	GetLastAttachedTrailerId(vehicleid)
@@ -60,6 +62,7 @@ stock
 		: INVALID_VEHICLE_ID
 	);
 }
+
 
 native nst_AttachTrailerToVehicle(trailerid,vehicleid) = AttachTrailerToVehicle;
 

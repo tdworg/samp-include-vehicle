@@ -36,12 +36,14 @@ freely, subject to the following restrictions:
 
 #define _TDW_VHSYS__POLICE_LIGHTS
 
+
 enum
 	E_TDW_SIREN_TYPE
 {
 	SIREN_TYPE_POLICE,
 	SIREN_TYPE_AMBULANCE
 };
+
 
 static stock
 	TDW_g_sPLVehicle[MAX_VEHICLES];
