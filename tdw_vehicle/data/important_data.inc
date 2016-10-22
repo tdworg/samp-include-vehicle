@@ -34,7 +34,7 @@ freely, subject to the following restrictions:
 
 
 enum
-	e_TDW_VEHICLE
+	E_TDW_VEHICLE
 {
 	// I created only necessary elements in the enumeration.
 	Float:ei_spos_x,
