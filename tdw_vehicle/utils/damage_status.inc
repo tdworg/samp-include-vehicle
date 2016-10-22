@@ -29,10 +29,13 @@ freely, subject to the following restrictions:
 #if defined _TDW_VHLIB_DAMAGE_STATUS
 	#endinput
 #endif
+
 #define _TDW_VHLIB_DAMAGE_STATUS
 
 
-static stock TDW_g_sDataStorage;
+static stock
+	TDW_g_sDataStorage;
+
 
 stock
 	GetVehiclePanelsStatus(vehicleid, &front_left_panel, &front_right_panel,

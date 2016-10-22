@@ -71,7 +71,12 @@ freely, subject to the following restrictions:
 
 #define _TDW_SAMP_VALUE:%1||| _TDW_SAMP_LIB_VERSION__%1
 
-#if !defined IS_VERSION
-	#define IS_VERSION%0(%1) \
+#if !defined IS_VERSION_LEQ // less than or equal to
+	#define IS_VERSION_LEQ%0(%1) \
 		_:_TDW_SAMP_SUPPORT:%1||| <= _TDW_SAMP_CURRENT_VERSION_LIB
+#endif
+
+#if !defined IS_VERSION_GEQ // greater than or equal to
+	#define IS_VERSION_GEQ%0(%1) \
+		_:_TDW_SAMP_SUPPORT:%1||| >= _TDW_SAMP_CURRENT_VERSION_LIB
 #endif
