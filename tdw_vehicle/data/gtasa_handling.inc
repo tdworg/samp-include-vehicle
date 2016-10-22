@@ -32,7 +32,9 @@ freely, subject to the following restrictions:
 
 #define _TDW_VHLIB__GTASA_HANDLING
 
+
 #define GETVEH_IDX(%0) ((%0) - MIN_VEHICLE_MODEL)
+
 
 enum
 	E_TDW_VEHICLE_HANDLING
@@ -66,6 +68,7 @@ enum
 	Float:ei_seatOffsetDistance,
 	Float:ei_collisionDmgMultiplier
 };
+
 
 static stock const
 	TDW_g_sVHandlingDat[][E_TDW_VEHICLE_HANDLING] =
@@ -133,11 +136,13 @@ static stock const
 	{
 		1800.0, 4411.500000, 2.000000, 0.000000, -0.100000, -0.200000, 70,
 		2.000000, 2.000000, 2.000000, 5, 160.0, 9.200000, 160.0, !"rwd",
-		!"petrol", 6.5, 0.5, 30.0, 1.0, 0.1, 0.0, 0.2, -0.3, 0.5, 0.6, 0.3, 0.4},
+		!"petrol", 6.5, 0.5, 30.0, 1.0, 0.1, 0.0, 0.2, -0.3, 0.5, 0.6, 0.3, 0.4
+	},
 	{
 		2600.0, 8666.700195, 3.000000, 0.000000, 0.000000, -0.250000, 80,
 		3.000000, 3.000000, 3.000000, 5, 160.0, 6.000000, 160.0, !"rwd",
-		!"diesel", 6.0, 0.8, 30.0, 2.6, 0.1, 0.0, 0.3, -0.2, 0.3, 0.0, 0.2, 0.5},
+		!"diesel", 6.0, 0.8, 30.0, 2.6, 0.1, 0.0, 0.3, -0.2, 0.3, 0.0, 0.2, 0.5
+	},
 	{
 		3500.0, 14000.000000, 4.000000, 0.000000, 0.000000, 0.100000, 80,
 		4.000000, 4.000000, 4.000000, 5, 140.0, 7.200000, 140.0, !"rwd",
@@ -1138,6 +1143,10 @@ static stock const
 		0.5
 	}
 };
+
+//
+// Functions
+//
 
 stock
 	Float:GetVehicleMass(modelid)
