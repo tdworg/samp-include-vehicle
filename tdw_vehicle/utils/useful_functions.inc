@@ -324,14 +324,14 @@ stock
 	if (IsValidVehicle(vehicleid))
 	{
 		new array_index, i;
-	#if _TDW_VEHICLE_FOREACH_DEFINED
+		#if _TDW_VEHICLE_FOREACH_DEFINED
 		foreach(i : Player)
-	#else
+		#else
 		for (i = _TDW_FOREACH_MAX_PLAYERS_; --i != -1;)
 		if (IsPlayerNPC(i))
 			continue;
 		else
-	#endif
+		#endif
 		{
 			if (GetPlayerVehicleID(i) != vehicleid)
 				continue;
