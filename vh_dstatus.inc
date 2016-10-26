@@ -35,6 +35,5 @@ freely, subject to the following restrictions:
 
 #define _TDW_VHCOL__DSTATUS
 
-
 #include "tdw_vehicle/basic_functions"
 #include "tdw_vehicle/utils/damage_status"
