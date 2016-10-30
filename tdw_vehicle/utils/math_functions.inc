@@ -46,6 +46,7 @@ stock
 	GetNearestVehicleFromPoint(Float:x, Float:y, Float:z, Float:distance = 30.0)
 {
 	new Float:min_dist, vehicleid = INVALID_VEHICLE_ID;
+
 	#if _TDW_VEHICLE_FOREACH_DEFINED
 	foreach (new i: Vehicle)
 	#else
@@ -67,8 +68,10 @@ stock
 		Float:point_z, &Float:offset_x, &Float:offset_y, &Float:offset_z)
 {
 	new Float:x, Float:y, Float:z;
+
 	if (GetVehiclePos(vehicleid, x, y, z) == 0)
 		return _:(point_x = point_y = point_z = 0.0); // return 0
+
 	offset_x = (point_x - x);
 	offset_y = (point_y - y);
 	offset_z = (point_z - z);
@@ -80,14 +83,18 @@ stock
 	GetVehicleBootPos(vehicleid, &Float:x, &Float:y, &Float:z)
 {
 	new Float:angle, Float:distance;
+
 	if (GetVehicleZAngle(vehicleid, angle) == 0)
 		return _:(x = y = z = 0.0); // return 0
+
 	GetVehicleModelInfo(
 		GetVehicleModel(vehicleid),
 		VEHICLE_MODEL_INFO_SIZE,
 		x, distance, z
 	);
+
 	distance = distance / 2 + 0.1;
+
 	GetVehiclePos(vehicleid, x, y, z);
 	x += (distance * floatsin(-angle + 180, degrees));
 	y += (distance * floatcos(-angle + 180, degrees));
@@ -99,14 +106,18 @@ stock
 	GetVehicleBonnetPos(vehicleid, &Float:x, &Float:y, &Float:z)
 {
 	new Float:angle, Float:distance;
+
 	if (GetVehicleZAngle(vehicleid, angle) == 0)
 		return _:(x = y = z = 0.0); // return 0
+
 	GetVehicleModelInfo(
 		GetVehicleModel(vehicleid),
 		VEHICLE_MODEL_INFO_SIZE,
 		x, distance, z
 	);
+
 	distance = distance / 2 + 0.1;
+
 	GetVehiclePos(vehicleid, x, y, z);
 	x -= (distance * floatsin(-angle + 180, degrees));
 	y -= (distance * floatcos(-angle + 180, degrees));
@@ -118,8 +129,10 @@ stock
 	GetVehicleRoofPos(vehicleid, &Float:x, &Float:y, &Float:z)
 {
 	new modelid, Float:vehicle_z;
+
 	if ((modelid = GetVehicleModel(vehicleid)) == 0)
 		return _:(x = y = z = 0.0); // return 0
+
 	GetVehicleModelInfo(modelid, VEHICLE_MODEL_INFO_SIZE, x, y, vehicle_z);
 	GetVehiclePos(vehicleid, x, y, z);
 	z += floatsqroot(vehicle_z);

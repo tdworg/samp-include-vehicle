@@ -81,11 +81,11 @@ stock
 	}
 	else
 	{
-	#if defined _TDW_VEHICLE_FOREACH_ARRAY
+		#if defined _TDW_VEHICLE_FOREACH_ARRAY
 		foreach (new i: Vehicle)
-	#else
+		#else
 		for (new i = _TDW_FOREACH_MAX_VEHICLES_; --i != 0;)
-	#endif
+		#endif
 		{
 			if (DestroyVehicle(i))
 				count++;
@@ -213,10 +213,13 @@ stock
 {
 	if (GetVehiclePos(vehicletype, x, y, z) == 0)
 		return _:(x = y = z = 0.0); // return 0
+
 	new Float:z_angle, Float:vehicle_x, Float:vehicle_y, Float:vehicle_z,
 		Float:div;
+
 	GetVehicleZAngle(vehicletype, z_angle);
 	vehicletype = GetVehicleModel(vehicletype);
+
 	switch (wheel)
 	{
 		case FRONT_LEFT, FRONT_RIGHT:
@@ -235,6 +238,7 @@ stock
 				vehicle_x, vehicle_y, vehicle_z
 			);
 	}
+
 	div = (_:wheel % 2) ? (vehicle_x) : (-vehicle_x);
 	x = (floatsin((z_angle = 360 - z_angle), degrees) * vehicle_y) +
 		(floatcos(z_angle, degrees) * div) + x;

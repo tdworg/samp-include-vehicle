@@ -45,7 +45,6 @@ static stock
 	TDW_g_sNumberPlate[MAX_VEHICLES][MAX_NUMBER_PLATE_SIZE char];
 
 
-
 native nst_SetVehicleNumberPlate(vehicleid,
 	numberplate[]) = SetVehicleNumberPlate;
 
@@ -53,12 +52,15 @@ stock
 	TDWVH_NP@SetVehicleNumberPlate(vehicleid, numberplate[])
 {
 	new Float:current_x, Float:current_y, Float:current_z;
+
 	if (GetVehiclePos(vehicleid, current_x, current_y, current_z) == 0)
 		return 0;
+
 	new Float:current_z_angle, Float:current_health, cur_dstatus_panels,
 		cur_dstatus_doors, cur_dstatus_lights, cur_dstatus_tires,
 		i;
 	new passengers[MAX_VEHICLE_PASSENGERS];
+
 	// Get the current parameters of the vehicle.
 	GetVehicleZAngle(vehicleid, current_z_angle);
 	#if !defined TDW_NPLATE_NOT_SAFE_DAMAGE
@@ -67,15 +69,16 @@ stock
 		cur_dstatus_lights, cur_dstatus_tires
 	);
 	#endif
-	i = 0;
 	GetVehicleOccupantPlayers(vehicleid, passengers);
 	SetVehicleNumberPlate(vehicleid, numberplate);
 	SetVehicleToRespawn(vehicleid);
+
 	// Copy numberplate into the array.
 	#if !defined TDW_NPLATE_NOT_SAFE_NUMBER
 	TDW_g_sNumberPlate[vehicleid]{0} = '\0';
 	strpack(TDW_g_sNumberPlate[vehicleid], numberplate);
 	#endif
+
 	// Set the old parameters to the vehicle
 	SetVehiclePos(vehicleid, current_x, current_y, current_z);
 	i = 0;
@@ -90,6 +93,7 @@ stock
 		cur_dstatus_lights, cur_dstatus_tires
 	);
 	#endif
+
 	return 1;
 }
 
@@ -107,18 +111,21 @@ stock
 {
 	if (IsValidVehicle(vehicleid) == 0)
 		return 0;
+
 	static const letters[] = !"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
 	const
 		NUMBER_PLATE_SPACE_POS = 3,
 		LETTER_SIZE = sizeof letters - 1;
+
 	new i = MAX_NUMBER_PLATE;
+
 	if (IsPackedString(dest))
 	{
 		while (i-- != 0)
 		{
 			dest{i} = ((i == NUMBER_PLATE_SPACE_POS)
-				? '-'
-				: letters{random(LETTER_SIZE)}
+				? '-' : letters{random(LETTER_SIZE)}
 			);
 			i--;
 		}
@@ -128,8 +135,7 @@ stock
 		while (i != 0)
 		{
 			dest[i] = ((i == NUMBER_PLATE_SPACE_POS)
-				? '-'
-				: letters{random(LETTER_SIZE)}
+				? '-' : letters{random(LETTER_SIZE)}
 			);
 			i--;
 		}
