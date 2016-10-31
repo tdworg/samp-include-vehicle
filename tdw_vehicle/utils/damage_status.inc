@@ -44,7 +44,7 @@ stock
 {
 	new panels;
 	if (GetVehicleDamageStatus(vehicleid, panels, TDW_g_sDataStorage,
-		TDW_g_sDataStorage, TDW_g_sDataStorage))
+		TDW_g_sDataStorage, TDW_g_sDataStorage) == 0)
 		return 0;
 	front_left_panel = panels & 0xF;
 	front_right_panel = panels >>> 4 & 0xF;
