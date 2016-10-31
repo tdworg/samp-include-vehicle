@@ -41,16 +41,61 @@ enum
 	Float:ei_spos_y,
 	Float:ei_spos_z,
 	Float:ei_spos_a,
+	ei_stime,
 	ei_modelid
 };
 
 
 static stock
-	TDW_g_sVehicleData[MAX_VEHICLES][e_TDW_VEHICLE],
+	TDW_g_sVehicleData[MAX_VEHICLES][E_TDW_VEHICLE],
 	// I used the char operator to optimize the data segment.
 	TDW_g_sVehicleColor1[MAX_VEHICLES char],
 	TDW_g_sVehicleColor2[MAX_VEHICLES char],
+	TDW_g_sVehicleSiren[MAX_VEHICLES char],
 	TDW_g_sVehicleId;
+
+
+
+#if !defined _YSF_included
+stock
+	GetVehicleSpawnInfo(vehicleid, &Float:x, &Float:y, &Float:z, &Float:rot,
+		&color1, &color2)
+{
+	return TDW_g_sVehicleData[vehicleid][ei_modelid] != 0
+		? (
+			x = TDW_g_sVehicleData[vehicleid][ei_spos_x],
+			y = TDW_g_sVehicleData[vehicleid][ei_spos_y],
+			z = TDW_g_sVehicleData[vehicleid][ei_spos_z],
+			rot = TDW_g_sVehicleData[vehicleid][ei_spos_a],
+			color1 = TDW_g_sVehicleColor1{vehicleid},
+			color2 = TDW_g_sVehicleColor2{vehicleid},
+			0
+		) : (_:x = _:y = _:z = _:z_angle = color1 = color2 = 0.0);
+}
+
+stock
+	SetVehicleSpawnInfo(vehicleid, Float:x, Float:y, Float:z, Float:rot,
+		color1, color2, respawn_delay = 300, interiorid = 0)
+{
+	if (TDW_g_sVehicleData[vehicleid][ei_modelid] != 0)
+	{
+		TDW_g_sVehicleData[vehicleid][ei_spos_x] = x;
+		TDW_g_sVehicleData[vehicleid][ei_stime] = respawn_delay;
+		TDW_g_sVehicleData[vehicleid][ei_spos_y] = y;
+		TDW_g_sVehicleData[vehicleid][ei_spos_z] = z;
+		TDW_g_sVehicleData[vehicleid][ei_spos_a] = rot;
+		TDW_g_sVehicleColor1{vehicleid} = color1;
+		TDW_g_sVehicleColor2{vehicleid} = color2;
+
+		DestroyVehicle(vehicleid);
+		CreateVehicle(TDW_g_sVehicleData[vehicleid][ei_modelid], x, y, z, rot,
+			color1, color2, respawn_delay, TDW_g_sVehicleSiren{vehicleid}
+		);
+		LinkVehicleToInterior(vehicleid, interiorid);
+	}
+	return;
+}
+#endif
 
 
 native nst_AddStaticVehicle(modelid, Float:spawn_x, Float:spawn_y,
@@ -68,6 +113,7 @@ stock
 		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_spos_y] = spawn_y;
 		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_spos_z] = spawn_z;
 		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_spos_a] = z_angle;
+		TDW_g_sVehicleSiren{TDW_g_sVehicleId} = 0;
 		TDW_g_sVehicleColor1{TDW_g_sVehicleId} = color1;
 		TDW_g_sVehicleColor2{TDW_g_sVehicleId} = color2;
 		#if _TDW_VEHICLE_FOREACH_ARRAY
@@ -104,6 +150,8 @@ stock
 		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_spos_y] = spawn_y;
 		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_spos_z] = spawn_z;
 		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_spos_a] = z_angle;
+		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_stime] = respawn_delay;
+		TDW_g_sVehicleSiren{TDW_g_sVehicleId} = addsiren;
 		TDW_g_sVehicleColor1{TDW_g_sVehicleId} = color1;
 		TDW_g_sVehicleColor2{TDW_g_sVehicleId} = color2;
 		#if _TDW_VEHICLE_FOREACH_ARRAY
@@ -137,6 +185,8 @@ stock
 		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_spos_y] = y;
 		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_spos_z] = z;
 		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_spos_a] = rotation;
+		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_stime] = respawn_delay;
+		TDW_g_sVehicleSiren{TDW_g_sVehicleId} = addsiren;
 		TDW_g_sVehicleColor1{TDW_g_sVehicleId} = color1;
 		TDW_g_sVehicleColor2{TDW_g_sVehicleId} = color2;
 		#if _TDW_VEHICLE_FOREACH_ARRAY
@@ -163,8 +213,10 @@ stock
 	if (DestroyVehicle(vehicleid) == 0)
 		return 0;
 	TDW_g_sVehicleData[vehicleid][ei_modelid] =
+	TDW_g_sVehicleData[vehicleid][ei_stime] =
 	TDW_g_sVehicleColor1{vehicleid} =
-	TDW_g_sVehicleColor2{vehicleid} = 0;
+	TDW_g_sVehicleColor2{vehicleid} =
+	TDW_g_sVehicleSiren{vehicleid} = 0;
 	TDW_g_sVehicleData[vehicleid][ei_spos_x] =
 	TDW_g_sVehicleData[vehicleid][ei_spos_y] =
 	TDW_g_sVehicleData[vehicleid][ei_spos_z] =
