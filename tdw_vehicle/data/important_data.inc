@@ -238,7 +238,7 @@ stock
 {
 	switch (vehicletype)
 	{
-		// We can't create the vehicle using CreateVehicle. Instead,
+		// We can't create the trains using CreateVehicle. Instead,
 		// we use AddStaticVehicleEx because it contains all the arguments
 		// that contains CreateVehicle.
 		//
