@@ -59,89 +59,82 @@ static stock
 
 
 #if !defined _YSF_included
-stock
-	GetVehicleSpawnInfo(vehicleid, &Float:x, &Float:y, &Float:z, &Float:rot,
-		&color1, &color2)
-{
-	return TDW_g_sVehicleData[vehicleid][ei_modelid] != 0
-		? (
-			x = TDW_g_sVehicleData[vehicleid][ei_spos_x],
-			y = TDW_g_sVehicleData[vehicleid][ei_spos_y],
-			z = TDW_g_sVehicleData[vehicleid][ei_spos_z],
-			rot = TDW_g_sVehicleData[vehicleid][ei_spos_a],
-			color1 = TDW_g_sVehicleColor1{vehicleid},
-			color2 = TDW_g_sVehicleColor2{vehicleid},
-			0
-		) : (_:x = _:y = _:z = _:z_angle = color1 = color2 = 0.0);
-}
-
-
-stock
-	SetVehicleSpawnInfo(vehicleid, Float:x, Float:y, Float:z, Float:rot,
-		color1, color2, respawn_delay = 300, interiorid = 0)
-{
-	if (TDW_g_sVehicleData[vehicleid][ei_modelid] != 0)
+	stock
+		GetVehicleSpawnInfo(vehicleid, &Float:x, &Float:y, &Float:z,
+			&Float:rot, &color1, &color2)
 	{
-		TDW_g_sVehicleData[vehicleid][ei_spos_x] = x;
-		TDW_g_sVehicleData[vehicleid][ei_stime] = respawn_delay;
-		TDW_g_sVehicleData[vehicleid][ei_spos_y] = y;
-		TDW_g_sVehicleData[vehicleid][ei_spos_z] = z;
-		TDW_g_sVehicleData[vehicleid][ei_spos_a] = rot;
-		TDW_g_sVehicleColor1{vehicleid} = color1;
-		TDW_g_sVehicleColor2{vehicleid} = color2;
-		TDW_g_sVehicleInterior{vehicleid} = interiorid;
-		TDW_g_sVehicleInfoChanged{vehicleid} = 1;
-		/*DestroyVehicle(vehicleid);
-		CreateVehicle(TDW_g_sVehicleData[vehicleid][ei_modelid], x, y, z, rot,
-			color1, color2, respawn_delay, TDW_g_sVehicleSiren{vehicleid}
-		);
-		LinkVehicleToInterior(vehicleid, interiorid);*/
+		return TDW_g_sVehicleData[vehicleid][ei_modelid] != 0
+			? (
+				x = TDW_g_sVehicleData[vehicleid][ei_spos_x],
+				y = TDW_g_sVehicleData[vehicleid][ei_spos_y],
+				z = TDW_g_sVehicleData[vehicleid][ei_spos_z],
+				rot = TDW_g_sVehicleData[vehicleid][ei_spos_a],
+				color1 = TDW_g_sVehicleColor1{vehicleid},
+				color2 = TDW_g_sVehicleColor2{vehicleid},
+				0
+			) : (_:x = _:y = _:z = _:z_angle = color1 = color2 = 0.0);
 	}
-	return;
-}
 
 
-public
-	OnVehicleDeath(vehicleid, killerid)
-{
-	if (TDW_g_sVehicleInfoChanged{vehicleid})
+	stock
+		SetVehicleSpawnInfo(vehicleid, Float:x, Float:y, Float:z, Float:rot,
+			color1, color2, respawn_delay = 300, interiorid = 0)
 	{
-		DestroyVehicle(vehicleid);
-		CreateVehicle(
-			TDW_g_sVehicleData[vehicleid][ei_modelid],
-			TDW_g_sVehicleData[vehicleid][ei_spos_x],
-			TDW_g_sVehicleData[vehicleid][ei_spos_y],
-			TDW_g_sVehicleData[vehicleid][ei_spos_z],
-			TDW_g_sVehicleData[vehicleid][ei_spos_a],
-			TDW_g_sVehicleColor1{vehicleid},
-			TDW_g_sVehicleColor2{vehicleid},
-			TDW_g_sVehicleData[vehicleid][ei_stime],
-			TDW_g_sVehicleSiren{vehicleid}
-		);
-		LinkVehicleToInterior(vehicleid, TDW_g_sVehicleInterior{vehicleid});
-		TDW_g_sVehicleInfoChanged{vehicleid} = 0;
-		#if defined OnVehicleSpawn
-		OnVehicleSpawn(vehicleid);
+		if (TDW_g_sVehicleData[vehicleid][ei_modelid] != 0)
+		{
+			TDW_g_sVehicleData[vehicleid][ei_spos_x] = x;
+			TDW_g_sVehicleData[vehicleid][ei_stime] = respawn_delay;
+			TDW_g_sVehicleData[vehicleid][ei_spos_y] = y;
+			TDW_g_sVehicleData[vehicleid][ei_spos_z] = z;
+			TDW_g_sVehicleData[vehicleid][ei_spos_a] = rot;
+			TDW_g_sVehicleColor1{vehicleid} = color1;
+			TDW_g_sVehicleColor2{vehicleid} = color2;
+			TDW_g_sVehicleInterior{vehicleid} = interiorid;
+			TDW_g_sVehicleInfoChanged{vehicleid} = 1;
+		}
+		return;
+	}
+
+
+	public
+		OnVehicleSpawn(vehicleid)
+	{
+		if (TDW_g_sVehicleInfoChanged{vehicleid} != 0)
+		{
+			DestroyVehicle(vehicleid);
+			CreateVehicle(
+				TDW_g_sVehicleData[vehicleid][ei_modelid],
+				TDW_g_sVehicleData[vehicleid][ei_spos_x],
+				TDW_g_sVehicleData[vehicleid][ei_spos_y],
+				TDW_g_sVehicleData[vehicleid][ei_spos_z],
+				TDW_g_sVehicleData[vehicleid][ei_spos_a],
+				TDW_g_sVehicleColor1{vehicleid},
+				TDW_g_sVehicleColor2{vehicleid},
+				TDW_g_sVehicleData[vehicleid][ei_stime],
+				TDW_g_sVehicleSiren{vehicleid}
+			);
+			LinkVehicleToInterior(vehicleid, TDW_g_sVehicleInterior{vehicleid});
+			TDW_g_sVehicleInfoChanged{vehicleid} = 0;
+		}
+		#if defined TDWVH_ID@OnVehicleSpawn
+		return TDWVH_ID@OnVehicleSpawn(vehicleid);
+		#else
+		return 1;
 		#endif
 	}
-	#if defined TDWVH_ID@OnVehicleDeath
-	return TDWVH_ID@OnVehicleDeath(vehicleid, killerid);
+
+	#if defined _ALS_OnVehicleSpawn
+		#undef OnVehicleSpawn
 	#else
-	return 1;
+		#define _ALS_OnVehicleSpawn
 	#endif
-}
 
-#if defined _ALS_OnVehicleDeath
-	#undef OnVehicleDeath
-#else
-	#define _ALS_OnVehicleDeath
-#endif
+	#define OnVehicleSpawn TDWVH_ID@OnVehicleSpawn
 
-#define OnVehicleDeath TDWVH_ID@OnVehicleDeath
+	#if defined TDWVH_ID@OnVehicleSpawn
+	forward TDWVH_ID@OnVehicleSpawn(vehicleid);
+	#endif
 
-#if defined TDWVH_ID@OnVehicleDeath
-forward TDWVH_ID@OnVehicleDeath(vehicleid, killerid);
-#endif
 #endif
 
 
