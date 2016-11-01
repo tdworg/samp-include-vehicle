@@ -35,7 +35,6 @@ freely, subject to the following restrictions:
 
 static stock
 	// I used the char operator to optimize the data segment.
-	TDW_g_sVDynamic@Interior[MAX_VEHICLES char],
 	TDW_g_sVDynamic@Paintjob[MAX_VEHICLES char],
 	// Limit of the virtual world is cellmax, i.e. cellmax > 255
 	// cellmax is 2147483647
