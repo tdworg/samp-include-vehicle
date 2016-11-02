@@ -32,6 +32,7 @@ freely, subject to the following restrictions:
 
 #define _TDW_VHSYS__TUNING_MANAGE
 
+
 enum
 	e_TDW_VEHICLE_TUNING
 {
@@ -51,6 +52,7 @@ enum
 	vent_left
 };
 
+
 static stock TDW_g_sVComponents[MAX_VEHICLES][e_TDW_VEHICLE_TUNING];
 
 
@@ -68,6 +70,7 @@ stock
 	#define _ALS_AddVehicleComponent
 #endif
 #define AddVehicleComponent TDWVH_TM0@AddVehicleComponent
+
 
 public
 	OnVehicleMod(playerid, vehicleid, componentid)
@@ -91,6 +94,7 @@ public
 #if defined TDWVH_TM0@OnVehicleMod
 forward TDWVH_TM0@OnVehicleMod(playerid, vehicleid, componentid);
 #endif
+
 
 public
 	OnVehicleSpawn(vehicleid)
@@ -211,6 +215,7 @@ stock
 	}
 	return 1;
 }
+
 
 stock
 	IsVehicleComponentAdded(vehicleid, e_TDW_VEHICLE_TUNING:type)

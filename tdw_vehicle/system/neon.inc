@@ -30,6 +30,7 @@ freely, subject to the following restrictions:
 
 #define _TDW_VHSYS__NEON
 
+
 enum
 	E_TDW_NEON_COLOR
 {

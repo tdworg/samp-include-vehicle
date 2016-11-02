@@ -32,5 +32,6 @@ freely, subject to the following restrictions:
 
 #define _TDW_VHCOL__HANDLING
 
+
 #include "tdw_vehicle/basic_functions"
 #include "tdw_vehicle/data/gtasa_handling"

@@ -34,8 +34,10 @@ freely, subject to the following restrictions:
 
 
 static stock
-	TDW_g_sVDynamic@Interior[MAX_VEHICLES char],
+	// I used the char operator to optimize the data segment.
 	TDW_g_sVDynamic@Paintjob[MAX_VEHICLES char],
+	// Limit of the virtual world is cellmax, i.e. cellmax > 255
+	// cellmax is 2147483647
 	TDW_g_sVDynamic@VirtualWorld[MAX_VEHICLES],
 	TDW_g_sVDynamic@LastDriver[MAX_VEHICLES];
 
@@ -49,6 +51,7 @@ stock
 	);
 }
 
+
 stock
 	GetVehiclePaintjobId(vehicleid)
 {
@@ -57,6 +60,7 @@ stock
 		: INVALID_VEHICLE_ID
 	);
 }
+
 
 stock
 	SetVehiclePaintjobId(vehicleid, paintjobid)

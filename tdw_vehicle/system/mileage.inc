@@ -32,16 +32,19 @@ freely, subject to the following restrictions:
 
 #define _TDW_VHSYS__MILEAGE
 
+
 #if !defined TDW_MILEAGE_UPDATE
 	#define TDW_MILEAGE_UPDATE (950)
 #else
 	#assert (0 < TDW_MILEAGE_UPDATE)
 #endif
 
+
 static stock
 	Float:TDW_g_sVehicleMileage[MAX_VEHICLES],
 	TDW_g_sVehicleTimerName[] = !"@__TDW_TIMER_MILEAGE",
 	TDW_g_sVehicleTimerParams[] = !"d";
+
 
 @__TDW_TIMER_MILEAGE(vehicleid);
 @__TDW_TIMER_MILEAGE(vehicleid)
@@ -54,6 +57,7 @@ static stock
 		TDW_g_sVehicleTimerParams, vehicleid
 	);
 }
+
 
 public
 	OnPlayerStateChange(playerid, newstate, oldstate)
@@ -96,6 +100,7 @@ stock
 		: INVALID_VEHICLE_ID;
 }
 
+
 stock
 	SetVehicleMileage(vehicleid, Float:mileage)
 {
@@ -105,6 +110,7 @@ stock
 	}
 	return 0;
 }
+
 
 stock
 	TDWVH_ML@DestroyVehicle(vehicleid)

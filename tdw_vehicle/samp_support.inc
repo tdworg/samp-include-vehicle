@@ -32,49 +32,63 @@ freely, subject to the following restrictions:
 
 #define _TDW_VHLIB__SAMP_SUPPORT
 
+//
+// All SA:MP versions
+//
+#define _TDW_SAMP_LIB_VERSION__037 (0x00_03_70_00)
+#define _TDW_SAMP_LIB_VERSION__03z (0x00_03_5A_00)
+#define _TDW_SAMP_LIB_VERSION__03x (0x00_03_58_00)
+#define _TDW_SAMP_LIB_VERSION__03e (0x00_03_45_00)
+#define _TDW_SAMP_LIB_VERSION__03d (0x00_03_44_00)
+#define _TDW_SAMP_LIB_VERSION__03c (0x00_03_43_00)
+#define _TDW_SAMP_LIB_VERSION__03b (0x00_03_42_00)
+#define _TDW_SAMP_LIB_VERSION__03a (0x00_03_41_00)
+#define _TDW_SAMP_LIB_VERSION__000 (0x00_00_00_00)
 
-#include <a_samp>
-
-#define _TDW_SAMP_INC_VERSION_037     0x037
-// #define _TDW_SAMP_INC_VERSION_03zR4   0x03f111
-// #define _TDW_SAMP_INC_VERSION_03zR2_2 0x03f110
-#define _TDW_SAMP_INC_VERSION_03z     0x03f100
-#define _TDW_SAMP_INC_VERSION_03x 0x03f0
-#define _TDW_SAMP_INC_VERSION_03e 0x03e
-#define _TDW_SAMP_INC_VERSION_03d 0x03d
-// #define _TDW_SAMP_INC_VERSION_03cR4 0x03c111
-// #define _TDW_SAMP_INC_VERSION_03cR3 0x03c110
-#define _TDW_SAMP_INC_VERSION_03c 0x03c
-#define _TDW_SAMP_INC_VERSION_03b 0x03b
-#define _TDW_SAMP_INC_VERSION_03a 0x03a
-
-
-// 0.3a
-#if defined GetVehicleVelocity || defined Attach3DTextLabelToVehicle
-	// 0.3.7
-	#if defined GetVehiclePoolSize || defined OnVehicleSirenStateChange
-		#define _TDW_SAMP_INCLUDE_VERSION _TDW_SAMP_INC_VERSION_037
-	// 0.3z
-	#elseif defined OnTrailerUpdate || defined GetPlayerLastShotVectors
-		#define _TDW_SAMP_INCLUDE_VERSION _TDW_SAMP_INC_VERSION_03z
-	// 0.3x
-	#elseif defined TextDrawSetPreviewVehCol || defined TextDrawSetPreviewModel
-		#define _TDW_SAMP_INCLUDE_VERSION _TDW_SAMP_INC_VERSION_03x
-	// 0.3e
-	#elseif defined GetVehicleModelInfo || defined AttachPlayerObjectToVehicle
-		#define _TDW_SAMP_INCLUDE_VERSION _TDW_SAMP_INC_VERSION_03e
-	// 0.3d
-	#elseif defined RemoveBuildingForPlayer || defined OnPlayerTakeDamage
-		#define _TDW_SAMP_INCLUDE_VERSION _TDW_SAMP_INC_VERSION_03d
-	// 0.3c
-	#elseif defined SetVehicleNumberPlate || defined GetPlayerSurfingObjectID
-		#define _TDW_SAMP_INCLUDE_VERSION _TDW_SAMP_INC_VERSION_03c
-	// 0.3b
-	#elseif defined GetVehicleRotationQuat || defined SetVehicleAngularVelocity
-		#define _TDW_SAMP_INCLUDE_VERSION _TDW_SAMP_INC_VERSION_03b
-	#else
-		#define _TDW_SAMP_INCLUDE_VERSION _TDW_SAMP_INC_VERSION_03a
-	#endif
+// Detect current library version
+#if defined GetVehiclePoolSize || defined OnVehicleSirenStateChange
+	#define _TDW_SAMP_CURRENT_VERSION_LIB _TDW_SAMP_LIB_VERSION__037
+#elseif defined OnTrailerUpdate || defined GetPlayerLastShotVectors
+	#define _TDW_SAMP_CURRENT_VERSION_LIB _TDW_SAMP_LIB_VERSION__03z
+#elseif defined TextDrawSetPreviewVehCol || defined TextDrawSetPreviewModel
+	#define _TDW_SAMP_CURRENT_VERSION_LIB _TDW_SAMP_LIB_VERSION__03x
+#elseif defined GetVehicleModelInfo || defined AttachPlayerObjectToVehicle
+	#define _TDW_SAMP_CURRENT_VERSION_LIB _TDW_SAMP_LIB_VERSION__03e
+#elseif defined RemoveBuildingForPlayer || defined OnPlayerTakeDamage
+	#define _TDW_SAMP_CURRENT_VERSION_LIB _TDW_SAMP_LIB_VERSION__03d
+#elseif defined SetVehicleNumberPlate || defined GetPlayerSurfingObjectID
+	#define _TDW_SAMP_CURRENT_VERSION_LIB _TDW_SAMP_LIB_VERSION__03c
+#elseif defined GetVehicleRotationQuat || defined SetVehicleAngularVelocity
+	#define _TDW_SAMP_CURRENT_VERSION_LIB _TDW_SAMP_LIB_VERSION__03b
+#elseif defined GetVehicleVelocity || defined Attach3DTextLabelToVehicle
+	#define _TDW_SAMP_CURRENT_VERSION_LIB _TDW_SAMP_LIB_VERSION__03a
 #else
-	#error Please, Update the SA:MP libraries.
+	#define _TDW_SAMP_CURRENT_VERSION_LIB _TDW_SAMP_LIB_VERSION__000
 #endif
+
+#define _TDW_SAMP_SUPPORT: _TDW_SAMP_S0:_TDW_SAMP_S1:
+#define _TDW_SAMP_S0:_TDW_SAMP_S1:%1.%2||| _TDW_SAMP_SUPPORT:%1%2|||
+#define _TDW_SAMP_S1:%1||| _TDW_SAMP_VALUE:%1|||
+
+#define _TDW_SAMP_VALUE:%1||| _TDW_SAMP_LIB_VERSION__%1
+
+#if !defined IS_VERSION_LEQ // less than or equal to
+	#define IS_VERSION_LEQ%0(%1) \
+		_TDW_SAMP_CURRENT_VERSION_LIB <= _:_TDW_SAMP_SUPPORT:%1|||
+#endif
+
+#if !defined IS_VERSION_LSS // less than
+	#define IS_VERSION_LSS%0(%1) \
+		_TDW_SAMP_CURRENT_VERSION_LIB < _:_TDW_SAMP_SUPPORT:%1|||
+#endif
+
+#if !defined IS_VERSION_GEQ // greater than or equal to
+	#define IS_VERSION_GEQ%0(%1) \
+		_TDW_SAMP_CURRENT_VERSION_LIB >= _:_TDW_SAMP_SUPPORT:%1|||
+#endif
+
+#if !defined IS_VERSION_GTR // greater than
+	#define IS_VERSION_GTR%0(%1) \
+		_TDW_SAMP_CURRENT_VERSION_LIB > _:_TDW_SAMP_SUPPORT:%1|||
+#endif
+

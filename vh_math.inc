@@ -36,6 +36,6 @@ freely, subject to the following restrictions:
 
 #define _TDW_VHCOL__MATH
 
-// #include "vh_iterator"
+
 #include "tdw_vehicle/basic_functions"
 #include "tdw_vehicle/utils/math_functions"

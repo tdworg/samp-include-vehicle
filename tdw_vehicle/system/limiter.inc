@@ -32,6 +32,7 @@ freely, subject to the following restrictions:
 
 #define _TDW_VHSYS__LIMITER
 
+
 #if !defined TDW_LIMITER_TIMER_INTERVAL
 	#define TDW_LIMITER_TIMER_INTERVAL (250)
 #endif
@@ -48,6 +49,7 @@ stock
 		return 0;
 	return TDW_g_sVehiclesWithLimit[vehicleid];
 }
+
 
 stock
 	SetVehicleLimit(vehicleid, Float:limit_value)
@@ -89,7 +91,7 @@ forward TDWVH_L@OnPlayerStateChange(playerid, newstate, oldstate);
 #endif
 
 
-forward @_TDW_TIMER_@_LIMITER_(vehicleid, playerid);
+@_TDW_TIMER_@_LIMITER_(vehicleid, playerid);
 @_TDW_TIMER_@_LIMITER_(vehicleid, playerid)
 {
 	if (GetVehicleSpeed(vehicleid) > TDW_g_sVehiclesWithLimit[vehicleid])

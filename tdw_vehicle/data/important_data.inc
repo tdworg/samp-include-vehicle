@@ -34,22 +34,109 @@ freely, subject to the following restrictions:
 
 
 enum
-	e_TDW_VEHICLE
+	E_TDW_VEHICLE
 {
 	// I created only necessary elements in the enumeration.
 	Float:ei_spos_x,
 	Float:ei_spos_y,
 	Float:ei_spos_z,
 	Float:ei_spos_a,
+	ei_stime,
 	ei_modelid
 };
 
 
 static stock
-	TDW_g_sVehicleData[MAX_VEHICLES][e_TDW_VEHICLE],
+	TDW_g_sVehicleData[MAX_VEHICLES][E_TDW_VEHICLE],
+	// I used the char operator to optimize the data segment.
 	TDW_g_sVehicleColor1[MAX_VEHICLES char],
 	TDW_g_sVehicleColor2[MAX_VEHICLES char],
+	TDW_g_sVehicleSiren[MAX_VEHICLES char],
+	TDW_g_sVehicleInterior[MAX_VEHICLES char],
+	TDW_g_sVehicleInfoChanged[MAX_VEHICLES char],
 	TDW_g_sVehicleId;
+
+
+
+#if !defined _YSF_included
+	stock
+		GetVehicleSpawnInfo(vehicleid, &Float:x, &Float:y, &Float:z,
+			&Float:rot, &color1, &color2)
+	{
+		return TDW_g_sVehicleData[vehicleid][ei_modelid] != 0
+			? (
+				x = TDW_g_sVehicleData[vehicleid][ei_spos_x],
+				y = TDW_g_sVehicleData[vehicleid][ei_spos_y],
+				z = TDW_g_sVehicleData[vehicleid][ei_spos_z],
+				rot = TDW_g_sVehicleData[vehicleid][ei_spos_a],
+				color1 = TDW_g_sVehicleColor1{vehicleid},
+				color2 = TDW_g_sVehicleColor2{vehicleid},
+				0
+			) : (_:x = _:y = _:z = _:z_angle = color1 = color2 = 0.0);
+	}
+
+
+	stock
+		SetVehicleSpawnInfo(vehicleid, Float:x, Float:y, Float:z, Float:rot,
+			color1, color2, respawn_delay = 300, interiorid = 0)
+	{
+		if (TDW_g_sVehicleData[vehicleid][ei_modelid] != 0)
+		{
+			TDW_g_sVehicleData[vehicleid][ei_spos_x] = x;
+			TDW_g_sVehicleData[vehicleid][ei_stime] = respawn_delay;
+			TDW_g_sVehicleData[vehicleid][ei_spos_y] = y;
+			TDW_g_sVehicleData[vehicleid][ei_spos_z] = z;
+			TDW_g_sVehicleData[vehicleid][ei_spos_a] = rot;
+			TDW_g_sVehicleColor1{vehicleid} = color1;
+			TDW_g_sVehicleColor2{vehicleid} = color2;
+			TDW_g_sVehicleInterior{vehicleid} = interiorid;
+			TDW_g_sVehicleInfoChanged{vehicleid} = 1;
+		}
+		return;
+	}
+
+
+	public
+		OnVehicleSpawn(vehicleid)
+	{
+		if (TDW_g_sVehicleInfoChanged{vehicleid} != 0)
+		{
+			DestroyVehicle(vehicleid);
+			CreateVehicle(
+				TDW_g_sVehicleData[vehicleid][ei_modelid],
+				TDW_g_sVehicleData[vehicleid][ei_spos_x],
+				TDW_g_sVehicleData[vehicleid][ei_spos_y],
+				TDW_g_sVehicleData[vehicleid][ei_spos_z],
+				TDW_g_sVehicleData[vehicleid][ei_spos_a],
+				TDW_g_sVehicleColor1{vehicleid},
+				TDW_g_sVehicleColor2{vehicleid},
+				TDW_g_sVehicleData[vehicleid][ei_stime],
+				TDW_g_sVehicleSiren{vehicleid}
+			);
+			LinkVehicleToInterior(vehicleid, TDW_g_sVehicleInterior{vehicleid});
+			TDW_g_sVehicleInfoChanged{vehicleid} = 0;
+		}
+		#if defined TDWVH_ID@OnVehicleSpawn
+		return TDWVH_ID@OnVehicleSpawn(vehicleid);
+		#else
+		return 1;
+		#endif
+	}
+
+	#if defined _ALS_OnVehicleSpawn
+		#undef OnVehicleSpawn
+	#else
+		#define _ALS_OnVehicleSpawn
+	#endif
+
+	#define OnVehicleSpawn TDWVH_ID@OnVehicleSpawn
+
+	#if defined TDWVH_ID@OnVehicleSpawn
+	forward TDWVH_ID@OnVehicleSpawn(vehicleid);
+	#endif
+
+#endif
+
 
 
 native nst_AddStaticVehicle(modelid, Float:spawn_x, Float:spawn_y,
@@ -67,6 +154,7 @@ stock
 		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_spos_y] = spawn_y;
 		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_spos_z] = spawn_z;
 		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_spos_a] = z_angle;
+		TDW_g_sVehicleSiren{TDW_g_sVehicleId} = 0;
 		TDW_g_sVehicleColor1{TDW_g_sVehicleId} = color1;
 		TDW_g_sVehicleColor2{TDW_g_sVehicleId} = color2;
 		#if _TDW_VEHICLE_FOREACH_ARRAY
@@ -103,6 +191,8 @@ stock
 		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_spos_y] = spawn_y;
 		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_spos_z] = spawn_z;
 		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_spos_a] = z_angle;
+		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_stime] = respawn_delay;
+		TDW_g_sVehicleSiren{TDW_g_sVehicleId} = addsiren;
 		TDW_g_sVehicleColor1{TDW_g_sVehicleId} = color1;
 		TDW_g_sVehicleColor2{TDW_g_sVehicleId} = color2;
 		#if _TDW_VEHICLE_FOREACH_ARRAY
@@ -136,6 +226,8 @@ stock
 		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_spos_y] = y;
 		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_spos_z] = z;
 		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_spos_a] = rotation;
+		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_stime] = respawn_delay;
+		TDW_g_sVehicleSiren{TDW_g_sVehicleId} = addsiren;
 		TDW_g_sVehicleColor1{TDW_g_sVehicleId} = color1;
 		TDW_g_sVehicleColor2{TDW_g_sVehicleId} = color2;
 		#if _TDW_VEHICLE_FOREACH_ARRAY
@@ -162,8 +254,14 @@ stock
 	if (DestroyVehicle(vehicleid) == 0)
 		return 0;
 	TDW_g_sVehicleData[vehicleid][ei_modelid] =
+	TDW_g_sVehicleData[vehicleid][ei_stime] =
 	TDW_g_sVehicleColor1{vehicleid} =
-	TDW_g_sVehicleColor2{vehicleid} = 0;
+	TDW_g_sVehicleColor2{vehicleid} =
+	TDW_g_sVehicleInterior{vehicleid} =
+	#if !defined _YSF_included
+	TDW_g_sVehicleInfoChanged{vehicleid} =
+	#endif
+	TDW_g_sVehicleSiren{vehicleid} = 0;
 	TDW_g_sVehicleData[vehicleid][ei_spos_x] =
 	TDW_g_sVehicleData[vehicleid][ei_spos_y] =
 	TDW_g_sVehicleData[vehicleid][ei_spos_z] =
@@ -181,17 +279,6 @@ stock
 #endif
 
 #define DestroyVehicle TDWVH_ID@DestroyVehicle
-
-
-native nst_ChangeVehicleColor(vehicleid,
-	color1, color2) = ChangeVehicleColor;
-
-#if defined _ALS_ChangeVehicleColor
-#undef ChangeVehicleColor
-#else
-	#define _ALS_ChangeVehicleColor
-#endif
-#define ChangeVehicleColor(%0) SetVehicleColor(%0)
 
 
 public
@@ -220,7 +307,7 @@ forward TDWVH_ID@OnVehicleRespray(playerid, vehicleid, color1, color2);
 
 
 stock
-	GetVehicelColor(vehicleid, &color1, &color2)
+	GetVehicleColor(vehicleid, &color1, &color2)
 {
 	if (TDW_g_sVehicleData[vehicleid][ei_modelid] == 0)
 		return _:(color1 = color2 = 0);
@@ -248,29 +335,39 @@ stock
 {
 	switch (vehicletype)
 	{
+		// We can't create the trains using CreateVehicle. Instead,
+		// we use AddStaticVehicleEx because it contains all the arguments
+		// that contains CreateVehicle.
+		//
+		// ID  - Vehicle Name
+		//
+		// 537 - Freight (Train)
+		// 538 - Brownstreak (Train)
+		// 570 - Streak Trailer (Train)
+		// 449 - Tram
+		//
+		// Notice: AddStaticVehicleEx, CreateVehicle functions are hooked.
 		case 537, 538, 570, 449:
 		{
-			TDW_g_sVehicleId = AddStaticVehicleEx(vehicletype, x, y, z,
+			AddStaticVehicleEx(vehicletype, x, y, z,
 				rotation, color1, color2, respawn_delay, addsiren);
 		}
 		default:
 		{
-			TDW_g_sVehicleId = CreateVehicle(vehicletype, x, y, z, rotation,
+			CreateVehicle(vehicletype, x, y, z, rotation,
 				color1, color2, respawn_delay, addsiren);
 		}
 	}
-	if (TDW_g_sVehicleId != INVALID_VEHICLE_ID)
-	{
-		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_modelid] = vehicletype;
-		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_spos_x] = x;
-		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_spos_y] = y;
-		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_spos_z] = z;
-		TDW_g_sVehicleData[TDW_g_sVehicleId][ei_spos_a] = rotation;
-		TDW_g_sVehicleColor1{TDW_g_sVehicleId} = color1;
-		TDW_g_sVehicleColor2{TDW_g_sVehicleId} = color2;
-		#if defined _TDW_VEHICLE_FOREACH_ARRAY
-		Iter_Add(Vehicle, TDW_g_sVehicleId);
-		#endif
-	}
 	return TDW_g_sVehicleId;
 }
+
+native nst_ChangeVehicleColor(vehicleid,
+	color1, color2) = ChangeVehicleColor;
+
+#if defined _ALS_ChangeVehicleColor
+	#undef ChangeVehicleColor
+#else
+	#define _ALS_ChangeVehicleColor
+#endif
+
+#define ChangeVehicleColor SetVehicleColor

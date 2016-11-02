@@ -54,8 +54,8 @@ stock
 	{
 		new arg_start, arg_end, ret;
 		// Get the current frame pointer.
-		#emit lctrl 5
-		#emit add.c 12
+		#emit lctrl 5 // get the current frame
+		#emit add.c 12 // offset
 		#emit stor.s.pri arg_start
 		// Get a pointer to the last argument.
 		#emit load.s.alt number_arg
@@ -81,11 +81,11 @@ stock
 	}
 	else
 	{
-	#if defined _TDW_VEHICLE_FOREACH_ARRAY
+		#if defined _TDW_VEHICLE_FOREACH_ARRAY
 		foreach (new i: Vehicle)
-	#else
+		#else
 		for (new i = _TDW_FOREACH_MAX_VEHICLES_; --i != 0;)
-	#endif
+		#endif
 		{
 			if (DestroyVehicle(i))
 				count++;
@@ -119,11 +119,11 @@ stock
 {
 	if (IsValidVehicle(vehicleid))
 	{
-	#if _TDW_VEHICLE_FOREACH_DEFINED
+		#if _TDW_VEHICLE_FOREACH_DEFINED
 		foreach (new i: Player)
-	#else
+		#else
 		for (new i = _TDW_FOREACH_MAX_PLAYERS_; --i != -1;)
-	#endif
+		#endif
 		{
 			if (IsPlayerInVehicle(i, vehicleid) == 0)
 				continue;
@@ -138,11 +138,11 @@ stock
 {
 	if (IsValidVehicle(vehicleid))
 	{
-	#if _TDW_VEHICLE_FOREACH_DEFINED
+		#if _TDW_VEHICLE_FOREACH_DEFINED
 		foreach (new i: Player)
-	#else
+		#else
 		for (new i = _TDW_FOREACH_MAX_PLAYERS_; --i != -1;)
-	#endif
+		#endif
 		{
 			if (IsPlayerInVehicle(i, vehicleid) == 0)
 				continue;
@@ -212,11 +212,14 @@ stock
 		&Float:x, &Float:y, &Float:z)
 {
 	if (GetVehiclePos(vehicletype, x, y, z) == 0)
-		return _:(x = y = z = 0.0);
+		return _:(x = y = z = 0.0); // return 0
+
 	new Float:z_angle, Float:vehicle_x, Float:vehicle_y, Float:vehicle_z,
 		Float:div;
+
 	GetVehicleZAngle(vehicletype, z_angle);
 	vehicletype = GetVehicleModel(vehicletype);
+
 	switch (wheel)
 	{
 		case FRONT_LEFT, FRONT_RIGHT:
@@ -235,6 +238,7 @@ stock
 				vehicle_x, vehicle_y, vehicle_z
 			);
 	}
+
 	div = (_:wheel % 2) ? (vehicle_x) : (-vehicle_x);
 	x = (floatsin((z_angle = 360 - z_angle), degrees) * vehicle_y) +
 		(floatcos(z_angle, degrees) * div) + x;
@@ -272,11 +276,11 @@ stock
 {
 	if (IsValidVehicle(vehicleid))
 	{
-	#if _TDW_VEHICLE_FOREACH_DEFINED
+		#if _TDW_VEHICLE_FOREACH_DEFINED
 		foreach (new i: Player)
-	#else
+		#else
 		for (new i = _TDW_FOREACH_MAX_PLAYERS_; --i != -1;)
-	#endif
+		#endif
 		{
 			if (GetPlayerVehicleID(i) != vehicleid)
 				continue;
@@ -300,11 +304,11 @@ stock
 {
 	if (IsValidVehicle(vehicleid))
 	{
-	#if _TDW_VEHICLE_FOREACH_DEFINED
+		#if _TDW_VEHICLE_FOREACH_DEFINED
 		foreach (new i: Player)
-	#else
+		#else
 		for (new i = _TDW_FOREACH_MAX_PLAYERS_; --i != -1;)
-	#endif
+		#endif
 		{
 			if (GetPlayerVehicleID(i) != vehicleid)
 				continue;
@@ -324,14 +328,14 @@ stock
 	if (IsValidVehicle(vehicleid))
 	{
 		new array_index, i;
-	#if _TDW_VEHICLE_FOREACH_DEFINED
+		#if _TDW_VEHICLE_FOREACH_DEFINED
 		foreach(i : Player)
-	#else
+		#else
 		for (i = _TDW_FOREACH_MAX_PLAYERS_; --i != -1;)
 		if (IsPlayerNPC(i))
 			continue;
 		else
-	#endif
+		#endif
 		{
 			if (GetPlayerVehicleID(i) != vehicleid)
 				continue;

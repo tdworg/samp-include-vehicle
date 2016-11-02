@@ -32,13 +32,20 @@ freely, subject to the following restrictions:
 
 #define _TDW_VHSYS__3D_TEXT_LABEL
 
-
 #if _TDW_VEHICLE_STREAMER_DEFINED
 	#define TDW_VEHICLE_DESTROY_LABEL(%0) DestroyDynamic3DTextLabel(%0)
-	#define TDW_VEHICLE_UPDATE_LABEL(%0) UpdateDynamic3DTextLabel(%0)
+	#define TDW_VEHICLE_UPDATE_LABEL(%0) UpdateDynamic3DTextLabelText(%0)
+	#define TDW_VEHICLE_CVEHICLE_LABEL vehicleid, label[], color,\
+		Float:offset_x, Float:offset_y, Float:offset_z, Float:drawdistance,\
+		virtualworld, bool:testLos = false, interiorid = -1,\
+		Float:streamdistance = STREAMER_3D_TEXT_LABEL_SD,\
+		label_length = sizeof label
 #else
 	#define TDW_VEHICLE_DESTROY_LABEL(%0) Delete3DTextLabel(%0)
 	#define TDW_VEHICLE_UPDATE_LABEL(%0) Update3DTextLabelText(%0)
+	#define TDW_VEHICLE_CVEHICLE_LABEL vehicleid, label[], color,\
+		Float:offset_x, Float:offset_y, Float:offset_z, Float:drawdistance,\
+		virtualworld, bool:testLos = false, label_length = sizeof label
 #endif
 
 #if !defined MAX_VEHICLE_LABEL_SIZE
@@ -52,19 +59,7 @@ static stock
 
 
 stock
-#if _TDW_VEHICLE_STREAMER_DEFINED
-	CreateVehicle3DTextLabel(vehicleid, label[], color, Float:offset_x,
-		Float:offset_y, Float:offset_z, Float:drawdistance, virtualworld,
-		bool:testLos = false, interiorid = -1,
-		Float:streamdistance = STREAMER_3D_TEXT_LABEL_SD,
-		label_length = sizeof label
-	)
-#else
-	CreateVehicle3DTextLabel(vehicleid, label[], color, Float:offset_x,
-		Float:offset_y, Float:offset_z, Float:drawdistance, virtualworld,
-		bool:testLos = false, label_length = sizeof label
-	)
-#endif
+	CreateVehicle3DTextLabel(TDW_VEHICLE_CVEHICLE_LABEL /*  see above */)
 {
 	if (label[0] == '\0')
 		return 0;
@@ -75,7 +70,7 @@ stock
 	#if _TDW_VEHICLE_STREAMER_DEFINED
 	TDW_g_sVDynamic@LabelIds[vehicleid] = CreateDynamic3DTextLabel(label, color,
 		offset_x, offset_y, offset_z, drawdistance, _, vehicleid, _:testLos,
-		virtualworld, interiorid, streamdistance
+		virtualworld, interiorid, _, streamdistance
 	);
 	#else
 	TDW_g_sVDynamic@LabelIds[vehicleid] = Create3DTextLabel(label, color, 0.0,
