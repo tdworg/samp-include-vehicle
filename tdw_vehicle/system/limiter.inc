@@ -34,12 +34,17 @@ freely, subject to the following restrictions:
 
 
 #if !defined TDW_LIMITER_TIMER_INTERVAL
-	#define TDW_LIMITER_TIMER_INTERVAL (250)
+	#define TDW_LIMITER_TIMER_INTERVAL (450)
 #endif
 
+#if !defined TDW_LIMITER_DEFAULT_SPEED
+	#define TDW_LIMITER_DEFAULT_SPEED (10000.0)
+#endif
 
 static stock
-	Float:TDW_g_sVehiclesWithLimit[MAX_VEHICLES];
+	Float:TDW_g_sVehiclesWithLimit[MAX_VEHICLES] = {
+		TDW_LIMITER_DEFAULT_SPEED, ...
+};
 
 
 stock
