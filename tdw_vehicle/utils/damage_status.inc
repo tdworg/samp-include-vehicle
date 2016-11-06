@@ -66,10 +66,10 @@ stock
 	if (GetVehicleDamageStatus(vehicleid, TDW_g_sDataStorage, doors, lights,
 		tires) == 0)
 		return 0;
-	UpdateVehicleDamageStatus(vehicleid, front_left_panel |
+	UpdateVehicleDamageStatus(vehicleid, (front_left_panel |
 		(front_right_panel << 4) | (rear_left_panel << 8) |
 		(rear_right_panel << 12) | (windshield << 16) | (front_bumper << 20) |
-		(rear_bumper << 24), doors, lights, tires
+		(rear_bumper << 24)), doors, lights, tires
 	);
 	return 1;
 }

@@ -101,7 +101,7 @@ stock
 // Returns true if the vehicle exists, otherwise false.
 stock
 	SetVehicleWindowState(vehicleid, E_TDW_VEHICLE_DOOR:door,
-		E_TDW_DOOR_STATE:newstate)
+		E_TDW_WINDOW_STATE:newstate)
 {
 	if (IsValidVehicle(vehicleid) == 0)
 		return 0;

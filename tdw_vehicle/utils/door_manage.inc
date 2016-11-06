@@ -61,8 +61,8 @@ enum
 	E_TDW_DOOR_STATE
 {
 	DOOR_NOT_SET = -1,
-	DOOR_OPENED = 0,
-	DOOR_CLOSED
+	DOOR_OPENED = 1,
+	DOOR_CLOSED = 2
 };
 
 
@@ -74,8 +74,11 @@ stock
 		return 0;
 	if (_:(0 <= _:door < MAX_VEHICLE_DOORS) == 0)
 		return 0;
+
 	new driver, passenger, backleft, backright;
+
 	GetVehicleParamsCarDoors(vehicleid, driver, passenger, backleft, backright);
+
 	// Return state of the door, which was specified when calling the function.
 	switch (door)
 	{
@@ -101,8 +104,11 @@ stock
 		return 0;
 	if (_:(0 <= _:door < MAX_VEHICLE_DOORS) == 0)
 		return 0;
+
 	new driver, passenger, backleft, backright;
+
 	GetVehicleParamsCarDoors(vehicleid, driver, passenger, backleft, backright);
+
 	switch (door)
 	{
 		case FRONT_LEFT_DOOR:
