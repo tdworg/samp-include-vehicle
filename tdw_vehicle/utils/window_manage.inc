@@ -74,7 +74,7 @@ stock
 	if (IsValidVehicle(vehicleid) == 0)
 		return 0;
 	if (_:(0 <= _:door < MAX_VEHICLE_DOORS) == 0)
-		return 0;
+		return -1;
 
 	new driver, passenger, backleft, backright;
 
@@ -94,7 +94,7 @@ stock
 		case REAR_RIGHT_DOOR:
 			return backright;
 	}
-	return 0; // For compiler!
+	return -1; // For compiler!
 }
 
 

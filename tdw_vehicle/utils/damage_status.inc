@@ -47,12 +47,12 @@ stock
 		TDW_g_sDataStorage, TDW_g_sDataStorage) == 0)
 		return 0;
 	front_left_panel = panels & 0xF;
-	front_right_panel = panels >>> 4 & 0xF;
-	rear_left_panel = panels >>> 8 & 0xF;
-	rear_right_panel = panels >>> 12 & 0xF;
-	windshield = panels >>> 16 & 0xF;
-	front_bumper = panels >>> 20 & 0xF;
-	rear_bumper = panels >>> 24 & 0xF;
+	front_right_panel = (panels >> 4) & 0xF;
+	rear_left_panel = (panels >> 8) & 0xF;
+	rear_right_panel = (panels >> 12) & 0xF;
+	windshield = (panels >> 16) & 0xF;
+	front_bumper = (panels >> 20) & 0xF;
+	rear_bumper = (panels >> 24) & 0xF;
 	return 1;
 }
 

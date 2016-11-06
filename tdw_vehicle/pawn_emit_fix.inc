@@ -37,6 +37,6 @@ freely, subject to the following restrictions:
 	#emit retn
 	// The stock compiler crashes because of using sysreq.c on a native
 	// function.
-	UpdateVehicleDamageStatus(0, 0, 0, 0, 0);
+	// UpdateVehicleDamageStatus(0, 0, 0, 0, 0);
 	DestroyVehicle(0);
 }
