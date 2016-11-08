@@ -53,7 +53,7 @@ freely, subject to the following restrictions:
 	// Arguments:
 	// %1 - vehicleid
 	// %2 - E_TDW_VEHICLE_DOOR:door
-	// %3 - E_TDW_DOOR_STATE:state
+	// %3 - E_TDW_WINDOW_STATE:state
 	#define IsVehicleWindowInState%0(%1,%2,%3)\
 		(_:(GetVehicleWindowState(%1,%2) == _:(E_TDW_WINDOW_STATE:(%3))))
 #endif
