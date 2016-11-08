@@ -134,7 +134,7 @@ stock
 
 // Returns true if the vehicle exists, otherwise false.
 stock
-	GetVehicleDoorPos(vehicletype, e_TDW_VEHICLE_DOOR:door,
+	GetVehicleDoorPos(vehicletype, E_TDW_VEHICLE_DOOR:door,
 		&Float:x, &Float:y, &Float:z)
 {
 	if (GetVehiclePos(vehicletype, x, y, z) == 0)

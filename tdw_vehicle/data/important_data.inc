@@ -77,11 +77,12 @@ static stock
 
 
 	stock
-		SetVehicleSpawnInfo(vehicleid, Float:x, Float:y, Float:z, Float:rot,
+		SetVehicleSpawnInfo(vehicleid, modelid, Float:x, Float:y, Float:z, Float:rot,
 			color1, color2, respawn_delay = 300, interiorid = 0)
 	{
 		if (TDW_g_sVehicleData[vehicleid][ei_modelid] != 0)
 		{
+			TDW_g_sVehicleData[vehicleid][ei_modelid] = modelid;
 			TDW_g_sVehicleData[vehicleid][ei_spos_x] = x;
 			TDW_g_sVehicleData[vehicleid][ei_stime] = respawn_delay;
 			TDW_g_sVehicleData[vehicleid][ei_spos_y] = y;
@@ -371,3 +372,7 @@ native nst_ChangeVehicleColor(vehicleid,
 #endif
 
 #define ChangeVehicleColor SetVehicleColor
+
+
+
+

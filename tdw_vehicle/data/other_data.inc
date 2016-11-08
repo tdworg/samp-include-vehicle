@@ -32,7 +32,6 @@ freely, subject to the following restrictions:
 
 #define _TDW_VHLIB__OTHER_DATA
 
-
 static stock
 	// I used the char operator to optimize the data segment.
 	TDW_g_sVDynamic@Paintjob[MAX_VEHICLES char],
@@ -61,6 +60,7 @@ stock
 	);
 }
 
+native nts_SetVehiclePaintjobId(vehicleid, paintjobid) = ChangeVehiclePaintjobId;
 
 stock
 	SetVehiclePaintjobId(vehicleid, paintjobid)
@@ -73,6 +73,13 @@ stock
 		(TDW_g_sVDynamic@Paintjob{vehicleid} = paintjobid)
 	);
 }
+#if defined _ALS_ChangeVehiclePaintjob
+	#undef ChangeVehiclePaintjob
+#else
+	#define _ALS_ChangeVehiclePaintjob
+#endif
+#define ChangeVehiclePaintjob SetVehiclePaintjobId
+
 
 
 native nts_SetVehicleVirtualWorld(vehicleid, worldid) = SetVehicleVirtualWorld;
