@@ -72,7 +72,7 @@ static stock
 				color1 = TDW_g_sVehicleColor1{vehicleid},
 				color2 = TDW_g_sVehicleColor2{vehicleid},
 				0
-			) : (_:x = _:y = _:z = _:z_angle = color1 = color2 = 0.0);
+			) : (_:x = _:y = _:z = _:rot = color1 = color2 = 0);
 	}
 
 
