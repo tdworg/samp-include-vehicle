@@ -64,7 +64,9 @@ stock
 }
 
 
+#if !defined nst_AttachTrailerToVehicle
 native nst_AttachTrailerToVehicle(trailerid,vehicleid) = AttachTrailerToVehicle;
+#endif
 
 stock
 	TDWVH_TM@AttachTrailerToVehicle(trailerid, vehicleid)
@@ -91,7 +93,9 @@ stock
 #define AttachTrailerToVehicle TDWVH_TM@AttachTrailerToVehicle
 
 
+#if !defined nst_DetachTrailerFromVehicle
 native nst_DetachTrailerFromVehicle(vehicleid) = DetachTrailerFromVehicle;
+#endif
 
 stock
 	TDWVH_TM@DetachTrailerFromVeh(vehicleid)

@@ -45,8 +45,10 @@ static stock
 	TDW_g_sNumberPlate[MAX_VEHICLES][MAX_NUMBER_PLATE_SIZE char];
 
 
+#if !defined nst_SetVehicleNumberPlate
 native nst_SetVehicleNumberPlate(vehicleid,
 	numberplate[]) = SetVehicleNumberPlate;
+#endif
 
 stock
 	TDWVH_NP@SetVehicleNumberPlate(vehicleid, numberplate[])

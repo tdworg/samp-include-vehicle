@@ -60,7 +60,9 @@ stock
 	);
 }
 
+#if !defined nts_SetVehiclePaintjobId
 native nts_SetVehiclePaintjobId(vehicleid, paintjobid) = ChangeVehiclePaintjob;
+#endif
 
 stock
 	SetVehiclePaintjobId(vehicleid, paintjobid)
@@ -81,8 +83,9 @@ stock
 #define ChangeVehiclePaintjob SetVehiclePaintjobId
 
 
-
+#if !defined nts_SetVehicleVirtualWorld
 native nts_SetVehicleVirtualWorld(vehicleid, worldid) = SetVehicleVirtualWorld;
+#endif
 
 stock
 	TDWVH_OD@SetVehicleVirtualWorld(vehicleid, worldid)

@@ -112,6 +112,10 @@ stock
 }
 
 
+#if !defined nst_DestroyVehicle
+native nst_DestroyVehicle(vehicleid) = DestroyVehicle;
+#endif
+
 stock
 	TDWVH_ML@DestroyVehicle(vehicleid)
 {

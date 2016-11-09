@@ -139,9 +139,10 @@ static stock
 #endif
 
 
-
+#if !defined nst_AddStaticVehicle
 native nst_AddStaticVehicle(modelid, Float:spawn_x, Float:spawn_y,
 	Float:spawn_z, Float:z_angle, color1, color2) = AddStaticVehicle;
+#endif
 
 stock
 	TDWVH_ID@AddStaticVehicle(modelid, Float:spawn_x, Float:spawn_y,
@@ -174,9 +175,11 @@ stock
 #define AddStaticVehicle TDWVH_ID@AddStaticVehicle
 
 
+#if !defined nst_AddStaticVehicleEx
 native nst_AddStaticVehicleEx(modelid, Float:spawn_x, Float:spawn_y,
 	Float:spawn_z, Float:z_angle, color1, color2, respawn_delay, addsiren
 	) = AddStaticVehicleEx;
+#endif
 
 stock
 	TDWVH_ID@AddStaticVehicleEx(modelid, Float:spawn_x, Float:spawn_y,
@@ -212,8 +215,10 @@ stock
 #define AddStaticVehicleEx TDWVH_ID@AddStaticVehicleEx
 
 
+#if !defined nst_CreateVehicle
 native nst_CreateVehicle(vehicletype, Float:x, Float:y, Float:z, Float:rotation,
 	color1, color2, respawn_delay, addsiren) = CreateVehicle;
+#endif
 
 stock
 	TDWVH_ID@CreateVehicle(vehicletype, Float:x, Float:y, Float:z,
@@ -247,7 +252,9 @@ stock
 #define CreateVehicle TDWVH_ID@CreateVehicle
 
 
+#if !defined nst_DestroyVehicle
 native nst_DestroyVehicle(vehicleid) = DestroyVehicle;
+#endif
 
 stock
 	TDWVH_ID@DestroyVehicle(vehicleid)
@@ -362,8 +369,10 @@ stock
 	return TDW_g_sVehicleId;
 }
 
+#if !defined nst_ChangeVehicleColor
 native nst_ChangeVehicleColor(vehicleid,
 	color1, color2) = ChangeVehicleColor;
+#endif
 
 #if defined _ALS_ChangeVehicleColor
 	#undef ChangeVehicleColor
