@@ -351,3 +351,42 @@ stock
 	}
 	return 0;
 }
+
+
+stock
+	IsVehicleMoving(vehicleid)
+{
+	new Float:x, Float:y, Float:z;
+	if (GetVehicleVelocity(vehicleid, x, y, z) != 0)
+	{
+		if (floatcmp(x, 0.0) == 0 && floatcmp(y, 0.0) == 0 &&
+			floatcmp(z, 0.0) == 0)
+			return 1;
+	}
+	return 0;
+}
+
+
+stock
+	IsVehicleDirection(vehicleid)
+{
+	new Float:x, Float:y, Float:z;
+	if (GetVehicleVelocity(vehicleid, x, y, z))
+	{
+		new Float:z_angle;
+		GetVehicleZAngle(vehicleid, z_angle);
+		if (z_angle < 90.0)
+			if (x > 0.0 && y < 0.0)
+				return 1;
+		else if (z_angle < 180.0)
+			if (x > 0.0 && y > 0.0)
+				return 1;
+		else if (z_angle < 270.0)
+			if (x < 0.0 && y > 0.0)
+				return 1;
+		else
+			if (x < 0.0 && y < 0.0)
+				return 1;
+	}
+	return 0;
+}
