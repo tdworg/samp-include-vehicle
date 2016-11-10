@@ -33,4 +33,4 @@ freely, subject to the following restrictions:
 #define _TDW_VHCOL__POLICE_LIGHTS
 
 #include "vh_sadata"
-#include "tdw_vehicle/system/police_lights"
+#include "tdw_vehicle\system\police_lights"

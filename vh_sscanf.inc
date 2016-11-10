@@ -43,6 +43,6 @@ freely, subject to the following restrictions:
 
 #define _TDW_VHCOL__SSCANF
 
-#include "tdw_vehicle/detect/sscanf"
-#include "tdw_vehicle/basic_functions"
-#include "tdw_vehicle/utils/sscanf_custom_parameter"
+#include "tdw_vehicle\detect\sscanf"
+#include "tdw_vehicle\basic_functions"
+#include "tdw_vehicle\utils\sscanf_custom_parameter"

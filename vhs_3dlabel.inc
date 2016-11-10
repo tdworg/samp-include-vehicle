@@ -36,6 +36,6 @@ freely, subject to the following restrictions:
 
 #define _TDW_VHCOL__3DLABEL
 
-#include "tdw_vehicle/detect/streamer"
-#include "tdw_vehicle/basic_functions"
-#include "tdw_vehicle/system/3dtext_label"
+#include "tdw_vehicle\detect\streamer"
+#include "tdw_vehicle\basic_functions"
+#include "tdw_vehicle\system\3dtext_label"

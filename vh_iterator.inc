@@ -36,6 +36,6 @@ freely, subject to the following restrictions:
 #define _TDW_VHCOL__ITERATOR
 
 
-#include "tdw_vehicle/detect/foreach"
-#include "tdw_vehicle/basic_functions"
-#include "tdw_vehicle/data/iterator"
+#include "tdw_vehicle\detect\foreach"
+#include "tdw_vehicle\basic_functions"
+#include "tdw_vehicle\data\iterator"
