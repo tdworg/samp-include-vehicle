@@ -198,8 +198,8 @@ public
 		}
 	}
 	return
-	#if defined TDWVHF@OnVehicleMileageUpdate
-		TDWVHF@OnVehicleMileageUpdate(vehicleid);
+	#if defined TDWVHE@OnVehicleMileageUpdate
+		TDWVHE@OnVehicleMileageUpdate(vehicleid);
 	#else
 		1;
 	#endif
@@ -211,10 +211,10 @@ public
 	#define _ALS_OnVehicleMileageUpdate
 #endif
 
-#define OnVehicleMileageUpdate TDWVHF@OnVehicleMileageUpdate
+#define OnVehicleMileageUpdate TDWVHE@OnVehicleMileageUpdate
 
-#if defined TDWVHF@OnVehicleMileageUpdate
-	forward TDWVHF@OnVehicleMileageUpdate(vehicleid);
+#if defined TDWVHE@OnVehicleMileageUpdate
+	forward TDWVHE@OnVehicleMileageUpdate(vehicleid);
 #endif
 
 
@@ -226,8 +226,8 @@ public
 		StopVehicleEngine(vehicleid);
 	}
 	return
-	#if defined TDWVHF@OnVehicleSpawn
-		TDWVHF@OnVehicleSpawn(vehicleid);
+	#if defined TDWVHE@OnVehicleSpawn
+		TDWVHE@OnVehicleSpawn(vehicleid);
 	#else
 		1;
 	#endif
@@ -239,8 +239,8 @@ public
 	#define _ALS_OnVehicleSpawn
 #endif
 
-#define OnVehicleSpawn TDWVHF@OnVehicleSpawn
+#define OnVehicleSpawn TDWVHE@OnVehicleSpawn
 
-#if defined TDWVHF@OnVehicleSpawn
-	forward TDWVHF@OnVehicleSpawn(vehicleid);
+#if defined TDWVHE@OnVehicleSpawn
+	forward TDWVHE@OnVehicleSpawn(vehicleid);
 #endif
