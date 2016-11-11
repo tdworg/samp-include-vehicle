@@ -32,6 +32,9 @@ freely, subject to the following restrictions:
 
 #define _TDW_VHLIB__MATH_FUNCTIONS
 
+#if !defined FLOAT_INFINITY
+	#define FLOAT_INFINITY (Float:0x7F800000)
+#endif
 
 enum
 	e_TDW_VEHICLE_SPEED
@@ -171,7 +174,7 @@ stock
 	return (
 		GetVehicleVelocity(vehicleid, x, y, z)
 		? GetVehicleSpeedFromVelocity(x, y, z, conv)
-		: -1.0
+		: FLOAT_INFINITY
 	);
 }
 
