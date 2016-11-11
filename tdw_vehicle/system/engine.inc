@@ -244,3 +244,19 @@ public
 #if defined TDWVHE@OnVehicleSpawn
 	forward TDWVHE@OnVehicleSpawn(vehicleid);
 #endif
+
+#if defined OnVehicleEngineStateChange
+forward OnVehicleEngineStateChange(vehicleid, E_TDW_ENGINE_STATE:engine);
+#endif
+
+#if defined OnVehicleEngineStartFailed
+forward OnVehicleEngineStartFailed(vehicleid);
+#endif
+
+#if defined OnVehicleEngineStarted
+forward OnVehicleEngineStarted(vehicleid);
+#endif
+
+#if defined OnVehicleEngineStopped
+forward OnVehicleEngineStopped(vehicleid);
+#endif
