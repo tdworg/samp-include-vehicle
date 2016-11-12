@@ -35,5 +35,5 @@ freely, subject to the following restrictions:
 
 #define _TDW_VHCOL__ODATA
 
-#include "tdw_vehicle/basic_functions"
-#include "tdw_vehicle/data/other_data"
+#include "tdw_vehicle\basic_functions"
+#include "tdw_vehicle\data\other_data"

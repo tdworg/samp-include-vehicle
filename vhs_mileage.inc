@@ -33,5 +33,5 @@ freely, subject to the following restrictions:
 #define _TDW_VHCOL__MILEAGE
 
 #include "vh_math"
-#include "tdw_vehicle/basic_functions"
-#include "tdw_vehicle/system/mileage"
+#include "tdw_vehicle\basic_functions"
+#include "tdw_vehicle\system\mileage"

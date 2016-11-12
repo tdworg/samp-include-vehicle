@@ -36,5 +36,5 @@ freely, subject to the following restrictions:
 
 #define _TDW_VHCOL__TRAILER
 
-#include "tdw_vehicle/basic_functions"
-#include "tdw_vehicle/system/trailer_manage"
+#include "tdw_vehicle\basic_functions"
+#include "tdw_vehicle\system\trailer_manage"

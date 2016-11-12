@@ -36,5 +36,5 @@ freely, subject to the following restrictions:
 
 #define _TDW_VHCOL__SADATA
 
-#include "tdw_vehicle/basic_functions"
-#include "tdw_vehicle/data/gtasa_data"
+#include "tdw_vehicle\basic_functions"
+#include "tdw_vehicle\data\gtasa_data"

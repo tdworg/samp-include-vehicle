@@ -40,13 +40,13 @@ freely, subject to the following restrictions:
 #if defined TDW_VEHICLE_NOT_USE_COLANDREAS
 	#define _TDW_VEHICLE_COLANDREAS_DEFINED 0
 #else
-	#if !defined COLANDREAS
+	#if !defined COLANDREAS || !defined CA_Init
 		#tryinclude <colandreas>
-	#elseif !defined COLANDREAS
+	#elseif !defined COLANDREAS || !defined CA_Init
 		#tryinclude "../include/colandreas.inc"
 	#endif
 
-	#if !defined COLANDREAS
+	#if !defined COLANDREAS || !defined CA_Init
 		#define _TDW_VEHICLE_COLANDREAS_DEFINED 0
 	#else
 		#define _TDW_VEHICLE_COLANDREAS_DEFINED 1

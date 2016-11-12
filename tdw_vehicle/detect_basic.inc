@@ -32,6 +32,6 @@ freely, subject to the following restrictions:
 
 #define _TDW_VHLIB__DETECT_BASIC
 
-#include "tdw_vehicle/detect/foreach"
-#include "tdw_vehicle/detect/sscanf"
-#include "tdw_vehicle/detect/streamer"
+#include "tdw_vehicle\detect\foreach"
+#include "tdw_vehicle\detect\sscanf"
+#include "tdw_vehicle\detect\streamer"

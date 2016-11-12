@@ -33,4 +33,4 @@ freely, subject to the following restrictions:
 #define _TDW_VHCOL__TURN_SIGNALS
 
 #include "vh_sadata"
-#include "tdw_vehicle/system/turn_signals"
+#include "tdw_vehicle\system\turn_signals"

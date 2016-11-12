@@ -265,7 +265,7 @@ stock
 	TDW_g_sVehicleData[vehicleid][ei_stime] =
 	TDW_g_sVehicleColor1{vehicleid} =
 	TDW_g_sVehicleColor2{vehicleid} =
-	TDW_g_sVehicleInterior{vehicleid} =
+	TDW_g_sVehicleInterior{vehicleid} = 0;
 	#if !defined _YSF_included
 	TDW_g_sVehicleInfoChanged{vehicleid} =
 	#endif
