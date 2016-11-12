@@ -35,6 +35,11 @@ freely, subject to the following restrictions:
 
 #define _TDW_VHSYS__ENGINE
 
+#if !defined TDW_ENGINE_DEFAULT_FUEL
+	#define TDW_ENGINE_DEFAULT_FUEL (800.0)
+#else
+	#assert (0.0 < TDW_ENGINE_DEFAULT_FUEL < FLOAT_INFINITY)
+#endif
 
 #if !defined TDW_ENGINE_TIMER_INTERVAL
 	#define TDW_ENGINE_TIMER_INTERVAL (1000)
@@ -43,6 +48,7 @@ freely, subject to the following restrictions:
 #if !defined TDW_ENGINE_FLOAT_SUB
 	#define TDW_ENGINE_FLOAT_SUB (0.125)
 #endif
+
 
 enum
 	E_TDW_ENGINE_STATE
@@ -57,13 +63,29 @@ enum
 static stock
 	TDW_g_sTimerId@Vehicle[MAX_VEHICLES] = {-1, ...},
 	bool:TDW_g_sIsEngineRunning@Vehicle[MAX_VEHICLES char] = {false, ...},
-	Float:TDW_g_sFuel@Vehicle[MAX_VEHICLES] = {1000.0, ...},
-	TDW_g_sLastMileage@Vehicle[MAX_VEHICLES] = {0,...};
+	Float:TDW_g_sFuel@Vehicle[MAX_VEHICLES] = {TDW_ENGINE_DEFAULT_FUEL, ...},
+	TDW_g_sLastMileage@Vehicle[MAX_VEHICLES] = {0,...},
+	TDW_g_sVehicleId;
 
 
 stock
 	StartVehicleEngine(vehicleid)
 {
+	if (TDW_g_sIsEngineRunning@Vehicle{vehicleid})
+		return 0;
+	if (_:(0 < TDW_g_sFuel@Vehicle[vehicleid] < FLOAT_INFINITY) == 0)
+	{
+		#if defined OnVehicleEngineStateChange
+			OnVehicleEngineStateChange(vehicleid, ENGINE_STATE_FAILED);
+		#endif
+
+		#if defined OnVehicleEngineStartFailed
+			OnVehicleEngineStartFailed(vehicleid);
+		#endif
+
+		return 0;
+	}
+
 	#if defined TDW_ENGINE_USE_TIMER
 		if (TDW_g_sTimerId@Vehicle[vehicleid] != -1)
 			return 0;
@@ -73,55 +95,6 @@ stock
 	#else
 		@_TDW_VEHICLE_ENGINE(vehicleid);
 	#endif
-	return 1;
-}
-
-
-@_TDW_VEHICLE_ENGINE(vehicleid);
-@_TDW_VEHICLE_ENGINE(vehicleid)
-{
-	new Float:health;
-
-	if (GetVehicleHealth(vehicleid, health) == 0)
-		return 0;
-	if (TDW_g_sIsEngineRunning@Vehicle{vehicleid})
-		return 0;
-
-	new percent = floatround(health, floatround_round) / 10;
-
-	if (random(100 + 1) >= percent)
-	{
-		#if defined OnVehicleEngineStateChange
-			OnVehicleEngineStateChange(vehicleid, ENGINE_STATE_FAILED);
-		#endif
-		#if defined OnVehicleEngineStartFailed
-			OnVehicleEngineStartFailed(vehicleid);
-		#endif
-
-		TDW_g_sIsEngineRunning@Vehicle{vehicleid} = false;
-	}
-	else
-	{
-		new engine, lights, alarm, doors, bonnet, boot, objective;
-
-		GetVehicleParamsEx(vehicleid, engine, lights, alarm, doors, bonnet,
-			boot, objective
-		);
-		SetVehicleParamsEx(vehicleid, true, lights, alarm, doors,
-			bonnet, boot, objective
-		);
-
-		#if defined OnVehicleEngineStateChange
-			OnVehicleEngineStateChange(vehicleid, ENGINE_STATE_STARTED);
-		#endif
-		#if defined OnVehicleEngineStarted
-			OnVehicleEngineStarted(vehicleid);
-		#endif
-
-		TDW_g_sIsEngineRunning@Vehicle{vehicleid} = true;
-	}
-
-	TDW_g_sTimerId@Vehicle[vehicleid] = -1;
 
 	return 1;
 }
@@ -130,13 +103,19 @@ stock
 stock
 	StopVehicleEngine(vehicleid)
 {
+	new modelid = GetVehicleModel(vehicleid);
+
+	if (modelid == 0)
+		return 0;
+	if (_:TDW_g_sIsEngineRunning@Vehicle{vehicleid} == 0)
+		return 0;
+	if (GetModelStaticType(modelid) == BIKE)
+		return 0;
+
 	new timerid = TDW_g_sTimerId@Vehicle[vehicleid];
 
 	if (timerid != -1)
 		KillTimer(timerid);
-
-	if (_:TDW_g_sIsEngineRunning@Vehicle{vehicleid} == 0)
-		return 0;
 
 	new engine, lights, alarm, doors, bonnet, boot, objective;
 
@@ -153,6 +132,7 @@ stock
 	#if defined OnVehicleEngineStateChange
 		OnVehicleEngineStateChange(vehicleid, ENGINE_STATE_STOPPED);
 	#endif
+
 	#if defined OnVehicleEngineStopped
 		OnVehicleEngineStopped(vehicleid);
 	#endif
@@ -161,47 +141,115 @@ stock
 }
 
 
-stock
-	IsVehicleEngineRunning(vehicleid)
-{
-	if (IsValidVehicle(vehicleid) == 0)
-		return 0;
-	return TDW_g_sIsEngineRunning@Vehicle{vehicleid};
-}
+#if !defined nst_AddStaticVehicle
+native nst_AddStaticVehicle(modelid, Float:spawn_x, Float:spawn_y,
+	Float:spawn_z, Float:z_angle, color1, color2) = AddStaticVehicle;
+#endif
 
 stock
-	GetVehicleFuel(vehicleid)
+	TDWVH_EH@AddStaticVehicle(modelid, Float:spawn_x, Float:spawn_y,
+		Float:spawn_z, Float:z_angle, color1, color2)
 {
-	if (IsValidVehicle(vehicleid) == 0)
-		return 0;
-	return TDW_g_sFuel@Vehicle[vehicleid];
+	if ((TDW_g_sVehicleId = AddStaticVehicle(modelid, spawn_x, spawn_y, spawn_z,
+		z_angle, color1, color2)) != INVALID_VEHICLE_ID)
+	{
+		if (GetModelStaticType(modelid) == BIKE)
+		{
+			TDW_g_sFuel@Vehicle[TDW_g_sVehicleId] = FLOAT_INFINITY;
+		}
+	}
+	return TDW_g_sVehicleId;
 }
 
+#if defined _ALS_AddStaticVehicle
+	#undef AddStaticVehicle
+#else
+	#define _ALS_AddStaticVehicle
+#endif
+
+#define AddStaticVehicle TDWVH_EH@AddStaticVehicle
+
+
+#if !defined nst_AddStaticVehicleEx
+native nst_AddStaticVehicleEx(modelid, Float:spawn_x, Float:spawn_y,
+	Float:spawn_z, Float:z_angle, color1, color2, respawn_delay, addsiren
+	) = AddStaticVehicleEx;
+#endif
+
 stock
-	SetVehicleFuel(vehicleid, amount)
+	TDWVH_EH@AddStaticVehicleEx(modelid, Float:spawn_x, Float:spawn_y,
+		Float:spawn_z, Float:z_angle, color1, color2, respawn_delay,
+		addsiren = 0)
 {
-	if (IsValidVehicle(vehicleid) == 0)
-		return 0;
-	TDW_g_sFuel@Vehicle[vehicleid] = amount;
-	return 1;
+	if ((TDW_g_sVehicleId = AddStaticVehicleEx(modelid, spawn_x, spawn_y,
+		spawn_z, z_angle, color1, color2, respawn_delay, addsiren)
+		) != INVALID_VEHICLE_ID)
+	{
+		if (GetModelStaticType(modelid) == BIKE)
+		{
+			TDW_g_sFuel@Vehicle[TDW_g_sVehicleId] = FLOAT_INFINITY;
+		}
+	}
+	return TDW_g_sVehicleId;
 }
+
+#if defined _ALS_AddStaticVehicleEx
+	#undef AddStaticVehicleEx
+#else
+	#define _ALS_AddStaticVehicleEx
+#endif
+
+#define AddStaticVehicleEx TDWVH_EH@AddStaticVehicleEx
+
+
+#if !defined nst_CreateVehicle
+native nst_CreateVehicle(vehicletype, Float:x, Float:y, Float:z, Float:rotation,
+	color1, color2, respawn_delay, addsiren) = CreateVehicle;
+#endif
+
+stock
+	TDWVH_EH@CreateVehicle(vehicletype, Float:x, Float:y, Float:z,
+		Float:rotation, color1, color2, respawn_delay, addsiren = 0)
+{
+	if ((TDW_g_sVehicleId = CreateVehicle(vehicletype, x, y, z, rotation,
+		color1, color2, respawn_delay, addsiren)) != INVALID_VEHICLE_ID)
+	{
+		if (GetModelStaticType(modelid) == BIKE)
+		{
+			TDW_g_sFuel@Vehicle[TDW_g_sVehicleId] = FLOAT_INFINITY;
+		}
+	}
+	return TDW_g_sVehicleId;
+}
+
+#if defined _ALS_CreateVehicle
+	#undef CreateVehicle
+#else
+	#define _ALS_CreateVehicle
+#endif
+
+#define CreateVehicle TDWVH_EH@CreateVehicle
 
 
 public
 	OnVehicleMileageUpdate(vehicleid)
 {
-	if (TDW_g_sFuel@Vehicle[vehicleid] <= 0.0)
+	static Float:fuel;
+
+	if ((fuel = TDW_g_sFuel@Vehicle[vehicleid]) != FLOAT_INFINITY)
 	{
-		StopVehicleEngine(vehicleid);
-	}
-	else
-	{
-		static mile;
-		if ((mile = GetVehicleMileage(vehicleid)) >
-			TDW_g_sLastMileage@Vehicle[vehicleid])
+		if (fuel <= 0.0)
+			StopVehicleEngine(vehicleid);
+		else
 		{
-			TDW_g_sLastMileage@Vehicle[vehicleid] = mile;
-			TDW_g_sFuel@Vehicle[vehicleid] -= TDW_ENGINE_FLOAT_SUB;
+			static mile;
+
+			if ((mile = GetVehicleMileage(vehicleid)) >
+				TDW_g_sLastMileage@Vehicle[vehicleid])
+			{
+				TDW_g_sLastMileage@Vehicle[vehicleid] = mile;
+				TDW_g_sFuel@Vehicle[vehicleid] -= mile * TDW_ENGINE_FLOAT_SUB;
+			}
 		}
 	}
 	return
@@ -226,31 +274,121 @@ public
 
 
 public
-	OnVehicleSpawn(vehicleid)
+	OnPlayerStateChange(playerid, newstate, oldstate)
 {
-	if (TDW_g_sFuel@Vehicle[vehicleid] != 0.0)
+	if (newstate == PLAYER_STATE_DRIVER)
 	{
-		StopVehicleEngine(vehicleid);
+		new vehicleid = GetPlayerVehicleID(playerid);
+		if (GetModelStaticType(GetVehicleModel(vehicleid)) == BIKE)
+		{
+			new engine, lights, alarm, doors, bonnet, boot, objective;
+
+			GetVehicleParamsEx(vehicleid, engine, lights, alarm, doors,
+				bonnet, boot, objective
+			);
+
+			SetVehicleParamsEx(vehicleid, 1, lights, alarm,
+				doors, bonnet, boot, objective
+			);
+		}
 	}
 	return
-	#if defined TDWVHE@OnVehicleSpawn
-		TDWVHE@OnVehicleSpawn(vehicleid);
+	#if defined TDWVHE@OnPlayerStateChange
+		TDWVHE@OnPlayerStateChange(playerid, newstate, oldstate);
 	#else
 		1;
 	#endif
 }
 
-#if defined _ALS_OnVehicleSpawn
-	#undef OnVehicleSpawn
+#if defined _ALS_OnPlayerStateChange
+	#undef OnPlayerStateChange
 #else
-	#define _ALS_OnVehicleSpawn
+	#define _ALS_OnPlayerStateChange
 #endif
 
-#define OnVehicleSpawn TDWVHE@OnVehicleSpawn
+#define OnPlayerStateChange TDWVHE@OnPlayerStateChange
 
-#if defined TDWVHE@OnVehicleSpawn
-	forward TDWVHE@OnVehicleSpawn(vehicleid);
+#if defined TDWVHE@OnPlayerStateChange
+	forward TDWVHE@OnPlayerStateChange(playerid, newstate, oldstate);
 #endif
+
+
+@_TDW_VEHICLE_ENGINE(vehicleid);
+@_TDW_VEHICLE_ENGINE(vehicleid)
+{
+	new Float:health;
+
+	if (GetVehicleHealth(vehicleid, health) == 0)
+		return 0;
+
+	new percent = floatround(health, floatround_round) / 10;
+
+	if (random(100 + 1) >= percent)
+	{
+		#if defined OnVehicleEngineStateChange
+			OnVehicleEngineStateChange(vehicleid, ENGINE_STATE_FAILED);
+		#endif
+
+		#if defined OnVehicleEngineStartFailed
+			OnVehicleEngineStartFailed(vehicleid);
+		#endif
+
+		TDW_g_sIsEngineRunning@Vehicle{vehicleid} = false;
+	}
+	else
+	{
+		new engine, lights, alarm, doors, bonnet, boot, objective;
+
+		GetVehicleParamsEx(vehicleid, engine, lights, alarm, doors, bonnet,
+			boot, objective
+		);
+		SetVehicleParamsEx(vehicleid, true, lights, alarm, doors,
+			bonnet, boot, objective
+		);
+
+		#if defined OnVehicleEngineStateChange
+			OnVehicleEngineStateChange(vehicleid, ENGINE_STATE_STARTED);
+		#endif
+
+		#if defined OnVehicleEngineStarted
+			OnVehicleEngineStarted(vehicleid);
+		#endif
+
+		TDW_g_sIsEngineRunning@Vehicle{vehicleid} = true;
+	}
+
+	TDW_g_sTimerId@Vehicle[vehicleid] = -1;
+
+	return 1;
+}
+
+
+stock
+	IsVehicleEngineRunning(vehicleid)
+{
+	if (IsValidVehicle(vehicleid) == 0)
+		return 0;
+	return TDW_g_sIsEngineRunning@Vehicle{vehicleid};
+}
+
+stock
+	GetVehicleFuel(vehicleid)
+{
+	if (IsValidVehicle(vehicleid) == 0)
+		return 0;
+	return TDW_g_sFuel@Vehicle[vehicleid];
+}
+
+stock
+	SetVehicleFuel(vehicleid, Float:amount)
+{
+	if (IsValidVehicle(vehicleid) == 0)
+		return 0;
+	TDW_g_sFuel@Vehicle[vehicleid] = amount;
+	return 1;
+}
+
+
 
 #if defined OnVehicleEngineStateChange
 forward OnVehicleEngineStateChange(vehicleid, E_TDW_ENGINE_STATE:engine);
