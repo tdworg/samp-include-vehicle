@@ -33,7 +33,7 @@ freely, subject to the following restrictions:
 #define _TDW_VHSYS__ENGINE
 
 #if !defined TDW_ENGINE_DEFAULT_FUEL
-	#define TDW_ENGINE_DEFAULT_FUEL (800.0)
+	#define TDW_ENGINE_DEFAULT_FUEL (1000.0) // Liter
 #else
 	#assert (0.0 < TDW_ENGINE_DEFAULT_FUEL < FLOAT_INFINITY)
 #endif
@@ -235,6 +235,9 @@ public
 
 	if ((fuel = TDW_g_sFuel@Vehicle[vehicleid]) != FLOAT_INFINITY)
 	{
+		if (_:TDW_g_sIsEngineRunning@Vehicle{vehicleid} == 0)
+			return 0;
+
 		if (fuel <= 0.0)
 			StopVehicleEngine(vehicleid);
 		else
@@ -244,9 +247,12 @@ public
 			if ((mile = GetVehicleMileage(vehicleid)) >
 				TDW_g_sLastMileage@Vehicle[vehicleid])
 			{
+				TDW_g_sFuel@Vehicle[vehicleid] -= (mile -
+					TDW_g_sLastMileage@Vehicle[vehicleid]) *
+					TDW_ENGINE_FLOAT_SUB;
 				TDW_g_sLastMileage@Vehicle[vehicleid] = mile;
-				TDW_g_sFuel@Vehicle[vehicleid] -= mile * TDW_ENGINE_FLOAT_SUB;
 			}
+			// printf("Fuel %.01f", fuel / 1000.0);
 		}
 	}
 	return
