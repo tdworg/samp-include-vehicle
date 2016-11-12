@@ -1,6 +1,9 @@
 /** ======================================================================== **\
 	Vehicle Engine system
 
+| Note:
+To work correcly, you need use ManualVehicleEngineAndLights in OnGameModeInit.
+
 | License:
 Copyright (c) 2016 Double V
 
