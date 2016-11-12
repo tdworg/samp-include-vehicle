@@ -32,10 +32,11 @@ freely, subject to the following restrictions:
 
 #define _TDW_VHSYS__ENGINE
 
+
 #if !defined TDW_ENGINE_DEFAULT_FUEL
 	#define TDW_ENGINE_DEFAULT_FUEL (1000.0) // Liter
 #else
-	#assert (0.0 < TDW_ENGINE_DEFAULT_FUEL < FLOAT_INFINITY)
+	#assert (0.0 <= TDW_ENGINE_DEFAULT_FUEL < FLOAT_INFINITY)
 #endif
 
 #if !defined TDW_ENGINE_TIMER_INTERVAL
@@ -63,6 +64,7 @@ static stock
 	Float:TDW_g_sFuel@Vehicle[MAX_VEHICLES] = {TDW_ENGINE_DEFAULT_FUEL, ...},
 	TDW_g_sLastMileage@Vehicle[MAX_VEHICLES] = {0,...},
 	TDW_g_sVehicleId;
+
 
 
 stock
@@ -138,6 +140,7 @@ stock
 }
 
 
+// Reserve AddStaticVehicle
 #if !defined nst_AddStaticVehicle
 native nst_AddStaticVehicle(modelid, Float:spawn_x, Float:spawn_y,
 	Float:spawn_z, Float:z_angle, color1, color2) = AddStaticVehicle;
@@ -167,6 +170,7 @@ stock
 #define AddStaticVehicle TDWVH_EH@AddStaticVehicle
 
 
+// Reserve AddStaticVehicleEx
 #if !defined nst_AddStaticVehicleEx
 native nst_AddStaticVehicleEx(modelid, Float:spawn_x, Float:spawn_y,
 	Float:spawn_z, Float:z_angle, color1, color2, respawn_delay, addsiren
@@ -199,6 +203,7 @@ stock
 #define AddStaticVehicleEx TDWVH_EH@AddStaticVehicleEx
 
 
+// Reserve CreateVehicle
 #if !defined nst_CreateVehicle
 native nst_CreateVehicle(vehicletype, Float:x, Float:y, Float:z, Float:rotation,
 	color1, color2, respawn_delay, addsiren) = CreateVehicle;
@@ -228,6 +233,7 @@ stock
 #define CreateVehicle TDWVH_EH@CreateVehicle
 
 
+// Hooked functions
 public
 	OnVehicleMileageUpdate(vehicleid)
 {
@@ -341,6 +347,7 @@ public
 #endif
 
 
+// The timer to start the vehicle's engine
 @_TDW_VEHICLE_ENGINE(vehicleid);
 @_TDW_VEHICLE_ENGINE(vehicleid)
 {
@@ -391,6 +398,7 @@ public
 }
 
 
+// Access functions
 stock
 	IsVehicleEngineRunning(vehicleid)
 {
@@ -417,7 +425,7 @@ stock
 }
 
 
-
+// Declare callbacks
 #if defined OnVehicleEngineStateChange
 forward OnVehicleEngineStateChange(vehicleid, E_TDW_ENGINE_STATE:engine);
 #endif
