@@ -42,10 +42,7 @@ freely, subject to the following restrictions:
 #endif
 
 static stock
-	Float:TDW_g_sVehiclesWithLimit[MAX_VEHICLES] = {
-		TDW_LIMITER_DEFAULT_SPEED, ...
-};
-
+	Float:TDW_g_sVehiclesWithLimit[MAX_VEHICLES] = {Float:-1, ...};
 
 stock
 	Float:GetVehicleLimit(vehicleid)
@@ -99,9 +96,16 @@ forward TDWVH_L@OnPlayerStateChange(playerid, newstate, oldstate);
 @_TDW_TIMER_@_LIMITER_(vehicleid, playerid);
 @_TDW_TIMER_@_LIMITER_(vehicleid, playerid)
 {
-	if (GetVehicleSpeed(vehicleid) > TDW_g_sVehiclesWithLimit[vehicleid])
+	static Float:speed;
+	if ((speed = GetVehicleSpeed(vehicleid)) >
+		TDW_g_sVehiclesWithLimit[vehicleid])
 	{
 		SetVehicleSpeed(vehicleid, TDW_g_sVehiclesWithLimit[vehicleid]);
+		#if defined OnPlayerReachSpeedLimit
+			OnPlayerReachSpeedLimit(vehicleid, playerid, speed);
+		#else
+			#pragma unused speed
+		#endif
 	}
 	if (GetPlayerState(playerid) != PLAYER_STATE_DRIVER)
 		return 0;
@@ -109,3 +113,8 @@ forward TDWVH_L@OnPlayerStateChange(playerid, newstate, oldstate);
 		false, !"ii", vehicleid, playerid
 	);
 }
+
+
+#if defined OnPlayerReachSpeedLimit
+forward OnPlayerReachSpeedLimit(vehicleid, playerid, speed);
+#endif
