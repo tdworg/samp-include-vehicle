@@ -253,9 +253,17 @@ public
 			if ((mile = GetVehicleMileage(vehicleid)) >
 				TDW_g_sLastMileage@Vehicle[vehicleid])
 			{
-				TDW_g_sFuel@Vehicle[vehicleid] -= (mile -
-					TDW_g_sLastMileage@Vehicle[vehicleid]) *
-					TDW_ENGINE_FLOAT_SUB;
+				#if defined OnVehicleFuelChange
+					OnVehicleFuelChange(vehicleid, (
+						TDW_g_sFuel@Vehicle[vehicleid] -= (mile -
+						TDW_g_sLastMileage@Vehicle[vehicleid]) *
+						TDW_ENGINE_FLOAT_SUB)
+					);
+				#else
+					TDW_g_sFuel@Vehicle[vehicleid] -= (mile -
+						TDW_g_sLastMileage@Vehicle[vehicleid]) *
+						TDW_ENGINE_FLOAT_SUB;
+				#endif
 				TDW_g_sLastMileage@Vehicle[vehicleid] = mile;
 			}
 			// printf("Fuel %.01f", fuel / 1000.0);
@@ -440,4 +448,8 @@ forward OnVehicleEngineStarted(vehicleid);
 
 #if defined OnVehicleEngineStopped
 forward OnVehicleEngineStopped(vehicleid);
+#endif
+
+#if defined OnVehicleFuelChange
+forward OnVehicleFuelChange(vehicleid, Float:amount);
 #endif
