@@ -43,19 +43,34 @@ freely, subject to the following restrictions:
 static stock
 	Float:TDW_g_sVehicleMileage[MAX_VEHICLES],
 	TDW_g_sVehicleTimerName[] = !"@__TDW_TIMER_MILEAGE",
-	TDW_g_sVehicleTimerParams[] = !"d";
+	TDW_g_sVehicleTimerParams[] = !"d",
+	Float:TDW_g_sPosX@MileageVehicle[MAX_VEHICLES],
+	Float:TDW_g_sPosY@MileageVehicle[MAX_VEHICLES],
+	Float:TDW_g_sPosZ@MileageVehicle[MAX_VEHICLES];
 
 
 @__TDW_TIMER_MILEAGE(vehicleid);
 @__TDW_TIMER_MILEAGE(vehicleid)
 {
-	static Float:speed;
-	if ((speed = GetVehicleSpeed(vehicleid)) == FLOAT_INFINITY)
+	static Float:x, Float:y, Float:z;
+
+	if (GetVehiclePos(vehicleid, x, y, z) == 0)
 		return 0;
-	TDW_g_sVehicleMileage[vehicleid] += speed / 2000.0;
+
+	TDW_g_sVehicleMileage[vehicleid] += VectorSize(
+		TDW_g_sPosX@MileageVehicle[vehicleid] - x,
+		TDW_g_sPosY@MileageVehicle[vehicleid] - y,
+		TDW_g_sPosZ@MileageVehicle[vehicleid] - z
+	);
+
+	TDW_g_sPosX@MileageVehicle[vehicleid] = x;
+	TDW_g_sPosY@MileageVehicle[vehicleid] = y;
+	TDW_g_sPosZ@MileageVehicle[vehicleid] = z;
+
 	#if defined OnVehicleMileageUpdate
 		OnVehicleMileageUpdate(vehicleid);
 	#endif
+
 	return SetTimerEx(TDW_g_sVehicleTimerName, TDW_MILEAGE_UPDATE, false,
 		TDW_g_sVehicleTimerParams, vehicleid
 	);
@@ -124,7 +139,10 @@ stock
 {
 	if (DestroyVehicle(vehicleid) == 0)
 		return 0;
-	TDW_g_sVehicleMileage[vehicleid] = 0;
+	TDW_g_sPosX@MileageVehicle[vehicleid] =
+	TDW_g_sPosY@MileageVehicle[vehicleid] =
+	TDW_g_sPosZ@MileageVehicle[vehicleid] =
+	TDW_g_sVehicleMileage[vehicleid] = 0.0;
 	return 1;
 }
 
