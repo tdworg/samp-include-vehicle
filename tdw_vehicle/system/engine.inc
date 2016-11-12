@@ -1,9 +1,6 @@
 /** ======================================================================== **\
 	Vehicle Engine system
 
-| Note:
-To work correcly, you need use ManualVehicleEngineAndLights in OnGameModeInit.
-
 | License:
 Copyright (c) 2016 Double V
 
@@ -310,6 +307,31 @@ public
 
 #if defined TDWVHE@OnPlayerStateChange
 	forward TDWVHE@OnPlayerStateChange(playerid, newstate, oldstate);
+#endif
+
+
+public
+	OnGameModeInit()
+{
+	ManualVehicleEngineAndLights();
+	return
+	#if defined TDWVHE@OnGameModeInit
+		TDWVHE@OnGameModeInit();
+	#else
+		1;
+	#endif
+}
+
+#if defined _ALS_OnGameModeInit
+	#undef OnGameModeInit
+#else
+	#define _ALS_OnGameModeInit
+#endif
+
+#define OnGameModeInit TDWVHE@OnGameModeInit
+
+#if defined TDWVHE@OnGameModeInit
+	forward TDWVHE@OnGameModeInit();
 #endif
 
 
