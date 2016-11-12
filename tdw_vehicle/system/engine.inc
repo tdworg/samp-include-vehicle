@@ -161,12 +161,16 @@ stock
 stock
 	IsVehicleEngineRunning(vehicleid)
 {
+	if (IsValidVehicle(vehicleid) == 0)
+		return 0;
 	return TDW_g_sIsEngineRunning@Vehicle{vehicleid};
 }
 
 stock
 	GetVehicleFuel(vehicleid)
 {
+	if (IsValidVehicle(vehicleid) == 0)
+		return 0;
 	return TDW_g_sFuel@Vehicle[vehicleid];
 }
 
