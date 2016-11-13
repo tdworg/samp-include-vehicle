@@ -266,7 +266,10 @@ public
 				#endif
 				TDW_g_sLastMileage@Vehicle[vehicleid] = mile;
 			}
-			// printf("Fuel %.01f", fuel / 1000.0);
+			else
+			{
+				TDW_g_sFuel@Vehicle[vehicleid] -= TDW_ENGINE_FLOAT_SUB;
+			}
 		}
 	}
 	return
