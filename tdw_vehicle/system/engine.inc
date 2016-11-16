@@ -438,21 +438,21 @@ stock
 
 // Declare callbacks
 #if defined OnVehicleEngineStateChange
-forward OnVehicleEngineStateChange(vehicleid, E_TDW_ENGINE_STATE:engine);
+	forward OnVehicleEngineStateChange(vehicleid, E_TDW_ENGINE_STATE:engine);
 #endif
 
 #if defined OnVehicleEngineStartFailed
-forward OnVehicleEngineStartFailed(vehicleid);
+	forward OnVehicleEngineStartFailed(vehicleid);
 #endif
 
 #if defined OnVehicleEngineStarted
-forward OnVehicleEngineStarted(vehicleid);
+	forward OnVehicleEngineStarted(vehicleid);
 #endif
 
 #if defined OnVehicleEngineStopped
-forward OnVehicleEngineStopped(vehicleid);
+	forward OnVehicleEngineStopped(vehicleid);
 #endif
 
 #if defined OnVehicleFuelChange
-forward OnVehicleFuelChange(vehicleid, Float:amount);
+	forward OnVehicleFuelChange(vehicleid, Float:amount);
 #endif
