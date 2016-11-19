@@ -154,5 +154,6 @@ stock
 
 #define DestroyVehicle TDWVH_ML@DestroyVehicle
 
-
-forward OnVehicleMileageUpdate(vehicleid);
+#if defined OnVehicleMileageUpdate
+	forward OnVehicleMileageUpdate(vehicleid);
+#endif
