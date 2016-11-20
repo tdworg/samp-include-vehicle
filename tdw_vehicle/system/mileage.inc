@@ -154,6 +154,32 @@ stock
 
 #define DestroyVehicle TDWVH_ML@DestroyVehicle
 
+
+#if !defined nst_SetVehiclePos
+native nst_SetVehiclePos(vehicleid, Float:x, Float:y, Float:z) = SetVehiclePos;
+#endif
+
+stock
+	TDWVH_ML@SetVehiclePos(vehicleid, Float:x, Float:y, Float:z)
+{
+	if (SetVehiclePos(vehicleid, x, y, z) == 0)
+		return 0;
+
+	TDW_g_sPosX@MileageVehicle[vehicleid] = x;
+	TDW_g_sPosY@MileageVehicle[vehicleid] = y;
+	TDW_g_sPosZ@MileageVehicle[vehicleid] = z;
+	return 1;
+}
+
+#if defined _ALS_SetVehiclePos
+	#undef SetVehiclePos
+#else
+	#define _ALS_SetVehiclePos
+#endif
+
+#define SetVehiclePos TDWVH_ML@SetVehiclePos
+
+
 #if defined OnVehicleMileageUpdate
 	forward OnVehicleMileageUpdate(vehicleid);
 #endif
