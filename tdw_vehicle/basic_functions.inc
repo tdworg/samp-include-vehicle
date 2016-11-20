@@ -104,6 +104,11 @@ freely, subject to the following restrictions:
 		(MIN_VEHICLE_PAINTJOB <= (%1) <= MAX_VEHICLE_PAINTJOB)
 #endif
 
+#if !defined IS_VALID_VEHICLEID
+	#define IS_VALID_VEHICLEID%0(%1) \
+		(0 < (%1) < MAX_VEHICLES)
+#endif
+
 //
 // The functions that are not defined in SA:MP library
 //
