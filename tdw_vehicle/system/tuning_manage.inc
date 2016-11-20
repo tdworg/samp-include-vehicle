@@ -71,6 +71,19 @@ stock
 #endif
 #define AddVehicleComponent TDWVH_TM0@AddVehicleComponent
 
+stock
+	TDWVH_TMO@RemoveVehicleComponent(vehicleid, componentid)
+{
+	RemoveVehicleComponent(vehicleid, componentid);
+	RemoveComponentInArray(vehicleid, componentid);
+}
+#if defined _ALS_RemoveVehicleComponent
+	#undef RemoveVehicleComponent
+#else
+	#define _ALS_RemoveVehicleComponent
+#endif
+#define RemoveVehicleComponent TDWVH_TM0@RemoveVehicleComponent
+
 
 public
 	OnVehicleMod(playerid, vehicleid, componentid)
@@ -215,6 +228,48 @@ stock
 	}
 	return 1;
 }
+
+stock
+	RemoveComponentInArray(vehicleid, componentid)
+{
+	static comp_type;
+	#pragma unused comp_type
+	switch ((comp_type = GetVehicleComponentType(componentid)))
+	{
+		case CARMODTYPE_SPOILER:
+			TDW_g_sVComponents[vehicleid][spoiler] = 0;
+		case CARMODTYPE_HOOD:
+			TDW_g_sVComponents[vehicleid][hood] = 0;
+		case CARMODTYPE_ROOF:
+			TDW_g_sVComponents[vehicleid][roof] = 0;
+		case CARMODTYPE_SIDESKIRT:
+			TDW_g_sVComponents[vehicleid][sideskirt] = 0;
+		case CARMODTYPE_LAMPS:
+			TDW_g_sVComponents[vehicleid][lamps] = 0;
+		case CARMODTYPE_NITRO:
+			TDW_g_sVComponents[vehicleid][nitro] = 0;
+		case CARMODTYPE_EXHAUST:
+			TDW_g_sVComponents[vehicleid][exhaust] = 0;
+		case CARMODTYPE_WHEELS:
+			TDW_g_sVComponents[vehicleid][wheels] = 0;
+		case CARMODTYPE_STEREO:
+			TDW_g_sVComponents[vehicleid][stereo] = 0;
+		case CARMODTYPE_HYDRAULICS:
+			TDW_g_sVComponents[vehicleid][hydraulics] = 0;
+		case CARMODTYPE_FRONT_BUMPER:
+			TDW_g_sVComponents[vehicleid][front_bumper] = 0;
+		case CARMODTYPE_REAR_BUMPER:
+			TDW_g_sVComponents[vehicleid][rear_bumper] = 0;
+		case CARMODTYPE_VENT_RIGHT:
+			TDW_g_sVComponents[vehicleid][vent_right] = 0;
+		case CARMODTYPE_VENT_LEFT:
+			TDW_g_sVComponents[vehicleid][vent_left] = 0;
+		default:
+			return 0;
+	}
+	return 1;
+}
+
 
 
 stock

@@ -60,9 +60,11 @@ stock
 	);
 }
 
+
 #if !defined nts_SetVehiclePaintjobId
 native nts_SetVehiclePaintjobId(vehicleid, paintjobid) = ChangeVehiclePaintjob;
 #endif
+
 
 stock
 	SetVehiclePaintjobId(vehicleid, paintjobid)

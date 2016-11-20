@@ -1082,7 +1082,7 @@ stock
 		new i, c;
 		while (i != sizeof TDW_g_sCompatibleComponentId[])
 		{
-			if ((c = TDW_g_sCompatibleComponentId[modelid][i]) == 0)
+			if ((c = TDW_g_sCompatibleComponentId[modelid - MIN_VEHICLE_MODEL][i]) == 0)
 				break;
 			if (c == componentid)
 				return 1;
@@ -1099,5 +1099,5 @@ stock
 		return 0;
 	if (_:(count < sizeof TDW_g_sCompatibleComponentId[]) == 0)
 		return 0;
-	return TDW_g_sCompatibleComponentId[modelid][count];
+	return TDW_g_sCompatibleComponentId[modelid - MIN_VEHICLE_MODEL][count];
 }
