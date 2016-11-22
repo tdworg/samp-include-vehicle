@@ -36,7 +36,7 @@ freely, subject to the following restrictions:
 #if defined OnTrailerAttached
 	forward OnTrailerAttached(trailerid, vehicleid);
 #endif
-#if defined OnTrailerAttached
+#if defined OnTrailerDetached
 	forward OnTrailerDetached(trailerid, vehicleid);
 #endif
 
@@ -163,7 +163,7 @@ forward TDWVH_TM@OnTrailerUpdate(vehicleid);
 {
 	if (IsTrailerAttachedToVehicle(vehicleid) == 0)
 	{
-	#if defined OnTrailerAttached
+	#if defined OnTrailerDetached
 		OnTrailerDetached(trailerid, vehicleid);
 	#endif
 		TDW_g_sVDynamic@TrailerAttached{vehicleid} = true;
