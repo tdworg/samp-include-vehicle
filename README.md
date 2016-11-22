@@ -27,6 +27,7 @@ Collection of missing libraries for vehicles in SA:MP.
 | [vh_sscanf](https://github.com/TDW-org/samp-include-vehicle/blob/master/tdw_vehicle/utils/sscanf_custom_parameter.inc)   | It adds a new custom parameter in sscanf. |
 | [vh_tune](https://github.com/TDW-org/samp-include-vehicle/blob/master/tdw_vehicle/data/tuning_data.inc)     | Information about tuning components for the vehicles. |
 | [vh_utils](https://github.com/TDW-org/samp-include-vehicle/blob/master/tdw_vehicle/utils/useful_functions.inc)    | Contains many useful functions for the vehicles. |
+| [vh_lock](https://github.com/TDW-org/samp-include-vehicle/blob/master/tdw_vehicle/data/lock.inc)    | Contains many useful functions to lock/unlock the vehicles. |
 
 ### Systems:
 | Name        | Description |
@@ -40,3 +41,4 @@ Collection of missing libraries for vehicles in SA:MP.
 | [vhs_policelights](https://github.com/TDW-org/samp-include-vehicle/blob/master/tdw_vehicle/system/police_lights.inc) | Adds new functions for working with police lights. |
 | [vhs_signals](https://github.com/TDW-org/samp-include-vehicle/blob/master/tdw_vehicle/system/turn_signals.inc) | Adds turn signals |
 | [vhs_engine](https://github.com/TDW-org/samp-include-vehicle/blob/master/tdw_vehicle/system/engine.inc) | Helps you to manage with the engine and fuel systems |
+| [vhs_lock](https://github.com/TDW-org/samp-include-vehicle/blob/master/tdw_vehicle/system/lock.inc)    | Wrapper of vh_lock library that adds all the functionality in the game. |
