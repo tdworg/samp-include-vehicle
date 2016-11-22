@@ -68,8 +68,14 @@ stock
 		return 0;
 	if (GetModelStaticType(vehicle_model) != CAR)
 		return 0;
-	new Float:x, Float:y, Float:z;
+
+	new
+		Float:x,
+		Float:y,
+		Float:z;
+
 	GetVehicleModelInfo(vehicle_model, VEHICLE_MODEL_INFO_SIZE, x, y, z);
+
 	if (turn_signal & EI_TURN_SIGNAL_LEFT)
 	{
 		TDW_g_sVehicleObjects[vehicleid][EI_TURN_SIGNAL_FRONT_LEFT] =
@@ -140,6 +146,7 @@ stock
 		return 0;
 	if (GetModelStaticType(vehicle_model) != CAR)
 		return 0;
+
 	if (turn_signal & EI_TURN_SIGNAL_LEFT)
 	{
 		DestroyObject(

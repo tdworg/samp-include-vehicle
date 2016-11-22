@@ -57,13 +57,127 @@ enum
 	ENGINE_STATE_STOPPED
 };
 
+enum
+	E_ENGINE_TDW_CALLBACKS (<<= 1)
+{
+	EI_CB_EngineStateChange = 1, // OnVehicleEngineStateChange 1
+	EI_CB_EngineStartFailed, // OnVehicleEngineStartFailed 2
+	EI_CB_EngineStopped, // OnVehicleEngineStopped 3
+	EI_CB_FuelChange, // OnVehicleFuelChange 4
+	EI_CB_EngineStarted // OnVehicleEngineStarted 5
+};
+
 
 static stock
 	TDW_g_sTimerId@Vehicle[MAX_VEHICLES] = {-1, ...},
 	bool:TDW_g_sIsEngineRunning@Vehicle[MAX_VEHICLES char] = {false, ...},
 	Float:TDW_g_sFuel@Vehicle[MAX_VEHICLES] = {TDW_ENGINE_DEFAULT_FUEL, ...},
 	TDW_g_sLastMileage@Vehicle[MAX_VEHICLES] = {0,...},
-	TDW_g_sVehicleId;
+	TDW_g_sVehicleId,
+	E_ENGINE_TDW_CALLBACKS:TDW_g_sCallbacks,
+	TDW_g_sOnVEngineStateChange[] = !"OnVehicleEngineStateChange",
+	TDW_g_sOnVEngineStartFailed[] = !"OnVehicleEngineStartFailed",
+	TDW_g_sOnVEngineStopped[] = !"OnVehicleEngineStopped",
+	TDW_g_sOnVFuelChange[] = !"OnVehicleFuelChange",
+	TDW_g_sOnVEngineStarted[] = !"OnVehicleEngineStarted",
+	TDW_g_sSpecifier@ii[] = !"ii",
+	TDW_g_sSpecifier@if[] = !"if",
+	TDW_g_sSpecifier@i[] = !"i";
+
+
+#if defined FILTERSCRIPT
+	public
+		OnFilterScriptInit()
+	{
+		ManualVehicleEngineAndLights();
+
+		if (funcidx(TDW_g_sOnVEngineStateChange) != -1)
+		{
+			TDW_g_sCallbacks |= EI_CB_EngineStateChange;
+		}
+		if (funcidx(TDW_g_sOnVEngineStartFailed) != -1)
+		{
+			TDW_g_sCallbacks |= EI_CB_EngineStartFailed;
+		}
+		if (funcidx(TDW_g_sOnVEngineStopped) != -1)
+		{
+			TDW_g_sCallbacks |= EI_CB_EngineStopped;
+		}
+		if (funcidx(TDW_g_sOnVFuelChange) != -1)
+		{
+			TDW_g_sCallbacks |= EI_CB_FuelChange;
+		}
+		if (funcidx(TDW_g_sOnVEngineStarted) != -1)
+		{
+			TDW_g_sCallbacks |= EI_CB_EngineStarted;
+		}
+
+		return
+		#if defined TDWVHE@OnFilterScriptInit
+			TDWVHE@OnFilterScriptInit();
+		#else
+			1;
+		#endif
+	}
+
+	#if defined _ALS_OnFilterScriptInit
+		#undef OnFilterScriptInit
+	#else
+		#define _ALS_OnFilterScriptInit
+	#endif
+
+	#define OnFilterScriptInit TDWVHE@OnFilterScriptInit
+
+	#if defined TDWVHE@OnFilterScriptInit
+		forward TDWVHE@OnFilterScriptInit();
+	#endif
+#else
+	public
+		OnGameModeInit()
+	{
+		ManualVehicleEngineAndLights();
+
+		if (funcidx(TDW_g_sOnVEngineStateChange) != -1)
+		{
+			TDW_g_sCallbacks |= EI_CB_EngineStateChange;
+		}
+		if (funcidx(TDW_g_sOnVEngineStartFailed) != -1)
+		{
+			TDW_g_sCallbacks |= EI_CB_EngineStartFailed;
+		}
+		if (funcidx(TDW_g_sOnVEngineStopped) != -1)
+		{
+			TDW_g_sCallbacks |= EI_CB_EngineStopped;
+		}
+		if (funcidx(TDW_g_sOnVFuelChange) != -1)
+		{
+			TDW_g_sCallbacks |= EI_CB_FuelChange;
+		}
+		if (funcidx(TDW_g_sOnVEngineStarted) != -1)
+		{
+			TDW_g_sCallbacks |= EI_CB_EngineStarted;
+		}
+
+		return
+		#if defined TDWVHE@OnGameModeInit
+			TDWVHE@OnGameModeInit();
+		#else
+			1;
+		#endif
+	}
+
+	#if defined _ALS_OnGameModeInit
+		#undef OnGameModeInit
+	#else
+		#define _ALS_OnGameModeInit
+	#endif
+
+	#define OnGameModeInit TDWVHE@OnGameModeInit
+
+	#if defined TDWVHE@OnGameModeInit
+		forward TDWVHE@OnGameModeInit();
+	#endif
+#endif
 
 
 
@@ -74,13 +188,19 @@ stock
 		return 0;
 	if (_:(0 < TDW_g_sFuel@Vehicle[vehicleid] < FLOAT_INFINITY) == 0)
 	{
-		#if defined OnVehicleEngineStateChange
-			OnVehicleEngineStateChange(vehicleid, ENGINE_STATE_FAILED);
-		#endif
+		if (TDW_g_sCallbacks & EI_CB_EngineStateChange)
+		{
+			CallLocalFunction(TDW_g_sOnVEngineStateChange, TDW_g_sSpecifier@ii,
+				vehicleid, _:ENGINE_STATE_FAILED
+			);
+		}
 
-		#if defined OnVehicleEngineStartFailed
-			OnVehicleEngineStartFailed(vehicleid);
-		#endif
+		if (TDW_g_sCallbacks & EI_CB_EngineStartFailed)
+		{
+			CallLocalFunction(TDW_g_sOnVEngineStartFailed, TDW_g_sSpecifier@i,
+				vehicleid
+			);
+		}
 
 		return 0;
 	}
@@ -89,7 +209,7 @@ stock
 		if (TDW_g_sTimerId@Vehicle[vehicleid] != -1)
 			return 0;
 		TDW_g_sTimerId@Vehicle[vehicleid] = SetTimerEx(!"@_TDW_VEHICLE_ENGINE",
-			TDW_ENGINE_TIMER_INTERVAL, false, !"i", vehicleid
+			TDW_ENGINE_TIMER_INTERVAL, false, TDW_g_sSpecifier@i, vehicleid
 		);
 	#else
 		@_TDW_VEHICLE_ENGINE(vehicleid);
@@ -128,13 +248,19 @@ stock
 
 	TDW_g_sIsEngineRunning@Vehicle{vehicleid} = false;
 
-	#if defined OnVehicleEngineStateChange
-		OnVehicleEngineStateChange(vehicleid, ENGINE_STATE_STOPPED);
-	#endif
+	if (TDW_g_sCallbacks & EI_CB_EngineStateChange)
+	{
+		CallLocalFunction(TDW_g_sOnVEngineStateChange, TDW_g_sSpecifier@ii,
+			vehicleid, _:ENGINE_STATE_STOPPED
+		);
+	}
 
-	#if defined OnVehicleEngineStopped
-		OnVehicleEngineStopped(vehicleid);
-	#endif
+	if (TDW_g_sCallbacks & EI_CB_EngineStopped)
+	{
+		CallLocalFunction(TDW_g_sOnVEngineStopped, TDW_g_sSpecifier@i,
+			vehicleid
+		);
+	}
 
 	return 1;
 }
@@ -216,7 +342,7 @@ stock
 	if ((TDW_g_sVehicleId = CreateVehicle(vehicletype, x, y, z, rotation,
 		color1, color2, respawn_delay, addsiren)) != INVALID_VEHICLE_ID)
 	{
-		if (GetModelStaticType(modelid) == BIKE)
+		if (GetModelStaticType(vehicletype) == BIKE)
 		{
 			TDW_g_sFuel@Vehicle[TDW_g_sVehicleId] = FLOAT_INFINITY;
 		}
@@ -247,9 +373,12 @@ public
 		if (fuel <= 0.0)
 		{
 			StopVehicleEngine(vehicleid);
-			#if defined OnVehicleEngineStopped
-				OnVehicleFuelChange(vehicleid, 0.0);
-			#endif
+			if (TDW_g_sCallbacks & EI_CB_FuelChange)
+			{
+				CallLocalFunction(TDW_g_sOnVFuelChange, TDW_g_sSpecifier@if,
+					vehicleid, 0.0
+				);
+			}
 			// If the fuel is null, sets a new value in order to skip that part
 			// of the code.
 			TDW_g_sFuel@Vehicle[vehicleid] = FLOAT_INFINITY;
@@ -261,17 +390,17 @@ public
 			if ((mile = GetVehicleMileage(vehicleid)) >
 				TDW_g_sLastMileage@Vehicle[vehicleid])
 			{
-				#if defined OnVehicleFuelChange
-					OnVehicleFuelChange(vehicleid, (
-						TDW_g_sFuel@Vehicle[vehicleid] -= (mile -
-						TDW_g_sLastMileage@Vehicle[vehicleid]) *
-						TDW_ENGINE_FLOAT_SUB)
+				TDW_g_sFuel@Vehicle[vehicleid] -= (mile -
+					TDW_g_sLastMileage@Vehicle[vehicleid]) *
+					TDW_ENGINE_FLOAT_SUB;
+
+				if (TDW_g_sCallbacks & EI_CB_FuelChange)
+				{
+					CallLocalFunction(TDW_g_sOnVFuelChange, TDW_g_sSpecifier@if,
+						vehicleid, TDW_g_sFuel@Vehicle[vehicleid]
 					);
-				#else
-					TDW_g_sFuel@Vehicle[vehicleid] -= (mile -
-						TDW_g_sLastMileage@Vehicle[vehicleid]) *
-						TDW_ENGINE_FLOAT_SUB;
-				#endif
+				}
+
 				TDW_g_sLastMileage@Vehicle[vehicleid] = mile;
 			}
 			else
@@ -342,31 +471,6 @@ public
 #endif
 
 
-public
-	OnGameModeInit()
-{
-	ManualVehicleEngineAndLights();
-	return
-	#if defined TDWVHE@OnGameModeInit
-		TDWVHE@OnGameModeInit();
-	#else
-		1;
-	#endif
-}
-
-#if defined _ALS_OnGameModeInit
-	#undef OnGameModeInit
-#else
-	#define _ALS_OnGameModeInit
-#endif
-
-#define OnGameModeInit TDWVHE@OnGameModeInit
-
-#if defined TDWVHE@OnGameModeInit
-	forward TDWVHE@OnGameModeInit();
-#endif
-
-
 // The timer to start the vehicle's engine
 @_TDW_VEHICLE_ENGINE(vehicleid);
 @_TDW_VEHICLE_ENGINE(vehicleid)
@@ -380,13 +484,19 @@ public
 
 	if (random(100 + 1) >= percent)
 	{
-		#if defined OnVehicleEngineStateChange
-			OnVehicleEngineStateChange(vehicleid, ENGINE_STATE_FAILED);
-		#endif
+		if (TDW_g_sCallbacks & EI_CB_EngineStateChange)
+		{
+			CallLocalFunction(TDW_g_sOnVEngineStateChange, TDW_g_sSpecifier@ii,
+				vehicleid, _:ENGINE_STATE_FAILED
+			);
+		}
 
-		#if defined OnVehicleEngineStartFailed
-			OnVehicleEngineStartFailed(vehicleid);
-		#endif
+		if (TDW_g_sCallbacks & EI_CB_EngineStartFailed)
+		{
+			CallLocalFunction(TDW_g_sOnVEngineStartFailed, TDW_g_sSpecifier@i,
+				vehicleid
+			);
+		}
 
 		TDW_g_sIsEngineRunning@Vehicle{vehicleid} = false;
 	}
@@ -401,13 +511,19 @@ public
 			bonnet, boot, objective
 		);
 
-		#if defined OnVehicleEngineStateChange
-			OnVehicleEngineStateChange(vehicleid, ENGINE_STATE_STARTED);
-		#endif
+		if (TDW_g_sCallbacks & EI_CB_EngineStateChange)
+		{
+			CallLocalFunction(TDW_g_sOnVEngineStateChange, TDW_g_sSpecifier@ii,
+				vehicleid, _:ENGINE_STATE_STARTED
+			);
+		}
 
-		#if defined OnVehicleEngineStarted
-			OnVehicleEngineStarted(vehicleid);
-		#endif
+		if (TDW_g_sCallbacks & EI_CB_EngineStarted)
+		{
+			CallLocalFunction(TDW_g_sOnVEngineStarted, TDW_g_sSpecifier@i,
+				vehicleid
+			);
+		}
 
 		TDW_g_sIsEngineRunning@Vehicle{vehicleid} = true;
 	}
@@ -446,22 +562,8 @@ stock
 
 
 // Declare callbacks
-#if defined OnVehicleEngineStateChange
-	forward OnVehicleEngineStateChange(vehicleid, E_TDW_ENGINE_STATE:engine);
-#endif
-
-#if defined OnVehicleEngineStartFailed
-	forward OnVehicleEngineStartFailed(vehicleid);
-#endif
-
-#if defined OnVehicleEngineStarted
-	forward OnVehicleEngineStarted(vehicleid);
-#endif
-
-#if defined OnVehicleEngineStopped
-	forward OnVehicleEngineStopped(vehicleid);
-#endif
-
-#if defined OnVehicleFuelChange
-	forward OnVehicleFuelChange(vehicleid, Float:amount);
-#endif
+forward OnVehicleEngineStateChange(vehicleid, E_TDW_ENGINE_STATE:engine);
+forward OnVehicleEngineStartFailed(vehicleid);
+forward OnVehicleEngineStarted(vehicleid);
+forward OnVehicleEngineStopped(vehicleid);
+forward OnVehicleFuelChange(vehicleid, Float:amount);

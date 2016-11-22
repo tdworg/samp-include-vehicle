@@ -39,14 +39,84 @@ freely, subject to the following restrictions:
 	#assert (0 < TDW_MILEAGE_UPDATE)
 #endif
 
+enum
+	E_MILEAGE_TDW_CALLBACKS
+{
+	EI_CB_OnVehicleMileageUpdate // OnVehicleMileageUpdate 1
+};
 
 static stock
 	Float:TDW_g_sVehicleMileage[MAX_VEHICLES],
 	TDW_g_sVehicleTimerName[] = !"@__TDW_TIMER_MILEAGE",
-	TDW_g_sVehicleTimerParams[] = !"d",
 	Float:TDW_g_sPosX@MileageVehicle[MAX_VEHICLES],
 	Float:TDW_g_sPosY@MileageVehicle[MAX_VEHICLES],
-	Float:TDW_g_sPosZ@MileageVehicle[MAX_VEHICLES];
+	Float:TDW_g_sPosZ@MileageVehicle[MAX_VEHICLES],
+	TDW_g_sOnVehicleMileageUpdate[] = !"OnVehicleMileageUpdate",
+	E_MILEAGE_TDW_CALLBACKS:TDW_g_sCallbacks,
+	TDW_g_sSpecifier@i[] = !"i";
+
+
+
+
+#if defined FILTERSCRIPT
+	public
+		OnFilterScriptInit()
+	{
+
+		if (funcidx(TDW_g_sOnVehicleMileageUpdate) != -1)
+		{
+			TDW_g_sCallbacks |= EI_CB_OnVehicleMileageUpdate;
+		}
+
+		return
+		#if defined TDWVHL@OnFilterScriptInit
+			TDWVHL@OnFilterScriptInit();
+		#else
+			1;
+		#endif
+	}
+
+	#if defined _ALS_OnFilterScriptInit
+		#undef OnFilterScriptInit
+	#else
+		#define _ALS_OnFilterScriptInit
+	#endif
+
+	#define OnFilterScriptInit TDWVHL@OnFilterScriptInit
+
+	#if defined TDWVHL@OnFilterScriptInit
+		forward TDWVHL@OnFilterScriptInit();
+	#endif
+#else
+	public
+		OnGameModeInit()
+	{
+
+		if (funcidx(TDW_g_sOnVehicleMileageUpdate) != -1)
+		{
+			TDW_g_sCallbacks |= EI_CB_OnVehicleMileageUpdate;
+		}
+
+		return
+		#if defined TDWVHL@OnGameModeInit
+			TDWVHL@OnGameModeInit();
+		#else
+			1;
+		#endif
+	}
+
+	#if defined _ALS_OnGameModeInit
+		#undef OnGameModeInit
+	#else
+		#define _ALS_OnGameModeInit
+	#endif
+
+	#define OnGameModeInit TDWVHL@OnGameModeInit
+
+	#if defined TDWVHL@OnGameModeInit
+		forward TDWVHL@OnGameModeInit();
+	#endif
+#endif
 
 
 @__TDW_TIMER_MILEAGE(vehicleid);
@@ -67,12 +137,15 @@ static stock
 	TDW_g_sPosY@MileageVehicle[vehicleid] = y;
 	TDW_g_sPosZ@MileageVehicle[vehicleid] = z;
 
-	#if defined OnVehicleMileageUpdate
-		OnVehicleMileageUpdate(vehicleid);
-	#endif
+	if (TDW_g_sCallbacks & EI_CB_OnVehicleMileageUpdate)
+	{
+		CallLocalFunction(TDW_g_sOnVehicleMileageUpdate, TDW_g_sSpecifier@i,
+			vehicleid
+		);
+	}
 
 	return SetTimerEx(TDW_g_sVehicleTimerName, TDW_MILEAGE_UPDATE, false,
-		TDW_g_sVehicleTimerParams, vehicleid
+		TDW_g_sSpecifier@i, vehicleid
 	);
 }
 
@@ -83,16 +156,18 @@ public
 	if (newstate == PLAYER_STATE_DRIVER)
 	{
 		new vehicleid = GetPlayerVehicleID(playerid);
+
 		if (vehicleid == 0)
 			return 0;
+
 		SetTimerEx(TDW_g_sVehicleTimerName, TDW_MILEAGE_UPDATE, false,
-			TDW_g_sVehicleTimerParams, vehicleid
+			TDW_g_sSpecifier@i, vehicleid
 		);
 	}
 	#if defined TDWVH_ML@OnPlayerStateChange
-	return TDWVH_ML@OnPlayerStateChange(playerid, newstate, oldstate);
+		return TDWVH_ML@OnPlayerStateChange(playerid, newstate, oldstate);
 	#else
-	return 1;
+		return 1;
 	#endif
 }
 
@@ -105,7 +180,7 @@ public
 #define OnPlayerStateChange TDWVH_ML@OnPlayerStateChange
 
 #if defined TDWVH_ML@OnPlayerStateChange
-forward TDWVH_ML@OnPlayerStateChange(playerid, newstate, oldstate);
+	forward TDWVH_ML@OnPlayerStateChange(playerid, newstate, oldstate);
 #endif
 
 
@@ -180,6 +255,4 @@ stock
 #define SetVehiclePos TDWVH_ML@SetVehiclePos
 
 
-#if defined OnVehicleMileageUpdate
-	forward OnVehicleMileageUpdate(vehicleid);
-#endif
+forward OnVehicleMileageUpdate(vehicleid);

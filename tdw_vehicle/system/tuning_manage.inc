@@ -62,13 +62,16 @@ stock
 	if (AddVehicleComponent(vehicleid, componentid) == 0)
 		return 0;
 	UpdateComponentInArray(vehicleid, componentid);
+
 	return 1;
 }
+
 #if defined _ALS_AddVehicleComponent
 	#undef AddVehicleComponent
 #else
 	#define _ALS_AddVehicleComponent
 #endif
+
 #define AddVehicleComponent TDWVH_TM0@AddVehicleComponent
 
 stock
@@ -77,11 +80,13 @@ stock
 	RemoveVehicleComponent(vehicleid, componentid);
 	RemoveComponentInArray(vehicleid, componentid);
 }
+
 #if defined _ALS_RemoveVehicleComponent
 	#undef RemoveVehicleComponent
 #else
 	#define _ALS_RemoveVehicleComponent
 #endif
+
 #define RemoveVehicleComponent TDWVH_TM0@RemoveVehicleComponent
 
 
@@ -89,10 +94,11 @@ public
 	OnVehicleMod(playerid, vehicleid, componentid)
 {
 	UpdateComponentInArray(vehicleid, componentid);
+
 	#if defined TDWVH_TM0@OnVehicleMod
-	return TDWVH_TM0@OnVehicleMod(playerid, vehicleid, componentid);
+		return TDWVH_TM0@OnVehicleMod(playerid, vehicleid, componentid);
 	#else
-	return 1;
+		return 1;
 	#endif
 }
 
@@ -105,7 +111,7 @@ public
 #define OnVehicleMod TDWVH_TM0@OnVehicleMod
 
 #if defined TDWVH_TM0@OnVehicleMod
-forward TDWVH_TM0@OnVehicleMod(playerid, vehicleid, componentid);
+	forward TDWVH_TM0@OnVehicleMod(playerid, vehicleid, componentid);
 #endif
 
 
@@ -168,10 +174,11 @@ public
 		AddVehicleComponent(vehicleid,
 			TDW_g_sVComponents[vehicleid][vent_left]
 		);
+
 	#if defined TDWVH_TM0@OnVehicleSpawn
-	return TDWVH_TM0@OnVehicleSpawn(vehicleid);
+		return TDWVH_TM0@OnVehicleSpawn(vehicleid);
 	#else
-	return 1;
+		return 1;
 	#endif
 }
 
@@ -184,7 +191,7 @@ public
 #define OnVehicleSpawn TDWVH_TM0@OnVehicleSpawn
 
 #if defined TDWVH_TM0@OnVehicleSpawn
-forward TDWVH_TM0@OnVehicleSpawn(vehicleid);
+	forward TDWVH_TM0@OnVehicleSpawn(vehicleid);
 #endif
 
 
@@ -192,7 +199,9 @@ stock
 	UpdateComponentInArray(vehicleid, componentid)
 {
 	static comp_type;
+
 	#pragma unused comp_type
+
 	switch ((comp_type = GetVehicleComponentType(componentid)))
 	{
 		case CARMODTYPE_SPOILER:
@@ -233,7 +242,9 @@ stock
 	RemoveComponentInArray(vehicleid, componentid)
 {
 	static comp_type;
+
 	#pragma unused comp_type
+
 	switch ((comp_type = GetVehicleComponentType(componentid)))
 	{
 		case CARMODTYPE_SPOILER:
@@ -269,7 +280,6 @@ stock
 	}
 	return 1;
 }
-
 
 
 stock

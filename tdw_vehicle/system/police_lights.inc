@@ -57,10 +57,18 @@ stock
 		return 0;
 	if (GetModelStaticType(modelid) != CAR)
 		return 0;
+
 	new siren_state;
 	if ((siren_state = GetVehicleParamsSirenState(vehicleid)) == -1)
 		return 0;
-	new objectid, Float:size_x, Float:size_y, Float:size_z, object_model;
+
+	new
+		objectid,
+		Float:size_x,
+		Float:size_y,
+		Float:size_z,
+		object_model;
+
 	if (type == SIREN_TYPE_POLICE)
 	{
 		// 19420 - police_lights02
@@ -73,11 +81,14 @@ stock
 		// 11701 - AmbulanceLights1
 		object_model = siren_state ? 11702 : 11701;
 	}
+
 	GetVehicleModelInfo(modelid, VEHICLE_MODEL_INFO_SIZE, size_x, size_y,
 		size_z
 	);
+
 	if ((objectid = TDW_g_sPLVehicle[vehicleid]))
 		DestroyObject(objectid);
+
 	objectid = TDW_g_sPLVehicle[vehicleid] = CreateObject(object_model,
 		0.0, 0.0, 0.0, // Positions
 		0.0, 0.0, 0.0, // Rotations
@@ -96,8 +107,10 @@ stock
 {
 	if (IsValidVehicle(vehicleid))
 		return 0;
+
 	new objectid;
 	if ((objectid = TDW_g_sPLVehicle[vehicleid]))
 		DestroyObject(objectid);
+
 	return 1;
 }

@@ -37,15 +37,84 @@ freely, subject to the following restrictions:
 	#define TDW_LIMITER_TIMER_INTERVAL (450)
 #endif
 
+enum
+	E_LIMITER_TDW_CALLBACKS (<<= 1)
+{
+	EI_CB_OnPlayerReachSpeedLimit
+};
 
 static stock
-	Float:TDW_g_sVehiclesWithLimit[MAX_VEHICLES] = {Float:-1, ...};
+	Float:TDW_g_sVehiclesWithLimit[MAX_VEHICLES] = {Float:-1, ...},
+	TDW_g_sTimerName[] = !"@_TDW_TIMER_@_LIMITER_",
+	TDW_g_sSpecifier@ii[] = !"ii",
+	E_LIMITER_TDW_CALLBACKS:TDW_g_sCallbacks,
+	TDW_g_sOnPlayerReachSpeedLimit[] = !"OnPlayerReachSpeedLimit";
+
+
+#if defined FILTERSCRIPT
+	public
+		OnFilterScriptInit()
+	{
+		if (funcidx(TDW_g_sOnPlayerReachSpeedLimit) != -1)
+		{
+			TDW_g_sCallbacks |= EI_CB_OnPlayerReachSpeedLimit;
+		}
+
+		return
+		#if defined TDWVH_L@OnFilterScriptInit
+			TDWVH_L@OnFilterScriptInit();
+		#else
+			1;
+		#endif
+	}
+
+	#if defined _ALS_OnFilterScriptInit
+		#undef OnFilterScriptInit
+	#else
+		#define _ALS_OnFilterScriptInit
+	#endif
+
+	#define OnFilterScriptInit TDWVH_L@OnFilterScriptInit
+
+	#if defined TDWVH_L@OnFilterScriptInit
+		forward TDWVH_L@OnFilterScriptInit();
+	#endif
+#else
+	public
+		OnGameModeInit()
+	{
+		if (funcidx(TDW_g_sOnPlayerReachSpeedLimit) != -1)
+		{
+			TDW_g_sCallbacks |= EI_CB_OnPlayerReachSpeedLimit;
+		}
+
+		return
+		#if defined TDWVH_L@OnGameModeInit
+			TDWVH_L@OnGameModeInit();
+		#else
+			1;
+		#endif
+	}
+
+	#if defined _ALS_OnGameModeInit
+		#undef OnGameModeInit
+	#else
+		#define _ALS_OnGameModeInit
+	#endif
+
+	#define OnGameModeInit TDWVH_L@OnGameModeInit
+
+	#if defined TDWVH_L@OnGameModeInit
+		forward TDWVH_L@OnGameModeInit();
+	#endif
+#endif
+
 
 stock
 	Float:GetVehicleLimit(vehicleid)
 {
 	if (IsValidVehicle(vehicleid) == 0)
-		return 0;
+		return 0.0;
 	return TDW_g_sVehiclesWithLimit[vehicleid];
 }
 
@@ -66,14 +135,15 @@ public
 {
 	if (newstate == PLAYER_STATE_DRIVER)
 	{
-		SetTimerEx(!"@_TDW_TIMER_@_LIMITER_", TDW_LIMITER_TIMER_INTERVAL,
-			false, !"ii", GetPlayerVehicleID(playerid), playerid
+		SetTimerEx(TDW_g_sTimerName, TDW_LIMITER_TIMER_INTERVAL, false,
+			TDW_g_sSpecifier@ii, GetPlayerVehicleID(playerid), playerid
 		);
 	}
+
 	#if defined TDWVH_L@OnPlayerStateChange
-	return TDWVH_L@OnPlayerStateChange(playerid, newstate, oldstate);
+		return TDWVH_L@OnPlayerStateChange(playerid, newstate, oldstate);
 	#else
-	return 1;
+		return 1;
 	#endif
 }
 
@@ -86,7 +156,7 @@ public
 #define OnPlayerStateChange TDWVH_L@OnPlayerStateChange
 
 #if defined TDWVH_L@OnPlayerStateChange
-forward TDWVH_L@OnPlayerStateChange(playerid, newstate, oldstate);
+	forward TDWVH_L@OnPlayerStateChange(playerid, newstate, oldstate);
 #endif
 
 
@@ -94,24 +164,28 @@ forward TDWVH_L@OnPlayerStateChange(playerid, newstate, oldstate);
 @_TDW_TIMER_@_LIMITER_(vehicleid, playerid)
 {
 	static Float:speed;
+
 	if ((speed = GetVehicleSpeed(vehicleid)) >
 		TDW_g_sVehiclesWithLimit[vehicleid])
 	{
 		SetVehicleSpeed(vehicleid, TDW_g_sVehiclesWithLimit[vehicleid]);
-		#if defined OnPlayerReachSpeedLimit
-			OnPlayerReachSpeedLimit(vehicleid, playerid, speed);
-		#else
-			#pragma unused speed
-		#endif
+
+		if (TDW_g_sCallbacks & EI_CB_OnPlayerReachSpeedLimit)
+		{
+			CallLocalFunction(TDW_g_sOnPlayerReachSpeedLimit, !"iif",
+				vehicleid, playerid, speed
+			);
+		}
 	}
+
 	if (GetPlayerState(playerid) != PLAYER_STATE_DRIVER)
 		return 0;
-	return SetTimerEx(!"@_TDW_TIMER_@_LIMITER_", TDW_LIMITER_TIMER_INTERVAL,
-		false, !"ii", vehicleid, playerid
-	);
+
+	return
+		SetTimerEx(TDW_g_sTimerName, TDW_LIMITER_TIMER_INTERVAL, false,
+			TDW_g_sSpecifier@ii, vehicleid, playerid
+		);
 }
 
 
-#if defined OnPlayerReachSpeedLimit
-forward OnPlayerReachSpeedLimit(vehicleid, playerid, speed);
-#endif
+forward OnPlayerReachSpeedLimit(vehicleid, playerid, Float:speed);

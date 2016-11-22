@@ -64,12 +64,19 @@ stock
 		return 0;
 	if (GetModelStaticType(vehicle_model) != CAR)
 		return 0;
-	new Float:size_x, Float:size_y, Float:size_z;
+
+	new
+		Float:size_x,
+		Float:size_y,
+		Float:size_z;
+
 	GetVehicleModelInfo(vehicle_model, VEHICLE_MODEL_INFO_SIZE, size_x, size_y,
 		size_z
 	);
+
 	new objectid;
 	const Float:OFFSET_Z = -0.6;
+
 	objectid = TDW_g_sNeon[vehicleid][EI_NEON_LEFT_ID] = CreateObject(_:color,
 		0.0, 0.0, 0.0, // Positions
 		0.0, 0.0, 0.0, // Rotations
@@ -88,7 +95,9 @@ stock
 		size_x / 2.8, 0.0, OFFSET_Z, // Positions
 		0.0, 0.0, 0.0 // Rotations
 	);
+
 	TDW_g_sIsNeonAttached{vehicleid} = true;
+
 	return 1;
 }
 
@@ -112,10 +121,11 @@ public
 	OnVehicleDeath(vehicleid, killerid)
 {
 	RemoveNeonFromVehicle(vehicleid);
+
 	#if defined TDWHNE@OnVehicleDeath
-	return TDWHNE@OnVehicleDeath(vehicleid, killerid);
+		return TDWHNE@OnVehicleDeath(vehicleid, killerid);
 	#else
-	return 1;
+		return 1;
 	#endif
 }
 #if defined _ALS_OnVehicleDeath
@@ -127,5 +137,5 @@ public
 #define OnVehicleDeath TDWHNE@OnVehicleDeath
 
 #if defined TDWHNE@OnVehicleDeath
-forward OnVehicleDeath(vehicleid, killerid);
+	forward OnVehicleDeath(vehicleid, killerid);
 #endif

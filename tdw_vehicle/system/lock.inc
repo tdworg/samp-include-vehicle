@@ -31,20 +31,97 @@ freely, subject to the following restrictions:
 #define _TDW_VHSYS__LOCK
 
 
+enum
+	E_LOCK_TDW_CALLBACKS
+{
+	EI_CB_PlayerTryingEnterVehicle
+};
+
+
+static stock
+	TDW_g_sOnPlTryingEnterVehicle[] = !"OnPlayerTryingEnterVehicle",
+	E_LOCK_TDW_CALLBACKS:TDW_g_sCallbacks,
+	TDW_g_sSpecifier@ii[] = !"ii";
+
+
+
+#if defined FILTERSCRIPT
+	public
+		OnFilterScriptInit()
+	{
+
+		if (funcidx(TDW_g_sOnPlTryingEnterVehicle) != -1)
+		{
+			TDW_g_sCallbacks |= EI_CB_PlayerTryingEnterVehicle;
+		}
+
+		return
+		#if defined TDWVHL@OnFilterScriptInit
+			TDWVHL@OnFilterScriptInit();
+		#else
+			1;
+		#endif
+	}
+
+	#if defined _ALS_OnFilterScriptInit
+		#undef OnFilterScriptInit
+	#else
+		#define _ALS_OnFilterScriptInit
+	#endif
+
+	#define OnFilterScriptInit TDWVHL@OnFilterScriptInit
+
+	#if defined TDWVHL@OnFilterScriptInit
+		forward TDWVHL@OnFilterScriptInit();
+	#endif
+#else
+	public
+		OnGameModeInit()
+	{
+
+		if (funcidx(TDW_g_sOnPlTryingEnterVehicle) != -1)
+		{
+			TDW_g_sCallbacks |= EI_CB_PlayerTryingEnterVehicle;
+		}
+
+		return
+		#if defined TDWVHL@OnGameModeInit
+			TDWVHL@OnGameModeInit();
+		#else
+			1;
+		#endif
+	}
+
+	#if defined _ALS_OnGameModeInit
+		#undef OnGameModeInit
+	#else
+		#define _ALS_OnGameModeInit
+	#endif
+
+	#define OnGameModeInit TDWVHL@OnGameModeInit
+
+	#if defined TDWVHL@OnGameModeInit
+		forward TDWVHL@OnGameModeInit();
+	#endif
+#endif
+
+
 public
 	OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 {
 	if (IsVehicleLocked(vehicleid))
 	{
-		#if defined OnPlayerTryingEnterVehicle
-			if (OnPlayerTryingEnterVehicle(playerid, vehicleid) == 0)
+		if (TDW_g_sCallbacks & EI_CB_PlayerTryingEnterVehicle)
+		{
+			if (CallLocalFunction(TDW_g_sOnPlTryingEnterVehicle,
+				TDW_g_sSpecifier@ii, playerid, vehicleid) == 0)
 			{
 				ClearAnimations(playerid, 1);
 			}
-		#endif
+		}
 	}
 	return
-	#if defined TDWVHE@OnPlayerEnterVehicle
+	#if defined TDWVHL@OnPlayerEnterVehicle
 		TDWVHL@OnPlayerEnterVehicle(playerid, vehicleid, ispassenger);
 	#else
 		1;
@@ -79,7 +156,7 @@ public
 		}
 	}
 	return
-	#if defined TDWVHE@OnPlayerStateChange
+	#if defined TDWVHL@OnPlayerStateChange
 		TDWVHL@OnPlayerStateChange(playerid, newstate, oldstate);
 	#else
 		1;
@@ -99,6 +176,4 @@ public
 #endif
 
 
-#if defined OnPlayerTryingEnterVehicle
-	forward OnPlayerTryingEnterVehicle(playerid, vehicleid);
-#endif
+forward OnPlayerTryingEnterVehicle(playerid, vehicleid);

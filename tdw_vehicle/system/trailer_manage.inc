@@ -102,15 +102,20 @@ stock
 {
 	if (IsValidVehicle(vehicleid) == 0)
 		return 0;
+
 	new trailerid = TDW_g_sVDynamic@LastTrailerIds[vehicleid];
+
 	if (IsValidVehicle(trailerid) == 0)
 		return 0;
 	if (IsTrailerAttachedToVehicle(vehicleid) == 0)
 		return 0;
+
 	DetachTrailerFromVehicle(vehicleid);
+
 	TDW_g_sVDynamic@TrailerAttached{trailerid} = false;
+
 	#if defined OnTrailerDetached
-	OnTrailerDetached(trailerid, vehicleid);
+		OnTrailerDetached(trailerid, vehicleid);
 	#endif
 	return 1;
 }
@@ -139,9 +144,9 @@ public
 		);
 	}
 	#if defined TDWVH_TM@OnTrailerUpdate
-	return TDWVH_TM@OnTrailerUpdate(vehicleid);
+		return TDWVH_TM@OnTrailerUpdate(vehicleid);
 	#else
-	return 1;
+		return 1;
 	#endif
 }
 
