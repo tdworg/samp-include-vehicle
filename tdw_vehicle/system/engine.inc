@@ -108,7 +108,7 @@ stock
 		return 0;
 	if (_:TDW_g_sIsEngineRunning@Vehicle{vehicleid} == 0)
 		return 0;
-	if (GetModelStaticType(modelid) == BIKE)
+	if (GetModelStaticType(modelid) == BIKE) // Bike is not a MOTORBIKE
 		return 0;
 
 	new timerid = TDW_g_sTimerId@Vehicle[vehicleid];
@@ -245,7 +245,15 @@ public
 			return 0;
 
 		if (fuel <= 0.0)
+		{
 			StopVehicleEngine(vehicleid);
+			#if defined OnVehicleEngineStopped
+				OnVehicleFuelChange(vehicleid, 0.0);
+			#endif
+			// If the fuel is null, sets a new value in order to skip that part
+			// of the code.
+			TDW_g_sFuel@Vehicle[vehicleid] = FLOAT_INFINITY;
+		}
 		else
 		{
 			static mile;
@@ -268,6 +276,7 @@ public
 			}
 			else
 			{
+				// If the vehicle is standing stil.
 				TDW_g_sFuel@Vehicle[vehicleid] -= TDW_ENGINE_FLOAT_SUB;
 			}
 		}
