@@ -45,13 +45,90 @@ freely, subject to the following restrictions:
 #endif
 
 
-static stock
-	TDW_g_sVDynamic@LastTrailerIds[MAX_VEHICLES] = {INVALID_VEHICLE_ID, ...},
-	bool:TDW_g_sVDynamic@TrailerAttached[MAX_VEHICLES char];
+enum
+	E_TM_TDW_CALLBACKS
+{
+	EI_CB_OnTrailerAttached,
+	EI_CB_OnTrailerDetached
+};
+
 
 static stock
+	TDW_g_sVDynamic@LastTrailerIds[MAX_VEHICLES] = {INVALID_VEHICLE_ID, ...},
+	bool:TDW_g_sVDynamic@TrailerAttached[MAX_VEHICLES char],
 	TDW_g_sTimerName[] = !"@_TDW_TIMER_OnTrailerUpdate",
-	TDW_g_sTimerArgs[] = !"dd";
+	TDW_g_sSpecifier@ii[] = !"ii",
+	E_TM_TDW_CALLBACKS:TDW_g_sCallbacks,
+	TDW_g_sOnTrailerAttached[] = !"OnTrailerAttached",
+	TDW_g_sOnTrailerDetached[] = !"OnTrailerDetached";
+
+
+
+#if defined FILTERSCRIPT
+	public
+		OnFilterScriptInit()
+	{
+		if (funcidx(TDW_g_sOnTrailerAttached) != -1)
+		{
+			TDW_g_sCallbacks |= EI_CB_OnTrailerAttached;
+		}
+		if (funcidx(TDW_g_sOnTrailerDetached) != -1)
+		{
+			TDW_g_sCallbacks |= EI_CB_OnTrailerDetached;
+		}
+
+		return
+		#if defined TDWVH_TM@OnFilterScriptInit
+			TDWVH_TM@OnFilterScriptInit();
+		#else
+			1;
+		#endif
+	}
+
+	#if defined _ALS_OnFilterScriptInit
+		#undef OnFilterScriptInit
+	#else
+		#define _ALS_OnFilterScriptInit
+	#endif
+
+	#define OnFilterScriptInit TDWVH_TM@OnFilterScriptInit
+
+	#if defined TDWVH_TM@OnFilterScriptInit
+		forward TDWVH_TM@OnFilterScriptInit();
+	#endif
+#else
+	public
+		OnGameModeInit()
+	{
+		if (funcidx(TDW_g_sOnTrailerAttached) != -1)
+		{
+			TDW_g_sCallbacks |= EI_CB_OnTrailerAttached;
+		}
+		if (funcidx(TDW_g_sOnTrailerDetached) != -1)
+		{
+			TDW_g_sCallbacks |= EI_CB_OnTrailerDetached;
+		}
+
+		return
+		#if defined TDWVH_TM@OnGameModeInit
+			TDWVH_TM@OnGameModeInit();
+		#else
+			1;
+		#endif
+	}
+
+	#if defined _ALS_OnGameModeInit
+		#undef OnGameModeInit
+	#else
+		#define _ALS_OnGameModeInit
+	#endif
+
+	#define OnGameModeInit TDWVH_TM@OnGameModeInit
+
+	#if defined TDWVH_TM@OnGameModeInit
+		forward TDWVH_TM@OnGameModeInit();
+	#endif
+#endif
 
 
 stock
@@ -75,12 +152,19 @@ stock
 		return 0;
 	if (IsValidVehicle(vehicleid) == 0)
 		return 0;
+
 	AttachTrailerToVehicle(trailerid, vehicleid);
+
 	TDW_g_sVDynamic@LastTrailerIds[vehicleid] = trailerid;
 	TDW_g_sVDynamic@TrailerAttached{trailerid} = true;
-	#if defined OnTrailerAttached
-	OnTrailerAttached(trailerid, vehicleid);
-	#endif
+
+	if (TDW_g_sCallbacks & EI_CB_OnTrailerAttached)
+	{
+		CallLocalFunction(TDW_g_sOnTrailerAttached, TDW_g_sSpecifier@ii,
+			trailerid, vehicleid
+		);
+	}
+
 	return 1;
 }
 
@@ -114,9 +198,13 @@ stock
 
 	TDW_g_sVDynamic@TrailerAttached{trailerid} = false;
 
-	#if defined OnTrailerDetached
-		OnTrailerDetached(trailerid, vehicleid);
-	#endif
+	if (TDW_g_sCallbacks & EI_CB_OnTrailerDetached)
+	{
+		CallLocalFunction(TDW_g_sOnTrailerDetached, TDW_g_sSpecifier@ii,
+			trailerid, vehicleid
+		);
+	}
+
 	return 1;
 }
 
@@ -135,12 +223,18 @@ public
 	if (_:TDW_g_sVDynamic@TrailerAttached{vehicleid} == 0)
 	{
 		new player_vehicleid = GetPlayerVehicleID(playerid);
+
 		TDW_g_sVDynamic@TrailerAttached{vehicleid} = true;
-		#if defined OnTrailerAttached
-		OnTrailerAttached(vehicleid, player_vehicleid);
-		#endif
+
+		if (TDW_g_sCallbacks & EI_CB_OnTrailerAttached)
+		{
+			CallLocalFunction(TDW_g_sOnTrailerAttached, TDW_g_sSpecifier@ii,
+				vehicleid, player_vehicleid
+			);
+		}
+
 		SetTimerEx(TDW_g_sTimerName, MAX_TRAILER_UPDATE, false,
-			TDW_g_sTimerArgs, vehicleid, player_vehicleid
+			TDW_g_sSpecifier@ii, vehicleid, player_vehicleid
 		);
 	}
 	#if defined TDWVH_TM@OnTrailerUpdate
@@ -168,14 +262,19 @@ forward TDWVH_TM@OnTrailerUpdate(vehicleid);
 {
 	if (IsTrailerAttachedToVehicle(vehicleid) == 0)
 	{
-	#if defined OnTrailerDetached
-		OnTrailerDetached(trailerid, vehicleid);
-	#endif
+		if (TDW_g_sCallbacks & EI_CB_OnTrailerDetached)
+		{
+			CallLocalFunction(TDW_g_sOnTrailerDetached, TDW_g_sSpecifier@ii,
+				trailerid, vehicleid
+			);
+		}
+
 		TDW_g_sVDynamic@TrailerAttached{vehicleid} = true;
 		TDW_g_sVDynamic@LastTrailerIds[vehicleid] = trailerid;
+
 		return 0;
 	}
 	return SetTimerEx(TDW_g_sTimerName, MAX_TRAILER_UPDATE, false,
-		TDW_g_sTimerArgs, vehicleid, trailerid
+		TDW_g_sSpecifier@ii, vehicleid, trailerid
 	);
 }
