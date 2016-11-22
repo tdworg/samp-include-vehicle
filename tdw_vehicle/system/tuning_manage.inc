@@ -75,7 +75,7 @@ stock
 #define AddVehicleComponent TDWVH_TM0@AddVehicleComponent
 
 stock
-	TDWVH_TMO@RemoveVehicleComponent(vehicleid, componentid)
+	TDWVH_TM0@RemoveVehicleComp(vehicleid, componentid)
 {
 	RemoveVehicleComponent(vehicleid, componentid);
 	RemoveComponentInArray(vehicleid, componentid);
@@ -87,7 +87,7 @@ stock
 	#define _ALS_RemoveVehicleComponent
 #endif
 
-#define RemoveVehicleComponent TDWVH_TM0@RemoveVehicleComponent
+#define RemoveVehicleComponent TDWVH_TM0@RemoveVehicleComp
 
 
 public
