@@ -47,7 +47,6 @@ freely, subject to the following restrictions:
 	#define TDW_ENGINE_FLOAT_SUB (0.125)
 #endif
 
-
 enum
 	E_TDW_ENGINE_STATE
 {
@@ -89,6 +88,8 @@ static stock
 	public
 		OnFilterScriptInit()
 	{
+		// Toogle a mode to tell all clients that the script will controll
+		// vehicle engines and lights.
 		ManualVehicleEngineAndLights();
 
 		if (funcidx(TDW_g_sOnVEngineStateChange) != -1)
@@ -373,6 +374,7 @@ public
 		if (fuel <= 0.0)
 		{
 			StopVehicleEngine(vehicleid);
+
 			if (TDW_g_sCallbacks & EI_CB_FuelChange)
 			{
 				CallLocalFunction(TDW_g_sOnVFuelChange, TDW_g_sSpecifier@if,

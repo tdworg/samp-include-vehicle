@@ -33,12 +33,9 @@ freely, subject to the following restrictions:
 #define _TDW_VHSYS__TRAILER_MANAGE
 
 
-#if defined OnTrailerAttached
-	forward OnTrailerAttached(trailerid, vehicleid);
-#endif
-#if defined OnTrailerDetached
-	forward OnTrailerDetached(trailerid, vehicleid);
-#endif
+forward OnTrailerAttached(trailerid, vehicleid);
+forward OnTrailerDetached(trailerid, vehicleid);
+
 
 #if !defined MAX_TRAILER_UPDATE
 	#define MAX_TRAILER_UPDATE (1000)
