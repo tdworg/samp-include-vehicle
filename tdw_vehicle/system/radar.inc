@@ -204,7 +204,7 @@ stock
 		Float:y,
 		Float:z,
 		objectid,
-		Float:__,
+		Float:__, // It contains a useless value.
 		Float:z_rot,
 		Float:speed,
 		Float:distance,
