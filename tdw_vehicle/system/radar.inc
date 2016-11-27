@@ -165,6 +165,25 @@ stock
 	return 1;
 }
 
+
+stock
+	SetRadarMaxSpeed(radarid, Float:speed)
+{
+	if (IsValidRadar(radarid) == 0)
+		return 0;
+	TDW_g_sRadar@Data[radarid][EI_RADAR_MAX_SPEED] = speed;
+	return 1;
+}
+
+
+stock
+	Float:GetRadarMaxSpeed(radarid)
+{
+	if (IsValidRadar(radarid) == 0)
+		return 0;
+	return TDW_g_sRadar@Data[radarid][EI_RADAR_MAX_SPEED];
+}
+
 // -----------------------------------------------------------------------------
 // Internal
 // -----------------------------------------------------------------------------
