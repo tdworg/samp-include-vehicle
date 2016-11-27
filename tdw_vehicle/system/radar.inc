@@ -89,7 +89,8 @@ static stock
 	TDW_g_sSpecifier@i[] = !"i",
 	TDW_g_sRadar@TimerName[] = !"@_TDW_RADAR_TIMER",
 	E_TDW_RADAR_CALLBACKS:TDW_g_sCallbacks = E_TDW_RADAR_CALLBACKS:0,
-	TDW_g_sOnVehicleRadarDetect[] = !"OnVehicleRadarDetect";
+	TDW_g_sOnVehicleRadarDetect[] = !"OnVehicleRadarDetect",
+	TDW_g_sRadar@PlayerInStream[MAX_PLAYERS char];
 
 
 // -----------------------------------------------------------------------------
@@ -184,6 +185,13 @@ stock
 	return TDW_g_sRadar@Data[radarid][EI_RADAR_MAX_SPEED];
 }
 
+
+stock
+	IsPlayerInAnyVehicleInRadarArea(playerid)
+{
+	return TDW_g_sRadar@PlayerInStream{playerid};
+}
+
 // -----------------------------------------------------------------------------
 // Internal
 // -----------------------------------------------------------------------------
@@ -218,10 +226,17 @@ stock
 			continue;
 
 		if (IsPlayerInRangeOfPoint(i, distance, x, y, z) == 0)
+		{
+			if (_:TDW_g_sRadar@PlayerInStream{i} != 0)
+				TDW_g_sRadar@PlayerInStream{i} = false;
 			continue;
+		}
 
 		vehicleid  = GetPlayerVehicleID(i);
 		speed = GetVehicleSpeed(vehicleid);
+
+		if (_:TDW_g_sRadar@PlayerInStream{i} == 0)
+			TDW_g_sRadar@PlayerInStream{i} = true;
 
 		if (speed >= TDW_g_sRadar@Data[radarid][EI_RADAR_MAX_SPEED])
 		{
