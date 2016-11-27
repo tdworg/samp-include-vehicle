@@ -32,7 +32,7 @@ freely, subject to the following restrictions:
 
 
 enum
-	E_TDW_DOOR_STATE
+	E_TDW_LOCK_DOOR_STATE
 {
 	EI_TDW_DOOR_STATE_LOCKED,
 	EI_TDW_DOOR_STATE_UNLOCKED
@@ -40,7 +40,7 @@ enum
 
 
 static stock
-	E_TDW_DOOR_STATE:TDW_g_sVehicleDoorState[MAX_VEHICLES char] = {
+	E_TDW_LOCK_DOOR_STATE:TDW_g_sVehicleDoorState[MAX_VEHICLES char] = {
 		EI_TDW_DOOR_STATE_UNLOCKED, ...
 	};
 
