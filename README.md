@@ -42,3 +42,4 @@ Collection of missing libraries for vehicles in SA:MP.
 | [vhs_signals](https://github.com/TDW-org/samp-include-vehicle/blob/master/tdw_vehicle/system/turn_signals.inc) | Adds turn signals |
 | [vhs_engine](https://github.com/TDW-org/samp-include-vehicle/blob/master/tdw_vehicle/system/engine.inc) | Helps you to manage with the engine and fuel systems |
 | [vhs_lock](https://github.com/TDW-org/samp-include-vehicle/blob/master/tdw_vehicle/system/lock.inc)    | Wrapper of vh_lock library that adds all the functionality in the game. |
+| [vhs_radar](https://github.com/TDW-org/samp-include-vehicle/blob/master/tdw_vehicle/system/radar.inc)    | Adds the radars |
