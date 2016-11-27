@@ -208,8 +208,8 @@ static stock
 		}
 
 		return
-		#if defined TDWVHE@OnFilterScriptInit
-			TDWVHE@OnFilterScriptInit();
+		#if defined TDWVHR@OnFilterScriptInit
+			TDWVHR@OnFilterScriptInit();
 		#else
 			1;
 		#endif
@@ -221,10 +221,10 @@ static stock
 		#define _ALS_OnFilterScriptInit
 	#endif
 
-	#define OnFilterScriptInit TDWVHE@OnFilterScriptInit
+	#define OnFilterScriptInit TDWVHR@OnFilterScriptInit
 
-	#if defined TDWVHE@OnFilterScriptInit
-		forward TDWVHE@OnFilterScriptInit();
+	#if defined TDWVHR@OnFilterScriptInit
+		forward TDWVHR@OnFilterScriptInit();
 	#endif
 #else
 	public
@@ -236,8 +236,8 @@ static stock
 		}
 
 		return
-		#if defined TDWVHE@OnGameModeInit
-			TDWVHE@OnGameModeInit();
+		#if defined TDWVHR@OnGameModeInit
+			TDWVHR@OnGameModeInit();
 		#else
 			1;
 		#endif
@@ -249,10 +249,10 @@ static stock
 		#define _ALS_OnGameModeInit
 	#endif
 
-	#define OnGameModeInit TDWVHE@OnGameModeInit
+	#define OnGameModeInit TDWVHR@OnGameModeInit
 
-	#if defined TDWVHE@OnGameModeInit
-		forward TDWVHE@OnGameModeInit();
+	#if defined TDWVHR@OnGameModeInit
+		forward TDWVHR@OnGameModeInit();
 	#endif
 #endif
 
