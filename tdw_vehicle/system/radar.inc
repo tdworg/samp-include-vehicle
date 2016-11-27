@@ -43,6 +43,14 @@ freely, subject to the following restrictions:
 	#define TDW_RADAR_TIMER_COUNT (350)
 #endif
 
+#if !defined TDW_RADAR_MAX_DISTANCE
+	#define TDW_RADAR_MAX_DISTANCE (10.0)
+#endif
+
+#if !defined TDW_RADAR_MIN_DISTANCE
+	#define TDW_RADAR_MIN_DISTANCE (0.0)
+#endif
+
 #if _TDW_VEHICLE_STREAMER_DEFINED
 	#define RRCreateObject CreateDynamicObject
 	#define RRGetObjectPos GetDynamicObjectPos
@@ -115,10 +123,7 @@ stock
 stock
 	DestroyRadar(radarid)
 {
-	if (_:(0 <= radarid <= TDW_RADAR_MAX_RADARS) == 0)
-		return 0;
-	static objectid;
-	if ((objectid = TDW_g_sRadar@Data[radarid][EI_RADAR_OBJECT_ID]) == 0)
+	if (IsValidRadar(radarid) == 0)
 		return 0;
 	DestroyObject(objectid);
 	TDW_g_sRadar@Data[radarid][EI_RADAR_OBJECT_ID] = 0;
@@ -126,6 +131,39 @@ stock
 	return 1;
 }
 
+
+stock
+	SetRadarMaxDistance(radarid, Float:distance)
+{
+	if (IsValidRadar(radarid) == 0)
+		return 0;
+	TDW_g_sRadar@Data[radarid][EI_RADAR_DISTANCE] = clamp(distance,
+		TDW_RADAR_MIN_DISTANCE,
+		TDW_RADAR_MAX_DISTANCE
+	);
+	return 1;
+}
+
+
+stock
+	Float:GetRadarMaxDistance(radarid)
+{
+	if (IsValidRadar(radarid) == 0)
+		return 0;
+	return TDW_g_sRadar@Data[radarid][EI_RADAR_DISTANCE];
+}
+
+
+stock
+	IsValidRadar(radarid)
+{
+	if (_:(0 <= radarid <= TDW_RADAR_MAX_RADARS) == 0)
+		return 0;
+	static objectid;
+	if ((objectid = TDW_g_sRadar@Data[radarid][EI_RADAR_OBJECT_ID]) == 0)
+		return 0;
+	return 1;
+}
 
 // -----------------------------------------------------------------------------
 // Internal
