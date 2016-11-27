@@ -40,7 +40,7 @@ freely, subject to the following restrictions:
 enum
 	E_LIMITER_TDW_CALLBACKS (<<= 1)
 {
-	EI_CB_OnPlayerReachSpeedLimit
+	EI_CB_OnPlayerReachSpeedLimit = 1
 };
 
 static stock

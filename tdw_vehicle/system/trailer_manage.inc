@@ -43,9 +43,9 @@ forward OnTrailerDetached(trailerid, vehicleid);
 
 
 enum
-	E_TM_TDW_CALLBACKS
+	E_TM_TDW_CALLBACKS (<<= 1)
 {
-	EI_CB_OnTrailerAttached,
+	EI_CB_OnTrailerAttached = 1,
 	EI_CB_OnTrailerDetached
 };
 

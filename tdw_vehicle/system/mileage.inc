@@ -40,9 +40,9 @@ freely, subject to the following restrictions:
 #endif
 
 enum
-	E_MILEAGE_TDW_CALLBACKS
+	E_MILEAGE_TDW_CALLBACKS (<<= 1)
 {
-	EI_CB_OnVehicleMileageUpdate // OnVehicleMileageUpdate 1
+	EI_CB_OnVehicleMileageUpdate = 1 // OnVehicleMileageUpdate 1
 };
 
 static stock

@@ -32,9 +32,9 @@ freely, subject to the following restrictions:
 
 
 enum
-	E_LOCK_TDW_CALLBACKS
+	E_LOCK_TDW_CALLBACKS (<<= 1)
 {
-	EI_CB_PlayerTryingEnterVehicle
+	EI_CB_PlayerTryingEnterVehicle = 1
 };
 
 
