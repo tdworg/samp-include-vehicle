@@ -44,7 +44,8 @@ enum
 };
 
 static stock
-	Float:TDW_g_sVehiclesWithLimit[MAX_VEHICLES] = {Float:-1, ...},
+	Float:TDW_g_sVehiclesWithLimit@Max[MAX_VEHICLES] = {Float:-1, ...},
+	Float:TDW_g_sVehiclesWithLimit@Min[MAX_VEHICLES] = {Float:-1, ...},
 	TDW_g_sTimerName[] = !"@_TDW_TIMER_@_LIMITER_",
 	TDW_g_sSpecifier@ii[] = !"ii",
 	E_LIMITER_TDW_CALLBACKS:TDW_g_sCallbacks,
@@ -111,23 +112,41 @@ static stock
 
 
 stock
-	Float:GetVehicleLimit(vehicleid)
+	Float:GetVehicleMaxLimit(vehicleid)
 {
 	if (IsValidVehicle(vehicleid) == 0)
 		return 0.0;
-	return TDW_g_sVehiclesWithLimit[vehicleid];
+	return TDW_g_sVehiclesWithLimit@Max[vehicleid];
 }
 
 
 stock
-	SetVehicleLimit(vehicleid, Float:limit_value)
+	SetVehicleMaxLimit(vehicleid, Float:max_limit)
 {
 	if (IsValidVehicle(vehicleid) == 0)
 		return 0;
-	TDW_g_sVehiclesWithLimit[vehicleid] = limit_value;
+	TDW_g_sVehiclesWithLimit@Max[vehicleid] = max_limit;
 	return 1;
 }
 
+
+stock
+	Float:GetVehicleMinLimit(vehicleid)
+{
+	if (IsValidVehicle(vehicleid) == 0)
+		return 0.0;
+	return TDW_g_sVehiclesWithLimit@Min[vehicleid];
+}
+
+
+stock
+	SetVehicleMinLimit(vehicleid, Float:min_limit)
+{
+	if (IsValidVehicle(vehicleid) == 0)
+		return 0;
+	TDW_g_sVehiclesWithLimit@Min[vehicleid] = min_limit;
+	return 1;
+}
 
 
 public
@@ -166,9 +185,9 @@ public
 	static Float:speed;
 
 	if ((speed = GetVehicleSpeed(vehicleid)) >
-		TDW_g_sVehiclesWithLimit[vehicleid])
+		TDW_g_sVehiclesWithLimit@Max[vehicleid])
 	{
-		SetVehicleSpeed(vehicleid, TDW_g_sVehiclesWithLimit[vehicleid]);
+		SetVehicleSpeed(vehicleid, TDW_g_sVehiclesWithLimit@Max[vehicleid]);
 
 		if (TDW_g_sCallbacks & EI_CB_OnPlayerReachSpeedLimit)
 		{
@@ -176,6 +195,10 @@ public
 				vehicleid, playerid, speed
 			);
 		}
+	}
+	else if (speed < TDW_g_sVehiclesWithLimit@Min[vehicleid])
+	{
+		SetVehicleSpeed(vehicleid, TDW_g_sVehiclesWithLimit@Min[vehicleid]);
 	}
 
 	if (GetPlayerState(playerid) != PLAYER_STATE_DRIVER)
