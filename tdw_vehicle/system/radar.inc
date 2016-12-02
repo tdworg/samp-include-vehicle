@@ -24,11 +24,11 @@ freely, subject to the following restrictions:
 	#undef _inc_radar
 #endif
 
-#if defined _TDW_VHLIB__RADAR
+#if defined _TDW_VHSYS__RADAR
 	#endinput
 #endif
 
-#define _TDW_VHLIB__RADAR
+#define _TDW_VHSYS__RADAR
 
 
 // -----------------------------------------------------------------------------
