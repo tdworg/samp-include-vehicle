@@ -391,17 +391,25 @@ stock
 		new Float:z_angle;
 		GetVehicleZAngle(vehicleid, z_angle);
 		if (z_angle < 90.0)
+		{
 			if (x > 0.0 && y < 0.0)
 				return 1;
+		}
 		else if (z_angle < 180.0)
+		{
 			if (x > 0.0 && y > 0.0)
 				return 1;
+		}
 		else if (z_angle < 270.0)
+		{
 			if (x < 0.0 && y > 0.0)
 				return 1;
+		}
 		else
+		{
 			if (x < 0.0 && y < 0.0)
 				return 1;
+		}
 	}
 	return 0;
 }
