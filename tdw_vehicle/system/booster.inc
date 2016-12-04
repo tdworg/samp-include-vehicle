@@ -1,5 +1,5 @@
 /** ======================================================================== **\
-	Vehicle Booste Speed system
+	Vehicle Boost Speed system
 
 | License:
 Copyright (c) 2016 Double V
@@ -43,7 +43,7 @@ freely, subject to the following restrictions:
 	#define _TDW_BOOSTER_MIN_SPEED (5.0)
 #else
 	#assert (0 <= _TDW_BOOSTER_MIN_SPEED)
-#else
+#endif
 
 #if !defined _TDW_BOOSTER_BOOST_SPEED
 	#define _TDW_BOOSTER_BOOST_SPEED (10.0)
@@ -53,7 +53,7 @@ freely, subject to the following restrictions:
 	#define _TDW_BOOSTER_INACCURACY (0.15)
 #endif
 
-static stock const
+static stock
 	TDW_g_sTimerName[] = !"@_TDW_BOOSTER_SPEED_UPDATE";
 
 
