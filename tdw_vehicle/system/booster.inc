@@ -62,7 +62,8 @@ public
 {
 	if (newstate == PLAYER_STATE_DRIVER)
 	{
-		if (GetModelStaticType(modelid) == CAR)
+		if (GetModelStaticType(GetVehicleModel(
+			GetPlayerVehicleID(playerid))) == CAR)
 		{
 			@_TDW_BOOSTER_SPEED_UPDATE(playerid);
 		}
