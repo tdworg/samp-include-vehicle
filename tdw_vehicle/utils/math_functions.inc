@@ -185,9 +185,29 @@ stock
 	new Float:x, Float:y, Float:z;
 	if (GetVehicleVelocity(vehicleid, x, y, z))
 	{
-		new Float:c = VectorSize(x, y, z) * (conv == kmph ? 180.0 : 111.846814),
-			Float:m = speed / c;
-		SetVehicleVelocity(vehicleid, x * m, y * m, z * m);
+		new Float:angle;
+
+		// Bad code:
+		// new Float:c = VectorSize(x, y, z) * (conv == kmph ? 180.0 :
+		// 	111.846814),
+			// Float:m = speed / c;
+		// SetVehicleVelocity(vehicleid, x * m, y * m, z * m);
+		// new Float:vel_x, Float:vel_y, Float:vel_z, Float:vel_angle;
+
+		GetVehicleVelocity(vehicleid, x, y, z);
+		GetVehicleZAngle(vehicleid, angle);
+
+		switch (conv)
+		{
+			case kmph:
+				speed /= 180.0;
+			case mph:
+				speed /= 111.846814;
+		}
+
+		x = speed * floatsin(-angle, degrees);
+		y = speed * floatcos(-angle, degrees);
+		SetVehicleVelocity(vehicleid, x, y, z);
 	}
 	return 0;
 }
