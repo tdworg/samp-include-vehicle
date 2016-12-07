@@ -212,6 +212,7 @@ stock
 	return 0;
 }
 
+
 // Idk where I copied it, but the function is optimized by me.
 stock
 	IsVehicleUpsideDown(vehicleid)
@@ -222,4 +223,38 @@ stock
 	new Float:angle = atan2(((y * z) + (w * x)) * 2.0,
 		(w * w) - (x * x) - (y * y) + (z * z));
 	return ((angle > 90.0) || (angle < -90.0));
+}
+
+
+stock
+	GetVehicleVelocityDirection(vehicleid, &Float:direction)
+{
+	static
+		Float:x,
+		Float:y,
+		Float:z;
+	if (GetVehicleVelocity(vehicleid, x, y, z) == 0)
+		return 0;
+	if (x < 0.0)
+	{
+		if (y > 0.0)
+			direction = atan(floatabs(floatdiv(x, y)));
+		else if (y <= 0.0)
+			direction = floatadd(atan(floatdiv(y, x)), 90.0);
+	}
+	else if (x > 0)
+	{
+		if (y < 0.0)
+			direction = floatadd(atan(floatabs(floatdiv(x, y))), 180.0);
+		else if (y >= 0.0)
+			direction = floatadd(atan(floatdiv(y, x)), 270.0);
+	}
+	else if (x == 0)
+	{
+		if (y > 0.0)
+			direction = 0.0;
+		else if (y < 0.0)
+			direction = 180.0;
+	}
+	return 1;
 }
