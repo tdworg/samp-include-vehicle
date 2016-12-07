@@ -62,10 +62,10 @@ public
 {
 	if (newstate == PLAYER_STATE_DRIVER)
 	{
-		if (GetModelStaticType(GetVehicleModel(
-			GetPlayerVehicleID(playerid))) == CAR)
+		new vehicleid = GetPlayerVehicleID(playerid);
+		if (GetModelStaticType(GetVehicleModel(vehicleid)) == CAR)
 		{
-			@_TDW_BOOSTER_SPEED_UPDATE(playerid);
+			@_TDW_BOOSTER_SPEED_UPDATE(playerid, vehicleid);
 		}
 	}
 	return
@@ -89,14 +89,9 @@ public
 #endif
 
 
-@_TDW_BOOSTER_SPEED_UPDATE(playerid);
-@_TDW_BOOSTER_SPEED_UPDATE(playerid)
+@_TDW_BOOSTER_SPEED_UPDATE(playerid, vehicleid);
+@_TDW_BOOSTER_SPEED_UPDATE(playerid, vehicleid)
 {
-	static vehicleid;
-
-	if ((vehicleid = GetPlayerVehicleID(playerid)) == 0)
-		return 0;
-
 	static
 		Float:old_angle,
 		Float:cur_angle,
@@ -104,31 +99,25 @@ public
 		___, // Temporary variable
 		Float:angle_tmp,
 		Float:speed;
-
-	GetVehicleZAngle(vehicleid, cur_angle);
+	if (GetVehicleZAngle(vehicleid, cur_angle) == 0)
+		return 0;
 	GetPlayerKeys(playerid, keys, ___, ___);
-
 	if (keys & KEY_SPRINT)
 	{
 		old_angle = floatround(floatabs(floatadd(old_angle,
 			_TDW_BOOSTER_INACCURACY
 		)));
 		angle_tmp = floatround(floatabs(cur_angle));
-
 		if (_:(old_angle > angle_tmp || old_angle < angle_tmp) == 0)
 		{
 			speed = GetVehicleSpeed(vehicleid);
-
 			if (_:(speed < _TDW_BOOSTER_MIN_SPEED ||
 				IsVehicleDirection(vehicleid)) == 0)
 				SetVehicleSpeed(vehicleid, speed + _TDW_BOOSTER_BOOST_SPEED);
 		}
 	}
-
 	old_angle = cur_angle;
-
-	return
-		SetTimerEx(TDW_g_sTimerName, _TDW_BOOSTER_SPEED_UPDATE, false, !"i",
-			playerid
-		);
+	return SetTimerEx(TDW_g_sTimerName, _TDW_BOOSTER_SPEED_UPDATE, false, !"ii",
+		playerid, vehicleid
+	);
 }
