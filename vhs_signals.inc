@@ -22,8 +22,8 @@ freely, subject to the following restrictions:
 \** ======================================================================== **/
 
 
-#if defined _inc_vhs_turn_signals
-	#undef _inc_vhs_turn_signals
+#if defined _inc_vhs_signals
+	#undef _inc_vhs_signals
 #endif
 
 #if defined _TDW_VHCOL__TURN_SIGNALS
