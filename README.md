@@ -45,3 +45,4 @@ Collection of missing libraries for vehicles in SA:MP.
 | [vhs_radar](https://github.com/TDW-org/samp-include-vehicle/blob/master/tdw_vehicle/system/radar.inc)    | Adds the radars |
 | [vhs_booster](https://github.com/TDW-org/samp-include-vehicle/blob/master/tdw_vehicle/system/booster.inc)    | Boost forward for vehicles. |
 | [vhs_drift](https://github.com/TDW-org/samp-include-vehicle/blob/master/tdw_vehicle/system/drift.inc)    | Drift!!! |
+| [vhs_drift](https://github.com/TDW-org/samp-include-vehicle/blob/master/tdw_vehicle/system/textinfo.inc)    | Add information about a vehicle, e.g. health, etc.. It uses the 3d text labels to display it.   |
