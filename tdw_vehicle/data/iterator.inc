@@ -52,5 +52,8 @@ stock
 	Iter_SafeRemove(Vehicle, vehicleid, vehicleid);
 	return DestroyVehicle(vehicleid);
 }
+
+#else
+	#define _TDW_VEHICLE_FOREACH_ARRAY 0
 #endif
 
