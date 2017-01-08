@@ -163,7 +163,7 @@ stock
 	Float:GetVehicleSpeedFromVelocity(Float:x, Float:y, Float:z,
 		e_TDW_VEHICLE_SPEED:conv = kmph)
 {
-	return VectorSize(x, y, z) * (conv == kmph ? 180.0 : 111.846814);
+	return VectorSize(x, y, z) * (conv == kmph ? 72.867791 : 45.277948);
 }
 
 
@@ -200,9 +200,9 @@ stock
 		switch (conv)
 		{
 			case kmph:
-				speed /= 180.0;
+				speed /= 72.867791;
 			case mph:
-				speed /= 111.846814;
+				speed /= 45.277948;
 		}
 
 		x = speed * floatsin(-angle, degrees);
