@@ -229,8 +229,7 @@ stock SetVehiclePaintjobId(vehicleid, paintjobid)
 </remarks>
 \** ------------------------------------------------------------------------ **/
 
-stock
-	GetVehicleLastDriverId(vehicleid)
+stock GetVehicleLastDriverId(vehicleid)
 {
 	if (0 == IsValidVehicle(vehicleid))
 		return 0;
@@ -248,8 +247,7 @@ stock
 </remarks>
 \** ------------------------------------------------------------------------ **/
 
-stock
-	GetVehiclePaintjobId(vehicleid)
+stock GetVehiclePaintjobId(vehicleid)
 {
 	if (0 == IsValidVehicle(vehicleid))
 		return 0;
