@@ -37,7 +37,7 @@
 
 // Core
 #include "tdw_vehicle/core/core"
-#include "tdw_vehicle/utils/math"
+#include "tdw_vmath"
 
 // Modules
 #include "tdw_vehicle/system/vehicle_mileage"

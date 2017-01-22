@@ -398,11 +398,11 @@ stock Float:GetRadarMaxSpeed(radarid)
 			CallLocalFunction(TDW_g_sOnVehicleRadarDetect, !"iiif", i,
 				vehicleid, radarid, speed);
 	}
-
+	#pragma tabsize 0
 	TDW_g_sRadar@Data[radarid][EI_RADAR_TIMER_ID] = SetTimerEx(
 		TDW_g_sRadar@TimerName, TDW_RADAR_TIMER_COUNT, false,
 		TDW_g_sSpecifier@i, radarid);
-
+	#pragma tabsize 4
 	return 0;
 }
 

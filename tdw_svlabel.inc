@@ -38,6 +38,7 @@
 // Core
 #include "tdw_vehicle/core/core"
 #include "tdw_vehicle/core/pawncallfix"
+#include "tdw_vehicle/core/detect/streamer"
 
 // Modules
 #include "tdw_vehicle/system/label_3d_text"

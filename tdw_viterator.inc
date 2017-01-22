@@ -37,6 +37,7 @@
 
 // Core
 #include "tdw_vehicle/core/core"
+#include "tdw_vehicle/core/detect/foreach"
 
 // Modules
 #include "tdw_vehicle/data/iterator_array"
