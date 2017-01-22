@@ -1,37 +1,79 @@
-/** ======================================================================== **\
-	Vehicle Tuning Data
+/* ========================================================================== *\
+	Tuning data
+
+| Description:
+	The data about the components for tuning, such as: name, type.
 
 | License:
-Copyright (c) 2016 Double V
+	Copyright (c) 2016-2017 Double V
 
-This software is provided 'as-is', without any express or implied
-warranty. In no event will the authors be held liable for any damages
-arising from the use of this software.
+	This software is provided 'as-is', without any express or implied
+	warranty. In no event will the authors be held liable for any damages
+	arising from the use of this software.
 
-Permission is granted to anyone to use this software for any purpose,
-including commercial applications, and to alter it and redistribute it
-freely, subject to the following restrictions:
+	Permission is granted to anyone to use this software for any purpose,
+	including commercial applications, and to alter it and redistribute it
+	freely, subject to the following restrictions:
 
-1.	The origin of this software must not be misrepresented; you must not
-	claim that you wrote the original software. If you use this software
-	in a product, an acknowledgement in the product documentation would be
-	appreciated but is not required.
-2.	Altered source versions must be plainly marked as such, and must not be
-	misrepresented as being the original software.
-3.	This notice may not be removed or altered from any source distribution.
-\** ======================================================================== **/
+	1.	The origin of this software must not be misrepresented; you must not
+		claim that you wrote the original software. If you use this software
+		in a product, an acknowledgement in the product documentation would be
+		appreciated but is not required.
+	2.	Altered source versions must be plainly marked as such, and must not be
+		misrepresented as being the original software.
+	3.	This notice may not be removed or altered from any source distribution.
 
+| Metadata:
+	[Functions]:
+		Stock:
+			- GetComponentName
+			- GetVehicleCompatibleUpgrades
+			- IsVehicleUpgradeCompatible
+		Static:
+			-
+		Public:
+			-
+		Hooks:
+			-
+	[Callbacks]:
+		-
+	[Definitions]:
+		-
+	[Enumerations]:
+		-
+	[Macros]:
+		-
+	[Tags]:
+		-
+	[Variables]:
+		Global scope:
+			-
+		Static scope:
+			- TDW_g_sCompatibleComponentId
+			- TDW_g_sComponentName
+			- TDW_g_sComponentType
+	[Natives]:
+		-
+	[Operators]:
+		-
+| Dependencies:
+	-
+\* ========================================================================== */
 
 #if defined _inc_tuning_data
+	// I remove this constant because the compiler automatically generates it.
+	//   github.com/Zeex/pawn/issues/107
 	#undef _inc_tuning_data
 #endif
 
-#if defined _TDW_VHLIB__TUNING_DATA
+#if defined _TDW_VH_TUNING_DATA
 	#endinput
 #endif
 
-#define _TDW_VHLIB__TUNING_DATA
+#define _TDW_VH_TUNING_DATA
 
+// -----------------------------------------------------------------------------
+// Static scope:
 
 static stock const
 	TDW_g_sCompatibleComponentId[MAX_VEHICLE_MODELS+1][MAX_VEHICLE_COMPONENTS] =
@@ -1064,25 +1106,53 @@ static stock const
 	CARMODTYPE_REAR_BUMPER, CARMODTYPE_REAR_BUMPER
 };
 
+// -----------------------------------------------------------------------------
+// Functions:
 
-stock
-	GetComponentName(componentid, name[], name_size = sizeof name)
+/** ------------------------------------------------------------------------ **\
+<summary>GetComponentName</summary>
+<param name="componentid">The ID of the component</param>
+<param name="name[]">An array into which to store the name</param>
+<param name="name_size">The length of the string that should be stored</param>
+<returns>
+	-
+</returns>
+<remarks>
+</remarks>
+\** ------------------------------------------------------------------------ **/
+
+stock GetComponentName(componentid, name[], name_size = sizeof name)
 {
-	if (((componentid -= 1000) < sizeof TDW_g_sComponentName[]) == 0)
+	componentid -= MIN_VEHICLE_COMPONENT_ID;
+	if (0 == (componentid < sizeof TDW_g_sComponentName[]))
 		return 0;
 	return strunpack(name, TDW_g_sComponentName[componentid], name_size);
 }
 
+/** ------------------------------------------------------------------------ **\
+<summary>IsVehicleUpgradeCompatible</summary>
+<param name="modelid">The model</param>
+<param name="componentid">The ID of the component</param>
+<returns>
+	-
+</returns>
+<remarks>
+</remarks>
+\** ------------------------------------------------------------------------ **/
 
-stock
-	IsVehicleUpgradeCompatible(modelid, componentid)
+stock IsVehicleUpgradeCompatible(modelid, componentid)
 {
-	if (_:IS_VALID_MODEL(modelid) != 0)
+	if (0 != IS_VALID_MODEL(modelid))
 	{
-		new i, c;
+		new
+			i,
+			c;
+
+		modelid -= MIN_VEHICLE_MODEL;
+
 		while (i != sizeof TDW_g_sCompatibleComponentId[])
 		{
-			if ((c = TDW_g_sCompatibleComponentId[modelid - MIN_VEHICLE_MODEL][i]) == 0)
+			if (0 == (c = TDW_g_sCompatibleComponentId[modelid][i]))
 				break;
 			if (c == componentid)
 				return 1;
@@ -1091,13 +1161,22 @@ stock
 	return 0;
 }
 
+/** ------------------------------------------------------------------------ **\
+<summary>GetVehicleCompatibleUpgrade</summary>
+<param name="modelid">The model</param>
+<param name="slotid">The ID in the array</param>
+<returns>
+	-
+</returns>
+<remarks>
+</remarks>
+\** ------------------------------------------------------------------------ **/
 
-stock
-	GetVehicleCompatibleUpgrades(modelid, count)
+stock GetVehicleCompatibleUpgrade(modelid, slotid)
 {
-	if (_:IS_VALID_MODEL(modelid) == 0)
+	if (0 == IS_VALID_MODEL(modelid))
 		return 0;
-	if (_:(count < sizeof TDW_g_sCompatibleComponentId[]) == 0)
+	if (0 == _:(slotid < sizeof TDW_g_sCompatibleComponentId[]))
 		return 0;
-	return TDW_g_sCompatibleComponentId[modelid - MIN_VEHICLE_MODEL][count];
+	return TDW_g_sCompatibleComponentId[modelid - MIN_VEHICLE_MODEL][slotid];
 }

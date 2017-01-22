@@ -1,99 +1,144 @@
-/** ======================================================================== **\
-	Vehicle Number Plate
+/* ========================================================================== *\
+	Number plate
+
+| Description:
+
 
 | License:
-Copyright (c) 2016 Double V
+	Copyright (c) 2016 Double V
 
-This software is provided 'as-is', without any express or implied
-warranty. In no event will the authors be held liable for any damages
-arising from the use of this software.
+	This software is provided 'as-is', without any express or implied
+	warranty. In no event will the authors be held liable for any damages
+	arising from the use of this software.
 
-Permission is granted to anyone to use this software for any purpose,
-including commercial applications, and to alter it and redistribute it
-freely, subject to the following restrictions:
+	Permission is granted to anyone to use this software for any purpose,
+	including commercial applications, and to alter it and redistribute it
+	freely, subject to the following restrictions:
 
-1.	The origin of this software must not be misrepresented; you must not
-	claim that you wrote the original software. If you use this software
-	in a product, an acknowledgement in the product documentation would be
-	appreciated but is not required.
-2.	Altered source versions must be plainly marked as such, and must not be
-	misrepresented as being the original software.
-3.	This notice may not be removed or altered from any source distribution.
-\** ======================================================================== **/
+	1.	The origin of this software must not be misrepresented; you must not
+		claim that you wrote the original software. If you use this software
+		in a product, an acknowledgement in the product documentation would be
+		appreciated but is not required.
+	2.	Altered source versions must be plainly marked as such, and must not be
+		misrepresented as being the original software.
+	3.	This notice may not be removed or altered from any source distribution.
 
+| Metadata:
+	[Functions]:
+		Stock:
+			- GetVehicleNumberPlate
+		Static:
+			-
+		Public:
+			-
+		Hooks:
+			- SetVehicleNumberPlate
+	[Callbacks]:
+		-
+	[Definitions]:
+		-
+	[Enumerations]:
+		-
+	[Macros]:
+		-
+	[Tags]:
+		-
+	[Variables]:
+		Global scope:
+			-
+		Static scope:
+			- TDW_g_sVehicle@NumberPlate
+	[Natives]:
+		- BAD_SetVehicleNumberPlate
+	[Operators]:
+		-
+| Dependencies:
+	-
+\* ========================================================================== */
 
 #if defined _inc_number_plate
+	// I remove this constant because the compiler automatically generates it.
+	//   github.com/Zeex/pawn/issues/107
 	#undef _inc_number_plate
 #endif
 
-#if defined _TDW_VHLIB__NUMBER_PLATE
+#if defined _TDW_VH_NUMBER_PLATE
 	#endinput
 #endif
 
-#define _TDW_VHLIB__NUMBER_PLATE
+#define _TDW_VH_NUMBER_PLATE
 
-
-// Checks if a string is packed.
-// Other information: //www.compuphase.com/pawn/String_Manipulation.pdf
-// Author: Untonyst.
-#if !defined IsPackedString
-	#define IsPackedString(%0) ((%0){0} != 0)
-#endif
-
+// -----------------------------------------------------------------------------
+// Static scope:
 
 static stock
-	TDW_g_sNumberPlate[MAX_VEHICLES][MAX_NUMBER_PLATE_SIZE char];
+	TDW_g_sVehicle@NumberPlate[MAX_VEHICLES][MAX_NUMBER_PLATE_SIZE char];
 
+// -----------------------------------------------------------------------------
+// Hooks:
 
-#if !defined nst_SetVehicleNumberPlate
-native nst_SetVehicleNumberPlate(vehicleid,
-	numberplate[]) = SetVehicleNumberPlate;
+// SetVehicleNumberPlate hook
+#if !defined BAD_SetVehicleNumberPlate
+	native BAD_SetVehicleNumberPlate(vehicleid,
+		numberplate[]) = SetVehicleNumberPlate;
 #endif
 
-stock
-	TDWVH_NP@SetVehicleNumberPlate(vehicleid, numberplate[])
+stock TDW_NUMPL@SetVehicleNumberPlate(vehicleid, const number_plate[])
 {
-	new Float:current_x, Float:current_y, Float:current_z;
+	new
+		Float:current_x,
+		Float:current_y,
+		Float:current_z;
 
-	if (GetVehiclePos(vehicleid, current_x, current_y, current_z) == 0)
+	if (0 == GetVehiclePos(vehicleid, current_x, current_y, current_z))
 		return 0;
 
-	new Float:current_z_angle, Float:current_health, cur_dstatus_panels,
-		cur_dstatus_doors, cur_dstatus_lights, cur_dstatus_tires,
-		i;
-	new passengers[MAX_VEHICLE_PASSENGERS];
+	new
+		Float:current_z_angle,
+		Float:current_health,
+		current_panels,
+		current_doors,
+		current_lights,
+		current_tires,
+		passenegers[MAX_VEHICLE_PASSENGERS];
 
-	// Get the current parameters of the vehicle.
 	GetVehicleZAngle(vehicleid, current_z_angle);
-	#if !defined TDW_NPLATE_NOT_SAFE_DAMAGE
-	GetVehicleHealth(vehicleid, current_health);
-	GetVehicleDamageStatus(vehicleid, cur_dstatus_panels, cur_dstatus_doors,
-		cur_dstatus_lights, cur_dstatus_tires
-	);
+
+	#if !defined TDW_NUMPLATE_NOT_SAFE_DAMAGE
+		GetVehicleHealth(vehicleid, current_health);
+		GetVehicleDamageStatus(vehicleid, current_panels, current_doors,
+			current_lights, current_tires);
 	#endif
+
 	GetVehicleOccupantPlayers(vehicleid, passengers);
-	SetVehicleNumberPlate(vehicleid, numberplate);
+
+	const
+		PUSH_ARGS_COUNT = 2 * 4,
+		PUSHED_ARGS = PUSH_ARGS_COUNT + 4;
+
+	#emit PUSH.s number_plate
+	#emit PUSH.s vehicleid
+	#emit PUSH.c PUSH_ARGS_COUNT
+	#emit SYSREQ.c SetVehicleNumberPlate
+	#emit STACK PUSHED_ARGS
+
 	SetVehicleToRespawn(vehicleid);
 
-	// Copy numberplate into the array.
-	#if !defined TDW_NPLATE_NOT_SAFE_NUMBER
-	TDW_g_sNumberPlate[vehicleid]{0} = '\0';
-	strpack(TDW_g_sNumberPlate[vehicleid], numberplate);
+	#if !defined TDW_NUMPLATE_NOT_SAFE_NUMBER
+		strcpy(TDW_g_sVehicle@NumberPlate[vehicleid], number_plate);
 	#endif
 
-	// Set the old parameters to the vehicle
 	SetVehiclePos(vehicleid, current_x, current_y, current_z);
-	i = 0;
-	do
-	{
+
+	new i;
+	do {
 		PutPlayerInVehicle(passengers[i], vehicleid, i);
-	} while(++i < sizeof passengers);
-	SetVehicleZAngle(vehicleid, current_z_angle);
-	#if !defined TDW_NPLATE_NOT_SAFE_DAMAGE
-	SetVehicleHealth(vehicleid, current_health);
-	UpdateVehicleDamageStatus(vehicleid, cur_dstatus_panels, cur_dstatus_doors,
-		cur_dstatus_lights, cur_dstatus_tires
-	);
+	} while (++i < sizeof passengers);
+
+	#if !defined TDW_NUMPLATE_NOT_SAFE_DAMAGE
+		SetVehicleHealth(vehicleid, current_health);
+		UpdateVehicleDamageStatus(vehicleid, current_panels, current_doors,
+			current_lights, current_tires);
 	#endif
 
 	return 1;
@@ -105,66 +150,48 @@ stock
 	#define _ALS_SetVehicleNumberPlate
 #endif
 
-#define SetVehicleNumberPlate TDWVH_NP@SetVehicleNumberPlate
+#define SetVehicleNumberPlate TDW_NUMPL@SetVehicleNumberPlate
 
+// -----------------------------------------------------------------------------
+// Internal:
 
-stock
-	SetVehicleNumberPlateRand(vehicleid, dest[MAX_NUMBER_PLATE] = !"")
+// Checks if a string is packed.
+// Other information: //www.compuphase.com/pawn/String_Manipulation.pdf
+// Author: Untonyst.
+#if !defined IsPackedString
+	#define IsPackedString(%0) ((%0){0} != 0)
+#endif
+
+#if !defined strcpy
+	static stock strcpy(dest[], const string[], dest_size = sizeof dest)
+	{
+		return
+			(IsPackedString(dest) ? (dest{0} = '\0') : (dest[0] = '\0')),
+			strcat(dest, string, dest_size);
+	}
+#endif
+
+// -----------------------------------------------------------------------------
+// Functions:
+
+/** ------------------------------------------------------------------------ **\
+<summary>GetVehicleNumberPlate</summary>
+<param name=""></param>
+<returns>
+	-
+</returns>
+<remarks>
+</remarks>
+\** ------------------------------------------------------------------------ **/
+
+stock GetVehicleNumberPlate(vehicleid, dest[], bool:packed = false,
+	dest_size = sizeof dest)
 {
-	if (IsValidVehicle(vehicleid) == 0)
+	#if !defined TDW_NPLATE_NOT_SAFE_NUMBER
+		return packed
+			? strcpy(dest, TDW_g_sNumberPlate[vehicleid], dest_size)
+			: strunpack(dest, TDW_g_sNumberPlate[vehicleid], dest_size);
+	#else
 		return 0;
-
-	static const letters[] = !"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-
-	const
-		NUMBER_PLATE_SPACE_POS = 3,
-		LETTER_SIZE = sizeof letters - 1;
-
-	new i = MAX_NUMBER_PLATE;
-
-	if (IsPackedString(dest))
-	{
-		while (i-- != 0)
-		{
-			dest{i} = ((i == NUMBER_PLATE_SPACE_POS)
-				? '-' : letters{random(LETTER_SIZE)}
-			);
-			i--;
-		}
-	}
-	else
-	{
-		while (i != 0)
-		{
-			dest[i] = ((i == NUMBER_PLATE_SPACE_POS)
-				? '-' : letters{random(LETTER_SIZE)}
-			);
-			i--;
-		}
-	}
-	return TDWVH_NP@SetVehicleNumberPlate(vehicleid, dest);
+	#endif
 }
-
-
-// //github.com/TDW-org/samp-include-string/
-#if !defined _TDW_STLIB__STRING
-static stock
-	strcpy(dest[], const string[], dest_size = sizeof dest)
-{
-	return
-		(IsPackedString(dest) ? (dest{0} = '\0') : (dest[0] = '\0')),
-		strcat(dest, string, dest_size);
-}
-#endif
-
-
-#if !defined TDW_NPLATE_NOT_SAFE_NUMBER
-stock
-	GetVehicleNumberPlate(vehicleid, dest[], bool:packed = false,
-		dest_size = sizeof dest)
-{
-	return packed
-		? strcpy(dest, TDW_g_sNumberPlate[vehicleid], dest_size)
-		: strunpack(dest, TDW_g_sNumberPlate[vehicleid], dest_size);
-}
-#endif
