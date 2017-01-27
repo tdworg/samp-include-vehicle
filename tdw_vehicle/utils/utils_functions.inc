@@ -162,7 +162,7 @@ stock DestroyVehicles(const ...)
 			for (new i = _TDW_FOREACH_MAX_VEHICLES_; --i != 0;)
 		#endif
 		{
-			if (0 == DestroyVehicle(vehicleid))
+			if (0 == DestroyVehicle(i))
 				++count;
 		}
 	}
