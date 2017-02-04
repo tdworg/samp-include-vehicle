@@ -132,7 +132,7 @@ stock DestroyVehicles(const ...)
 
 		// Use it!
 		do {
-			// Get the value from the pointer
+			// Get the value from te pointer
 			#emit LOAD.i
 			// Push the value
 			#emit PUSH.pri
@@ -187,7 +187,7 @@ stock GetNumberOfValidVehicles()
 		new
 			count;
 		for (new i = _TDW_FOREACH_MAX_VEHICLES_; --i != 0;)
-			if (IsValidVehicle(vehicleid))
+			if (IsValidVehicle(i))
 				++count;
 		return count;
 	#endif
@@ -261,7 +261,7 @@ stock IsVehicleSeatOccupied(vehicleid, seatid)
 stock GetVehicleMaxPassengers(modelid)
 {
 	static const
-		vehicle_seat_data[MAX_VEHICLE_MODELS char] =
+		vehicle_seat_data[MAX_VEHICLE_MODELS + 1 char] =
 	{
 		4, 2, 2, 2, 4, 4, 1, 2, 2, 4, 2, 2, 2, 4, 2, 2, 4, 2, 4, 2, 4, 4, 2, 2,
 		2, 1, 4, 4, 4, 2, 1, 7, 1, 2, 2, 0, 2, 7, 4, 2, 4, 1, 2, 2, 2, 4, 1, 2,
@@ -293,7 +293,7 @@ stock GetVehicleMaxPassengers(modelid)
 stock GetVehicleDoorsCount(modelid)
 {
 	static const
-		vehicle_door_data[MAX_VEHICLE_MODELS char] =
+		vehicle_door_data[MAX_VEHICLE_MODELS + 1 char] =
 	{
 		4, 2, 2, 2, 4, 4, 2, 2, 2, 4, 2, 2, 2, 2, 2, 2, 2, 2, 4, 2, 4, 4, 2, 2,
 		0, 1, 4, 2, 2, 0, 0, 0, 0, 2, 2, 0, 2, 0, 4, 0, 2, 0, 2, 2, 2, 4, 0, 2,

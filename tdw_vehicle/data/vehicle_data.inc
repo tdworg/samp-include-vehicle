@@ -55,6 +55,7 @@
 			-
 		Static scope:
 			- TDW_g_sVehicle@Color1
+			- TDW_g_sVehicle@Color2
 			- TDW_g_sVehicle@Data
 			- TDW_g_sVehicle@Interior
 			- TDW_g_sVehicle@Siren

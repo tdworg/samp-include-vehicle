@@ -24,7 +24,43 @@
 #include <a_samp>
 #include <tdw_vdwos>
 
+new TDW_gVehicleId;
+
 public OnFilterScriptInit()
 {
+	TDW_gVehicleId = CreateVehicle(400, 12.5, 10.5, 4.2, 0.0, 0, 0, -1, 0);
+}
 
+public OnVehicleSpawn(vehicleid)
+{
+	// ! Doors
+	new door_state = GetVehicleDoorState(vehicleid, FRONT_LEFT_DOOR);
+	SetVehicleDoorState(vehicleid, FRONT_LEFT_DOOR, DOOR_OPENED);
+	printf("[D] Old: %d Current: %d", door_state, GetVehicleDoorState(vehicleid,
+		FRONT_LEFT_DOOR));
+	CloseVehicleDoor(vehicleid, FRONT_LEFT_DOOR);
+	if (IsVehicleDoorInState(vehicleid, FRONT_LEFT_DOOR, DOOR_CLOSED))
+		print(!"C");
+	OpenVehicleDoor(vehicleid, FRONT_LEFT_DOOR);
+	if (IsVehicleDoorInState(vehicleid, FRONT_LEFT_DOOR, DOOR_OPENED))
+		print(!"O");
+
+	// Utils
+	new
+		Float:x,
+		Float:y,
+		Float:z;
+	GetVehicleDoorPos(vehicleid, FRONT_LEFT_DOOR, x, y, z);
+
+	// ! Windows
+	new window_state = GetVehicleWindowState(vehicleid, FRONT_LEFT_DOOR);
+	SetVehicleWindowState(vehicleid, FRONT_LEFT_DOOR, WINDOW_OPENED);
+	printf("[W] Old: %d Current: %d", window_state, GetVehicleWindowState(
+		vehicleid, FRONT_LEFT_DOOR));
+	CloseVehicleWindow(vehicleid, FRONT_LEFT_DOOR);
+	if (IsVehicleWindowInState(vehicleid, FRONT_LEFT_DOOR, WINDOW_CLOSED))
+		print(!"C");
+	OpenVehicleWindow(vehicleid, FRONT_LEFT_DOOR);
+	if (IsVehicleWindowInState(vehicleid, FRONT_LEFT_DOOR, WINDOW_OPENED))
+		print(!"O");
 }

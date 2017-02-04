@@ -38,6 +38,12 @@
 // Core
 #include "tdw_vehicle/core/core"
 
+enum E_TDW_VEHICLE_DOOR
+{
+	FRONT_LEFT_DOOR, FRONT_RIGHT_DOOR,
+	REAR_LEFT_DOOR, REAR_RIGHT_DOOR // applies to vehicles with 4 doors.
+};
+
 // Modules
 #include "tdw_vehicle/utils/dwos/doors_manager"
 #include "tdw_vehicle/utils/dwos/windows_manager"

@@ -5,7 +5,7 @@
 	Mathematical functions for finding the positions.
 
 | License:
-	Copyright (c) 2016 Double V
+	Copyright (c) 2016-2017 Double V
 
 	This software is provided 'as-is', without any express or implied
 	warranty. In no event will the authors be held liable for any damages
@@ -99,7 +99,10 @@ enum E_TDW_MATH_VEHICLE_SPEED_TYPE
 
 /** ------------------------------------------------------------------------ **\
 <summary>GetNearestVehicleFromPoint</summary>
-<param name=""></param>
+<param name="Float:x">The X map coordinate.</param>
+<param name="Float:y">The Y map coordinate.</param>
+<param name="Float:z">The Z map coordinate.</param>
+<param name="Float:distance">The distance</param>
 <returns>
 	-
 </returns>
@@ -113,7 +116,7 @@ stock GetNearestVehicleFromPoint(Float:x, Float:y, Float:z,
 	new
 		Float:min_dist,
 		vehicleid = INVALID_VEHICLE_ID;
-
+	#pragma tabsize 0
 	#if defined _TDW_VH_DETECT_FOREACH
 		foreach (new i: Vehicle)
 	#else
@@ -125,12 +128,19 @@ stock GetNearestVehicleFromPoint(Float:x, Float:y, Float:z,
 			distance = min_dist;
 		}
 	}
+	#pragma tabsize 4
 	return vehicleid;
 }
 
 /** ------------------------------------------------------------------------ **\
 <summary>GetVehicleOffsetFromPos</summary>
-<param name=""></param>
+<param name="vehicleid"></param>
+<param name="Float:point_x"></param>
+<param name="Float:point_y"></param>
+<param name="Float:point_z"></param>
+<param name="&Float:offset_x"></param>
+<param name="&Float:offset_y"></param>
+<param name="&Float:offset_z"></param>
 <returns>
 	-
 </returns>

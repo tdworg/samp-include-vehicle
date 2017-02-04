@@ -24,7 +24,36 @@
 #include <a_samp>
 #include <tdw_vmath>
 
+new TDW_gVehicleId;
+
 public OnFilterScriptInit()
 {
+	TDW_gVehicleId = CreateVehicle(400, 12.5, 10.5, 4.2, 0.0, 0, 0, -1, 0);
+	TDW_gVehicleId = CreateVehicle(400, 12.5, 10.5, 4.2, 0.0, 0, 0, -1, 0);
+	TDW_gVehicleId = CreateVehicle(400, 12.5, 10.5, 4.2, 0.0, 0, 0, -1, 0);
+	TDW_gVehicleId = CreateVehicle(400, 12.5, 10.5, 4.2, 0.0, 0, 0, -1, 0);
 
+	printf("GetNearestVehicleFromPoint      %d", GetNearestVehicleFromPoint(12.5, 10.5, 4.2));
+	new Float:offset_x, Float:offset_y, Float:offset_z;
+
+	GetVehicleOffsetFromPos(TDW_gVehicleId, 14.5, 10.5, 3.5, offset_x, offset_y, offset_z);
+	printf("GetVehicleOffsetFromPos         %f %f %f", offset_x, offset_y, offset_z);
+
+	GetVehicleBootPos(TDW_gVehicleId, offset_x, offset_y, offset_z);
+	printf("GetVehicleBootPos               %f %f %f", offset_x, offset_y, offset_z);
+
+	GetVehicleBonnetPos(TDW_gVehicleId, offset_x, offset_y, offset_z);
+	printf("GetVehicleBonnetPos             %f %f %f", offset_x, offset_y, offset_z);
+
+	GetVehicleRoofPos(TDW_gVehicleId, offset_x, offset_y, offset_z);
+	printf("GetVehicleRoofPos               %f %f %f", offset_x, offset_y, offset_z);
+
+	printf("IsVehicleInRangeOfPoint         %d", IsVehicleInRangeOfPoint(TDW_gVehicleId, 10.0, 12.5, 10.5, 4.2));
+
+	printf("GetVehicleSpeed                 %f", GetVehicleSpeed(TDW_gVehicleId));
+	printf("SetVehicleSpeed                 %d", SetVehicleSpeed(TDW_gVehicleId, 100.0));
+
+	printf("IsVehicleUpsideDown             %d", IsVehicleUpsideDown(TDW_gVehicleId));
+	GetVehicleVelocityDirection(TDW_gVehicleId, offset_x);
+	printf("GetVehicleVelocityDirection     %f", offset_x);
 }

@@ -85,29 +85,10 @@ static stock
 	// operator. It reduces the size of the arrays.
 	TDW_g_sVehicle@PaintjobId[MAX_VEHICLES char], // 0-3
 	TDW_g_sVehicle@VirtualWorld[MAX_VEHICLES],
-	TDW_g_sVehicle@LastDriverId[MAX_VEHICLES];
+	TDW_g_sVehicle@LastDriverId[MAX_VEHICLES] = {INVALID_PLAYER_ID, ...};
 
 // -----------------------------------------------------------------------------
 // Hooks:
-
-// ChangeVehiclePaintjob hook
-#if !defined BAD_ChangeVehiclePaintjob
-	native BAD_ChangeVehiclePaintjob(vehicleid,
-		paintjobid) = ChangeVehiclePaintjob;
-#endif
-
-//
-// -- See SetVehiclePaintjobId
-//
-
-#if defined _ALS_ChangeVehiclePaintjob
-	#undef ChangeVehiclePaintjob
-#else
-	#define _ALS_ChangeVehiclePaintjob
-#endif
-
-#define ChangeVehiclePaintjob SetVehiclePaintjobId
-
 
 // SetVehicleVirtualWorld hook
 #if !defined BAD_SetVehicleVirtualWorld
@@ -253,3 +234,24 @@ stock GetVehiclePaintjobId(vehicleid)
 		return 0;
 	return TDW_g_sVehicle@PaintjobId{vehicleid};
 }
+
+// -----------------------------------------------------------------------------
+// Hooks:
+
+// ChangeVehiclePaintjob hook
+#if !defined BAD_ChangeVehiclePaintjob
+	native BAD_ChangeVehiclePaintjob(vehicleid,
+		paintjobid) = ChangeVehiclePaintjob;
+#endif
+
+//
+// -- See SetVehiclePaintjobId
+//
+
+#if defined _ALS_ChangeVehiclePaintjob
+	#undef ChangeVehiclePaintjob
+#else
+	#define _ALS_ChangeVehiclePaintjob
+#endif
+
+#define ChangeVehiclePaintjob SetVehiclePaintjobId

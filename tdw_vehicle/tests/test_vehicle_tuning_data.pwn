@@ -26,5 +26,16 @@
 
 public OnFilterScriptInit()
 {
+	// ID 1046
+	// exh_a_f
+	// Exhaust
+	// Alien
+	// Flash
+	// MID 400
 
+	new buffer[100];
+	GetComponentName(1046, buffer);
+	new is_comp = IsVehicleUpgradeCompatible(400, 1046);
+	new comp = GetVehicleCompatibleUpgrade(400, 0);
+	printf("%s %d %d", buffer, is_comp, comp);
 }

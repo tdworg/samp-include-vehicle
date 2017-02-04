@@ -22,9 +22,34 @@
 #define FILTERSCRIPT
 
 #include <a_samp>
+
 #include <tdw_vdata>
+#include <tdw_vdetail>
+
+new TDW_gVehicleId;
 
 public OnFilterScriptInit()
 {
+	TDW_gVehicleId = AddStaticVehicle(400, 12.5, 10.5, 4.2, 0.0, 0, 0);
+	DestroyVehicle(TDW_gVehicleId);
+	TDW_gVehicleId = CreateVehicle(400, 12.5, 10.5, 4.2, 0.0, 0, 0, -1, 0);
 
+	new
+		color1,
+		color2;
+
+	GetVehicleColor(TDW_gVehicleId, color1, color2);
+	printf("VehicleId: %d; Color1: %d; Color2: %d", TDW_gVehicleId, color1,
+		color2);
+
+	SetVehicleColor(TDW_gVehicleId, 0xFF, 0);
+	GetVehicleColor(TDW_gVehicleId, color1, color2);
+	printf("VehicleId: %d; Color1: %d; Color2: %d", TDW_gVehicleId, color1,
+		color2);
+
+	new paintjobid = GetVehiclePaintjobId(TDW_gVehicleId);
+	printf("VehicleId: %d; PaintjobId: %d", TDW_gVehicleId, paintjobid);
+	SetVehiclePaintjobId(TDW_gVehicleId, 1);
+	paintjobid = GetVehiclePaintjobId(TDW_gVehicleId);
+	printf("VehicleId: %d; PaintjobId: %d", TDW_gVehicleId, paintjobid);
 }

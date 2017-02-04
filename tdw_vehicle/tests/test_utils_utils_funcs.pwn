@@ -24,7 +24,22 @@
 #include <a_samp>
 #include <tdw_vutils>
 
+new TDW_gVehicleId;
+
 public OnFilterScriptInit()
 {
+	TDW_gVehicleId = CreateVehicle(400, 12.5, 10.5, 4.2, 0.0, 0, 0, -1, 0);
 
+	printf("GetNumberOfValidVehicles  %d", GetNumberOfValidVehicles());
+	printf("IsVehicleOccupied         %d", IsVehicleOccupied(TDW_gVehicleId));
+	printf("IsVehicleSeatOccupied     %d", IsVehicleSeatOccupied(TDW_gVehicleId, 0));
+	printf("GetVehicleMaxPassengers   %d", GetVehicleMaxPassengers(GetVehicleModel(TDW_gVehicleId)));
+	printf("GetVehicleDoorsCount      %d", GetVehicleDoorsCount(GetVehicleModel(TDW_gVehicleId)));
+	printf("IsValidModelForPaintjob   %d", IsValidModelForPaintjob(GetVehicleModel(TDW_gVehicleId)));
+	printf("GetVehicleOccupant        %d", GetVehicleOccupant(TDW_gVehicleId, 0));
+	printf("IsVehicleMoving           %d", IsVehicleMoving(TDW_gVehicleId));
+
+	DestroyVehicles();
+
+	printf("GetNumberOfValidVehicles  %d", GetNumberOfValidVehicles());
 }

@@ -22,9 +22,21 @@
 #define FILTERSCRIPT
 
 #include <a_samp>
+
+#include <foreach>
 #include <tdw_viterator>
+
+new TDW_gVehicleId;
 
 public OnFilterScriptInit()
 {
+	TDW_gVehicleId = AddStaticVehicle(400, 12.5, 10.5, 4.2, 0.0, 0, 0);
+	DestroyVehicle(TDW_gVehicleId);
+	TDW_gVehicleId = CreateVehicle(400, 12.5, 10.5, 4.2, 0.0, 0, 0, -1, 0);
 
+	foreach (new i : Vehicle)
+	{
+		if (i == TDW_gVehicleId)
+			printf("Found! %d", i);
+	}
 }

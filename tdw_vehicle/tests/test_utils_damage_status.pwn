@@ -28,3 +28,54 @@ public OnFilterScriptInit()
 {
 
 }
+
+public OnVehicleSpawn(vehicleid)
+{
+	// Lights
+	new
+		front_left_light,
+		front_right_light,
+		back_lights;
+	GetVehicleLightsStatus(vehicleid, front_left_light, front_right_light,
+		back_lights);
+	SetVehicleLightsStatus(vehicleid, front_left_light, front_right_light,
+		back_lights);
+
+	// Tires
+	new
+		rear_right_tire,
+		front_right_tire,
+		rear_left_tire,
+		front_left_tire;
+	GetVehicleTiresStatus(vehicleid, rear_right_tire, front_right_tire,
+		rear_left_tire, front_left_tire);
+	SetVehicleTiresStatus(vehicleid, rear_right_tire, front_right_tire,
+		rear_left_tire, front_left_tire);
+
+	// Panels
+	new
+		front_left_panel,
+		front_right_panel,
+		rear_left_panel,
+		rear_right_panel,
+		windshield,
+		front_bumper,
+		rear_bumper;
+	GetVehiclePanelsStatus(vehicleid, front_left_panel, front_right_panel,
+		rear_left_panel, rear_right_panel, windshield, front_bumper,
+		rear_bumper);
+	SetVehiclePanelsStatus(vehicleid, front_left_panel, front_right_panel,
+		rear_left_panel, rear_right_panel, windshield, front_bumper,
+		rear_bumper);
+
+	// Doors
+	new
+		bonnet,
+		boot,
+		driver_door,
+		passenger_door;
+	GetVehicleDoorsStatus(vehicleid, bonnet, boot, driver_door,
+		passenger_door);
+	SetVehicleDoorsStatus(vehicleid, bonnet, boot, driver_door,
+		passenger_door);
+}

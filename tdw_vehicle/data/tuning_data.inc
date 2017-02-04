@@ -1124,7 +1124,7 @@ static stock const
 stock GetComponentName(componentid, name[], name_size = sizeof name)
 {
 	componentid -= MIN_VEHICLE_COMPONENT_ID;
-	if (0 == (componentid < sizeof TDW_g_sComponentName[]))
+	if (0 == (componentid < sizeof TDW_g_sComponentName))
 		return 0;
 	return strunpack(name, TDW_g_sComponentName[componentid], name_size);
 }
@@ -1152,7 +1152,7 @@ stock IsVehicleUpgradeCompatible(modelid, componentid)
 
 		while (i != sizeof TDW_g_sCompatibleComponentId[])
 		{
-			if (0 == (c = TDW_g_sCompatibleComponentId[modelid][i]))
+			if (0 == (c = TDW_g_sCompatibleComponentId[modelid][i++]))
 				break;
 			if (c == componentid)
 				return 1;

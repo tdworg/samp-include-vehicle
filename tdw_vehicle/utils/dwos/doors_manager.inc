@@ -121,7 +121,7 @@ enum E_TDW_VH_DOOR_STATE
 </remarks>
 \** ------------------------------------------------------------------------ **/
 
-stock GetVehicleDoorState(vehicleid, E_TDW_VH_DOOR_STATE:door)
+stock GetVehicleDoorState(vehicleid, E_TDW_VEHICLE_DOOR:door)
 {
 	if (0 == IsValidVehicle(vehicleid))
 		return 0;

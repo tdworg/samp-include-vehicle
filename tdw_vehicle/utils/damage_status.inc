@@ -6,7 +6,7 @@
 	the vehicles.
 
 | License:
-	Copyright (c) 2016 Double V
+	Copyright (c) 2016-2017 Double V
 
 	This software is provided 'as-is', without any express or implied
 	warranty. In no event will the authors be held liable for any damages
@@ -88,9 +88,9 @@ static stock
 /** ------------------------------------------------------------------------ **\
 <summary>GetVehicleLightsStatus</summary>
 <param name="vehicleid">The ID of the vehicle</param>
-<param name="&front_left_light"></param>
-<param name="&front_right_light"></param>
-<param name="&back_lights"></param>
+<param name="&front_left_light">The state of the front left light</param>
+<param name="&front_right_light">The state of the front right light</param>
+<param name="&back_lights">The state of the back lights</param>
 <returns>
 	-
 </returns>
@@ -120,9 +120,9 @@ stock GetVehicleLightsStatus(vehicleid, &front_left_light, &front_right_light,
 /** ------------------------------------------------------------------------ **\
 <summary>SetVehicleLightsStatus</summary>
 <param name="vehicleid">The ID of the vehicle</param>
-<param name="front_left_light"></param>
-<param name="front_right_light"></param>
-<param name="back_lights"></param>
+<param name="front_left_light">The state of the front left light</param>
+<param name="front_right_light">The state of the front right light</param>
+<param name="back_lights">The state of the back lights</param>
 <returns>
 	-
 </returns>
@@ -154,10 +154,10 @@ stock SetVehicleLightsStatus(vehicleid, front_left_light, front_right_light,
 /** ------------------------------------------------------------------------ **\
 <summary>GetVehicleTiresStatus</summary>
 <param name="vehicleid">The ID of the vehicle</param>
-<param name="&rear_right_tire"></param>
-<param name="&front_right_tire"></param>
-<param name="&rear_left_tire"></param>
-<param name="&front_left_tire"></param>
+<param name="&rear_right_tire">The state of the rear right tire</param>
+<param name="&front_right_tire">The state of the front right tire</param>
+<param name="&rear_left_tire">The state of the rear left tire</param>
+<param name="&front_left_tire">The state of the front left tire</param>
 <returns>
 	-
 </returns>
@@ -186,10 +186,10 @@ stock GetVehicleTiresStatus(vehicleid, &rear_right_tire, &front_right_tire,
 /** ------------------------------------------------------------------------ **\
 <summary>SetVehicleTiresStatus</summary>
 <param name="vehicleid">The ID of the vehicle</param>
-<param name="rear_right_tire"></param>
-<param name="front_right_tire"></param>
-<param name="rear_left_tire"></param>
-<param name="front_left_tire"></param>
+<param name="rear_right_tire">The state of the rear right tire</param>
+<param name="front_right_tire">The state of the front right tire</param>
+<param name="rear_left_tire">The state of the rear left tire</param>
+<param name="front_left_tire">The state of the front left tire</param>
 <returns>
 	-
 </returns>
@@ -220,13 +220,13 @@ stock SetVehicleTiresStatus(vehicleid, rear_right_tire, front_right_tire,
 /** ------------------------------------------------------------------------ **\
 <summary>GetVehiclePanelsStatus</summary>
 <param name="vehicleid">The ID of the vehicle</param>
-<param name="&front_left_panel"></param>
-<param name="&front_right_panel"></param>
-<param name="&rear_left_panel"></param>
-<param name="&rear_right_panel"></param>
-<param name="&windshield"></param>
-<param name="&front_bumper"></param>
-<param name="&rear_bumper"></param>
+<param name="&front_left_panel">The state of the front left panel</param>
+<param name="&front_right_panel">The state of the front right panel</param>
+<param name="&rear_left_panel">The state of the rear left panel</param>
+<param name="&rear_right_panel">The state of the rear right panel</param>
+<param name="&windshield">The state of the windshield</param>
+<param name="&front_bumper">The state of the front bumper</param>
+<param name="&rear_bumper">The state of the rear bumper</param>
 <returns>
 	-
 </returns>
@@ -259,13 +259,13 @@ stock GetVehiclePanelsStatus(vehicleid, &front_left_panel, &front_right_panel,
 /** ------------------------------------------------------------------------ **\
 <summary>SetVehiclePanelsStatus</summary>
 <param name="vehicleid">The ID of the vehicle</param>
-<param name="front_left_panel"></param>
-<param name="front_right_panel"></param>
-<param name="rear_left_panel"></param>
-<param name="rear_right_panel"></param>
-<param name="windshield"></param>
-<param name="front_bumper"></param>
-<param name="rear_bumper"></param>
+<param name="front_left_panel">The state of the front left panel</param>
+<param name="front_right_panel">The state of the front right panel</param>
+<param name="rear_left_panel">The state of the rear left panel</param>
+<param name="rear_right_panel">The state of the rear right panel</param>
+<param name="windshield">The state of the windshield</param>
+<param name="front_bumper">The state of the front bumper</param>
+<param name="rear_bumper">The state of the rear bumper</param>
 <returns>
 	-
 </returns>
@@ -298,10 +298,10 @@ stock SetVehiclePanelsStatus(vehicleid, front_left_panel, front_right_panel,
 /** ------------------------------------------------------------------------ **\
 <summary>GetVehicleDoorsStatus</summary>
 <param name="vehicleid">The ID of the vehicle</param>
-<param name="&bonnet"></param>
-<param name="&boot"></param>
-<param name="&driver_door"></param>
-<param name="&passenger_door"></param>
+<param name="&bonnet">The state of the bonnet</param>
+<param name="&boot">The state of the rear boot</param>
+<param name="&driver_door">The state of the driver door</param>
+<param name="&passenger_door">The state of the passenger door</param>
 <returns>
 	-
 </returns>
@@ -329,10 +329,10 @@ stock GetVehicleDoorsStatus(vehicleid, &bonnet, &boot, &driver_door,
 
 /** ------------------------------------------------------------------------ **\
 <summary>SetVehicleDoorsStatus</summary>
-<param name="bonnet"></param>
-<param name="boot"></param>
-<param name="driver_door"></param>
-<param name="passenger_door"></param>
+<param name="bonnet">The state of the bonnet</param>
+<param name="boot">The state of the rear boot</param>
+<param name="driver_door">The state of the driver door</param>
+<param name="passenger_door">The state of the passenger door</param>
 <returns>
 	-
 </returns>
