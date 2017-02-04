@@ -1,4 +1,4 @@
-![TDW Vehicle libraries](tdw_vehicle/docs/img/logo.png)
+![TDW Vehicle libraries](https://raw.githubusercontent.com/TDW-org/samp-include-vehicle/develop/tdw_vehicle/docs/img/logo.png)
 
 # TDW Vehicle Libraries
 A collection of libraries for vehicles in SA:MP. The collection contains systems that have many features.
