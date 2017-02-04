@@ -1,5 +1,9 @@
 /* ========================================================================== *\
-	Vehicle Detailed Data
+	Detailed Data
+
+| Description:
+	Detailed information about the vehicle, such as: paintjob id, virtual world,
+	last driver of the vehicle.
 
 | License:
 	Copyright (c) 2016-2017 Double V
@@ -19,6 +23,46 @@
 	2.	Altered source versions must be plainly marked as such, and must not be
 		misrepresented as being the original software.
 	3.	This notice may not be removed or altered from any source distribution.
+
+| Metadata:
+	[Functions]:
+		Stock:
+			- GetVehicleLastDriverId
+			- GetVehiclePaintjobId
+			- SetVehiclePaintjobId
+		Static:
+			-
+		Public:
+			- OnPlayerStateChange
+			- OnVehiclePaintjob
+		Hooks:
+			- ChangeVehiclePaintjob
+			- SetVehicleVirtualWorld
+	[Callbacks]:
+		- TDW_DETAIL@OnPlayerStateChange
+		- TDW_DETAIL@OnVehiclePaintjob
+	[Definitions]:
+		-
+	[Enumerations]:
+		-
+	[Macros]:
+		-
+	[Tags]:
+		-
+	[Variables]:
+		Global scope:
+			-
+		Static scope:
+			- TDW_g_sVehicle@LastDriverId
+			- TDW_g_sVehicle@PaintjobId
+			- TDW_g_sVehicle@VirtualWorld
+	[Natives]:
+		- BAD_ChangeVehiclePaintjob
+		- BAD_SetVehicleVirtualWorld
+	[Operators]:
+		-
+| Dependencies:
+	-
 \* ========================================================================== */
 
 #if defined _inc_tdw_vdetail
@@ -27,16 +71,189 @@
 	#undef _inc_tdw_vdetail
 #endif
 
-#if defined _TDW_VH_TDW_DETAIL
+#if defined _TDW_VH_VEHICLE_DETAIL
 	#endinput
 #endif
 
-#define _TDW_VH_TDW_DETAIL
+#define _TDW_VH_VEHICLE_DETAIL
+
+#include "tdw_vehicle"
 
 // -----------------------------------------------------------------------------
+// Static scope:
 
-// Core
-#include "tdw_vehicle/core/core"
+static stock
+	// To reduce the data segment, we will create a few arrays with char
+	// operator. It reduces the size of the arrays.
+	TDW_g_sVehicle@PaintjobId[MAX_VEHICLES char], // 0-3
+	TDW_g_sVehicle@VirtualWorld[MAX_VEHICLES],
+	TDW_g_sVehicle@LastDriverId[MAX_VEHICLES] = {INVALID_PLAYER_ID, ...};
 
-// Modules
-#include "tdw_vehicle/data/vehicle_detail"
+// -----------------------------------------------------------------------------
+// Hooks:
+
+// SetVehicleVirtualWorld hook
+#if !defined BAD_SetVehicleVirtualWorld
+	native BAD_SetVehicleVirtualWorld(vehicleid,
+		worldid) = SetVehicleVirtualWorld;
+#endif
+
+// We have to reduce the name of the function, because the full name does not
+// fit in size (VM - VirtualWorld).
+stock TDWVH_DETAIL@SetVehicleVW(vehicleid, worldid)
+{
+	if (0 == IsValidVehicle(vehicleid))
+		return 0;
+
+	SetVehicleVirtualWorld(vehicleid,
+		(TDW_g_sVehicle@VirtualWorld[vehicleid] = worldid));
+
+	return 1;
+}
+
+#if defined _ALS_SetVehicleVirtualWorld
+	#undef SetVehicleVirtualWorld
+#else
+	#define _ALS_SetVehicleVirtualWorld
+#endif
+
+#define SetVehicleVirtualWorld TDWVH_DETAIL@SetVehicleVW
+
+
+// OnVehiclePaintjob hook
+#if defined TDW_DETAIL@OnVehiclePaintjob
+	forward TDW_DETAIL@OnVehiclePaintjob(playerid, vehicleid, paintjobid);
+#endif
+
+public OnVehiclePaintjob(playerid, vehicleid, paintjobid)
+{
+	TDW_g_sVehicle@PaintjobId{vehicleid} = paintjobid;
+
+	#if defined TDW_DETAIL@OnVehiclePaintjob
+		TDW_DETAIL@OnVehiclePaintjob(playerid, vehicleid, paintjobid);
+	#endif
+
+	return 1;
+}
+
+#if defined _ALS_OnVehiclePaintjob
+	#undef OnVehiclePaintjob
+#else
+	#define _ALS_OnVehiclePaintjob
+#endif
+
+#define OnVehiclePaintjob TDW_DETAIL@OnVehiclePaintjob
+
+
+// OnPlayerStateChange hook
+#if defined TDW_DETAIL@OnPlayerStateChange
+	forward TDW_DETAIL@OnPlayerStateChange(playerid, newstate, oldstate);
+#endif
+
+public OnPlayerStateChange(playerid, newstate, oldstate)
+{
+	if (newstate == PLAYER_STATE_DRIVER) {
+		new vehicleid = GetPlayerVehicleID(playerid);
+
+		TDW_g_sVehicle@LastDriverId[vehicleid] = playerid;
+	}
+
+	#if defined TDW_DETAIL@OnPlayerStateChange
+		TDW_DETAIL@OnPlayerStateChange(playerid, newstate, oldstate);
+	#endif
+
+	return 1;
+}
+
+#if defined _ALS_OnPlayerStateChange
+	#undef OnPlayerStateChange
+#else
+	#define _ALS_OnPlayerStateChange
+#endif
+
+#define OnPlayerStateChange TDW_DETAIL@OnPlayerStateChange
+
+// -----------------------------------------------------------------------------
+// Functions:
+
+/** ------------------------------------------------------------------------ **\
+<summary>SetVehiclePaintjobId</summary>
+<param name="vehicleid">The ID of the vehicle</param>
+<param name="paintjobid">The ID of the Paintjob</param>
+<returns>
+	-
+</returns>
+<remarks>
+	Change a vehicle's paintjob.
+</remarks>
+\** ------------------------------------------------------------------------ **/
+
+stock SetVehiclePaintjobId(vehicleid, paintjobid)
+{
+	if (0 == IsValidVehicle(vehicleid))
+		return 0;
+	if (0 == IS_VALID_PAINTJOB(paintjobid))
+		return 0;
+
+	ChangeVehiclePaintjob(vehicleid, paintjobid);
+	TDW_g_sVehicle@PaintjobId{vehicleid} = paintjobid;
+
+	return 1;
+}
+
+/** ------------------------------------------------------------------------ **\
+<summary>GetVehicleLastDriverId</summary>
+<param name="vehicleid">The ID of the vehicle</param>
+<returns>
+	-
+</returns>
+<remarks>
+	Returns the ID of the player
+</remarks>
+\** ------------------------------------------------------------------------ **/
+
+stock GetVehicleLastDriverId(vehicleid)
+{
+	if (0 == IsValidVehicle(vehicleid))
+		return 0;
+	return TDW_g_sVehicle@LastDriverId[vehicleid];
+}
+
+/** ------------------------------------------------------------------------ **\
+<summary>GetVehiclePaintjobId</summary>
+<param name="vehicleid">The ID of the vehicle</param>
+<returns>
+	-
+</returns>
+<remarks>
+	Returns the ID of the paint job.
+</remarks>
+\** ------------------------------------------------------------------------ **/
+
+stock GetVehiclePaintjobId(vehicleid)
+{
+	if (0 == IsValidVehicle(vehicleid))
+		return 0;
+	return TDW_g_sVehicle@PaintjobId{vehicleid};
+}
+
+// -----------------------------------------------------------------------------
+// Hooks:
+
+// ChangeVehiclePaintjob hook
+#if !defined BAD_ChangeVehiclePaintjob
+	native BAD_ChangeVehiclePaintjob(vehicleid,
+		paintjobid) = ChangeVehiclePaintjob;
+#endif
+
+//
+// -- See SetVehiclePaintjobId
+//
+
+#if defined _ALS_ChangeVehiclePaintjob
+	#undef ChangeVehiclePaintjob
+#else
+	#define _ALS_ChangeVehiclePaintjob
+#endif
+
+#define ChangeVehiclePaintjob SetVehiclePaintjobId
