@@ -258,6 +258,7 @@ stock Float:GetModelMaxFuel(modelid)
 {
 	if (0 == IS_VALID_MODEL(modelid))
 		return 0.0;
+
 	return TDW_g_sModelMaxFuel[modelid - MIN_VEHICLE_MODEL];
 }
 
@@ -275,6 +276,7 @@ stock SetModelMaxFuel(modelid, Float:amount)
 {
 	if (0 == IS_VALID_MODEL(modelid))
 		return 0;
+
 	TDW_g_sModelMaxFuel[modelid - MIN_VEHICLE_MODEL] = amount;
 
 	return 1;
@@ -292,7 +294,10 @@ stock SetModelMaxFuel(modelid, Float:amount)
 
 stock Float:GetVehicleFuel(vehicleid)
 {
-	return IsValidVehicle(vehicleid) && TDW_g_sVehicleFuel[vehicleid];
+	if (0 == IsValidVehicle(vehicleid))
+		return 0.0;
+
+	return TDW_g_sVehicleFuel[vehicleid];
 }
 
 /** ------------------------------------------------------------------------ **\
