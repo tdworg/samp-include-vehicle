@@ -206,7 +206,7 @@ public OnVehicleMileageUpdate(vehicleid)
 	}
 
 	#if defined TDWVH_FUEL@OnVehicleMileageUpd
-		OnVehicleMileageUpdate(vehicleid);
+		TDWVH_FUEL@OnVehicleMileageUpd(vehicleid);
 	#endif
 
 	return 1;
