@@ -327,7 +327,7 @@ stock Float:GetVehicleSpeedFromVelocity(Float:x, Float:y, Float:z,
 stock Float:GetVehicleSpeed(vehicleid,
 	E_TDW_MATH_VEHICLE_SPEED_TYPE:type = EI_MATH_SPEED_KMPH)
 {
-	new
+	static
 		Float:x,
 		Float:y,
 		Float:z;
