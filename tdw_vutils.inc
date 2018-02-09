@@ -86,9 +86,9 @@
 
 enum E_TDW_VEHICLE_WHEEL
 {
-	 FRONT_LEFT,  FRONT_RIGHT,
+	FRONT_LEFT,  FRONT_RIGHT,
 	MIDDLE_LEFT, MIDDLE_RIGHT, // applies to vehicles with 3 axes
-	  REAR_LEFT,   REAR_RIGTH
+	REAR_LEFT,   REAR_RIGTH
 };
 
 // -----------------------------------------------------------------------------
