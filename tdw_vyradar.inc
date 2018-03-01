@@ -394,7 +394,7 @@ stock Float:GetRadarMaxSpeed(radarid)
 	#if defined _TDW_VH_DETECT_FOREACH
 		foreach (new i: Player)
 	#else
-		for (new i = _TDW_FOREACH_MAX_PLAYERS_; --i != 0;)
+		for (new i = _TDW_FOREACH_MAX_PLAYERS_; --i != -1;)
 	#endif
 	{
 		if (IsPlayerInAnyVehicle(i) == 0)
