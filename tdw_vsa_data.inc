@@ -303,7 +303,7 @@ stock GetModelStaticSpeed(modelid)
 stock
 	GetModelStaticIdFromName(const name[])
 {
-	for (new i = sizeof TDW_g_sVehicleNames; --i != 0;) {
+	for (new i = sizeof TDW_g_sVehicleNames; --i != -1;) {
 		if (strcmp(name, TDW_g_sVehicleNames[i], true) != 0)
 			continue;
 		return i + MIN_VEHICLE_MODEL;
