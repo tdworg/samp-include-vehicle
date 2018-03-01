@@ -391,7 +391,7 @@ stock Float:GetRadarMaxSpeed(radarid)
 	y = floatadd(y, floatmul(floatadd(distance, 2.0), floatcos(floatadd(-z_rot,
 		135.0), degrees)));
 
-	#if defined _TDW_VH_DETECT_FOREACH
+	#if defined foreach
 		foreach (new i: Player)
 	#else
 		for (new i = _TDW_FOREACH_MAX_PLAYERS_; --i != -1;)

@@ -208,7 +208,7 @@ stock GetNumberOfValidVehicles()
 stock IsVehicleOccupied(vehicleid)
 {
 	if (IsValidVehicle(vehicleid)) {
-		#if defined _TDW_VH_DETECT_FOREACH
+		#if defined foreach
 			foreach (new i: Player)
 		#else
 			for (new i = _TDW_FOREACH_MAX_PLAYERS_; --i != -1;)
@@ -234,7 +234,7 @@ stock IsVehicleOccupied(vehicleid)
 stock IsVehicleSeatOccupied(vehicleid, seatid)
 {
 	if (IsValidVehicle(vehicleid)) {
-		#if defined _TDW_VH_DETECT_FOREACH
+		#if defined foreach
 			foreach (new i: Player)
 		#else
 			for (new i = _TDW_FOREACH_MAX_PLAYERS_; --i != -1;)
@@ -406,7 +406,7 @@ stock GetVehicleWheelPos(vehicletype, E_TDW_VEHICLE_WHEEL:wheel, &Float:x,
 stock GetVehicleOccupant(vehicleid, seatid = 0)
 {
 	if (IsValidVehicle(vehicleid)) {
-		#if defined _TDW_VH_DETECT_FOREACH
+		#if defined foreach
 			foreach (new i: Player)
 		#else
 			for (new i = _TDW_FOREACH_MAX_PLAYERS_; --i != -1;)
@@ -442,7 +442,7 @@ stock GetVehicleOccupantPlayers(vehicleid, playerlist[],
 			array_index,
 			i;
 
-		#if defined _TDW_VH_DETECT_FOREACH
+		#if defined foreach
 			foreach (new i: Player)
 		#else
 			for (new i = _TDW_FOREACH_MAX_PLAYERS_; --i != -1;)
