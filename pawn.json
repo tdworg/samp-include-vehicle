@@ -1,0 +1,7 @@
+{
+	"user": "tdworg",
+	"repo": "samp-include-vehicle",
+	"dependencies": [
+		"sampctl/samp-stdlib"
+	]
+}

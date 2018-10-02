@@ -12,6 +12,14 @@ A collection of libraries for vehicles in SA:MP. The collection contains systems
 #include <tdw_vdamage>
 ```
 
+### With sampctl
+1. `sampctl package install tdworg/samp-include-vehicle`
+2. Include it in your script:
+```pawn
+#include <a_samp>
+#include <tdw_vdamage>
+```
+
 ## Developing
 ```shell
 git clone git@github.com:TDW-org/samp-include-vehicle.git <folder_name>
